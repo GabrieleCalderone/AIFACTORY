@@ -46,9 +46,56 @@ const findTodos = (value: unknown, path: string, out: string[]) => {
   }
 };
 
+/** Allowed hosts inside published text. Anything else (and any path or secret-looking token) is an error. */
+const ALLOWED_URL_HOSTS = ["risthome.it", "www.risthome.it", "incompetech.com"];
+const SECRET_PATTERNS: [RegExp, string][] = [
+  [/https?:\/\/[^\s)]+/gi, "url"],
+  [/(?:^|[\s(])\/(?:Users|home|etc|var|private|tmp)\/[^\s)]*/g, "absolute path"],
+  [/\b(?:sk|rk|pk)[-_](?:live|test)?[-_]?[A-Za-z0-9]{12,}/g, "api key"],
+  [/\bAKIA[0-9A-Z]{16}\b/g, "aws key"],
+  [/-----BEGIN [A-Z ]+PRIVATE KEY-----/g, "private key"],
+  [/\bgh[opsu]_[A-Za-z0-9]{20,}\b/g, "github token"],
+  [/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}\b/gi, "email"],
+  [/(?:\+|\b00)\d[\d .-]{7,}\d|\b\d{3}[ .-]\d{3}[ .-]\d{4}\b|\b\d{3}[ .-]\d{7}\b/g, "phone number"],
+  [/BUFFER_API_KEY|HF_API_KEY|API_KEY=|SECRET=/g, "env variable"],
+];
+
+/** Scan every string of a spec; returns one message per hit (field path + kind). */
+export const scanTexts = (value: unknown, path = ""): string[] => {
+  const hits: string[] = [];
+  if (typeof value === "string") {
+    for (const [re, kind] of SECRET_PATTERNS) {
+      for (const m of value.matchAll(re)) {
+        const text = m[0];
+        if (kind === "url") {
+          const host = text.replace(/^https?:\/\//i, "").split(/[/?#]/)[0].toLowerCase();
+          if (ALLOWED_URL_HOSTS.includes(host)) continue;
+        }
+        hits.push(`${path || "text"}: ${kind} "${text.slice(0, 40)}"`);
+      }
+    }
+  } else if (Array.isArray(value)) {
+    value.forEach((v, i) => hits.push(...scanTexts(v, `${path}[${i}]`)));
+  } else if (value && typeof value === "object") {
+    for (const [k, v] of Object.entries(value)) hits.push(...scanTexts(v, path ? `${path}.${k}` : k));
+  }
+  return hits;
+};
+
 export const runGate = ({ spec, exists, info, archetypeIds, experimentRows }: GateInput): GateResult => {
   const errors: string[] = [];
   const warnings: string[] = [];
+
+  // Only what reaches Instagram is scanned: caption, hashtags, on-screen texts, music credit.
+  const published = {
+    caption: spec.caption,
+    hashtags: spec.hashtags,
+    reel: spec.reel
+      ? { hook: { title: spec.reel.hook.title, subtitle: spec.reel.hook.subtitle }, scenes: spec.reel.scenes.map((s) => ({ label: s.label, text: s.text })), cta: spec.reel.cta, audio: spec.reel.audio?.attribution }
+      : undefined,
+    carousel: spec.carousel?.slides.map((s) => ({ title: "title" in s ? s.title : undefined, body: "body" in s ? s.body : undefined, kicker: "kicker" in s ? s.kicker : undefined })),
+  };
+  scanTexts(published).forEach((h) => errors.push(`published text must not contain ${h}`));
 
   const todos: string[] = [];
   findTodos(spec, "", todos);

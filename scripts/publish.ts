@@ -9,6 +9,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { createBufferClient, type BufferAsset } from "../src/adapters/buffer.ts";
+import { gateSpec } from "../src/lib/gate-io.ts";
 import { readExperiments, writeExperiments } from "../src/lib/data.ts";
 import { buildCaption } from "../src/lib/timeline.ts";
 import { parsePostSpec } from "../src/schemas/post.ts";
@@ -20,6 +21,15 @@ if (!file) {
   process.exit(2);
 }
 const spec = parsePostSpec(JSON.parse(readFileSync(file, "utf8")));
+if (existsSync("STOP")) {
+  console.log("[publish] STOP file present: nothing sent");
+  process.exit(0);
+}
+const gateResult = gateSpec(spec);
+if (gateResult.errors.length) {
+  gateResult.errors.forEach((e) => console.error(`[publish] gate ERROR ${e}`));
+  process.exit(1);
+}
 const outDir = path.join(values.out, spec.slug);
 const hostedPath = path.join(outDir, "hosted.json");
 if (!existsSync(hostedPath)) {

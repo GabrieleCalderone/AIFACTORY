@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mediaOf, runGate } from "../src/lib/gate.ts";
+import { mediaOf, runGate, scanTexts } from "../src/lib/gate.ts";
 import { parsePostSpec } from "../src/schemas/post.ts";
 import { demoSpec } from "./fixtures/demo-spec.ts";
 
@@ -39,4 +39,17 @@ test("upscaling and missing experiment rows are warnings; unknown or missing con
 test("mediaOf lists images and videos once", () => {
   const withVideo = parsePostSpec({ ...demoSpec, reel: { ...demoSpec.reel!, scenes: [{ video: "assets/demo/clip.mp4" }, { image: "assets/demo/02.jpg" }] } });
   assert.deepEqual(mediaOf(withVideo), { images: ["assets/demo/01.jpg", "assets/demo/02.jpg"], videos: ["assets/demo/clip.mp4"] });
+});
+
+test("published texts may not carry secrets, paths, contacts or foreign URLs", () => {
+  assert.deepEqual(scanTexts({ caption: "Book on risthome.it (link in bio)" }), []);
+  assert.deepEqual(scanTexts({ caption: 'Music: "Fretless" Kevin MacLeod (incompetech.com)' }), []);
+  const hits = scanTexts({
+    caption: "see https://evil.example/x and /Users/gabriele/.env",
+    notes: "key sk-live-ABCDEFGHIJKLMNOP token ghp_ABCDEFGHIJKLMNOPQRSTUV mail a@b.co call +39 340 593 1344",
+  });
+  const kinds = hits.map((h) => h.split(": ")[1].split(" \"")[0]);
+  for (const k of ["url", "absolute path", "api key", "github token", "email", "phone number"]) assert.ok(kinds.includes(k), k);
+  const leaky = parsePostSpec({ ...demoSpec, caption: "Read my file /Users/x/.env" });
+  assert.ok(runGate({ ...base, spec: leaky }).errors.some((e) => /absolute path/.test(e)));
 });

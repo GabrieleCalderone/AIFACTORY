@@ -7,7 +7,7 @@
  *   node scripts/build-pool.ts [--catalog data/asset-catalog.json] [--pool pool]
  */
 import { execFileSync } from "node:child_process";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 
@@ -33,10 +33,18 @@ for (const [key, names] of bySrcAndPeople) {
   execFileSync("uv", ["run", "python", "-I", "tools/py/prepare_assets.py", values.pool, "--src", srcDir, "--pick", ...todo, "--people", people, "--start", String(start), "--max-side", "2160"], { stdio: "inherit" });
   start += todo.length;
 }
-const rows = JSON.parse(readFileSync(manifestPath, "utf8")) as Row[];
+const rows = (existsSync(manifestPath) ? (JSON.parse(readFileSync(manifestPath, "utf8")) as Row[]) : []).filter((r) => {
+  const e = catalog[r.source];
+  const keep = Boolean(e) && e.people !== "guests" && e.quality !== "poor";
+  if (!keep) {
+    rmSync(path.join(poolDir, r.file), { force: true });
+    console.log(`removed ${r.file}: ${e ? `${e.people}/${e.quality}` : "not in catalogue"}`);
+  }
+  return keep;
+});
 for (const r of rows) {
   const e = catalog[r.source];
-  if (e) Object.assign(r, { subject: e.subject, tags: e.tags, quality: e.quality, text_overlay: e.text_overlay });
+  Object.assign(r, { people: e.people, subject: e.subject, tags: e.tags, quality: e.quality, text_overlay: e.text_overlay });
 }
 writeFileSync(manifestPath, JSON.stringify(rows, null, 2) + "\n");
 const skipped = Object.values(catalog).length - allowed.length;

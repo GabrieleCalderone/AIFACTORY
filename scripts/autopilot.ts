@@ -34,9 +34,22 @@ const state: AutopilotState = existsSync(statePath) ? { ...defaultState, ...(JSO
 const now = new Date();
 log(`autopilot start (dry-run=${values["dry-run"]}, force=${values.force})`);
 
+if (existsSync("STOP")) {
+  log("STOP file present: autopilot paused (delete STOP to resume)");
+  process.exit(0);
+}
 try {
   run("metrics", ["scripts/sync-metrics.ts"]);
+} catch (e) {
+  log(`warning: ${e instanceof Error ? e.message : e}`);
+}
+try {
   run("validate", ["scripts/validate-data.ts"]);
+} catch (e) {
+  log(`FAILED before authoring: ${e instanceof Error ? e.message : e}`);
+  process.exit(1);
+}
+try {
   run("report", ["scripts/report.ts"]);
 } catch (e) {
   log(`warning: ${e instanceof Error ? e.message : e}`);
