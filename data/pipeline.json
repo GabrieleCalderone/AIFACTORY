@@ -153,5 +153,30 @@
         "note": "rendered 2026-11-06"
       }
     ]
+  },
+  "a6-20261106": {
+    "slug": "a6-20261106",
+    "state": "RENDERED",
+    "updatedAt": "2026-11-06T23:33:24.857Z",
+    "history": [
+      {
+        "at": "2026-11-06T23:32:52.958Z",
+        "from": null,
+        "to": "DISCOVERED",
+        "note": "authored by sonnet from 7 ranked photos"
+      },
+      {
+        "at": "2026-11-06T23:32:52.960Z",
+        "from": "DISCOVERED",
+        "to": "QUALITY_CHECKED",
+        "note": "gate passed with 0 warning(s)"
+      },
+      {
+        "at": "2026-11-06T23:33:24.857Z",
+        "from": "QUALITY_CHECKED",
+        "to": "RENDERED",
+        "note": "reel yes, slides 0"
+      }
+    ]
   }
 }

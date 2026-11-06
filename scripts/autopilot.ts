@@ -15,7 +15,8 @@ import { loadPipeline } from "../src/lib/pipeline-io.ts";
 
 const { values } = parseArgs({ options: { force: { type: "boolean", default: false }, "dry-run": { type: "boolean", default: false }, model: { type: "string", default: "sonnet" } } });
 mkdirSync("logs", { recursive: true });
-const logFile = path.join("logs", `autopilot-${new Date().toISOString().slice(0, 10)}.log`);
+const localDay = (d: Date) => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+const logFile = path.join("logs", `autopilot-${localDay(new Date())}.log`);
 const jsonLog = path.join("logs", "autopilot.jsonl");
 const log = (msg: string, fields: Record<string, unknown> = {}) => {
   const at = new Date().toISOString();

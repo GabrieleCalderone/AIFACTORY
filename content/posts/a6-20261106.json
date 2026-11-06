@@ -1,0 +1,92 @@
+{
+  "slug": "a6-20261106",
+  "lang": "en",
+  "title": "From Giacomo's kitchen ep. 1 - fresh tagliatella from the pan",
+  "brief": {
+    "archetype": "A6-chef-series",
+    "audience": "People who follow chefs and Sicilian food, locals and travellers planning Palermo",
+    "objective": "Follows and profile visits that turn into class bookings",
+    "hook": "Series title with episode number over the chef lifting fresh tagliatella from a steaming pan: a clear gesture and a promise in the first second.",
+    "sequence": [
+      "Hook: series title and ep. 1 over the chef lifting tagliatella with tongs",
+      "Beat 1: raw red prawns, the ingredient up close",
+      "Beat 2: prawns coated with pistachio crumb on a tray",
+      "Beat 3: golden sesame bread baking in the oven",
+      "Result: sliced sesame bread showing its soft crumb",
+      "CTA: book your class on risthome.it"
+    ],
+    "cta": "Book your class on risthome.it (link in bio)",
+    "hypothesis": "A recurring series format earns more follows per play than one-off reels. Success: follows per 1,000 plays >= 5.",
+    "experimentId": "EXP-005",
+    "variantId": "A"
+  },
+  "caption": "From Giacomo's kitchen, ep. 1: fresh tagliatella, straight from the pan.\n\nChef Giacomo Napolitano, former Gambero Rosso chef, shows what a Sicilian kitchen is made of: red prawns, a green pistachio crumb and a golden sesame loaf, soft inside, fresh from the oven.\n\nCook it yourself in a hands-on Sicilian cooking class in the chef's kitchen in Palermo. Small groups, English spoken, then you eat what you cooked.\n\n5.0 on Google with 101 reviews.\n\nBook your class on risthome.it (link in bio)",
+  "hashtags": [
+    "#palermo",
+    "#sicily",
+    "#risthome",
+    "#sicilianfood",
+    "#cookingclass",
+    "#palermofood",
+    "#chefsofinstagram",
+    "#freshpasta",
+    "#tagliatella",
+    "#italianfood"
+  ],
+  "reel": {
+    "hook": {
+      "image": "assets/pool/98-IMG_0084.jpg",
+      "trimSec": 0,
+      "title": "From Giacomo's kitchen, ep. 1",
+      "subtitle": "Fresh tagliatella, straight from the pan",
+      "durationSec": 3,
+      "motion": "dolly-in"
+    },
+    "scenes": [
+      {
+        "image": "assets/pool/38-IMG_0043.jpg",
+        "trimSec": 0,
+        "text": "Raw red prawns, close up on a white surface",
+        "label": "1",
+        "durationSec": 2.4,
+        "motion": "dolly-in"
+      },
+      {
+        "image": "assets/pool/48-IMG_0053.jpg",
+        "trimSec": 0,
+        "text": "Red prawns topped with a green crumb, lined up on a tray",
+        "label": "2",
+        "durationSec": 2.4,
+        "motion": "crash-zoom-in"
+      },
+      {
+        "image": "assets/pool/72-IMG_0090.jpg",
+        "trimSec": 0,
+        "text": "A golden crusty loaf resting on a metal rack over a gas burner",
+        "label": "3",
+        "durationSec": 2.4,
+        "motion": "arc-left"
+      },
+      {
+        "image": "assets/pool/70-IMG_0088.jpg",
+        "trimSec": 0,
+        "text": "Sliced sesame loaf with a soft crumb in warm light",
+        "label": "Served",
+        "durationSec": 2.4,
+        "motion": "zoom-in"
+      }
+    ],
+    "cta": {
+      "title": "Book your class",
+      "line": "risthome.it (link in bio)",
+      "durationSec": 3.2
+    },
+    "transitionSec": 0.4,
+    "audio": {
+      "src": "audio/fretless.mp3",
+      "volume": 0.8,
+      "fadeOutSec": 1,
+      "attribution": "\"Fretless\" Kevin MacLeod (incompetech.com), CC BY 4.0"
+    }
+  }
+}

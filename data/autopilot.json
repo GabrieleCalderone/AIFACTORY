@@ -9,9 +9,12 @@
     "A6-chef-series",
     "A5-proof-and-offer"
   ],
-  "nextIndex": 0,
-  "langs": ["en", "it"],
-  "nextLang": 0,
-  "lastPostAt": null,
+  "nextIndex": 1,
+  "langs": [
+    "en",
+    "it"
+  ],
+  "nextLang": 1,
+  "lastPostAt": "2026-11-06T23:31:21.709Z",
   "postingHourLocal": 18
 }
