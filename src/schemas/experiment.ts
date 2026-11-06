@@ -24,7 +24,7 @@ export const ExperimentRow = z.object({
   experiment_id: z.string().regex(/^EXP-\d{3,}$/),
   variant_id: z.string().regex(/^[A-Z][A-Za-z0-9-]*$/),
   post_slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
-  archetype: z.string().regex(/^A[1-5]-[a-z-]+$/),
+  archetype: z.string().regex(/^A[1-9]-[a-z-]+$/),
   platform: z.enum(["instagram", "tiktok", "facebook", "other"]),
   format: z.enum(["reel", "carousel", "reel+carousel", "photo", "story"]),
   hypothesis: z.string().min(1),

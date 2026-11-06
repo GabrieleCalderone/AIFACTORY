@@ -2,11 +2,13 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { advance, defaultState, isDue, nextSlot, planNext } from "../src/lib/autopilot.ts";
 
-test("a post is due on the first run and after the cadence", () => {
+test("a post is due on the first run and after the cadence (daily by default)", () => {
   const now = new Date("2026-11-10T09:00:00Z");
+  assert.equal(defaultState.cadenceDays, 1);
   assert.equal(isDue(defaultState, now), true);
-  assert.equal(isDue({ ...defaultState, lastPostAt: "2026-11-09T09:00:00Z" }, now), false);
-  assert.equal(isDue({ ...defaultState, lastPostAt: "2026-11-07T08:00:00Z" }, now), true);
+  assert.equal(isDue({ ...defaultState, lastPostAt: "2026-11-09T12:00:00Z" }, now), false);
+  assert.equal(isDue({ ...defaultState, lastPostAt: "2026-11-09T09:00:00Z" }, now), true);
+  assert.equal(isDue({ ...defaultState, cadenceDays: 3, lastPostAt: "2026-11-09T09:00:00Z" }, now), false);
 });
 
 test("planning starts a new experiment, then tests variant B once A is measured", () => {

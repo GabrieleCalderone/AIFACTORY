@@ -8,7 +8,7 @@
     "experiment_id": { "type": "string", "pattern": "^EXP-\\d{3,}$" },
     "variant_id": { "type": "string", "pattern": "^[A-Z][A-Za-z0-9-]*$", "description": "A, B, C... within the experiment" },
     "post_slug": { "type": "string", "description": "content/posts/<slug>.json" },
-    "archetype": { "type": "string", "pattern": "^A[1-5]-[a-z-]+$" },
+    "archetype": { "type": "string", "pattern": "^A[1-9]-[a-z-]+$" },
     "platform": { "type": "string", "enum": ["instagram", "tiktok", "facebook", "other"] },
     "format": { "type": "string", "enum": ["reel", "carousel", "reel+carousel", "photo", "story"] },
     "hypothesis": { "type": "string" },

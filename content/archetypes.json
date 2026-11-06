@@ -406,6 +406,78 @@
         "table"
       ],
       "service": "chef"
+    },
+    {
+      "id": "A6-chef-series",
+      "name": "Chef series (recurring persona format)",
+      "useFor": "A numbered series with the same opening and the chef as the recurring character: one dish or one gesture per episode, same rhythm every time.",
+      "hookType": "Series opener + episode number ('Dalla cucina di Giacomo, ep. 12') then one concrete promise.",
+      "narrative": [
+        "hook: series title + episode number over the chef or his hands",
+        "3 beats on one dish or technique",
+        "the plated result",
+        "CTA"
+      ],
+      "formats": {
+        "reel": {
+          "hookDurationSec": 3.0,
+          "sceneDurationSec": 2.4,
+          "sceneCount": 4,
+          "motions": [
+            "dolly-in",
+            "crash-zoom-in",
+            "arc-left",
+            "dolly-in",
+            "zoom-in"
+          ],
+          "labels": [
+            "1",
+            "2",
+            "3",
+            "Servito"
+          ]
+        }
+      },
+      "platformAdaptations": {
+        "instagram_reels": "9:16, 12-16 s, same cover style every episode so the grid reads as a series.",
+        "tiktok": "same cut, series name in the caption, episode number first.",
+        "youtube_shorts": "title = series name + episode.",
+        "facebook": "same reel, full caption without tags."
+      },
+      "qualityGates": [
+        "the chef or his hands must be in the hook photo",
+        "episode number must increase",
+        "texts describe what the photos show",
+        "add audio in-app at posting time or via reel.audio (Instagram downranks muted reels)"
+      ],
+      "kpis": [
+        "follows per 1,000 plays",
+        "returning viewers (series)",
+        "average watch time / length",
+        "profile visits"
+      ],
+      "briefDefaults": {
+        "audience": "People who follow chefs and Sicilian food, locals and travellers planning Palermo",
+        "objective": "Follows and profile visits that turn into class bookings",
+        "hook": "Series title + episode number, then one promise",
+        "cta": "Follow for the next episode; classes on risthome.it",
+        "hypothesisTemplate": "A recurring series format earns more follows per play than one-off reels. Success: follows per 1,000 plays >= 5."
+      },
+      "examples": [],
+      "assetKeywords": [
+        "chef",
+        "hands",
+        "plating",
+        "pan",
+        "pasta",
+        "dessert",
+        "kitchen"
+      ],
+      "service": "class",
+      "seriesName": {
+        "it": "Dalla cucina di Giacomo",
+        "en": "From Giacomo's kitchen"
+      }
     }
   ]
 }

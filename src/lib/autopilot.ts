@@ -17,8 +17,8 @@ export type AutopilotState = {
 export type ExperimentLite = { experiment_id: string; variant_id: string; archetype: string; status: string };
 
 export const defaultState: AutopilotState = {
-  cadenceDays: 3,
-  rotation: ["A1-process-reveal", "A3-menu-list", "A4-private-table", "A2-chef-at-work", "A5-proof-and-offer"],
+  cadenceDays: 1,
+  rotation: ["A6-chef-series", "A1-process-reveal", "A3-menu-list", "A2-chef-at-work", "A4-private-table", "A6-chef-series", "A5-proof-and-offer"],
   nextIndex: 0,
   langs: ["en", "it"],
   nextLang: 0,

@@ -18,7 +18,7 @@ if (!existsSync("data/publications.json")) {
   console.log("[metrics] no publications yet");
   process.exit(0);
 }
-type Pub = { slug: string; kind: string; bufferPostId: string; dueAt: string | null; experimentId: string | null; variantId: string | null; postUrl?: string; lastSync?: string };
+type Pub = { slug: string; kind: string; platform?: string; bufferPostId: string; dueAt: string | null; experimentId: string | null; variantId: string | null; postUrl?: string; lastSync?: string; metrics?: Record<string, number> };
 const pubs = JSON.parse(readFileSync("data/publications.json", "utf8")) as Pub[];
 const buffer = createBufferClient({ apiKey });
 const data = readExperiments();
@@ -29,6 +29,15 @@ for (const pub of pubs) {
   try {
     const m = await buffer.postMetrics(pub.bufferPostId);
     const cols = metricsToColumns(m.metrics);
+    pub.metrics = cols;
+    pub.lastSync = new Date().toISOString();
+    if (m.externalLink) pub.postUrl = m.externalLink;
+    // The experiment row tracks Instagram (the primary channel); other platforms stay in publications.json.
+    if ((pub.platform ?? "instagram") !== "instagram") {
+      console.log(`[metrics] ${pub.slug} ${pub.kind} ${pub.platform}: ${Object.keys(cols).length} metrics kept in publications.json`);
+      updated++;
+      continue;
+    }
     const idx = data.raw.findIndex((r) => r.experiment_id === pub.experimentId && r.variant_id === (pub.variantId ?? "A"));
     if (idx < 0) continue;
     const row = { ...data.raw[idx] };
@@ -40,8 +49,6 @@ for (const pub of pubs) {
     if (Object.keys(cols).length > 0) row.status = "measured";
     else if (row.status === "scheduled" && m.status === "sent") row.status = "published";
     data.raw[idx] = row;
-    pub.lastSync = new Date().toISOString();
-    if (m.externalLink) pub.postUrl = m.externalLink;
     updated++;
     console.log(`[metrics] ${pub.slug} ${pub.kind}: ${Object.keys(cols).length} metrics (${m.metricsUpdatedAt ?? "no timestamp"})`);
   } catch (e) {

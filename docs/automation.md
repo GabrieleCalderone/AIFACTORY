@@ -9,10 +9,10 @@ script can perform (an Instagram login inside Buffer, and creating the public me
 1. `sync-metrics`: pull Buffer post metrics for publications older than 24 h into
    `data/experiments.csv` (status `measured`, post URL filled in).
 2. `validate:data` + `report`: rebuild `docs/performance.md`.
-3. If a post is due (every `cadenceDays`, default 3; `--force` to post now):
-   - **plan** (`src/lib/autopilot.ts`): rotate archetypes A1, A3, A4, A2, A5 and languages
-     en/it; if variant A of this archetype's experiment is measured and no B exists,
-     author variant B, otherwise start a new experiment id.
+3. If a post is due (every `cadenceDays`, default 1 = daily; `--force` to post now):
+   - **plan** (`src/lib/autopilot.ts`): rotate archetypes A6 (chef series), A1, A3, A2, A4,
+     A6, A5 and languages en/it; if variant A of this archetype's experiment is measured and
+     no B exists, author variant B, otherwise start a new experiment id.
    - **author** (`scripts/author.ts`): choose photos from the consent-filtered pool
      (`public/assets/pool`, built by `describe-assets` + `build-pool`: Claude catalogued
      117 photos, guests excluded, printed logos excluded, resolution checked), ask headless
@@ -22,11 +22,16 @@ script can perform (an Instagram login inside Buffer, and creating the public me
      licence credit are attached automatically. Quality gate must pass.
    - **render** reel + carousel + cover + QA frames; **storyboard**.
    - **host** media on GitHub Pages (`scripts/host-media.ts`), wait until public.
-   - **publish** through Buffer (`scripts/publish.ts`): reel at the next 18:00 local slot,
-     carousel two days later; `data/publications.json` keeps the Buffer post ids.
+   - **publish** through Buffer (`scripts/publish.ts`): the reel at the next 18:00 local slot
+     on Instagram, then TikTok (+1 h), YouTube Shorts (+2 h), Facebook (+3 h); the carousel
+     two days later on Instagram and Facebook; captions adapted per platform (ADR 0004).
+     `data/publications.json` keeps every Buffer post id per platform.
    - advance state (`data/autopilot.json`), log to `logs/`.
-4. Without `BUFFER_API_KEY`/`BUFFER_CHANNEL_ID` the cycle still authors and renders, and
+4. Without `BUFFER_API_KEY`/`BUFFER_CHANNELS` the cycle still authors and renders, and
    prints the exact payload it would send (dry run), so drafts keep accumulating.
+5. A file named `STOP` in the project folder pauses authoring and publishing; delete it to
+   resume. No photo is reused within the last eight posts; when fewer than six fresh photos
+   fit an archetype the author stops and asks for new photos or clips.
 
 Verified on 2026-11-06: a forced dry-run cycle authored, reviewed, rendered and prepared
 `a1-20261106` (reel 20 s + 7 slides, EN) in 88 s; the review corrected a slide that called
@@ -34,11 +39,13 @@ raw rice balls "fried".
 
 ## One-time setup (the only human actions)
 
-1. **Buffer** (free plan): create an account at buffer.com, connect the RistHome Instagram
-   professional account, then Settings > API > Create key. Put the key in `.env` as
-   `BUFFER_API_KEY`, run `npm run buffer:channels` and copy the Instagram channel id into
-   `BUFFER_CHANNEL_ID`. The first real `createPost` will reveal whether the
-   `metadata.instagram` shape matches Buffer's schema; errors are printed verbatim.
+1. **Buffer**: create an account at buffer.com, connect the RistHome Instagram professional
+   account, TikTok, Facebook Page and YouTube channel (free plan = 3 channels; the fourth
+   needs Essentials), then Settings > API > Create key. Put the key in `.env` as
+   `BUFFER_API_KEY`, run `npm run buffer:channels` and fill `BUFFER_CHANNELS` with
+   `instagram:ID,tiktok:ID,facebook:ID,youtube:ID` (any subset works). The first real
+   `createPost` on each platform will reveal whether Buffer's metadata shapes match; errors
+   are printed verbatim and the other platforms still go out.
 2. **Media host**: `bash scripts/setup-media-host.sh` creates the public GitHub Pages repo
    `risthome-media` and enables Pages (gh is already logged in). Everything pushed there is
    public, which is what Buffer needs to fetch the files.

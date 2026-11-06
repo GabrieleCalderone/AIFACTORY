@@ -38,7 +38,7 @@ if (!values.archetype || (lang !== "it" && lang !== "en")) {
 }
 
 type Archetype = {
-  id: string; name: string; useFor: string; hookType: string; narrative: string[]; qualityGates: string[]; assetKeywords: string[]; service: string;
+  id: string; name: string; useFor: string; hookType: string; narrative: string[]; qualityGates: string[]; assetKeywords: string[]; service: string; seriesName?: Record<string, string>;
   formats: { reel?: { hookDurationSec: number; sceneDurationSec: number; sceneCount: number; motions: string[]; labels?: string[] }; carousel?: { slides: string[] } };
   briefDefaults: { audience: string; objective: string; hook: string; cta: string; hypothesisTemplate: string };
 };
@@ -68,6 +68,18 @@ const pool = (JSON.parse(readFileSync(path.join(poolDir, "manifest.json"), "utf8
 );
 const usagePath = "data/asset-usage.json";
 const usage = existsSync(usagePath) ? (JSON.parse(readFileSync(usagePath, "utf8")) as Record<string, string[]>) : {};
+// Differentiation rule (platform dedup): a photo used in any of the last 8 posts is not offered again.
+const recentSlugs = new Set(
+  Object.values(usage)
+    .flat()
+    .sort()
+    .slice(-8 * 8),
+);
+const allPostSlugs = [...new Set(Object.values(usage).flat())].sort();
+const lastEight = new Set(allPostSlugs.slice(-8));
+void recentSlugs;
+const episode = allPostSlugs.filter((sl) => sl.startsWith(archetype.id.slice(0, 2).toLowerCase() + "-")).length + 1;
+const seriesLine = archetype.seriesName ? `SERIES: this is episode ${episode} of "${archetype.seriesName[lang]}": the hook title must start with "${archetype.seriesName[lang]}, ep. ${episode}" and the caption must open with the same line.` : "";
 const score = (r: PoolRow) => {
   const text = `${r.subject ?? ""} ${(r.tags ?? []).join(" ")}`.toLowerCase();
   let s = archetype.assetKeywords.reduce((n, k) => n + (text.includes(k) ? 2 : 0), 0);
@@ -75,10 +87,15 @@ const score = (r: PoolRow) => {
   if (r.text_overlay) s -= 2;
   if (r.quality === "good") s += 1;
   s -= (usage[r.file]?.length ?? 0) * 3;
+  if ((usage[r.file] ?? []).some((sl) => lastEight.has(sl))) s -= 1000;
   if (archetype.id === "A2-chef-at-work" && r.people === "chef") s += 4;
   return s;
 };
-const candidates = [...pool].sort((a, b) => score(b) - score(a)).slice(0, Number(values.candidates));
+const candidates = [...pool].filter((r) => score(r) > -500).sort((a, b) => score(b) - score(a)).slice(0, Number(values.candidates));
+if (candidates.length < 6) {
+  console.error(`[author] only ${candidates.length} fresh photos left in the pool for ${archetype.id}; add photos or clips before the next post`);
+  process.exit(1);
+}
 const candidateList = candidates.map((r) => `- assets/${values.pool}/${r.file} | ${r.orientation} ${r.width}x${r.height} | ${r.people === "chef" ? "chef visible" : "no people"} | ${r.subject} | tags: ${(r.tags ?? []).join(", ")}`).join("\n");
 
 // ---- prompt
@@ -98,6 +115,7 @@ ARCHETYPE:
 ${JSON.stringify({ id: archetype.id, name: archetype.name, useFor: archetype.useFor, hookType: archetype.hookType, narrative: archetype.narrative, qualityGates: archetype.qualityGates, briefDefaults: archetype.briefDefaults }, null, 1)}
 
 LANGUAGE: ${lang === "it" ? "Italian" : "English"}. Service to sell: ${archetype.service}. CTA to use: "${brand.cta[lang][archetype.service]}".
+${seriesLine}
 
 PHOTOS YOU MAY USE (use only these exact file paths; each photo at most once; the description after the path is what is visible):
 ${candidateList}
@@ -112,10 +130,13 @@ OUTPUT SHAPE:
 
 RULES: every "text", "title" and "body" next to a photo describes only what that photo shows; a scene "text" never repeats its "label"; the hook photo must match the archetype hook type; no guests are in these photos, do not invent people; no emojis; numbers only if they are brand facts; keep the ${lang === "it" ? "Italian" : "English"} natural and short.`;
 
+/** Deny-by-default tool posture for every headless call; the reviewer gets a scoped Read only. */
+const DENIED_TOOLS = "Bash,Edit,Write,MultiEdit,NotebookEdit,WebFetch,WebSearch,Task,Agent,Glob,Grep,LS,TodoWrite,KillShell,BashOutput";
+/** Strip reviewer free text before it is interpolated into another prompt: letters, digits, basic punctuation, short. */
+const sanitize = (text: string, max = 300): string => text.replace(/[^\p{L}\p{N} .,;:'’()/-]/gu, " ").replace(/\s+/g, " ").trim().slice(0, max);
 const runClaude = (p: string, allowRead = false): string => {
-  const args = ["-p", p, "--output-format", "json", "--model", values.model];
-  // The reviewer may read only the pool photos; every other tool stays denied.
-  if (allowRead) args.push("--allowedTools", `Read(${path.resolve(poolDir)}/**)`, "--disallowedTools", "Bash,Edit,Write,WebFetch,WebSearch,Agent");
+  const args = ["-p", p, "--output-format", "json", "--model", values.model, "--disallowedTools", allowRead ? DENIED_TOOLS : `${DENIED_TOOLS},Read`];
+  if (allowRead) args.push("--allowedTools", `Read(${path.resolve(poolDir)}/**)`);
   const res = spawnSync("claude", args, { encoding: "utf8", maxBuffer: 50 * 1024 * 1024 });
   if (res.status !== 0) throw new Error(`claude exited ${res.status}: ${res.stderr.slice(0, 400)}`);
   const envelope = JSON.parse(res.stdout) as { result?: string };
@@ -213,8 +234,8 @@ Answer with ONE JSON object only: {"items":[{"where":"<where>","ok":true|false,"
     }
     if (captionProblem) {
       // Regenerate the caption with the no-tools author call, constrained to the (possibly fixed) scene texts.
-      const facts = pairs.map((p) => Object.values(p.fields).join(" / ")).join("; ");
-      const text = runClaude(`Rewrite this Instagram caption in ${lang === "it" ? "Italian" : "English"} (max 600 characters, first line is the hook, last line is exactly "${brand.cta[lang][archetype.service]}"). Problem with the current caption: ${captionProblem}. The only things the photos show: ${facts}. Brand facts allowed: ${JSON.stringify((brand as Record<string, unknown>).services)} ${JSON.stringify((brand as Record<string, unknown>).proof)}. Never mention prices or dishes that are not listed. Current caption: ${JSON.stringify(spec.caption)}. Answer with ONE JSON object only: {"caption":"..."}`);
+      const facts = sanitize(pairs.map((p) => Object.values(p.fields).join(" / ")).join("; "), 1200);
+      const text = runClaude(`Rewrite this Instagram caption in ${lang === "it" ? "Italian" : "English"} (max 600 characters, first line is the hook, last line is exactly "${brand.cta[lang][archetype.service]}"). Problem with the current caption: ${sanitize(captionProblem)}. The only things the photos show: ${facts}. Brand facts allowed: ${JSON.stringify((brand as Record<string, unknown>).services)} ${JSON.stringify((brand as Record<string, unknown>).proof)}. Never mention prices or dishes that are not listed. Current caption: ${JSON.stringify(spec.caption)}. Answer with ONE JSON object only: {"caption":"..."}`);
       const obj = extractJson(text) as { caption?: string };
       if (typeof obj.caption === "string" && obj.caption.trim().length > 20 && obj.caption.length <= 2200) {
         (raw as Record<string, unknown>).caption = obj.caption.trim();
