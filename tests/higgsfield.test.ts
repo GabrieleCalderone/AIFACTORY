@@ -124,7 +124,7 @@ test("status links outside the API origin are refused; waitFor polls until done"
     { intervalMs: 1, sleep: async () => undefined },
   );
   assert.equal(polls, 3);
-  assert.deepEqual(done.outputs, ["https://cdn.example/v.mp4"]);
+  assert.deepEqual(done.outputs, ["https://media.higgsfield.ai/v.mp4"]);
 });
 
 test("extractOutputs only keeps media URLs", () => {

@@ -73,17 +73,42 @@ const assertRequestLink = (
   return url.href;
 };
 
-/** Collect every http(s) URL that looks like a media output from a status payload. */
-export const extractOutputs = (payload: unknown): string[] => {
+/** Output hosts we are willing to download from (https only). Override with HF_OUTPUT_HOSTS="cdn.example,other.example". */
+export const defaultOutputHosts = ["higgsfield.ai"];
+const PRIVATE_HOST = /^(localhost|127\.|10\.|192\.168\.|169\.254\.|0\.|\[::1\]|::1|172\.(1[6-9]|2\d|3[01])\.)/i;
+
+export const isAllowedOutputUrl = (raw: string, allowedHosts: string[] = defaultOutputHosts): boolean => {
+  let url: URL;
+  try {
+    url = new URL(raw);
+  } catch {
+    return false;
+  }
+  if (url.protocol !== "https:" || url.username || url.password) return false;
+  const host = url.hostname.toLowerCase();
+  if (PRIVATE_HOST.test(host) || /^\d{1,3}(\.\d{1,3}){3}$/.test(host)) return false;
+  if (!/\.(?:png|jpe?g|webp|mp4|mov|webm|gif)$/i.test(url.pathname)) return false;
+  return allowedHosts.some((h) => host === h.toLowerCase() || host.endsWith(`.${h.toLowerCase()}`));
+};
+
+/** Collect media URLs from a status payload, keeping only allowed https hosts; rejected ones are reported for the operator. */
+export const extractOutputs = (payload: unknown, allowedHosts: string[] = defaultOutputHosts): string[] => {
   const out: string[] = [];
   const walk = (v: unknown) => {
     if (typeof v === "string") {
-      if (
-        /^https?:\/\/\S+\.(?:png|jpe?g|webp|mp4|mov|webm|gif)(?:\?\S*)?$/i.test(
-          v,
-        )
-      )
-        out.push(v);
+      if (/^https?:\/\//i.test(v) && isAllowedOutputUrl(v, allowedHosts)) out.push(v);
+    } else if (Array.isArray(v)) v.forEach(walk);
+    else if (v && typeof v === "object") Object.values(v).forEach(walk);
+  };
+  walk(payload);
+  return [...new Set(out)];
+};
+
+export const rejectedOutputs = (payload: unknown, allowedHosts: string[] = defaultOutputHosts): string[] => {
+  const out: string[] = [];
+  const walk = (v: unknown) => {
+    if (typeof v === "string") {
+      if (/^https?:\/\/\S+\.(?:png|jpe?g|webp|mp4|mov|webm|gif)(?:\?\S*)?$/i.test(v) && !isAllowedOutputUrl(v, allowedHosts)) out.push(v);
     } else if (Array.isArray(v)) v.forEach(walk);
     else if (v && typeof v === "object") Object.values(v).forEach(walk);
   };

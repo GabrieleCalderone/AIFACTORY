@@ -59,7 +59,8 @@ if (values["image-url"]) {
   if (u.protocol !== "https:") throw new Error("--image-url must be https");
   input.image_url = u.href;
 }
-const client = createHiggsfieldClient({ keyId, keySecret });
+const outputHosts = (process.env.HF_OUTPUT_HOSTS ?? "").split(",").map((x) => x.trim()).filter(Boolean);
+const client = createHiggsfieldClient({ keyId, keySecret, ...(outputHosts.length ? { outputHosts } : {}) });
 const usd = await client.estimateUsd(values.model, input);
 console.log(`[studio] estimate for ${values.model}: USD ${usd.toFixed(3)}`);
 const ledgerFile = "data/genai-spend.json";
@@ -109,7 +110,10 @@ try {
     );
     process.exit(1);
   }
-  mkdirSync("public/assets/generated", { recursive: true });
+  if (result.rejected.length) console.warn(`[studio] ${result.rejected.length} output URL(s) ignored because their host is not allowed (set HF_OUTPUT_HOSTS to add the CDN host): ${result.rejected.map((u) => new URL(u).host).join(", ")}`);
+  const outDir = path.resolve("public/assets/generated");
+  mkdirSync(outDir, { recursive: true });
+  const rid = (sub.requestId.match(/[A-Za-z0-9]+/)?.[0] ?? "req").slice(0, 8);
   const regFile = "data/media-registry.json";
   const reg: Registry = existsSync(regFile)
     ? (JSON.parse(readFileSync(regFile, "utf8")) as Registry)
