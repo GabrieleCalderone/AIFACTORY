@@ -120,17 +120,12 @@
         background: var(--accent);
         border-color: var(--accent);
       }
-      button:disabled {
-        opacity: 0.5;
-        cursor: default;
-      }
       .actions {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
         margin-top: 10px;
       }
-      input[type="text"],
       input[type="password"] {
         width: 100%;
         padding: 9px 10px;
@@ -180,8 +175,7 @@
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 16px;
       }
-      .post video,
-      .post img.cover {
+      .post video {
         width: 100%;
         border-radius: 8px;
         background: #111;
@@ -261,6 +255,7 @@
               type="password"
               id="bufferKey"
               placeholder="incolla la chiave e premi Salva"
+              autocomplete="off"
             />
             <div class="actions">
               <button id="saveKey">Salva chiave</button
@@ -297,9 +292,9 @@
           <div class="n">1</div>
           <div>
             <b>Terminale, una volta:</b>
-            <code>bash scripts/setup.sh</code> (push su GitHub, repo media
-            pubblico, agente giornaliero). Richiede i tuoi permessi, non può
-            farlo la console.
+            <code>bash scripts/setup.sh</code> (push su GitHub, host dei media,
+            agente giornaliero). Richiede i tuoi permessi, non può farlo la
+            console.
           </div>
         </div>
         <div class="step" id="s2">
@@ -352,20 +347,36 @@
       </section>
     </main>
     <script>
+      // Session token injected by the server at page load; every request carries it (CSRF / DNS-rebinding protection).
+      const TOKEN = "__TOKEN__";
       const $ = (s) => document.querySelector(s);
+      const esc = (v) =>
+        String(v ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      const media = (u) =>
+        typeof u === "string" && u.startsWith("/out/") && !u.includes("..")
+          ? `${u}?t=${TOKEN}`
+          : "";
       const pill = (ok, yes, no) =>
-        `<span class="pill ${ok ? "ok" : "bad"}">${ok ? yes : no}</span>`;
+        `<span class="pill ${ok ? "ok" : "bad"}">${esc(ok ? yes : no)}</span>`;
       const api = (path, body) =>
-        fetch(
-          path,
-          body
-            ? {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(body),
-              }
-            : {},
-        ).then((r) => r.json());
+        fetch(path, {
+          method: body ? "POST" : "GET",
+          headers: {
+            "X-Console-Token": TOKEN,
+            ...(body ? { "Content-Type": "application/json" } : {}),
+          },
+          body: body ? JSON.stringify(body) : undefined,
+        }).then((r) => r.json());
       const run = async (job, slug) => {
         await api("/api/run", { job, slug });
         refresh();
@@ -377,16 +388,18 @@
               timeStyle: "short",
             })
           : "–";
-      let last = null;
       async function refresh() {
         const s = await api("/api/status");
-        last = s;
+        if (s.error) {
+          $("#jobs").textContent = s.error;
+          return;
+        }
         $("#clock").textContent = new Date(s.now).toLocaleString("it-IT");
         const ch = Object.entries(s.setup.channels);
         $("#setup").innerHTML = `
     <div class="row"><span>Chiave Buffer</span>${pill(s.setup.bufferKey, "presente", "mancante")}</div>
     <div class="row"><span>Canali Buffer</span>${ch.length ? `<span class="pill ok">${esc(ch.map(([p]) => p).join(", "))}</span>` : `<span class="pill bad">nessuno</span>`}</div>
-    <div class="row"><span>Repo media pubblico</span>${pill(s.setup.mediaRepo, "pronto", "manca (setup.sh)")}</div>
+    <div class="row"><span>Host dei media</span>${pill(s.setup.mediaRepo, "pronto", "manca (setup.sh)")}</div>
     <div class="row"><span>Repo GitHub collegato</span>${pill(s.setup.gitRemote, "sì", "no (setup.sh)")}</div>
     <div class="row"><span>Agente giornaliero 10:30</span>${pill(s.setup.launchd, "installato", "manca (setup.sh)")}</div>
     <div class="row"><span>Foto nel pool</span><span class="pill muted">${esc(s.setup.pool)}</span></div>
@@ -403,8 +416,8 @@
     <div class="row"><span>Stato</span>${s.setup.stop ? `<span class="pill warn">in pausa (STOP)</span>` : `<span class="pill ok">attivo</span>`}</div>
     <div class="row"><span>Prossimo post</span><span>${esc(a.plan.archetype)} · ${esc(a.plan.lang.toUpperCase())} · ${esc(a.plan.experimentId)}/${esc(a.plan.variantId)}</span></div>
     <div class="row"><span>Perché</span><small>${esc(a.plan.reason)}</small></div>
-    <div class="row"><span>Ultimo post</span><span>${fmt(a.state.lastPostAt)}</span></div>
-    <div class="row"><span>Slot di pubblicazione</span><span>${fmt(a.nextSlot)}</span></div>
+    <div class="row"><span>Ultimo post</span><span>${esc(fmt(a.state.lastPostAt))}</span></div>
+    <div class="row"><span>Slot di pubblicazione</span><span>${esc(fmt(a.nextSlot))}</span></div>
     <div class="row"><span>Cadenza</span><span>ogni ${esc(a.state.cadenceDays)} giorno/i${a.due ? " · dovuto ora" : ""}</span></div>`;
         $("#toggleStop").textContent = s.setup.stop ? "Riprendi" : "Pausa";
         $("#toggleStop").className = s.setup.stop ? "accent" : "secondary";
@@ -431,13 +444,13 @@
             .map(
               (p) => `
     <div class="card post">
-      <div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><b>${p.slug}</b><span class="pill ${p.published ? "ok" : p.hosted === "public" ? "warn" : "muted"}">${p.published ? "programmato" : p.hosted === "public" ? "online, non programmato" : "solo locale"}</span></div>
-      <small>${p.title} · ${p.lang.toUpperCase()} · ${p.experiment.archetype} · ${p.experiment.id ?? "–"}/${p.experiment.variant ?? "–"} · ${fmt(p.renderedAt)}</small>
-      ${p.reel ? `<video controls preload="metadata" poster="${p.cover ?? ""}" src="${p.reel}" style="margin-top:8px"></video>` : ""}
-      ${p.slides.length ? `<div class="slides">${p.slides.map((u) => `<a href="${u}" target="_blank"><img src="${u}" alt=""></a>`).join("")}</div>` : ""}
-      <div class="caption">${p.caption.replace(/</g, "&lt;")}</div>
-      ${p.warnings.length ? `<small style="color:var(--warn)">${p.warnings.join(" · ")}</small>` : ""}
-      <div class="actions">${p.storyboard ? `<a href="${p.storyboard}" target="_blank"><button class="secondary">Storyboard</button></a>` : ""}</div>
+      <div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><b>${esc(p.slug)}</b><span class="pill ${p.published ? "ok" : p.hosted === "public" ? "warn" : "muted"}">${p.published ? "programmato" : p.hosted === "public" ? "online, non programmato" : "solo locale"}</span></div>
+      <small>${esc(p.title)} · ${esc(p.lang.toUpperCase())} · ${esc(p.experiment.archetype)} · ${esc(p.experiment.id ?? "–")}/${esc(p.experiment.variant ?? "–")} · ${esc(fmt(p.renderedAt))}</small>
+      ${media(p.reel) ? `<video controls preload="metadata" poster="${esc(media(p.cover))}" src="${esc(media(p.reel))}" style="margin-top:8px"></video>` : ""}
+      ${p.slides.length ? `<div class="slides">${p.slides.map((u) => (media(u) ? `<a href="${esc(media(u))}" target="_blank"><img src="${esc(media(u))}" alt=""></a>` : "")).join("")}</div>` : ""}
+      <div class="caption">${esc(p.caption)}</div>
+      ${p.warnings.length ? `<small style="color:var(--warn)">${esc(p.warnings.join(" · "))}</small>` : ""}
+      <div class="actions">${media(p.storyboard) ? `<a href="${esc(media(p.storyboard))}" target="_blank"><button class="secondary">Storyboard</button></a>` : ""}</div>
     </div>`,
             )
             .join("") ||
@@ -457,11 +470,11 @@
           "bookings",
         ];
         $("#exps").innerHTML =
-          `<tr>${cols.map((c) => `<th>${c.replace(/_/g, " ")}</th>`).join("")}</tr>` +
+          `<tr>${cols.map((c) => `<th>${esc(c.replace(/_/g, " "))}</th>`).join("")}</tr>` +
           s.experiments
             .map(
               (e) =>
-                `<tr>${cols.map((c) => `<td>${e[c] ?? "–"}</td>`).join("")}</tr>`,
+                `<tr>${cols.map((c) => `<td>${esc(e[c] ?? "–")}</td>`).join("")}</tr>`,
             )
             .join("");
       }
@@ -474,17 +487,17 @@
       };
       $("#detect").onclick = async () => {
         $("#channels").textContent = "rilevo…";
-        const r = await api("/api/buffer/detect");
+        const r = await api("/api/buffer/detect", {});
         $("#channels").innerHTML = r.error
-          ? `<small style="color:var(--bad)">${r.error}</small>`
+          ? `<small style="color:var(--bad)">${esc(r.error)}</small>`
           : r.found.length
             ? r.found
                 .map(
                   (f) =>
-                    `<div class="row"><span>${f.platform}</span><small>${f.name} · ${f.id}</small></div>`,
+                    `<div class="row"><span>${esc(f.platform)}</span><small>${esc(f.name)} · ${esc(f.id)}</small></div>`,
                 )
                 .join("") +
-              `<small>Salvato: BUFFER_CHANNELS=${r.BUFFER_CHANNELS}</small>`
+              `<small>Salvato: BUFFER_CHANNELS=${esc(r.BUFFER_CHANNELS)}</small>`
             : "<small>nessun canale collegato su Buffer</small>";
         refresh();
       };
