@@ -8,6 +8,7 @@
  * Jobs are fixed commands (no shell), .env writes are limited to an allow-list of keys.
  */
 import { spawn } from "node:child_process";
+import { randomBytes, timingSafeEqual } from "node:crypto";
 import {
   createReadStream,
   existsSync,
@@ -34,6 +35,23 @@ import {
 
 const PORT = Number(process.env.DASHBOARD_PORT ?? 4747);
 const ROOT = process.cwd();
+/** Per-launch session token: printed in the launch URL, required on every request (DNS-rebinding and CSRF protection). */
+const TOKEN = randomBytes(24).toString("hex");
+const tokenOk = (candidate: string | null | undefined): boolean => {
+  if (!candidate || candidate.length !== TOKEN.length) return false;
+  return timingSafeEqual(Buffer.from(candidate), Buffer.from(TOKEN));
+};
+const LOCAL_HOSTS = new Set([`127.0.0.1:${PORT}`, `localhost:${PORT}`]);
+const sameOrigin = (req: http.IncomingMessage): boolean => {
+  const host = req.headers.host ?? "";
+  if (!LOCAL_HOSTS.has(host)) return false;
+  const origin = req.headers.origin;
+  if (origin && !LOCAL_HOSTS.has(origin.replace(/^https?:\/\//, "")))
+    return false;
+  const site = req.headers["sec-fetch-site"];
+  if (site && site !== "same-origin" && site !== "none") return false;
+  return true;
+};
 const ENV_KEYS = [
   "BUFFER_API_KEY",
   "BUFFER_CHANNELS",
@@ -301,9 +319,23 @@ const MIME: Record<string, string> = {
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url ?? "/", "http://localhost");
   try {
+    if (!sameOrigin(req)) return json(res, 403, { error: "forbidden origin" });
+    const token =
+      req.headers["x-console-token"]?.toString() ?? url.searchParams.get("t");
+    if (!tokenOk(token)) {
+      res.writeHead(401, { "Content-Type": "text/html; charset=utf-8" });
+      return res.end(
+        "<p>Sessione non valida: apri la console dal link stampato da <code>npm run dashboard</code>.</p>",
+      );
+    }
+    if (
+      req.method === "POST" &&
+      !(req.headers["content-type"] ?? "").startsWith("application/json")
+    )
+      return json(res, 415, { error: "JSON only" });
     if (req.method === "GET" && url.pathname === "/") {
       res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-      return res.end(html);
+      return res.end(html.replace("__TOKEN__", TOKEN));
     }
     if (req.method === "GET" && url.pathname === "/api/status")
       return json(res, 200, status());
@@ -372,7 +404,10 @@ const server = http.createServer(async (req, res) => {
       if (value) writeEnv({ BUFFER_CHANNELS: value });
       return json(res, 200, { found, BUFFER_CHANNELS: value });
     }
-    if ((req.method === "GET" || req.method === "HEAD") && url.pathname.startsWith("/out/")) {
+    if (
+      (req.method === "GET" || req.method === "HEAD") &&
+      url.pathname.startsWith("/out/")
+    ) {
       const rel = decodeURIComponent(url.pathname.slice(1));
       const file = path.resolve(ROOT, rel);
       if (
@@ -396,8 +431,8 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, "127.0.0.1", () => {
-  console.log(`RistHome console: http://127.0.0.1:${PORT}`);
-  if (process.argv.includes("--open"))
-    spawn("open", [`http://127.0.0.1:${PORT}`]);
+  const link = `http://127.0.0.1:${PORT}/?t=${TOKEN}`;
+  console.log(`RistHome console: ${link}`);
+  if (process.argv.includes("--open")) spawn("open", [link]);
 });
 void advance;

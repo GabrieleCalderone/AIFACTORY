@@ -385,12 +385,12 @@
         const ch = Object.entries(s.setup.channels);
         $("#setup").innerHTML = `
     <div class="row"><span>Chiave Buffer</span>${pill(s.setup.bufferKey, "presente", "mancante")}</div>
-    <div class="row"><span>Canali Buffer</span>${ch.length ? `<span class="pill ok">${ch.map(([p]) => p).join(", ")}</span>` : `<span class="pill bad">nessuno</span>`}</div>
+    <div class="row"><span>Canali Buffer</span>${ch.length ? `<span class="pill ok">${esc(ch.map(([p]) => p).join(", "))}</span>` : `<span class="pill bad">nessuno</span>`}</div>
     <div class="row"><span>Repo media pubblico</span>${pill(s.setup.mediaRepo, "pronto", "manca (setup.sh)")}</div>
     <div class="row"><span>Repo GitHub collegato</span>${pill(s.setup.gitRemote, "sì", "no (setup.sh)")}</div>
     <div class="row"><span>Agente giornaliero 10:30</span>${pill(s.setup.launchd, "installato", "manca (setup.sh)")}</div>
-    <div class="row"><span>Foto nel pool</span><span class="pill muted">${s.setup.pool}</span></div>
-    ${s.setup.channelsError ? `<small style="color:var(--bad)">${s.setup.channelsError}</small>` : ""}`;
+    <div class="row"><span>Foto nel pool</span><span class="pill muted">${esc(s.setup.pool)}</span></div>
+    ${s.setup.channelsError ? `<small style="color:var(--bad)">${esc(s.setup.channelsError)}</small>` : ""}`;
         $("#s1").classList.toggle(
           "done",
           s.setup.gitRemote && s.setup.mediaRepo && s.setup.launchd,
@@ -401,21 +401,21 @@
         const a = s.autopilot;
         $("#auto").innerHTML = `
     <div class="row"><span>Stato</span>${s.setup.stop ? `<span class="pill warn">in pausa (STOP)</span>` : `<span class="pill ok">attivo</span>`}</div>
-    <div class="row"><span>Prossimo post</span><span>${a.plan.archetype} · ${a.plan.lang.toUpperCase()} · ${a.plan.experimentId}/${a.plan.variantId}</span></div>
-    <div class="row"><span>Perché</span><small>${a.plan.reason}</small></div>
+    <div class="row"><span>Prossimo post</span><span>${esc(a.plan.archetype)} · ${esc(a.plan.lang.toUpperCase())} · ${esc(a.plan.experimentId)}/${esc(a.plan.variantId)}</span></div>
+    <div class="row"><span>Perché</span><small>${esc(a.plan.reason)}</small></div>
     <div class="row"><span>Ultimo post</span><span>${fmt(a.state.lastPostAt)}</span></div>
     <div class="row"><span>Slot di pubblicazione</span><span>${fmt(a.nextSlot)}</span></div>
-    <div class="row"><span>Cadenza</span><span>ogni ${a.state.cadenceDays} giorno/i${a.due ? " · dovuto ora" : ""}</span></div>`;
+    <div class="row"><span>Cadenza</span><span>ogni ${esc(a.state.cadenceDays)} giorno/i${a.due ? " · dovuto ora" : ""}</span></div>`;
         $("#toggleStop").textContent = s.setup.stop ? "Riprendi" : "Pausa";
         $("#toggleStop").className = s.setup.stop ? "accent" : "secondary";
         const measured = s.experiments.filter(
           (e) => e.status === "measured",
         ).length;
         $("#data").innerHTML = `
-    <div class="row"><span>Esperimenti</span><span>${s.experiments.length} righe · ${measured} misurate</span></div>
-    <div class="row"><span>Pubblicazioni su Buffer</span><span>${s.publications.length}</span></div>
+    <div class="row"><span>Esperimenti</span><span>${esc(s.experiments.length)} righe · ${esc(measured)} misurate</span></div>
+    <div class="row"><span>Pubblicazioni su Buffer</span><span>${esc(s.publications.length)}</span></div>
     <div class="row"><span>Validazione dati</span>${pill(s.dataIssues.length === 0, "ok", s.dataIssues.length + " problemi")}</div>
-    <div class="row"><span>Report</span><a href="/out/../docs/performance.md" onclick="return false" style="color:#666">docs/performance.md</a></div>`;
+    <div class="row"><span>Report</span><span style="color:#666">docs/performance.md</span></div>`;
         $("#jobs").textContent = s.jobs.length
           ? s.jobs
               .map(

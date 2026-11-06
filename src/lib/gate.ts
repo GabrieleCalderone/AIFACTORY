@@ -79,7 +79,9 @@ export const scanTexts = (value: unknown, path = ""): string[] => {
         }
         if (kind === "bare domain") {
           const host = text.toLowerCase().replace(/^www\./, "");
-          if (!/\.[a-z]{2,}$/.test(host) || /\d+\.\d+/.test(host)) continue; // not a domain, or a decimal number
+          const ipv4 = /^\d{1,3}(?:\.\d{1,3}){3}$/.test(host);
+          if (!ipv4 && /^\d+(?:[.,]\d+)*$/.test(host)) continue; // a plain number such as 5.0 or 1.234,56
+          if (!ipv4 && !/\.[a-z]{2,}$/.test(host)) continue; // not a domain-shaped token
           if (ALLOWED_URL_HOSTS.some((h) => host === h.replace(/^www\./, ""))) continue;
         }
         hits.push(`${path || "text"}: ${kind} "${text.slice(0, 40)}"`);
