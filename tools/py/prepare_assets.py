@@ -36,6 +36,8 @@ def main() -> int:
     ap.add_argument("--quality", type=int, default=88)
     ap.add_argument("--start", type=int, default=1, help="first output index (to append to an existing set)")
     ap.add_argument("--crop-bottom", type=float, default=0.0, help="fraction of height to drop from the bottom (e.g. 0.24 removes a baked-in logo band)")
+    ap.add_argument("--people", choices=["none", "chef", "guests-consented"], default="none",
+                    help="who is recognisable in these photos; 'guests-consented' asserts written consent is on file")
     a = ap.parse_args()
 
     roots = [Path(s).expanduser() for s in a.src]
@@ -59,7 +61,7 @@ def main() -> int:
         dst = out / f"{i:02d}-{Path(name).stem}.jpg"
         im.save(dst, "JPEG", quality=a.quality, optimize=True, progressive=True)
         manifest.append({"file": dst.name, "source": name, "width": im.width, "height": im.height,
-                         "orientation": "portrait" if im.height > im.width else "landscape"})
+                         "orientation": "portrait" if im.height > im.width else "landscape", "people": a.people})
         print(f"{dst.name}  {im.width}x{im.height}  <- {name}")
     mpath = out / "manifest.json"
     if a.start > 1 and mpath.exists():

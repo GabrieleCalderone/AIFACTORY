@@ -11,6 +11,21 @@ const imagePath = z
   .min(1)
   .regex(/^[\w./-]+\.(jpe?g|png|webp)$/i, "image must be a relative path under public/ ending in jpg/png/webp");
 
+const videoPath = z
+  .string()
+  .min(1)
+  .regex(/^[\w./-]+\.(mp4|mov|webm)$/i, "video must be a relative path under public/ ending in mp4/mov/webm");
+
+/** A scene shows either a still photo (with a camera move) or a real clip (looped, muted). */
+const media = {
+  image: imagePath.optional(),
+  video: videoPath.optional(),
+  /** seconds to skip at the start of the clip */
+  trimSec: z.number().min(0).max(600).default(0),
+};
+const oneMedia = { message: "exactly one of image or video is required" };
+const hasOneMedia = (m: { image?: string; video?: string }) => (m.image ? 1 : 0) + (m.video ? 1 : 0) === 1;
+
 export const Lang = z.enum(["it", "en"]);
 
 /**
@@ -29,21 +44,25 @@ export const ReelMotion = z.enum([
   "arc-right",
 ]);
 
-export const ReelHook = z.object({
-  image: imagePath,
-  title: z.string().min(3).max(80),
-  subtitle: z.string().max(80).optional(),
-  durationSec: z.number().min(2).max(6).default(3.2),
-  motion: ReelMotion.default("zoom-in"),
-});
+export const ReelHook = z
+  .object({
+    ...media,
+    title: z.string().min(3).max(80),
+    subtitle: z.string().max(80).optional(),
+    durationSec: z.number().min(2).max(6).default(3.2),
+    motion: ReelMotion.default("zoom-in"),
+  })
+  .refine(hasOneMedia, oneMedia);
 
-export const ReelScene = z.object({
-  image: imagePath,
-  text: z.string().max(90).optional(),
-  label: z.string().max(30).optional(),
-  durationSec: z.number().min(1.5).max(8).default(2.8),
-  motion: ReelMotion.default("zoom-in"),
-});
+export const ReelScene = z
+  .object({
+    ...media,
+    text: z.string().max(90).optional(),
+    label: z.string().max(30).optional(),
+    durationSec: z.number().min(1.5).max(8).default(2.8),
+    motion: ReelMotion.default("zoom-in"),
+  })
+  .refine(hasOneMedia, oneMedia);
 
 export const ReelCta = z.object({
   title: z.string().min(2).max(60),

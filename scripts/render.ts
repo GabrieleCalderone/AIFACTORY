@@ -12,6 +12,7 @@
  *   --out <dir>        output root (default: out)
  *   --concurrency <n>  browser tabs used for the reel (default: Remotion's choice)
  *   --crf <n>          H.264 quality, lower is better (default 18)
+ *   --strict           treat quality-gate warnings as errors
  *
  * Outputs per post: reel.mp4, carousel-NN.jpg, caption.txt, manifest.json (+ qa/*.png).
  */
@@ -19,12 +20,13 @@ import { bundle } from "@remotion/bundler";
 import { openBrowser, renderMedia, renderStill, selectComposition } from "@remotion/renderer";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
-import { CAROUSEL, CAROUSEL_PHOTO_HEIGHT, REEL } from "../src/lib/formats.ts";
+import { CAROUSEL, REEL } from "../src/lib/formats.ts";
+import { gateSpec } from "../src/lib/gate-io.ts";
 import { buildCaption, reelTimeline } from "../src/lib/timeline.ts";
-import { parsePostSpec, type PostSpec } from "../src/schemas/post.ts";
+import { parsePostSpec } from "../src/schemas/post.ts";
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
@@ -37,6 +39,7 @@ const { values, positionals } = parseArgs({
     out: { type: "string", default: "out" },
     concurrency: { type: "string" },
     crf: { type: "string", default: "18" },
+    strict: { type: "boolean", default: false },
   },
 });
 
@@ -59,57 +62,6 @@ if (specFiles.length === 0) {
   console.error("usage: node scripts/render.ts content/posts/<slug>.json [--all] [--scale 0.5] [--qa]");
   process.exit(2);
 }
-
-type AssetInfo = { file: string; width: number; height: number };
-
-const readAssetDims = (image: string): AssetInfo | null => {
-  const manifest = path.join("public", path.dirname(image), "manifest.json");
-  if (!existsSync(manifest)) return null;
-  const rows = JSON.parse(readFileSync(manifest, "utf8")) as AssetInfo[];
-  return rows.find((r) => r.file === path.basename(image)) ?? null;
-};
-
-const imagesOf = (spec: PostSpec): string[] => {
-  const set = new Set<string>();
-  if (spec.reel) {
-    set.add(spec.reel.hook.image);
-    spec.reel.scenes.forEach((s) => set.add(s.image));
-  }
-  if (spec.carousel) {
-    spec.carousel.slides.forEach((s) => {
-      if ("image" in s && s.image) set.add(s.image);
-    });
-  }
-  return [...set];
-};
-
-/** Quality gate: fail on missing files, warn when a photo would be upscaled more than 2x. */
-const checkAssets = (spec: PostSpec): string[] => {
-  const warnings: string[] = [];
-  const missing = imagesOf(spec).filter((img) => !existsSync(path.join("public", img)));
-  if (missing.length > 0) {
-    throw new Error(`post "${spec.slug}": missing images under public/: ${missing.join(", ")}`);
-  }
-  const check = (image: string, w: number, h: number, where: string) => {
-    const dims = readAssetDims(image);
-    if (!dims) return;
-    const factor = Math.max(w / dims.width, h / dims.height);
-    if (factor > 2) {
-      warnings.push(`${where}: ${image} is ${dims.width}x${dims.height}, upscaled ${factor.toFixed(1)}x to fill ${w}x${h}`);
-    }
-  };
-  if (spec.reel) {
-    check(spec.reel.hook.image, REEL.width, REEL.height, "reel hook");
-    spec.reel.scenes.forEach((s, i) => check(s.image, REEL.width, REEL.height, `reel scene ${i + 1}`));
-  }
-  if (spec.carousel) {
-    spec.carousel.slides.forEach((s, i) => {
-      if (s.type === "cover" || (s.type === "cta" && s.image)) check(s.image!, CAROUSEL.width, CAROUSEL.height, `carousel slide ${i + 1}`);
-      if (s.type === "photo") check(s.image, CAROUSEL.width, s.title || s.body ? CAROUSEL_PHOTO_HEIGHT : CAROUSEL.height, `carousel slide ${i + 1}`);
-    });
-  }
-  return warnings;
-};
 
 const ffprobe = (file: string): Record<string, unknown> | null => {
   try {
@@ -137,7 +89,13 @@ const main = async () => {
   const posts = specFiles.map(loadSpec);
   const warningsBySlug = new Map<string, string[]>();
   for (const { spec } of posts) {
-    warningsBySlug.set(spec.slug, checkAssets(spec));
+    const { errors, warnings } = gateSpec(spec);
+    errors.forEach((e) => console.error(`[gate] ${spec.slug}: ERROR ${e}`));
+    warnings.forEach((w) => console.warn(`[gate] ${spec.slug}: warning ${w}`));
+    if (errors.length > 0 || (values.strict && warnings.length > 0)) {
+      throw new Error(`quality gate failed for ${spec.slug}: ${errors.length} errors, ${warnings.length} warnings`);
+    }
+    warningsBySlug.set(spec.slug, warnings);
   }
 
   log(`bundling src/index.ts`);
@@ -163,10 +121,10 @@ const main = async () => {
         scale,
         warnings: warningsBySlug.get(spec.slug) ?? [],
       };
-      for (const w of warningsBySlug.get(spec.slug) ?? []) log(`warning: ${w}`);
 
       if (spec.reel && !values["skip-reel"]) {
         const inputProps = { spec };
+        void CAROUSEL;
         const composition = await selectComposition({ serveUrl, id: REEL.id, inputProps, puppeteerInstance: browser });
         const output = path.join(outDir, "reel.mp4");
         log(`${spec.slug}: reel ${composition.durationInFrames} frames @ ${composition.fps}fps -> ${output}`);
@@ -190,7 +148,11 @@ const main = async () => {
           },
         });
         const timeline = reelTimeline(spec.reel, composition.fps);
+        const coverFrame = Math.round(timeline.sequences[0].durationInFrames / 2);
+        const cover = path.join(outDir, "reel-cover.jpg");
+        await renderStill({ composition, serveUrl, output: cover, frame: coverFrame, inputProps, imageFormat: "jpeg", jpegQuality: 92, scale, puppeteerInstance: browser });
         const reelInfo: Record<string, unknown> = {
+          cover,
           file: output,
           durationInFrames: composition.durationInFrames,
           durationSec: composition.durationInFrames / composition.fps,

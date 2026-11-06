@@ -66,3 +66,15 @@ test("camera moves include the local Higgsfield-style presets", () => {
   bad.reel.scenes[0] = { ...bad.reel.scenes[0], motion: "orbit-360" };
   assert.equal(PostSpec.safeParse(bad).success, false);
 });
+
+test("a reel scene takes exactly one of image or video", () => {
+  const spec = structuredClone(demoSpec);
+  spec.reel!.scenes[0] = { video: "assets/demo/clip.mp4", text: "Pasta lifted from the pot", trimSec: 1.5 };
+  assert.equal(PostSpec.safeParse(spec).success, true);
+  const both = structuredClone(demoSpec);
+  both.reel!.scenes[0] = { image: "assets/demo/02.jpg", video: "assets/demo/clip.mp4" };
+  assert.equal(PostSpec.safeParse(both).success, false);
+  const none = structuredClone(demoSpec);
+  none.reel!.scenes[0] = { text: "no media" };
+  assert.equal(PostSpec.safeParse(none).success, false);
+});

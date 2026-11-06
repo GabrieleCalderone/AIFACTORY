@@ -7,6 +7,7 @@ import { theme } from "../brand/theme";
 import { Brandmark } from "../components/Brandmark";
 import { Chip } from "../components/Chip";
 import { MotionImage } from "../components/MotionImage";
+import { MotionVideo } from "../components/MotionVideo";
 import { Reveal } from "../components/Reveal";
 import { Scrim } from "../components/Scrim";
 import { reelTimeline } from "../lib/timeline";
@@ -35,9 +36,18 @@ const textBlock = {
 
 const shadow = "0 2px 24px rgba(0,0,0,0.55)";
 
+type Media = { image?: string; video?: string; trimSec: number; motion: ReelSpec["hook"]["motion"] };
+
+const SceneMedia: React.FC<{ media: Media; durationInFrames: number }> = ({ media, durationInFrames }) =>
+  media.video ? (
+    <MotionVideo src={media.video} trimSec={media.trimSec} />
+  ) : (
+    <MotionImage src={media.image ?? ""} motion={media.motion} durationInFrames={durationInFrames} />
+  );
+
 const HookScene: React.FC<{ reel: ReelSpec; lang: PostSpec["lang"]; durationInFrames: number }> = ({ reel, lang, durationInFrames }) => (
   <AbsoluteFill style={{ backgroundColor: theme.colors.ink }}>
-    <MotionImage src={reel.hook.image} motion={reel.hook.motion} durationInFrames={durationInFrames} />
+    <SceneMedia media={reel.hook} durationInFrames={durationInFrames} />
     <Scrim />
     <Brandmark />
     <div style={textBlock}>
@@ -72,7 +82,7 @@ const HookScene: React.FC<{ reel: ReelSpec; lang: PostSpec["lang"]; durationInFr
 
 const ContentScene: React.FC<{ scene: ReelSpec["scenes"][number]; durationInFrames: number }> = ({ scene, durationInFrames }) => (
   <AbsoluteFill style={{ backgroundColor: theme.colors.ink }}>
-    <MotionImage src={scene.image} motion={scene.motion} durationInFrames={durationInFrames} />
+    <SceneMedia media={scene} durationInFrames={durationInFrames} />
     <Scrim bottom={0.72} />
     <Brandmark />
     <div style={textBlock}>

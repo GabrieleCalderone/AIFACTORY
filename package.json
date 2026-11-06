@@ -35,12 +35,22 @@
     "upgrade": "remotion upgrade",
     "lint": "eslint src scripts tests && tsc",
     "test": "node --test \"tests/**/*.test.ts\"",
-    "check": "npm run lint && npm test && npm run test:py",
+    "check": "npm run lint && npm test && npm run test:py && npm run validate:data",
     "render": "node scripts/render.ts",
     "render:all": "node scripts/render.ts --all",
     "new-post": "node scripts/new-post.ts",
     "assets": "uv run python -I tools/py/prepare_assets.py",
-    "test:py": "uv run python -I -m unittest discover -s tools/py -p \"test_*.py\""
+    "test:py": "uv run python -I -m unittest discover -s tools/py -p \"test_*.py\"",
+    "validate:data": "node scripts/validate-data.ts",
+    "report": "node scripts/report.ts",
+    "compare": "node scripts/compare.ts",
+    "log-metrics": "node scripts/log-metrics.ts",
+    "add-reference": "node scripts/add-reference.ts",
+    "storyboard": "node scripts/storyboard.ts",
+    "variant": "node scripts/variant.ts",
+    "gate": "node scripts/gate.ts",
+    "estimate": "node --env-file-if-exists=.env scripts/estimate-genai.ts",
+    "clips": "uv run python -I tools/py/prepare_clips.py"
   },
   "allowScripts": {
     "esbuild": false
