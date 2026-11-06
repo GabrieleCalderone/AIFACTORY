@@ -18,6 +18,8 @@ if [ ! -f README.md ]; then
   touch .nojekyll
   git add -A && git commit -qm "chore: init media host" && git branch -M main && git push -q -u origin main
 fi
-gh api -X POST "repos/$REPO/pages" -f "source[branch]=main" -f "source[path]=/" >/dev/null 2>&1 || true
-echo "pages: $(gh api "repos/$REPO/pages" --jq '.html_url + " (" + .status + ")"')"
+if ! gh api "repos/$REPO/pages" >/dev/null 2>&1; then
+  gh api -X POST "repos/$REPO/pages" -f "source[branch]=main" -f "source[path]=/" >/dev/null
+fi
+echo "pages: $(gh api "repos/$REPO/pages" --jq '.html_url + " source=" + .source.branch + ":" + .source.path + " (" + .status + ")"')"
 echo "set MEDIA_BASE_URL in .env if the URL above differs from https://$(echo "$REPO" | cut -d/ -f1 | tr 'A-Z' 'a-z').github.io/$(echo "$REPO" | cut -d/ -f2)"

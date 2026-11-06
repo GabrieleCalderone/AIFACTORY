@@ -58,8 +58,16 @@ mkdirSync(target, { recursive: true });
 const files = [manifest.reel?.file, manifest.reel?.cover, ...(manifest.carousel ?? []).map((s) => s.file)].filter((f): f is string => Boolean(f));
 for (const f of files) copyFileSync(f, path.join(target, path.basename(f)));
 const git = (...args: string[]) => execFileSync("git", ["-C", repoDir, ...args], { encoding: "utf8" });
-git("add", "-A");
-if (git("status", "--porcelain").trim()) {
+// Stage only this post's media folder, never the whole tree, and refuse to commit anything else.
+const relTarget = path.relative(repoDir, target);
+git("add", "--", relTarget);
+const staged = git("diff", "--cached", "--name-only").split("\n").filter(Boolean);
+const stray = staged.filter((f) => !f.startsWith(relTarget + "/") && f !== relTarget);
+if (stray.length) {
+  console.error(`refusing to publish: staged files outside ${relTarget}: ${stray.join(", ")}`);
+  process.exit(1);
+}
+if (staged.length) {
   git("commit", "-qm", `media: ${spec.slug} ${version}`);
   git("push", "-q");
   console.log(`pushed ${spec.slug}/${version} (${files.length} files)`);
