@@ -26,9 +26,13 @@ export const defaultState: AutopilotState = {
   postingHourLocal: 18,
 };
 
+/** Local calendar day as YYYY-MM-DD (the agent runs at 10:30 local time). */
+const localDay = (d: Date): number => Math.floor((d.getTime() - d.getTimezoneOffset() * 60000) / 86400000);
+
+/** Due when at least `cadenceDays` calendar days (local time) have passed since the last post. */
 export const isDue = (state: AutopilotState, now: Date): boolean => {
   if (!state.lastPostAt) return true;
-  return now.getTime() - new Date(state.lastPostAt).getTime() >= state.cadenceDays * 24 * 3600 * 1000;
+  return localDay(now) - localDay(new Date(state.lastPostAt)) >= state.cadenceDays;
 };
 
 export type Plan = { archetype: string; lang: "it" | "en"; experimentId: string; variantId: string; reason: string };

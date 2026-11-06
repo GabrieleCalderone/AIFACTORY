@@ -1,18 +1,17 @@
 {
-  "cadenceDays": 3,
+  "cadenceDays": 1,
   "rotation": [
+    "A6-chef-series",
     "A1-process-reveal",
     "A3-menu-list",
-    "A4-private-table",
     "A2-chef-at-work",
+    "A4-private-table",
+    "A6-chef-series",
     "A5-proof-and-offer"
   ],
-  "nextIndex": 1,
-  "langs": [
-    "en",
-    "it"
-  ],
-  "nextLang": 1,
-  "lastPostAt": "2026-11-06T19:18:52.271Z",
+  "nextIndex": 0,
+  "langs": ["en", "it"],
+  "nextLang": 0,
+  "lastPostAt": null,
   "postingHourLocal": 18
 }

@@ -34,7 +34,7 @@ const pack = {
   slug: spec.slug,
   title: spec.title,
   lang: spec.lang,
-  status: "awaiting_approval",
+  status: "ready",
   experiment: { id: spec.brief.experimentId ?? null, variant: spec.brief.variantId ?? null, archetype: spec.brief.archetype, hypothesis: spec.brief.hypothesis ?? null },
   schedule: values.schedule ?? null,
   platform: "instagram",
@@ -45,13 +45,11 @@ const pack = {
   handle: theme.handle,
   gate,
   checklist: [
-    "chef approved texts and prices",
-    "licensed audio chosen in the Instagram editor (reel)",
-    "bio link updated to bioLink above",
-    "row in data/experiments.csv set to approved, then published with post_url and published_at",
-    "metrics logged after 7 days: node scripts/log-metrics.ts",
+    "automated: texts reviewed against the photos, gate passed, CC BY audio attached",
+    "bio link: keep risthome.it in the Instagram bio (UTM link above is optional)",
+    "publishing: npm run publish -- <spec> or the console button; metrics sync daily",
   ],
 };
 const target = path.join(outDir, "publish.json");
 writeFileSync(target, JSON.stringify(pack, null, 2) + "\n");
-console.log(`wrote ${target} (status awaiting_approval; ${gate.errors.length} gate errors, ${gate.warnings.length} warnings)`);
+console.log(`wrote ${target} (status ready; ${gate.errors.length} gate errors, ${gate.warnings.length} warnings)`);

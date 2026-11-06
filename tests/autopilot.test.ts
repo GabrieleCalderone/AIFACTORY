@@ -2,13 +2,14 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { advance, defaultState, isDue, nextSlot, planNext } from "../src/lib/autopilot.ts";
 
-test("a post is due on the first run and after the cadence (daily by default)", () => {
-  const now = new Date("2026-11-10T09:00:00Z");
+test("a post is due on the first run and once a calendar day has passed (daily by default)", () => {
+  const morning = new Date(2026, 10, 10, 10, 30); // local time, like the launchd agent
   assert.equal(defaultState.cadenceDays, 1);
-  assert.equal(isDue(defaultState, now), true);
-  assert.equal(isDue({ ...defaultState, lastPostAt: "2026-11-09T12:00:00Z" }, now), false);
-  assert.equal(isDue({ ...defaultState, lastPostAt: "2026-11-09T09:00:00Z" }, now), true);
-  assert.equal(isDue({ ...defaultState, cadenceDays: 3, lastPostAt: "2026-11-09T09:00:00Z" }, now), false);
+  assert.equal(isDue(defaultState, morning), true);
+  assert.equal(isDue({ ...defaultState, lastPostAt: new Date(2026, 10, 9, 19, 20).toISOString() }, morning), true, "yesterday evening counts as yesterday");
+  assert.equal(isDue({ ...defaultState, lastPostAt: new Date(2026, 10, 10, 8, 0).toISOString() }, morning), false, "already posted today");
+  assert.equal(isDue({ ...defaultState, cadenceDays: 3, lastPostAt: new Date(2026, 10, 8, 9, 0).toISOString() }, morning), false);
+  assert.equal(isDue({ ...defaultState, cadenceDays: 3, lastPostAt: new Date(2026, 10, 7, 9, 0).toISOString() }, morning), true);
 });
 
 test("planning starts a new experiment, then tests variant B once A is measured", () => {

@@ -68,6 +68,7 @@ const JOBS: Record<string, string[]> = {
   validate: ["scripts/validate-data.ts"],
   "render-all": ["scripts/render.ts", "--all", "--qa"],
   "build-pool": ["scripts/build-pool.ts"],
+  "publish-post": ["scripts/publish-post.ts"],
   check: ["--run", "check"],
 };
 
@@ -237,8 +238,31 @@ const status = () => {
     : [];
   const poolManifest = "public/assets/pool/manifest.json";
   const pool = existsSync(poolManifest)
-    ? (JSON.parse(readFileSync(poolManifest, "utf8")) as { people: string }[])
+    ? (JSON.parse(readFileSync(poolManifest, "utf8")) as {
+        file: string;
+        width: number;
+        height: number;
+        text_overlay?: boolean;
+        quality?: string;
+      }[])
     : [];
+  // Photos still offerable for reels: right size, no printed logo, not used in the last eight posts.
+  const usage = existsSync("data/asset-usage.json")
+    ? (JSON.parse(readFileSync("data/asset-usage.json", "utf8")) as Record<
+        string,
+        string[]
+      >)
+    : {};
+  const lastEight = new Set(
+    [...new Set(Object.values(usage).flat())].sort().slice(-8),
+  );
+  const freshForReels = pool.filter(
+    (r) =>
+      !r.text_overlay &&
+      r.quality !== "poor" &&
+      Math.max(1080 / r.width, 1920 / r.height) <= 2 &&
+      !(usage[r.file] ?? []).some((sl) => lastEight.has(sl)),
+  ).length;
   const logs = existsSync("logs")
     ? readdirSync("logs")
         .filter((f) => f.startsWith("autopilot-"))
@@ -269,6 +293,7 @@ const status = () => {
       ),
       stop: existsSync("STOP"),
       pool: pool.length,
+      freshForReels,
     },
     autopilot: {
       state,

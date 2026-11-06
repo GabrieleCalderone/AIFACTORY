@@ -402,7 +402,7 @@
     <div class="row"><span>Host dei media</span>${pill(s.setup.mediaRepo, "pronto", "manca (setup.sh)")}</div>
     <div class="row"><span>Repo GitHub collegato</span>${pill(s.setup.gitRemote, "sì", "no (setup.sh)")}</div>
     <div class="row"><span>Agente giornaliero 10:30</span>${pill(s.setup.launchd, "installato", "manca (setup.sh)")}</div>
-    <div class="row"><span>Foto nel pool</span><span class="pill muted">${esc(s.setup.pool)}</span></div>
+    <div class="row"><span>Foto nel pool</span><span class="pill ${s.setup.freshForReels < 20 ? "warn" : "muted"}">${esc(s.setup.pool)} · ${esc(s.setup.freshForReels)} fresche per i reel${s.setup.freshForReels < 20 ? " · aggiungi foto" : ""}</span></div>
     ${s.setup.channelsError ? `<small style="color:var(--bad)">${esc(s.setup.channelsError)}</small>` : ""}`;
         $("#s1").classList.toggle(
           "done",
@@ -450,7 +450,7 @@
       ${p.slides.length ? `<div class="slides">${p.slides.map((u) => (media(u) ? `<a href="${esc(media(u))}" target="_blank"><img src="${esc(media(u))}" alt=""></a>` : "")).join("")}</div>` : ""}
       <div class="caption">${esc(p.caption)}</div>
       ${p.warnings.length ? `<small style="color:var(--warn)">${esc(p.warnings.join(" · "))}</small>` : ""}
-      <div class="actions">${media(p.storyboard) ? `<a href="${esc(media(p.storyboard))}" target="_blank"><button class="secondary">Storyboard</button></a>` : ""}</div>
+      <div class="actions">${media(p.storyboard) ? `<a href="${esc(media(p.storyboard))}" target="_blank"><button class="secondary">Storyboard</button></a>` : ""}${p.published ? "" : `<button class="accent" data-publish="${esc(p.slug)}">Pubblica</button>`}</div>
     </div>`,
             )
             .join("") ||
@@ -501,7 +501,8 @@
             : "<small>nessun canale collegato su Buffer</small>";
         refresh();
       };
-      $("#runNow").onclick = () => run("autopilot");
+      document.addEventListener("click", (ev) => { const b = ev.target.closest("[data-publish]"); if (b && confirm(`Programmare "${b.dataset.publish}" al prossimo slot su tutti i canali collegati?`)) run("publish-post", b.dataset.publish); });
+$("#runNow").onclick = () => run("autopilot");
       $("#runDry").onclick = () => run("autopilot-dry");
       $("#toggleStop").onclick = async () => {
         await api("/api/stop", {});
