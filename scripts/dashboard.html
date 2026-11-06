@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RistHome Console</title>
+    <style>
+      :root {
+        --ink: #0b0b0b;
+        --accent: #983038;
+        --cream: #f6f1e8;
+        --ok: #1f7a3f;
+        --warn: #b36b00;
+        --bad: #b00020;
+        --line: #e4ddd2;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font:
+          15px/1.45 -apple-system,
+          "Helvetica Neue",
+          Arial,
+          sans-serif;
+        color: var(--ink);
+        background: #faf7f2;
+      }
+      header {
+        background: var(--ink);
+        color: #fff;
+        padding: 14px 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      header h1 {
+        font:
+          700 20px Georgia,
+          serif;
+        margin: 0;
+        letter-spacing: 0.02em;
+      }
+      header .tag {
+        background: var(--accent);
+        color: #fff;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 4px 9px;
+        border-radius: 999px;
+      }
+      main {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 20px 24px 60px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 16px 18px;
+      }
+      .card h2 {
+        font:
+          700 17px Georgia,
+          serif;
+        margin: 0 0 10px;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 6px 0;
+        border-bottom: 1px solid #f0ebe3;
+      }
+      .row:last-child {
+        border-bottom: 0;
+      }
+      .pill {
+        font-size: 12px;
+        font-weight: 700;
+        padding: 2px 9px;
+        border-radius: 999px;
+        color: #fff;
+        white-space: nowrap;
+      }
+      .ok {
+        background: var(--ok);
+      }
+      .warn {
+        background: var(--warn);
+      }
+      .bad {
+        background: var(--bad);
+      }
+      .muted {
+        background: #777;
+      }
+      button {
+        font: 600 14px inherit;
+        padding: 9px 14px;
+        border-radius: 8px;
+        border: 1px solid var(--ink);
+        background: var(--ink);
+        color: #fff;
+        cursor: pointer;
+      }
+      button.secondary {
+        background: #fff;
+        color: var(--ink);
+      }
+      button.accent {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+      button:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 9px 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font: inherit;
+      }
+      label {
+        font-size: 12px;
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        display: block;
+        margin: 8px 0 4px;
+      }
+      pre {
+        background: #111;
+        color: #d8d8d8;
+        font:
+          12px/1.5 ui-monospace,
+          Menlo,
+          monospace;
+        padding: 12px;
+        border-radius: 8px;
+        max-height: 280px;
+        overflow: auto;
+        white-space: pre-wrap;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 7px 8px;
+        border-bottom: 1px solid #f0ebe3;
+        vertical-align: top;
+      }
+      th {
+        background: var(--cream);
+        font-weight: 700;
+      }
+      .posts {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 16px;
+      }
+      .post video,
+      .post img.cover {
+        width: 100%;
+        border-radius: 8px;
+        background: #111;
+        aspect-ratio: 9/16;
+        object-fit: cover;
+        max-height: 420px;
+      }
+      .slides {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        margin-top: 8px;
+      }
+      .slides img {
+        height: 90px;
+        border-radius: 4px;
+      }
+      .caption {
+        font-size: 13px;
+        white-space: pre-wrap;
+        background: var(--cream);
+        padding: 8px;
+        border-radius: 6px;
+        margin-top: 8px;
+        max-height: 140px;
+        overflow: auto;
+      }
+      .step {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 10px 0;
+        border-bottom: 1px solid #f0ebe3;
+      }
+      .step .n {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        flex: none;
+      }
+      .step.done .n {
+        background: var(--ok);
+      }
+      small {
+        color: #666;
+      }
+      details summary {
+        cursor: pointer;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>RistHome Console</h1>
+      <span class="tag">AI Content Factory</span
+      ><span
+        id="clock"
+        style="margin-left: auto; opacity: 0.75; font-size: 13px"
+      ></span>
+    </header>
+    <main>
+      <section class="grid">
+        <div class="card">
+          <h2>Configurazione</h2>
+          <div id="setup"></div>
+          <details style="margin-top: 10px">
+            <summary>Collega Buffer</summary>
+            <label>Chiave API Buffer (Settings → API → Create key)</label>
+            <input
+              type="password"
+              id="bufferKey"
+              placeholder="incolla la chiave e premi Salva"
+            />
+            <div class="actions">
+              <button id="saveKey">Salva chiave</button
+              ><button class="secondary" id="detect">Rileva canali</button>
+            </div>
+            <div id="channels" style="margin-top: 8px"></div>
+          </details>
+        </div>
+        <div class="card">
+          <h2>Autopilota</h2>
+          <div id="auto"></div>
+          <div class="actions">
+            <button class="accent" id="runNow">Genera e programma ora</button>
+            <button class="secondary" id="runDry">
+              Prova senza pubblicare
+            </button>
+            <button class="secondary" id="toggleStop">Pausa</button>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Dati e report</h2>
+          <div id="data"></div>
+          <div class="actions">
+            <button class="secondary" id="metrics">Aggiorna metriche</button>
+            <button class="secondary" id="report">Rigenera report</button>
+            <button class="secondary" id="check">Esegui i test</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top: 16px">
+        <h2>Guida rapida</h2>
+        <div class="step" id="s1">
+          <div class="n">1</div>
+          <div>
+            <b>Terminale, una volta:</b>
+            <code>bash scripts/setup.sh</code> (push su GitHub, repo media
+            pubblico, agente giornaliero). Richiede i tuoi permessi, non può
+            farlo la console.
+          </div>
+        </div>
+        <div class="step" id="s2">
+          <div class="n">2</div>
+          <div>
+            <b>Buffer:</b> account su buffer.com, collega Instagram (account
+            professionale), TikTok, pagina Facebook, YouTube. Poi Settings → API
+            → Create key e incollala qui sopra in "Collega Buffer", quindi
+            "Rileva canali".
+          </div>
+        </div>
+        <div class="step" id="s3">
+          <div class="n">3</div>
+          <div>
+            <b>Prova:</b> "Prova senza pubblicare" produce un post completo in
+            <code>out/</code> e mostra qui l'anteprima.
+          </div>
+        </div>
+        <div class="step" id="s4">
+          <div class="n">4</div>
+          <div>
+            <b>Avvio:</b> "Genera e programma ora" pubblica il primo post; da lì
+            l'agente delle 10:30 ne produce uno al giorno. "Pausa" ferma tutto,
+            ripremi per riprendere.
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top: 16px">
+        <h2>Attività in corso</h2>
+        <pre id="jobs">nessuna</pre>
+      </section>
+
+      <section style="margin-top: 16px">
+        <h2
+          style="
+            font:
+              700 20px Georgia,
+              serif;
+          "
+        >
+          Post prodotti
+        </h2>
+        <div class="posts" id="posts"></div>
+      </section>
+
+      <section class="card" style="margin-top: 16px">
+        <h2>Esperimenti e metriche</h2>
+        <div style="overflow: auto"><table id="exps"></table></div>
+      </section>
+    </main>
+    <script>
+      const $ = (s) => document.querySelector(s);
+      const pill = (ok, yes, no) =>
+        `<span class="pill ${ok ? "ok" : "bad"}">${ok ? yes : no}</span>`;
+      const api = (path, body) =>
+        fetch(
+          path,
+          body
+            ? {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body),
+              }
+            : {},
+        ).then((r) => r.json());
+      const run = async (job, slug) => {
+        await api("/api/run", { job, slug });
+        refresh();
+      };
+      const fmt = (iso) =>
+        iso
+          ? new Date(iso).toLocaleString("it-IT", {
+              dateStyle: "short",
+              timeStyle: "short",
+            })
+          : "–";
+      let last = null;
+      async function refresh() {
+        const s = await api("/api/status");
+        last = s;
+        $("#clock").textContent = new Date(s.now).toLocaleString("it-IT");
+        const ch = Object.entries(s.setup.channels);
+        $("#setup").innerHTML = `
+    <div class="row"><span>Chiave Buffer</span>${pill(s.setup.bufferKey, "presente", "mancante")}</div>
+    <div class="row"><span>Canali Buffer</span>${ch.length ? `<span class="pill ok">${ch.map(([p]) => p).join(", ")}</span>` : `<span class="pill bad">nessuno</span>`}</div>
+    <div class="row"><span>Repo media pubblico</span>${pill(s.setup.mediaRepo, "pronto", "manca (setup.sh)")}</div>
+    <div class="row"><span>Repo GitHub collegato</span>${pill(s.setup.gitRemote, "sì", "no (setup.sh)")}</div>
+    <div class="row"><span>Agente giornaliero 10:30</span>${pill(s.setup.launchd, "installato", "manca (setup.sh)")}</div>
+    <div class="row"><span>Foto nel pool</span><span class="pill muted">${s.setup.pool}</span></div>
+    ${s.setup.channelsError ? `<small style="color:var(--bad)">${s.setup.channelsError}</small>` : ""}`;
+        $("#s1").classList.toggle(
+          "done",
+          s.setup.gitRemote && s.setup.mediaRepo && s.setup.launchd,
+        );
+        $("#s2").classList.toggle("done", s.setup.bufferKey && ch.length > 0);
+        $("#s3").classList.toggle("done", s.posts.length > 0);
+        $("#s4").classList.toggle("done", s.publications.length > 0);
+        const a = s.autopilot;
+        $("#auto").innerHTML = `
+    <div class="row"><span>Stato</span>${s.setup.stop ? `<span class="pill warn">in pausa (STOP)</span>` : `<span class="pill ok">attivo</span>`}</div>
+    <div class="row"><span>Prossimo post</span><span>${a.plan.archetype} · ${a.plan.lang.toUpperCase()} · ${a.plan.experimentId}/${a.plan.variantId}</span></div>
+    <div class="row"><span>Perché</span><small>${a.plan.reason}</small></div>
+    <div class="row"><span>Ultimo post</span><span>${fmt(a.state.lastPostAt)}</span></div>
+    <div class="row"><span>Slot di pubblicazione</span><span>${fmt(a.nextSlot)}</span></div>
+    <div class="row"><span>Cadenza</span><span>ogni ${a.state.cadenceDays} giorno/i${a.due ? " · dovuto ora" : ""}</span></div>`;
+        $("#toggleStop").textContent = s.setup.stop ? "Riprendi" : "Pausa";
+        $("#toggleStop").className = s.setup.stop ? "accent" : "secondary";
+        const measured = s.experiments.filter(
+          (e) => e.status === "measured",
+        ).length;
+        $("#data").innerHTML = `
+    <div class="row"><span>Esperimenti</span><span>${s.experiments.length} righe · ${measured} misurate</span></div>
+    <div class="row"><span>Pubblicazioni su Buffer</span><span>${s.publications.length}</span></div>
+    <div class="row"><span>Validazione dati</span>${pill(s.dataIssues.length === 0, "ok", s.dataIssues.length + " problemi")}</div>
+    <div class="row"><span>Report</span><a href="/out/../docs/performance.md" onclick="return false" style="color:#666">docs/performance.md</a></div>`;
+        $("#jobs").textContent = s.jobs.length
+          ? s.jobs
+              .map(
+                (j) =>
+                  `[${j.name}] ${j.endedAt ? (j.code === 0 ? "ok" : "ERRORE " + j.code) : "in corso…"} ${fmt(j.startedAt)}\n${j.log.join("\n")}`,
+              )
+              .join("\n\n")
+          : s.recentLog.length
+            ? s.recentLog.join("\n")
+            : "nessuna";
+        $("#posts").innerHTML =
+          s.posts
+            .map(
+              (p) => `
+    <div class="card post">
+      <div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><b>${p.slug}</b><span class="pill ${p.published ? "ok" : p.hosted === "public" ? "warn" : "muted"}">${p.published ? "programmato" : p.hosted === "public" ? "online, non programmato" : "solo locale"}</span></div>
+      <small>${p.title} · ${p.lang.toUpperCase()} · ${p.experiment.archetype} · ${p.experiment.id ?? "–"}/${p.experiment.variant ?? "–"} · ${fmt(p.renderedAt)}</small>
+      ${p.reel ? `<video controls preload="metadata" poster="${p.cover ?? ""}" src="${p.reel}" style="margin-top:8px"></video>` : ""}
+      ${p.slides.length ? `<div class="slides">${p.slides.map((u) => `<a href="${u}" target="_blank"><img src="${u}" alt=""></a>`).join("")}</div>` : ""}
+      <div class="caption">${p.caption.replace(/</g, "&lt;")}</div>
+      ${p.warnings.length ? `<small style="color:var(--warn)">${p.warnings.join(" · ")}</small>` : ""}
+      <div class="actions">${p.storyboard ? `<a href="${p.storyboard}" target="_blank"><button class="secondary">Storyboard</button></a>` : ""}</div>
+    </div>`,
+            )
+            .join("") ||
+          "<small>Nessun post ancora: premi “Prova senza pubblicare”.</small>";
+        const cols = [
+          "experiment_id",
+          "variant_id",
+          "post_slug",
+          "archetype",
+          "status",
+          "reach",
+          "plays",
+          "saves",
+          "shares",
+          "link_clicks",
+          "qualified_inquiries",
+          "bookings",
+        ];
+        $("#exps").innerHTML =
+          `<tr>${cols.map((c) => `<th>${c.replace(/_/g, " ")}</th>`).join("")}</tr>` +
+          s.experiments
+            .map(
+              (e) =>
+                `<tr>${cols.map((c) => `<td>${e[c] ?? "–"}</td>`).join("")}</tr>`,
+            )
+            .join("");
+      }
+      $("#saveKey").onclick = async () => {
+        const v = $("#bufferKey").value.trim();
+        if (!v) return;
+        await api("/api/env", { BUFFER_API_KEY: v });
+        $("#bufferKey").value = "";
+        refresh();
+      };
+      $("#detect").onclick = async () => {
+        $("#channels").textContent = "rilevo…";
+        const r = await api("/api/buffer/detect");
+        $("#channels").innerHTML = r.error
+          ? `<small style="color:var(--bad)">${r.error}</small>`
+          : r.found.length
+            ? r.found
+                .map(
+                  (f) =>
+                    `<div class="row"><span>${f.platform}</span><small>${f.name} · ${f.id}</small></div>`,
+                )
+                .join("") +
+              `<small>Salvato: BUFFER_CHANNELS=${r.BUFFER_CHANNELS}</small>`
+            : "<small>nessun canale collegato su Buffer</small>";
+        refresh();
+      };
+      $("#runNow").onclick = () => run("autopilot");
+      $("#runDry").onclick = () => run("autopilot-dry");
+      $("#toggleStop").onclick = async () => {
+        await api("/api/stop", {});
+        refresh();
+      };
+      $("#metrics").onclick = () => run("metrics");
+      $("#report").onclick = () => run("report");
+      $("#check").onclick = () => run("check");
+      refresh();
+      setInterval(refresh, 4000);
+    </script>
+  </body>
+</html>

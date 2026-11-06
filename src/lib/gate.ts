@@ -58,8 +58,12 @@ const SECRET_PATTERNS: [RegExp, string][] = [
   [/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}\b/gi, "email"],
   [/(?:\+|\b00)\d[\d .-]{7,}\d|\b\d{3}[ .-]\d{3}[ .-]\d{4}\b|\b\d{3}[ .-]\d{7}\b/g, "phone number"],
   [/BUFFER_API_KEY|HF_API_KEY|API_KEY=|SECRET=/g, "env variable"],
-  [/(?:€|\$|£)\s?\d|\d\s?(?:€|eur\b|euro\b)|\b(?:sconto|discount|gratis|free cancellation|cancellazione gratuita|garantit|guaranteed|-\d{1,2}%)/gi, "price or offer claim"],
-  [/\b(?!risthome\.it\b|incompetech\.com\b)[a-z0-9-]+\.(?:com|it|net|org|io|ai|app|co|eu|dev)\b/gi, "bare domain"],
+  // Money, percentages and offer words in any inflection; prices never belong in published text.
+  [/(?:€|\$|£)\s?\d|\d{1,4}(?:[.,]\d{1,2})?\s*(?:€|eur\b|euro[si]?\b|usd\b|gbp\b|dollar\w*)/gi, "price or offer claim"],
+  [/\d{1,3}\s?(?:%|per\s?cent\w*)/gi, "price or offer claim"],
+  [/\b(?:prezz\w*|price[sd]?|offert\w*|offer(?:s|ed|ing)?|promo\w*|scont\w*|discount\w*|gratis|gratuit\w*|free\s+cancellation|garant\w*|guarante\w*|deal|coupon|voucher)\b/gi, "price or offer claim"],
+  // Any domain-shaped token; the single allow-list below decides.
+  [/\b[a-z0-9-]+(?:\.[a-z0-9-]+)+\b/gi, "bare domain"],
 ];
 
 /** Scan every string of a spec; returns one message per hit (field path + kind). */
@@ -72,6 +76,11 @@ export const scanTexts = (value: unknown, path = ""): string[] => {
         if (kind === "url") {
           const host = text.replace(/^https?:\/\//i, "").split(/[/?#]/)[0].toLowerCase();
           if (ALLOWED_URL_HOSTS.includes(host)) continue;
+        }
+        if (kind === "bare domain") {
+          const host = text.toLowerCase().replace(/^www\./, "");
+          if (!/\.[a-z]{2,}$/.test(host) || /\d+\.\d+/.test(host)) continue; // not a domain, or a decimal number
+          if (ALLOWED_URL_HOSTS.some((h) => host === h.replace(/^www\./, ""))) continue;
         }
         hits.push(`${path || "text"}: ${kind} "${text.slice(0, 40)}"`);
       }

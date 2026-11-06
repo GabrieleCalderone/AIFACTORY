@@ -59,7 +59,8 @@
     "publish": "node --env-file-if-exists=.env scripts/publish.ts",
     "sync-metrics": "node --env-file-if-exists=.env scripts/sync-metrics.ts",
     "autopilot": "node --env-file-if-exists=.env scripts/autopilot.ts",
-    "buffer:channels": "node --env-file-if-exists=.env scripts/buffer-channels.ts"
+    "buffer:channels": "node --env-file-if-exists=.env scripts/buffer-channels.ts",
+    "dashboard": "node --env-file-if-exists=.env scripts/dashboard.ts --open"
   },
   "allowScripts": {
     "esbuild": false

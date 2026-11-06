@@ -37,22 +37,34 @@ Verified on 2026-11-06: a forced dry-run cycle authored, reviewed, rendered and 
 `a1-20261106` (reel 20 s + 7 slides, EN) in 88 s; the review corrected a slide that called
 raw rice balls "fried".
 
+## The console (`npm run dashboard`)
+
+A local control panel at http://127.0.0.1:4747 (bound to localhost only): configuration
+status, next planned post, previews of every rendered reel and carousel with caption and
+storyboard, experiments table, running jobs with their log, and buttons for "Genera e
+programma ora", "Prova senza pubblicare", "Pausa/Riprendi" (STOP file), "Aggiorna metriche",
+"Rigenera report", "Esegui i test". The "Collega Buffer" panel stores the API key in `.env`
+and detects the connected channels automatically (writes `BUFFER_CHANNELS`).
+
 ## One-time setup (the only human actions)
 
-1. **Buffer**: create an account at buffer.com, connect the RistHome Instagram professional
+1. **Terminal, once**: `bash scripts/setup.sh` (push to GitHub, media host, daily launchd
+   agent). Done on 2026-11-06: code at github.com/GabrieleCalderone/AIFACTORY, Pages
+   enabled on that repo so media is served from
+   `https://gabrielecalderone.github.io/AIFACTORY/media/` (`MEDIA_REPO_DIR` = this repo,
+   `MEDIA_SUBDIR=media`; `host-media.ts` stages only the post's folder, never other files),
+   agent `it.risthome.autopilot` installed at 10:30. A separate media repo is still
+   possible: clear the `MEDIA_*` lines in `.env` and re-run `setup.sh`.
+2. **Buffer**: create an account at buffer.com, connect the RistHome Instagram professional
    account, TikTok, Facebook Page and YouTube channel (free plan = 3 channels; the fourth
-   needs Essentials), then Settings > API > Create key. Put the key in `.env` as
-   `BUFFER_API_KEY`, run `npm run buffer:channels` and fill `BUFFER_CHANNELS` with
-   `instagram:ID,tiktok:ID,facebook:ID,youtube:ID` (any subset works). The first real
-   `createPost` on each platform will reveal whether Buffer's metadata shapes match; errors
-   are printed verbatim and the other platforms still go out.
-2. **Media host**: `bash scripts/setup-media-host.sh` creates the public GitHub Pages repo
-   `risthome-media` and enables Pages (gh is already logged in). Everything pushed there is
-   public, which is what Buffer needs to fetch the files.
-3. **Scheduler**: `bash scripts/install-autopilot.sh --hour 10 --minute 30` installs the
-   launchd agent `it.risthome.autopilot` (daily 10:30, logs in `logs/launchd.log`).
-   `--uninstall` removes it. The Mac must be awake at that time; otherwise launchd runs
-   it at the next wake.
+   needs Essentials), then Settings > API > Create key. Paste the key in the console
+   ("Collega Buffer" > Salva chiave > Rileva canali), or put it in `.env` as
+   `BUFFER_API_KEY` and run `npm run buffer:channels` to fill `BUFFER_CHANNELS` with
+   `instagram:ID,tiktok:ID,facebook:ID,youtube:ID` (any subset works; empty ids mean "not
+   connected"). The first real `createPost` on each platform will reveal whether Buffer's
+   metadata shapes match; errors are printed verbatim and the other platforms still go out.
+3. **Keep the Mac awake at 10:30** (or the agent runs at the next wake), and push local
+   commits with `git push` when the console or Claude changes the code.
 
 ## Safety rails that stay on without approvals
 

@@ -7,6 +7,7 @@ test("parseChannels reads the platform map and falls back to BUFFER_CHANNEL_ID",
   assert.deepEqual(parseChannels({ BUFFER_CHANNEL_ID: "ig" }), { instagram: "ig" });
   assert.throws(() => parseChannels({ BUFFER_CHANNELS: "twitter:x" }), /platform/);
   assert.deepEqual(parseChannels({}), {});
+  assert.deepEqual(parseChannels({ BUFFER_CHANNELS: "instagram:,tiktok:,facebook:,youtube:" }), {}, "template placeholders mean: not connected yet");
 });
 
 test("reels go to four platforms staggered by an hour; carousels to Instagram and Facebook two days later", () => {

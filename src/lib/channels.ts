@@ -9,8 +9,8 @@ export const parseChannels = (env: Record<string, string | undefined>): Partial<
   const out: Partial<Record<Platform, string>> = {};
   for (const pair of (env.BUFFER_CHANNELS ?? "").split(",").map((s) => s.trim()).filter(Boolean)) {
     const [platform, id] = pair.split(":").map((s) => s.trim());
-    if (PLATFORMS.includes(platform as Platform) && id) out[platform as Platform] = id;
-    else throw new Error(`BUFFER_CHANNELS entry "${pair}" must be <platform>:<id> with platform in ${PLATFORMS.join("|")}`);
+    if (!PLATFORMS.includes(platform as Platform)) throw new Error(`BUFFER_CHANNELS entry "${pair}" must be <platform>:<id> with platform in ${PLATFORMS.join("|")}`);
+    if (id) out[platform as Platform] = id; // "instagram:" (no id yet) is simply not connected
   }
   if (!out.instagram && env.BUFFER_CHANNEL_ID) out.instagram = env.BUFFER_CHANNEL_ID;
   return out;

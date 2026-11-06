@@ -1,4 +1,18 @@
-# Status and verification report, 2026-11-06 (late night: volume strategy)
+# Status and verification report, 2026-11-06 (console and live setup)
+
+## Console and setup state
+
+- `npm run dashboard`: local control panel (status, previews, experiments, jobs, Buffer key
+  and channel detection, pause). Verified with curl: status JSON, HTML, media streaming,
+  path traversal blocked, STOP toggle, env allow-list, job execution.
+- Gabriele ran `scripts/setup.sh`: code pushed to github.com/GabrieleCalderone/AIFACTORY,
+  GitHub Pages enabled on it (media served from `/media`), launchd agent
+  `it.risthome.autopilot` installed and loaded (daily 10:30), `.env` created. Local commits
+  after that run still need `git push`.
+- Still missing: Buffer API key and channels (Instagram login inside Buffer). Until then
+  the daily run authors and renders, and publishes in dry run.
+- Gate hardened again (offer/price words in any inflection, any TLD against one allow-list);
+  the events carousel text was adjusted ("con il menu" instead of "con menu e prezzo").
 
 ## Volume strategy added (docs/research-volume.md, ADR 0004)
 

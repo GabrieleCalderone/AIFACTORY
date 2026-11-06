@@ -59,3 +59,13 @@ test("published texts may not carry prices, offers or domains other than the bra
   for (const k of ["price or offer claim", "bare domain"]) assert.ok(hits.includes(k), k);
   assert.deepEqual(scanTexts({ caption: "Prenota su risthome.it (link in bio). Music: Kevin MacLeod (incompetech.com)" }), []);
 });
+
+test("offer and domain denylist covers inflections, symbols and any TLD", () => {
+  const kinds = (text: string) => scanTexts({ caption: text }).map((h) => h.split(": ")[1].split(" \"")[0]);
+  for (const bad of ["Oggi -20%", "Solo -15%", "49 euros a testa", "prezzo scontato", "offerta speciale", "20 per cent off", "visit other-site.xyz", "see sub.example.travel", "Free cancellation"]) {
+    assert.ok(kinds(bad).some((k) => k === "price or offer claim" || k === "bare domain"), bad);
+  }
+  for (const ok of ["Prenota su risthome.it (link in bio)", "Music: Kevin MacLeod (incompetech.com)", "5.0 su Google con 101 recensioni", "Dalla cucina di Giacomo, ep. 12", "www.risthome.it"]) {
+    assert.deepEqual(kinds(ok), [], ok);
+  }
+});

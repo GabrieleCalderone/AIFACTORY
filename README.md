@@ -10,7 +10,8 @@ to the metrics it earns.
 
 ```bash
 npm install && uv sync              # once (Node >= 24, uv for the Python helpers)
-npm run check                       # eslint + tsc + 36 Node tests + Python tests + data validation
+npm run dashboard                   # local console at http://127.0.0.1:4747: status, previews, buttons, Buffer setup
+npm run check                       # eslint + tsc + 53 Node tests + Python tests + data validation
 
 # produce
 npm run assets -- <slug> --src "/photos" --pick IMG_1.JPG IMG_2.JPG --people chef   # normalise photos
