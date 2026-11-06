@@ -41,3 +41,8 @@ test("buildCaption appends hashtags on their own paragraph", () => {
   assert.equal(buildCaption(spec), "Learn to make fresh pasta in Palermo.\n\n#palermo #cookingclass");
   assert.equal(buildCaption({ ...spec, hashtags: [] }), "Learn to make fresh pasta in Palermo.");
 });
+
+test("buildCaption adds the music credit when the reel has an attributed track", () => {
+  const spec = parsePostSpec({ ...demoSpec, reel: { ...demoSpec.reel!, audio: { src: "audio/fretless.mp3", attribution: '"Fretless" Kevin MacLeod (incompetech.com), CC BY 4.0' } } });
+  assert.equal(buildCaption(spec), 'Learn to make fresh pasta in Palermo.\n\nMusic: "Fretless" Kevin MacLeod (incompetech.com), CC BY 4.0\n\n#palermo #cookingclass');
+});

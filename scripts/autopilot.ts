@@ -1,0 +1,77 @@
+/**
+ * One autopilot cycle: sync metrics -> report -> if a post is due: author -> render -> host ->
+ * publish -> advance state. Idempotent and safe to run daily (launchd). Without Buffer keys
+ * everything runs except the network publish (dry run), so drafts and renders still accumulate.
+ *
+ *   node --env-file-if-exists=.env scripts/autopilot.ts [--force] [--dry-run] [--model sonnet]
+ */
+import { spawnSync } from "node:child_process";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import path from "node:path";
+import { parseArgs } from "node:util";
+import { readExperiments } from "../src/lib/data.ts";
+import { advance, defaultState, isDue, nextSlot, planNext, type AutopilotState } from "../src/lib/autopilot.ts";
+
+const { values } = parseArgs({ options: { force: { type: "boolean", default: false }, "dry-run": { type: "boolean", default: false }, model: { type: "string", default: "sonnet" } } });
+mkdirSync("logs", { recursive: true });
+const logFile = path.join("logs", `autopilot-${new Date().toISOString().slice(0, 10)}.log`);
+const log = (msg: string) => {
+  const line = `${new Date().toISOString()} ${msg}`;
+  console.log(line);
+  writeFileSync(logFile, line + "\n", { flag: "a" });
+};
+const run = (label: string, args: string[], env: Record<string, string> = {}) => {
+  log(`$ node ${args.join(" ")}`);
+  const res = spawnSync("node", ["--env-file-if-exists=.env", ...args], { encoding: "utf8", env: { ...process.env, ...env }, maxBuffer: 50 * 1024 * 1024 });
+  const out = `${res.stdout}${res.stderr}`.trim();
+  if (out) writeFileSync(logFile, out + "\n", { flag: "a" });
+  if (res.status !== 0) throw new Error(`${label} failed (exit ${res.status}): ${out.split("\n").slice(-5).join(" | ")}`);
+  return res.stdout;
+};
+
+const statePath = "data/autopilot.json";
+const state: AutopilotState = existsSync(statePath) ? { ...defaultState, ...(JSON.parse(readFileSync(statePath, "utf8")) as Partial<AutopilotState>) } : defaultState;
+const now = new Date();
+log(`autopilot start (dry-run=${values["dry-run"]}, force=${values.force})`);
+
+try {
+  run("metrics", ["scripts/sync-metrics.ts"]);
+  run("validate", ["scripts/validate-data.ts"]);
+  run("report", ["scripts/report.ts"]);
+} catch (e) {
+  log(`warning: ${e instanceof Error ? e.message : e}`);
+}
+
+if (!values.force && !isDue(state, now)) {
+  log(`not due: last post ${state.lastPostAt}, cadence ${state.cadenceDays} days`);
+  process.exit(0);
+}
+
+const experiments = readExperiments().records.map((r) => ({ experiment_id: r.experiment_id, variant_id: r.variant_id, archetype: r.archetype, status: r.status }));
+const plan = planNext(state, experiments);
+const slug = `${plan.archetype.slice(0, 2).toLowerCase()}-${now.toISOString().slice(0, 10).replace(/-/g, "")}${plan.variantId === "A" ? "" : `-${plan.variantId.toLowerCase()}`}`;
+const specFile = path.join("content/posts", `${slug}.json`);
+log(`plan: ${plan.archetype} ${plan.lang} ${plan.experimentId}/${plan.variantId} (${plan.reason}) -> ${slug}`);
+
+try {
+  if (!existsSync(specFile)) {
+    run("author", ["scripts/author.ts", "--archetype", plan.archetype, "--lang", plan.lang, "--experiment", plan.experimentId, "--variant", plan.variantId, "--slug", slug, "--model", values.model]);
+  } else {
+    log(`spec exists, reusing ${specFile}`);
+  }
+  run("render", ["scripts/render.ts", specFile, "--qa"]);
+  run("storyboard", ["scripts/storyboard.ts", specFile]);
+  const hostArgs = ["scripts/host-media.ts", specFile];
+  if (values["dry-run"]) hostArgs.push("--dry-run");
+  run("host", hostArgs);
+  const when = nextSlot(state, now).toISOString();
+  const publishArgs = ["scripts/publish.ts", specFile, "--when", when];
+  if (values["dry-run"]) publishArgs.push("--dry-run");
+  run("publish", publishArgs);
+  const next = advance(state, now);
+  writeFileSync(statePath, JSON.stringify(next, null, 2) + "\n");
+  log(`done: ${slug} scheduled for ${when}; next archetype ${next.rotation[next.nextIndex]}`);
+} catch (e) {
+  log(`FAILED: ${e instanceof Error ? e.message : e}`);
+  process.exit(1);
+}

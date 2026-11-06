@@ -77,7 +77,20 @@
       "examples": [
         "pasta-class-palermo",
         "pasta-class-palermo-b"
-      ]
+      ],
+      "assetKeywords": [
+        "hands",
+        "ingredients",
+        "mortar",
+        "pasta",
+        "dough",
+        "frying",
+        "plating",
+        "dessert",
+        "cannoli",
+        "arancini"
+      ],
+      "service": "class"
     },
     {
       "id": "A2-chef-at-work",
@@ -136,7 +149,18 @@
         "cta": "Follow for the next service",
         "hypothesisTemplate": "Fast behind-the-scenes cuts earn more shares than plated montages. Success: share rate >= 1% of plays."
       },
-      "examples": []
+      "examples": [],
+      "assetKeywords": [
+        "chef",
+        "hands",
+        "pan",
+        "steam",
+        "flame",
+        "plating",
+        "kitchen",
+        "lifting"
+      ],
+      "service": "class"
     },
     {
       "id": "A3-menu-list",
@@ -163,7 +187,7 @@
           ]
         },
         "reel": {
-          "hookDurationSec": 3.0,
+          "hookDurationSec": 3,
           "sceneDurationSec": 2.2,
           "sceneCount": 6,
           "motions": [
@@ -211,7 +235,20 @@
       },
       "examples": [
         "eventi-finger-food"
-      ]
+      ],
+      "assetKeywords": [
+        "dish",
+        "plate",
+        "finger food",
+        "buffet",
+        "cones",
+        "verrine",
+        "brioche",
+        "skewers",
+        "dessert",
+        "seafood"
+      ],
+      "service": "events"
     },
     {
       "id": "A4-private-table",
@@ -283,7 +320,19 @@
       },
       "examples": [
         "chef-a-domicilio"
-      ]
+      ],
+      "assetKeywords": [
+        "table",
+        "setting",
+        "garden",
+        "outdoor",
+        "plated",
+        "course",
+        "dessert",
+        "seafood",
+        "chef"
+      ],
+      "service": "chef"
     },
     {
       "id": "A5-proof-and-offer",
@@ -308,7 +357,7 @@
           ]
         },
         "reel": {
-          "hookDurationSec": 3.0,
+          "hookDurationSec": 3,
           "sceneDurationSec": 2.5,
           "sceneCount": 3,
           "motions": [
@@ -348,7 +397,15 @@
         "cta": "Book or buy on risthome.it before the deadline",
         "hypothesisTemplate": "A verified proof number in the hook raises link clicks. Success: link CTR >= 1.5% of reach."
       },
-      "examples": []
+      "examples": [],
+      "assetKeywords": [
+        "logo",
+        "plated",
+        "dessert",
+        "chef",
+        "table"
+      ],
+      "service": "chef"
     }
   ]
 }

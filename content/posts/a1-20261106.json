@@ -1,0 +1,145 @@
+{
+  "slug": "a1-20261106",
+  "lang": "en",
+  "title": "Sicilian cooking class in Palermo: from pistachio mortar to cannoli",
+  "brief": {
+    "archetype": "A1-process-reveal",
+    "audience": "English-speaking travellers in Palermo for 2-4 days, booking experiences on mobile",
+    "objective": "Cooking-class bookings on risthome.it or GetYourGuide",
+    "hook": "Crushed pistachios in a wooden mortar show a hands-on technique right away, and the on-screen promise names the class and the city.",
+    "sequence": [
+      "Hook: crushed pistachios and pestle, 'Cook Sicilian pasta with a chef in Palermo'",
+      "Step 1: whole pistachios and basil in the mortar",
+      "Step 2: long pasta with clams, parsley and olive oil",
+      "Step 3: spaghetti nest plated with golden breadcrumbs",
+      "Also on the menu: golden fried arancini",
+      "Dessert: cannoli with ricotta cream, then CTA"
+    ],
+    "cta": "Book your class on risthome.it (link in bio)",
+    "hypothesis": "A step-by-step process reel keeps viewers longer than a plate montage. Success: average watch time >= 60% of length.",
+    "experimentId": "EXP-004",
+    "variantId": "A"
+  },
+  "caption": "Cook Sicilian pasta with a chef in Palermo.\n\nFrom pistachios in a wooden mortar to spaghetti with clams, golden arancini and cannoli with ricotta cream and candied orange: this is a hands-on Sicilian cooking class in Chef Giacomo Napolitano's kitchen in Palermo. Small groups, English spoken, and you eat what you cooked.\n\nBook your class on risthome.it (link in bio)",
+  "hashtags": [
+    "#palermo",
+    "#sicily",
+    "#risthome",
+    "#cookingclass",
+    "#sicilianfood",
+    "#palermofood",
+    "#cannoli",
+    "#pasta",
+    "#arancini",
+    "#pistachio",
+    "#thingstodoinpalermo"
+  ],
+  "reel": {
+    "hook": {
+      "image": "assets/pool/90-IMG_0114.jpg",
+      "trimSec": 0,
+      "title": "Cook Sicilian pasta with a chef in Palermo",
+      "subtitle": "Hands-on class in the chef's kitchen",
+      "durationSec": 3.4,
+      "motion": "dolly-in"
+    },
+    "scenes": [
+      {
+        "image": "assets/pool/89-IMG_0113.jpg",
+        "trimSec": 0,
+        "text": "Whole pistachios and a basil leaf wait in the wooden mortar",
+        "label": "Step 1",
+        "durationSec": 2.7,
+        "motion": "dolly-in"
+      },
+      {
+        "image": "assets/pool/11-IMG_0016.jpg",
+        "trimSec": 0,
+        "text": "Long pasta with clams, parsley and olive oil",
+        "label": "Step 2",
+        "durationSec": 2.7,
+        "motion": "pan-right"
+      },
+      {
+        "image": "assets/pool/37-IMG_0042.jpg",
+        "trimSec": 0,
+        "text": "A nest of spaghetti in orange tomato sauce with golden breadcrumbs",
+        "label": "Step 3",
+        "durationSec": 2.7,
+        "motion": "crash-zoom-in"
+      },
+      {
+        "image": "assets/pool/17-IMG_0022.jpg",
+        "trimSec": 0,
+        "text": "Three golden arancini on a white plate",
+        "label": "Also on the menu",
+        "durationSec": 2.7,
+        "motion": "arc-left"
+      },
+      {
+        "image": "assets/pool/74-IMG_0093.jpg",
+        "trimSec": 0,
+        "text": "Cannoli with ricotta cream, candied orange and pistachio on glass",
+        "label": "Dessert",
+        "durationSec": 2.7,
+        "motion": "dolly-in"
+      }
+    ],
+    "cta": {
+      "title": "Book your class on risthome.it",
+      "line": "Link in bio",
+      "durationSec": 3.2
+    },
+    "transitionSec": 0.4,
+    "audio": {
+      "src": "audio/fretless.mp3",
+      "volume": 0.8,
+      "fadeOutSec": 1,
+      "attribution": "\"Fretless\" Kevin MacLeod (incompetech.com), CC BY 4.0"
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "type": "cover",
+        "image": "assets/pool/54-IMG_0060.jpg",
+        "title": "Cook Sicilian pasta with a chef in Palermo",
+        "kicker": "Sicilian cooking class"
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/52-IMG_0058.jpg",
+        "title": "Spaghetti with mussels",
+        "body": "Spaghetti with mussels, tomatoes and herbs on a white plate."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/40-IMG_0045.jpg",
+        "title": "Creamy spaghetti with crispy pork",
+        "body": "Spaghetti in a creamy sauce topped with crispy pieces of cured pork."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/55-IMG_0062.jpg",
+        "title": "Tray of rice balls",
+        "body": "A baking tray packed with rows of pale yellow rice balls in neat lines."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/06-IMG_0010.jpg",
+        "title": "Cannoli with ricotta cream",
+        "body": "Cannoli filled with ricotta cream, pistachio and candied orange, dusted with sugar."
+      },
+      {
+        "type": "text",
+        "title": "Your class in Palermo",
+        "body": "A hands-on Sicilian cooking class in the chef's kitchen in Palermo. Small groups, English spoken, then you eat what you cooked."
+      },
+      {
+        "type": "cta",
+        "title": "Book your class on risthome.it",
+        "body": "Link in bio"
+      }
+    ]
+  }
+}

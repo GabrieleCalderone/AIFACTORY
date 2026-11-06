@@ -13,7 +13,7 @@
     "format": { "type": "string", "enum": ["reel", "carousel", "reel+carousel", "photo", "story"] },
     "hypothesis": { "type": "string" },
     "success_metric": { "type": "string", "description": "Formula over the metric columns, decided before publishing" },
-    "status": { "type": "string", "enum": ["draft", "rendered", "approved", "published", "measured", "archived"] },
+    "status": { "type": "string", "enum": ["draft", "rendered", "approved", "scheduled", "published", "measured", "archived"] },
     "published_at": { "type": ["string", "null"], "format": "date-time" },
     "post_url": { "type": ["string", "null"] },
     "reach": { "type": ["integer", "null"], "source": "Instagram Insights > Accounts reached" },

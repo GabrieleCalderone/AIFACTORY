@@ -19,3 +19,6 @@ __pycache__
 
 # Prepared photos (people and personal data; regenerate with `npm run assets`)
 public/assets/
+
+# autopilot logs
+logs/

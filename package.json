@@ -51,7 +51,15 @@
     "gate": "node scripts/gate.ts",
     "estimate": "node --env-file-if-exists=.env scripts/estimate-genai.ts",
     "clips": "uv run python -I tools/py/prepare_clips.py",
-    "publish-pack": "node scripts/publish-pack.ts"
+    "publish-pack": "node scripts/publish-pack.ts",
+    "author": "node scripts/author.ts",
+    "describe-assets": "node scripts/describe-assets.ts",
+    "build-pool": "node scripts/build-pool.ts",
+    "host": "node --env-file-if-exists=.env scripts/host-media.ts",
+    "publish": "node --env-file-if-exists=.env scripts/publish.ts",
+    "sync-metrics": "node --env-file-if-exists=.env scripts/sync-metrics.ts",
+    "autopilot": "node --env-file-if-exists=.env scripts/autopilot.ts",
+    "buffer:channels": "node --env-file-if-exists=.env scripts/buffer-channels.ts"
   },
   "allowScripts": {
     "esbuild": false

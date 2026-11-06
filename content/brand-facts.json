@@ -1,0 +1,22 @@
+{
+  "updated": "2026-11-06",
+  "note": "Only these facts may appear in generated texts. Anything else must be visible in the photo itself. Prices are never written: they differ per channel.",
+  "brand": "RistHome",
+  "tagline": "Il tuo chef a domicilio",
+  "chef": "Chef Giacomo Napolitano",
+  "city": "Palermo, Sicily",
+  "kitchen": "the chef's kitchen in Palermo (Via Giuseppe Di Stefano 6)",
+  "site": "risthome.it",
+  "handle": "@risthome",
+  "services": {
+    "cooking_class": "hands-on Sicilian cooking class in the chef's kitchen in Palermo, small groups, English spoken, then you eat what you cooked",
+    "private_chef": "private chef at home in Palermo and province (villa, apartment, boat): shopping, cooking, service and kitchen cleanup included, menu built around the guests",
+    "events": "finger food and dinners for private and corporate events in Sicily, from 25 guests, served by the RistHome team"
+  },
+  "proof": ["5.0 on Google with 101 reviews (checked 2026-11-05)", "former Gambero Rosso chef"],
+  "forbidden": ["prices", "discounts", "free cancellation", "response-time promises", "awards or reviews not listed above", "dish names not visible in the photo"],
+  "cta": {
+    "en": { "class": "Book your class on risthome.it (link in bio)", "chef": "Ask for a quote on risthome.it (link in bio)", "events": "Ask for an event proposal on risthome.it (link in bio)" },
+    "it": { "class": "Prenota la lezione su risthome.it (link in bio)", "chef": "Chiedi un preventivo su risthome.it (link in bio)", "events": "Chiedi una proposta per il tuo evento su risthome.it (link in bio)" }
+  }
+}

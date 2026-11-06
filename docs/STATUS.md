@@ -1,4 +1,4 @@
-# Status and verification report, 2026-11-06 (end of day)
+# Status and verification report, 2026-11-06 (night: full automation)
 
 ## What exists now
 
@@ -43,7 +43,32 @@ columns from reach to contribution margin, left empty until measured).
 | Storyboards, publish packs, report | `storyboard.ts`, `publish-pack.ts`, `report.ts` on all posts | written to `out/<slug>/` and `docs/performance.md` |
 | Security review follow-up | adapter URL confinement, media path traversal, CSV formula injection, fail-closed consent | fixed with tests |
 
-## Open work (needs Gabriele or the chef)
+## Automation added (see docs/automation.md, ADR 0003)
+
+- Photo catalogue by headless Claude (117 photos: 95 none, 8 chef, 14 guests; spot-checked),
+  consent-filtered pool of 102 (printed logos and small photos excluded at authoring).
+- `author.ts`: Claude writes brief and texts from the photo descriptions, second pass
+  reviews each photo against its text and rewrites unsupported claims (verified twice:
+  "tagliatelle"/"pasta ripiena" and "fried" rice balls were corrected automatically).
+- `publish.ts` (Buffer, dry run without keys), `sync-metrics.ts`, `host-media.ts`
+  (GitHub Pages, dry run available), `autopilot.ts` + `src/lib/autopilot.ts` (tested),
+  `install-autopilot.sh` (launchd), `setup-media-host.sh`.
+- Forced dry-run cycle on 2026-11-06: `a1-20261106` authored, reviewed, rendered, hosted
+  (dry) and scheduled (dry) in 88 s. 47 Node tests + 2 Python tests pass.
+
+## Open work
+
+Two one-time account actions the automated session could not perform (the tool policy
+denied creating a public repo and installing a launchd agent):
+1. `bash scripts/setup-media-host.sh` (creates the public GitHub Pages repo).
+2. Buffer: create the account, connect Instagram, create an API key, put
+   `BUFFER_API_KEY` and `BUFFER_CHANNEL_ID` in `.env` (`npm run buffer:channels` lists ids).
+3. `bash scripts/install-autopilot.sh` (daily 10:30). Until then: `npm run autopilot -- --force`.
+
+Everything else runs without a human: the sample posts of today and the automated
+`a1-20261106` are rendered and ready in `out/`.
+
+## Earlier open items (now automated or superseded)
 
 1. Approve texts and business claims ("preventivo in 24 ore", "English spoken",
    "ville, resort e location in tutta la Sicilia") before posting.

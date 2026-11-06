@@ -76,9 +76,11 @@ export const ReelCta = z.object({
 
 export const ReelAudio = z.object({
   /** Path under public/. Only use tracks you are licensed to publish. */
-  src: z.string().min(1),
+  src: z.string().min(1).regex(relativeUnderPublic, "audio must be a relative path under public/"),
   volume: z.number().min(0).max(1).default(0.8),
   fadeOutSec: z.number().min(0).max(5).default(1),
+  /** Licence credit appended to the caption, e.g. '"Fretless" Kevin MacLeod (incompetech.com), CC BY 4.0'. */
+  attribution: z.string().max(200).optional(),
 });
 
 export const Reel = z.object({

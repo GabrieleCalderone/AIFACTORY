@@ -18,7 +18,7 @@ const optRatio = z.preprocess(
 );
 const optText = z.preprocess((v) => (v === "" || v === undefined ? null : v), z.string().nullable());
 
-export const ExperimentStatus = z.enum(["draft", "rendered", "approved", "published", "measured", "archived"]);
+export const ExperimentStatus = z.enum(["draft", "rendered", "approved", "scheduled", "published", "measured", "archived"]);
 
 export const ExperimentRow = z.object({
   experiment_id: z.string().regex(/^EXP-\d{3,}$/),

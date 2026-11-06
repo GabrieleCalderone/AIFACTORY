@@ -49,8 +49,11 @@ export const reelTimeline = (reel: Reel, fps: number): ReelTimeline => {
 
 export const reelDurationInFrames = (reel: Reel, fps: number): number => reelTimeline(reel, fps).totalInFrames;
 
-/** Caption text ready to paste into Instagram: body, blank line, hashtags. */
-export const buildCaption = (spec: Pick<PostSpec, "caption" | "hashtags">): string => {
-  const body = spec.caption.trim();
-  return spec.hashtags.length === 0 ? body : `${body}\n\n${spec.hashtags.join(" ")}`;
+/** Caption text ready to paste into Instagram: body, optional music credit, blank line, hashtags. */
+export const buildCaption = (spec: Pick<PostSpec, "caption" | "hashtags"> & { reel?: { audio?: { attribution?: string } } }): string => {
+  const parts = [spec.caption.trim()];
+  const credit = spec.reel?.audio?.attribution?.trim();
+  if (credit) parts.push(`Music: ${credit}`);
+  if (spec.hashtags.length > 0) parts.push(spec.hashtags.join(" "));
+  return parts.join("\n\n");
 };
