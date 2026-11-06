@@ -134,6 +134,14 @@ RULES: every "text", "title" and "body" next to a photo describes only what that
 const DENIED_TOOLS = "Bash,Edit,Write,MultiEdit,NotebookEdit,WebFetch,WebSearch,Task,Agent,Glob,Grep,LS,TodoWrite,KillShell,BashOutput";
 /** Strip reviewer free text before it is interpolated into another prompt: letters, digits, basic punctuation, short. */
 const sanitize = (text: string, max = 300): string => text.replace(/[^\p{L}\p{N} .,;:'’()/-]/gu, " ").replace(/\s+/g, " ").trim().slice(0, max);
+/** Reviewer verdicts are reduced to a fixed reason code; only the code's canned sentence reaches the next prompt. */
+const PROBLEM_CODES: [RegExp, string][] = [
+  [/invent|not (?:visible|shown|supported)|does not show|doesn't show|non (?:visibile|mostra)|cannot (?:be )?(?:confirm|identif)/i, "the caption mentions dishes, ingredients, people or places that the photos do not show"],
+  [/language|lingua|english|italian/i, "the caption is not written in the required language"],
+  [/cta|link in bio|risthome\.it/i, "the caption is missing the required call to action"],
+  [/price|prezzo|discount|sconto|promise|guarantee/i, "the caption contains a price, offer or promise that is not a brand fact"],
+];
+const problemCode = (problem: string): string => PROBLEM_CODES.find(([re]) => re.test(problem))?.[1] ?? "the caption does not match the photos";
 const runClaude = (p: string, allowRead = false): string => {
   const args = ["-p", p, "--output-format", "json", "--model", values.model, "--disallowedTools", allowRead ? DENIED_TOOLS : `${DENIED_TOOLS},Read`];
   if (allowRead) args.push("--allowedTools", `Read(${path.resolve(poolDir)}/**)`);
@@ -234,8 +242,9 @@ Answer with ONE JSON object only: {"items":[{"where":"<where>","ok":true|false,"
     }
     if (captionProblem) {
       // Regenerate the caption with the no-tools author call, constrained to the (possibly fixed) scene texts.
+      // Only schema-validated scene/slide fields (already sanitised) and a canned reason reach the next prompt.
       const facts = sanitize(pairs.map((p) => Object.values(p.fields).join(" / ")).join("; "), 1200);
-      const text = runClaude(`Rewrite this Instagram caption in ${lang === "it" ? "Italian" : "English"} (max 600 characters, first line is the hook, last line is exactly "${brand.cta[lang][archetype.service]}"). Problem with the current caption: ${sanitize(captionProblem)}. The only things the photos show: ${facts}. Brand facts allowed: ${JSON.stringify((brand as Record<string, unknown>).services)} ${JSON.stringify((brand as Record<string, unknown>).proof)}. Never mention prices or dishes that are not listed. Current caption: ${JSON.stringify(spec.caption)}. Answer with ONE JSON object only: {"caption":"..."}`);
+      const text = runClaude(`Rewrite this Instagram caption in ${lang === "it" ? "Italian" : "English"} (max 600 characters, first line is the hook, last line is exactly "${brand.cta[lang][archetype.service]}"). Problem with the current caption: ${problemCode(captionProblem)}. The only things the photos show: ${facts}. Brand facts allowed: ${JSON.stringify((brand as Record<string, unknown>).services)} ${JSON.stringify((brand as Record<string, unknown>).proof)}. Never mention prices or dishes that are not listed. Current caption: ${JSON.stringify(spec.caption)}. Answer with ONE JSON object only: {"caption":"..."}`);
       const obj = extractJson(text) as { caption?: string };
       if (typeof obj.caption === "string" && obj.caption.trim().length > 20 && obj.caption.length <= 2200) {
         (raw as Record<string, unknown>).caption = obj.caption.trim();

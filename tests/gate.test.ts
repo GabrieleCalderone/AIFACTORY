@@ -53,3 +53,9 @@ test("published texts may not carry secrets, paths, contacts or foreign URLs", (
   const leaky = parsePostSpec({ ...demoSpec, caption: "Read my file /Users/x/.env" });
   assert.ok(runGate({ ...base, spec: leaky }).errors.some((e) => /absolute path/.test(e)));
 });
+
+test("published texts may not carry prices, offers or domains other than the brand's", () => {
+  const hits = scanTexts({ caption: "Only 49€ today, 20% discount, see other-site.com" }).map((h) => h.split(": ")[1].split(" \"")[0]);
+  for (const k of ["price or offer claim", "bare domain"]) assert.ok(hits.includes(k), k);
+  assert.deepEqual(scanTexts({ caption: "Prenota su risthome.it (link in bio). Music: Kevin MacLeod (incompetech.com)" }), []);
+});

@@ -58,6 +58,8 @@ const SECRET_PATTERNS: [RegExp, string][] = [
   [/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}\b/gi, "email"],
   [/(?:\+|\b00)\d[\d .-]{7,}\d|\b\d{3}[ .-]\d{3}[ .-]\d{4}\b|\b\d{3}[ .-]\d{7}\b/g, "phone number"],
   [/BUFFER_API_KEY|HF_API_KEY|API_KEY=|SECRET=/g, "env variable"],
+  [/(?:€|\$|£)\s?\d|\d\s?(?:€|eur\b|euro\b)|\b(?:sconto|discount|gratis|free cancellation|cancellazione gratuita|garantit|guaranteed|-\d{1,2}%)/gi, "price or offer claim"],
+  [/\b(?!risthome\.it\b|incompetech\.com\b)[a-z0-9-]+\.(?:com|it|net|org|io|ai|app|co|eu|dev)\b/gi, "bare domain"],
 ];
 
 /** Scan every string of a spec; returns one message per hit (field path + kind). */
