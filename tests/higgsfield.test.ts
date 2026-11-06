@@ -4,6 +4,7 @@ import {
   canSpend,
   createHiggsfieldClient,
   extractOutputs,
+  isAllowedOutputUrl,
   modelUrl,
   monthSpendEur,
 } from "../src/adapters/higgsfield.ts";
@@ -61,8 +62,9 @@ test("submit, status and cancel follow the documented lifecycle with Key auth", 
     "/requests/r1/status": {
       body: {
         status: "completed",
-        images: [{ url: "https://cdn.example/out.png" }],
-        meta: { thumb: "https://cdn.example/t.jpg" },
+        images: [{ url: "https://cdn.higgsfield.ai/out.png" }],
+        meta: { thumb: "https://cdn.higgsfield.ai/t.jpg" },
+        leak: "https://evil.example/x.png",
       },
     },
     "/requests/r1/cancel": { body: {} },
@@ -79,9 +81,10 @@ test("submit, status and cancel follow the documented lifecycle with Key auth", 
   const st = await c.status(sub.statusUrl);
   assert.equal(st.done, true);
   assert.deepEqual(st.outputs, [
-    "https://cdn.example/out.png",
-    "https://cdn.example/t.jpg",
+    "https://cdn.higgsfield.ai/out.png",
+    "https://cdn.higgsfield.ai/t.jpg",
   ]);
+  assert.deepEqual(st.rejected, ["https://evil.example/x.png"]);
   await c.cancel(sub.cancelUrl);
   assert.equal(f.calls[2].method, "POST");
 });
@@ -110,7 +113,7 @@ test("status links outside the API origin are refused; waitFor polls until done"
           ? { status: "in_progress" }
           : {
               status: "completed",
-              video: { url: "https://cdn.example/v.mp4" },
+              video: { url: "https://media.higgsfield.ai/v.mp4" },
             },
     };
   };
@@ -127,15 +130,14 @@ test("status links outside the API origin are refused; waitFor polls until done"
   assert.deepEqual(done.outputs, ["https://media.higgsfield.ai/v.mp4"]);
 });
 
-test("extractOutputs only keeps media URLs", () => {
+test("outputs are downloaded only from allowed https hosts, never private addresses", () => {
   assert.deepEqual(
-    extractOutputs({
-      a: "https://x/y.png",
-      b: "https://x/page.html",
-      c: ["https://x/z.mp4?sig=1", "not a url"],
-    }),
-    ["https://x/y.png", "https://x/z.mp4?sig=1"],
+    extractOutputs({ a: "https://a.higgsfield.ai/y.png", b: "https://a.higgsfield.ai/page.html", c: ["https://a.higgsfield.ai/z.mp4?sig=1", "http://a.higgsfield.ai/plain.png", "https://evil.example/x.png", "https://127.0.0.1/x.png", "https://10.0.0.5/x.jpg"] }),
+    ["https://a.higgsfield.ai/y.png", "https://a.higgsfield.ai/z.mp4?sig=1"],
   );
+  assert.equal(isAllowedOutputUrl("https://cdn.example/x.png", ["cdn.example"]), true);
+  assert.equal(isAllowedOutputUrl("https://user:pw@cdn.example/x.png", ["cdn.example"]), false);
+  assert.equal(isAllowedOutputUrl("https://169.254.169.254/x.png", ["169.254.169.254"]), false);
 });
 
 test("the monthly cap blocks spend by default and counts only the current month", () => {

@@ -130,10 +130,8 @@ try {
       new URL(url).pathname.match(/\.(png|jpe?g|webp|mp4|mov|webm)$/i)?.[1] ??
       "bin"
     ).toLowerCase();
-    const file = path.join(
-      "public/assets/generated",
-      `${new Date().toISOString().slice(0, 10)}-${sub.requestId.slice(0, 8)}-${++i}.${ext}`,
-    );
+    const file = path.join(outDir, `${new Date().toISOString().slice(0, 10)}-${rid}-${++i}.${ext}`);
+    if (!path.resolve(file).startsWith(outDir + path.sep)) throw new Error("refusing output path outside public/assets/generated");
     writeFileSync(file, buf);
     const provenance: Provenance = {
       kind: "generated",

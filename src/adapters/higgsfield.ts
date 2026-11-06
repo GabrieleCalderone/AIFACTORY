@@ -32,6 +32,7 @@ export type StatusResult = {
   status: string;
   done: boolean;
   outputs: string[];
+  rejected: string[];
   raw: unknown;
 };
 
@@ -128,9 +129,10 @@ export const createHiggsfieldClient = (opts: {
   keyId: string;
   keySecret: string;
   fetchImpl?: FetchLike;
-  baseUrl?: string;
+  baseUrl?: string; outputHosts?: string[];
 }) => {
   const baseUrl = opts.baseUrl ?? "https://api.higgsfield.ai";
+  const outputHosts = opts.outputHosts ?? defaultOutputHosts;
   const fetchImpl = opts.fetchImpl ?? (fetch as unknown as FetchLike);
   if (!opts.keyId || !opts.keySecret)
     throw new Error("Higgsfield key id and secret are required");
@@ -197,7 +199,8 @@ export const createHiggsfieldClient = (opts: {
       return {
         status,
         done: TERMINAL.has(status),
-        outputs: status === "completed" ? extractOutputs(raw) : [],
+        outputs: status === "completed" ? extractOutputs(raw, outputHosts) : [],
+        rejected: status === "completed" ? rejectedOutputs(raw, outputHosts) : [],
         raw,
       };
     },
