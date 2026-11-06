@@ -1,0 +1,86 @@
+{
+  "slug": "chef-a-domicilio",
+  "lang": "it",
+  "title": "Chef a domicilio: la cena arriva in villa",
+  "brief": {
+    "archetype": "A4-private-table",
+    "audience": "Coppie, famiglie e gruppi di amici in villa o casa vacanze a Palermo e provincia, italiani e stranieri, che vogliono una cena speciale senza uscire",
+    "objective": "Richieste di preventivo qualificate via WhatsApp o form di risthome.it",
+    "hook": "Lo chef che cucina in giardino: la cena si fa a casa tua",
+    "sequence": [
+      "Hook: chef in giardino con la padella (dolly in)",
+      "Beat 1: tavola apparecchiata con petali (arc right)",
+      "Beat 2: melanzana e pomodoro impiattati (dolly in)",
+      "Beat 3: insalata fresca con avocado (pan left)",
+      "Beat 4: spaghetti alle cozze (crash zoom)",
+      "Beat 5: dolce con fragole (dolly in)",
+      "CTA: preventivo in 24 ore"
+    ],
+    "cta": "Scrivici su risthome.it: preventivo in 24 ore",
+    "hypothesis": "Mostrare il contesto (giardino, tavola) prima dei piatti genera più richieste di preventivo rispetto ai soli piatti. Successo: almeno 2 richieste qualificate ogni 1.000 visualizzazioni.",
+    "experimentId": "EXP-002",
+    "variantId": "A"
+  },
+  "caption": "Chef a domicilio a Palermo e provincia. Spesa, cucina, servizio e riordino: ci pensiamo noi, tu stai a tavola con i tuoi ospiti. Menu siciliano costruito sulle vostre preferenze e allergie.\n\nScrivici su risthome.it (link in bio): preventivo entro 24 ore.",
+  "hashtags": [
+    "chefadomicilio",
+    "palermo",
+    "sicilia",
+    "privatechef",
+    "cenaprivata",
+    "villainsicilia",
+    "risthome"
+  ],
+  "reel": {
+    "hook": {
+      "image": "assets/chef-a-domicilio/01-IMG_0071.jpg",
+      "title": "Uno chef cucina a casa tua, in Sicilia",
+      "subtitle": "Villa, appartamento o barca",
+      "durationSec": 3.4,
+      "motion": "dolly-in"
+    },
+    "scenes": [
+      {
+        "image": "assets/chef-a-domicilio/02-IMG_0117.jpg",
+        "label": "Mise en place",
+        "text": "La tavola è pronta prima degli ospiti",
+        "durationSec": 2.8,
+        "motion": "arc-right"
+      },
+      {
+        "image": "assets/chef-a-domicilio/03-IMG_0055.jpg",
+        "label": "Antipasto",
+        "text": "Melanzana e pomodoro",
+        "durationSec": 2.6,
+        "motion": "dolly-in"
+      },
+      {
+        "image": "assets/chef-a-domicilio/09-IMG_0044.jpg",
+        "label": "Fresco",
+        "text": "Insalata fresca con avocado",
+        "durationSec": 2.6,
+        "motion": "pan-left"
+      },
+      {
+        "image": "assets/chef-a-domicilio/10-IMG_0058.jpg",
+        "label": "Primo",
+        "text": "Spaghetti alle cozze",
+        "durationSec": 2.8,
+        "motion": "crash-zoom-in"
+      },
+      {
+        "image": "assets/chef-a-domicilio/11-IMG_0099.jpg",
+        "label": "Dolce",
+        "text": "Fragole per chiudere",
+        "durationSec": 2.6,
+        "motion": "dolly-in"
+      }
+    ],
+    "cta": {
+      "title": "Preventivo in 24 ore",
+      "line": "Scrivici su risthome.it · link in bio",
+      "durationSec": 3.2
+    },
+    "transitionSec": 0.4
+  }
+}

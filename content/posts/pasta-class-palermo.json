@@ -1,0 +1,145 @@
+{
+  "slug": "pasta-class-palermo",
+  "lang": "en",
+  "title": "Cooking class in Palermo: from the mortar to the cannolo",
+  "brief": {
+    "archetype": "A1-process-reveal",
+    "audience": "English-speaking travellers spending 2-4 days in Palermo (couples, friends, families), 30-60, booking experiences on mobile a few days ahead",
+    "objective": "Cooking-class bookings on risthome.it or GetYourGuide; secondary: profile visits and saves",
+    "hook": "Chef's hands plating in the first frame + a direct promise: cook with a Sicilian chef in Palermo",
+    "sequence": [
+      "Hook: chef plating cannoli on slate (dolly in)",
+      "Beat 1: basket of market vegetables (pan right)",
+      "Beat 2: pistachios in the mortar (dolly in)",
+      "Beat 3: pistachio pesto pounded by hand (crash zoom)",
+      "Beat 4: fresh pasta in tomato sauce (arc left)",
+      "Beat 5: tray of arancine (pan left)",
+      "Beat 6: cannoli with pistachio (dolly in)",
+      "CTA: book on risthome.it"
+    ],
+    "cta": "Book your class on risthome.it (link in bio)",
+    "hypothesis": "A step-by-step process reel (ingredient to dish) keeps viewers longer than a plate montage. Success: average watch time at or above 60% of the reel length and at least one booking enquiry per 1,000 plays.",
+    "experimentId": "EXP-001",
+    "variantId": "A"
+  },
+  "caption": "Hands-on Sicilian cooking class in Palermo with Chef Giacomo. We start at the market, pound pistachio pesto in the mortar, roll fresh pasta and finish with cannoli. Then we eat what we cooked, together.\n\nBook your class on risthome.it (link in bio).",
+  "hashtags": [
+    "palermo",
+    "sicily",
+    "cookingclass",
+    "pastaclass",
+    "sicilianfood",
+    "thingstodoinpalermo",
+    "cannoli",
+    "risthome"
+  ],
+  "reel": {
+    "hook": {
+      "image": "assets/pasta-class-palermo/13-IMG_0077.jpg",
+      "title": "Cook with a Sicilian chef in Palermo",
+      "subtitle": "A hands-on class, then dinner together",
+      "durationSec": 3.4,
+      "motion": "dolly-in"
+    },
+    "scenes": [
+      {
+        "image": "assets/pasta-class-palermo/10-IMG_0047.jpg",
+        "label": "Step 1",
+        "text": "Start with a basket from the market",
+        "durationSec": 2.6,
+        "motion": "pan-right"
+      },
+      {
+        "image": "assets/pasta-class-palermo/02-IMG_0113.jpg",
+        "label": "Step 2",
+        "text": "Pistachios go in the mortar",
+        "durationSec": 2.6,
+        "motion": "dolly-in"
+      },
+      {
+        "image": "assets/pasta-class-palermo/03-IMG_0114.jpg",
+        "label": "Step 3",
+        "text": "Pound them into pesto by hand",
+        "durationSec": 2.8,
+        "motion": "crash-zoom-in"
+      },
+      {
+        "image": "assets/pasta-class-palermo/11-IMG_0042.jpg",
+        "label": "Step 4",
+        "text": "Fresh pasta, tomato sauce",
+        "durationSec": 2.8,
+        "motion": "arc-left"
+      },
+      {
+        "image": "assets/pasta-class-palermo/12-IMG_0062.jpg",
+        "label": "Also on the menu",
+        "text": "Arancine, straight from the tray",
+        "durationSec": 2.6,
+        "motion": "pan-left"
+      },
+      {
+        "image": "assets/pasta-class-palermo/06-IMG_0093.jpg",
+        "label": "Dessert",
+        "text": "Cannoli with pistachio to finish",
+        "durationSec": 2.8,
+        "motion": "dolly-in"
+      }
+    ],
+    "cta": {
+      "title": "Book your class on risthome.it",
+      "line": "Palermo · small groups · link in bio",
+      "durationSec": 3.2
+    },
+    "transitionSec": 0.4
+  },
+  "carousel": {
+    "slides": [
+      {
+        "type": "cover",
+        "image": "assets/pasta-class-palermo/13-IMG_0077.jpg",
+        "kicker": "Cooking class",
+        "title": "What you cook in our Palermo class"
+      },
+      {
+        "type": "photo",
+        "image": "assets/pasta-class-palermo/10-IMG_0047.jpg",
+        "title": "It starts at the market",
+        "body": "Aubergines, tomatoes and basil in the basket."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pasta-class-palermo/03-IMG_0114.jpg",
+        "title": "Pistachio pesto",
+        "body": "Pounded in the mortar, the slow way."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pasta-class-palermo/11-IMG_0042.jpg",
+        "title": "Fresh pasta, tomato sauce",
+        "body": "The pasta you roll, in a simple tomato sauce."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pasta-class-palermo/12-IMG_0062.jpg",
+        "title": "Arancine",
+        "body": "Shaped and breaded, ready for the fryer."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pasta-class-palermo/06-IMG_0093.jpg",
+        "title": "Cannoli",
+        "body": "Filled at the end, pistachio on top."
+      },
+      {
+        "type": "text",
+        "title": "Then we sit down and eat it all",
+        "body": "Small groups, English spoken, in the chef's kitchen in Palermo."
+      },
+      {
+        "type": "cta",
+        "title": "Book your class on risthome.it",
+        "body": "Link in bio"
+      }
+    ]
+  }
+}

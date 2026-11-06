@@ -1,0 +1,87 @@
+{
+  "slug": "eventi-finger-food",
+  "lang": "it",
+  "title": "Finger food per eventi: sei proposte",
+  "brief": {
+    "archetype": "A3-menu-list",
+    "audience": "Aziende, wedding planner e privati che organizzano eventi da 25 ospiti in su in Sicilia",
+    "objective": "Richieste di proposta per eventi via form o WhatsApp; secondario: salvataggi e condivisioni",
+    "hook": "Vassoio reale di tartare in bocconcini + promessa: finger food per il tuo evento",
+    "sequence": [
+      "Cover: tartare in bocconcini su vetro",
+      "Slide: coni di arancinette",
+      "Slide: bicchierini freddi al cucchiaio",
+      "Slide: arancine nel vassoio",
+      "Slide: mini brioche farcite",
+      "Slide: spiedini sul buffet",
+      "Slide testo: come funziona",
+      "CTA: chiedi una proposta"
+    ],
+    "cta": "Chiedi una proposta su risthome.it",
+    "hypothesis": "Un carosello con sei piatti nominati ottiene più salvataggi e condivisioni di un singolo post fotografico. Successo: tasso di salvataggio almeno 2% sulla reach.",
+    "experimentId": "EXP-003",
+    "variantId": "A"
+  },
+  "caption": "Finger food per eventi aziendali, matrimoni e feste private in Sicilia: coni di arancinette, bicchierini, tartare, brioche al sesamo e spiedini, preparati e serviti dalla brigata RistHome.\n\nChiedi una proposta su risthome.it (link in bio).",
+  "hashtags": [
+    "fingerfood",
+    "catering",
+    "eventi",
+    "palermo",
+    "sicilia",
+    "matrimonio",
+    "eventiaziendali",
+    "risthome"
+  ],
+  "carousel": {
+    "slides": [
+      {
+        "type": "cover",
+        "image": "assets/eventi-finger-food/04-IMG_0011.jpg",
+        "kicker": "Eventi",
+        "title": "Finger food per il tuo evento"
+      },
+      {
+        "type": "photo",
+        "image": "assets/eventi-finger-food/11-IMG_0112.jpg",
+        "title": "Coni di arancinette",
+        "body": "Street food siciliano in versione mignon, un cono a testa."
+      },
+      {
+        "type": "photo",
+        "image": "assets/eventi-finger-food/03-IMG_0012.jpg",
+        "title": "Bicchierini freddi",
+        "body": "Monoporzioni al cucchiaio, pronte al servizio."
+      },
+      {
+        "type": "photo",
+        "image": "assets/eventi-finger-food/09-IMG_0062.jpg",
+        "title": "Arancine",
+        "body": "Impanate a mano, pronte per la friggitrice."
+      },
+      {
+        "type": "photo",
+        "image": "assets/eventi-finger-food/10-IMG_0050.jpg",
+        "title": "Brioche al sesamo farcite",
+        "body": "Una per ospite, da mangiare in due morsi."
+      },
+      {
+        "type": "photo",
+        "image": "assets/eventi-finger-food/01-IMG_0076.jpg",
+        "title": "Spiedini sul buffet",
+        "body": "Serviti su vassoio in giardino, pronti per gli ospiti."
+      },
+      {
+        "type": "text",
+        "title": "Come funziona",
+        "body": "Ci dici data, ospiti e luogo. Ricevi una proposta con menu e prezzo. Ville, resort e location in tutta la Sicilia."
+      },
+      {
+        "type": "cta",
+        "title": "Chiedi una proposta su risthome.it",
+        "body": "Link in bio",
+        "image": "assets/eventi-finger-food/01-IMG_0076.jpg"
+      }
+    ]
+  }
+}
