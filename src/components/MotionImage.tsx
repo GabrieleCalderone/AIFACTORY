@@ -5,6 +5,10 @@ type Props = {
   readonly src: string;
   readonly motion: ReelMotion;
   readonly durationInFrames: number;
+  /** CSS filter chain from the product look (editorial colour grade). */
+  readonly grade?: string;
+  /** Vignette strength 0-1 from the product look. */
+  readonly vignette?: number;
 };
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
@@ -15,7 +19,7 @@ const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
  * a crash zoom punches in within ~0.35s with a short motion blur, an arc tilts
  * the plane in perspective while pushing in. No external service involved.
  */
-export const MotionImage: React.FC<Props> = ({ src, motion, durationInFrames }) => {
+export const MotionImage: React.FC<Props> = ({ src, motion, durationInFrames, grade, vignette = 0 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const progress = interpolate(frame, [0, durationInFrames], [0, 1], {
@@ -70,20 +74,26 @@ export const MotionImage: React.FC<Props> = ({ src, motion, durationInFrames }) 
       transform = "scale(1.1)";
   }
 
+  const grading = [grade, filter !== "none" ? filter : ""].filter(Boolean).join(" ") || "none";
   return (
-    <Img
-      src={staticFile(src)}
-      style={{
-        position: "absolute",
-        inset: 0,
-        width: "100%",
-        height: "100%",
-        objectFit: "cover",
-        transform,
-        transformOrigin: "50% 50%",
-        filter,
-        willChange: "transform",
-      }}
-    />
+    <>
+      <Img
+        src={staticFile(src)}
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          transform,
+          transformOrigin: "50% 50%",
+          filter: grading,
+          willChange: "transform",
+        }}
+      />
+      {vignette > 0 ? (
+        <div style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,${vignette}) 100%)` }} />
+      ) : null}
+    </>
   );
 };

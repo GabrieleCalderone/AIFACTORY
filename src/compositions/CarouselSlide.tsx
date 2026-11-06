@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import { AbsoluteFill, Img, staticFile } from "remotion";
 import { theme } from "../brand/theme";
+import { lookForArchetype, type Look } from "../brand/looks";
+import archetypes from "../../content/archetypes.json";
 import { Chip } from "../components/Chip";
 import { Scrim } from "../components/Scrim";
 import { parsePostSpec, type CarouselSlide as SlideSpec, type PostSpec, type PostSpecInput } from "../schemas/post";
@@ -18,14 +20,14 @@ const copy = {
 
 const pad = theme.carouselSafe;
 
-const Cover: React.FC<{ slide: Extract<SlideSpec, { type: "cover" }>; lang: PostSpec["lang"] }> = ({ slide, lang }) => (
+const Cover: React.FC<{ slide: Extract<SlideSpec, { type: "cover" }>; lang: PostSpec["lang"]; look: Look }> = ({ slide, lang, look }) => (
   <AbsoluteFill style={{ backgroundColor: theme.colors.ink }}>
-    <Img src={staticFile(slide.image)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+    <Img src={staticFile(slide.image)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: look.grade }} />
     <Scrim bottom={0.86} />
     <Img src={staticFile("brand/logo-white.png")} style={{ position: "absolute", top: pad.y, left: pad.x, width: 300 }} />
     <div style={{ position: "absolute", left: pad.x, right: pad.x, bottom: pad.y + 40, display: "flex", flexDirection: "column", gap: 24 }}>
       <div>
-        <Chip>{slide.kicker ?? copy[lang].eyebrow}</Chip>
+        <Chip tone={look.chipTone}>{slide.kicker ?? look.eyebrow[lang] ?? copy[lang].eyebrow}</Chip>
       </div>
       <div style={{ fontFamily: theme.fonts.display, fontWeight: 800, fontSize: 88, lineHeight: 1.04, color: theme.colors.white, textShadow: "0 2px 24px rgba(0,0,0,0.5)", textWrap: "balance" }}>
         {slide.title}
@@ -37,12 +39,12 @@ const Cover: React.FC<{ slide: Extract<SlideSpec, { type: "cover" }>; lang: Post
   </AbsoluteFill>
 );
 
-const Photo: React.FC<{ slide: Extract<SlideSpec, { type: "photo" }>; page: string }> = ({ slide, page }) => {
+const Photo: React.FC<{ slide: Extract<SlideSpec, { type: "photo" }>; page: string; look: Look }> = ({ slide, page, look }) => {
   const hasText = Boolean(slide.title || slide.body);
   const imageHeight = hasText ? CAROUSEL_PHOTO_HEIGHT : CAROUSEL.height;
   return (
     <AbsoluteFill style={{ backgroundColor: theme.colors.cream }}>
-      <Img src={staticFile(slide.image)} style={{ position: "absolute", top: 0, left: 0, width: "100%", height: imageHeight, objectFit: "cover" }} />
+      <Img src={staticFile(slide.image)} style={{ position: "absolute", top: 0, left: 0, width: "100%", height: imageHeight, objectFit: "cover", filter: look.grade }} />
       {hasText ? (
         <div style={{ position: "absolute", top: imageHeight, left: 0, right: 0, bottom: 0, padding: `56px ${pad.x}px ${pad.y}px`, display: "flex", flexDirection: "column", gap: 18 }}>
           {slide.title ? (
@@ -102,11 +104,12 @@ export const CarouselSlide: React.FC<CarouselSlideProps> = ({ spec: rawSpec, sli
     throw new Error(`slide ${slideIndex} does not exist (post has ${slides.length} slides)`);
   }
   const page = `${slideIndex + 1}/${slides.length}`;
+  const look = lookForArchetype(spec.brief.archetype, archetypes.archetypes);
   switch (slide.type) {
     case "cover":
-      return <Cover slide={slide} lang={spec.lang} />;
+      return <Cover slide={slide} lang={spec.lang} look={look} />;
     case "photo":
-      return <Photo slide={slide} page={page} />;
+      return <Photo slide={slide} page={page} look={look} />;
     case "text":
       return <Text slide={slide} page={page} />;
     case "cta":

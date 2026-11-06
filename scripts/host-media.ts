@@ -13,6 +13,7 @@ import path from "node:path";
 import { parseArgs } from "node:util";
 import { parsePostSpec } from "../src/schemas/post.ts";
 import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
+import { createR2Store } from "../src/adapters/r2.ts";
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
@@ -48,6 +49,27 @@ if (values["dry-run"]) {
   hosted.dryRun = true;
   writeFileSync(path.join(outDir, "hosted.json"), JSON.stringify(hosted, null, 2) + "\n");
   console.log(`dry run: would host ${(hosted.carousel?.length ?? 0) + (hosted.reel ? 1 : 0) + (hosted.cover ? 1 : 0)} files under ${values.base}/${spec.slug}/${version}/`);
+  process.exit(0);
+}
+// MEDIA_STORE=r2: persistent object storage with public URLs (no git involved).
+if ((process.env.MEDIA_STORE ?? "github") === "r2") {
+  const { R2_ENDPOINT, R2_BUCKET, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_PUBLIC_BASE_URL } = process.env;
+  if (!R2_ENDPOINT || !R2_BUCKET || !R2_ACCESS_KEY_ID || !R2_SECRET_ACCESS_KEY || !R2_PUBLIC_BASE_URL) {
+    console.error("MEDIA_STORE=r2 needs R2_ENDPOINT, R2_BUCKET, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_PUBLIC_BASE_URL");
+    process.exit(1);
+  }
+  const store = createR2Store({ endpoint: R2_ENDPOINT, bucket: R2_BUCKET, accessKeyId: R2_ACCESS_KEY_ID, secretAccessKey: R2_SECRET_ACCESS_KEY, publicBaseUrl: R2_PUBLIC_BASE_URL });
+  const up = async (file: string) => store.put(`${spec.slug}/${version}/${path.basename(file)}`, readFileSync(file), file.endsWith(".mp4") ? "video/mp4" : "image/jpeg");
+  if (manifest.reel) {
+    hosted.reel = await up(manifest.reel.file);
+    if (manifest.reel.cover) hosted.cover = await up(manifest.reel.cover);
+  }
+  if (manifest.carousel) hosted.carousel = await Promise.all(manifest.carousel.map((s) => up(s.file)));
+  hosted.base = R2_PUBLIC_BASE_URL;
+  writeFileSync(path.join(outDir, "hosted.json"), JSON.stringify(hosted, null, 2) + "\n");
+  const st = loadPipeline()[spec.slug]?.state;
+  if (st && ["RENDERED", "READY", "APPROVED", "FAILED", "BLOCKED"].includes(st)) setState(spec.slug, st === "APPROVED" ? "APPROVED" : "READY", `media on R2 under ${R2_PUBLIC_BASE_URL}/${spec.slug}/${version}/`);
+  console.log(`uploaded to R2: ${spec.slug}/${version}/`);
   process.exit(0);
 }
 if (!existsSync(path.join(repoDir, ".git"))) {

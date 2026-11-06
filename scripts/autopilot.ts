@@ -16,10 +16,13 @@ import { loadPipeline } from "../src/lib/pipeline-io.ts";
 const { values } = parseArgs({ options: { force: { type: "boolean", default: false }, "dry-run": { type: "boolean", default: false }, model: { type: "string", default: "sonnet" } } });
 mkdirSync("logs", { recursive: true });
 const logFile = path.join("logs", `autopilot-${new Date().toISOString().slice(0, 10)}.log`);
-const log = (msg: string) => {
-  const line = `${new Date().toISOString()} ${msg}`;
+const jsonLog = path.join("logs", "autopilot.jsonl");
+const log = (msg: string, fields: Record<string, unknown> = {}) => {
+  const at = new Date().toISOString();
+  const line = `${at} ${msg}`;
   console.log(line);
   writeFileSync(logFile, line + "\n", { flag: "a" });
+  writeFileSync(jsonLog, JSON.stringify({ at, level: /FAILED|ERROR/.test(msg) ? "error" : /warning/.test(msg) ? "warn" : "info", msg, ...fields }) + "\n", { flag: "a" });
 };
 const run = (label: string, args: string[], env: Record<string, string> = {}) => {
   log(`$ node ${args.join(" ")}`);

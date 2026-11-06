@@ -5,7 +5,7 @@
  *
  *   node scripts/report.ts [--out docs/performance.md]
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { parseArgs } from "node:util";
 import { readExperiments } from "../src/lib/data.ts";
 import { pct, wilson } from "../src/lib/stats.ts";
@@ -17,7 +17,9 @@ if (issues.length) {
   for (const i of issues) console.error(`${i.file}:${i.row}: ${i.message}`);
   process.exit(1);
 }
-const archetypes = (JSON.parse(readFileSync("content/archetypes.json", "utf8")) as { archetypes: { id: string; name: string }[] }).archetypes;
+const archetypes = (JSON.parse(readFileSync("content/archetypes.json", "utf8")) as { archetypes: { id: string; name: string; service?: string }[] }).archetypes;
+const products = (JSON.parse(readFileSync("content/products.json", "utf8")) as { products: Record<string, { name: string; avgTicketEur: number; marginAssumption: number }> }).products;
+const spend = existsSync("data/genai-spend.json") ? (JSON.parse(readFileSync("data/genai-spend.json", "utf8")) as { usd: number; slug?: string }[]) : [];
 const dash = "–";
 const n = (v: number | null) => (v === null ? dash : String(v));
 const ratio = (num: number | null, den: number | null) => (num === null || den === null || den === 0 ? dash : pct(num / den, 1));
@@ -50,6 +52,19 @@ for (const a of archetypes) {
   const perK = inq === null || plays === null || plays === 0 ? dash : (1000 * inq / plays).toFixed(2);
   lines.push(`| ${a.id} ${a.name} | ${rows.length} | ${measured.length} | ${ci(saves, reach)} | ${perK} | ${n(sum(measured, "bookings"))} | ${n(sum(measured, "revenue_eur"))} |`);
 }
-lines.push("", "Winning patterns are promoted into `content/archetypes.json` only after at least two measured posts per archetype and non-overlapping intervals (`node scripts/compare.ts`).", "");
+lines.push("", "## Revenue view per product", "", "| Product | Posts | Qualified inquiries | Bookings | Revenue EUR | Est. margin EUR (assumption) | AI cost EUR | Cost per booking |", "|---|---|---|---|---|---|---|---|");
+for (const [key, p] of Object.entries(products)) {
+  const archIds = archetypes.filter((a) => a.service === key).map((a) => a.id);
+  const rows = records.filter((r) => archIds.includes(r.archetype));
+  const inq = sum(rows, "qualified_inquiries");
+  const bookings = sum(rows, "bookings");
+  const revenue = sum(rows, "revenue_eur");
+  const ai = spend.filter((s) => s.slug && rows.some((r) => r.post_slug === s.slug)).reduce((a, b) => a + b.usd * 0.95, 0);
+  const margin = revenue === null ? dash : (revenue * p.marginAssumption).toFixed(0);
+  const cpb = bookings && bookings > 0 ? (ai / bookings).toFixed(2) : dash;
+  lines.push(`| ${p.name} | ${rows.length} | ${n(inq)} | ${n(bookings)} | ${n(revenue)} | ${margin} | ${ai.toFixed(2)} | ${cpb} |`);
+}
+lines.push("", "Production cost outside AI generation is EUR 0 (subscription and free tiers); margins use the 60% working assumption until the cash book says otherwise.", "");
+lines.push("Winning patterns are promoted into `content/archetypes.json` only after at least two measured posts per archetype and non-overlapping intervals (`node scripts/compare.ts`).", "");
 writeFileSync(values.out, lines.join("\n"));
 console.log(`wrote ${values.out} (${records.length} variants)`);

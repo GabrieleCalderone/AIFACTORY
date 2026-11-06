@@ -1,0 +1,47 @@
+{
+  "updated": "2026-11-07",
+  "note": "Product taxonomy linking content to landing pages, booking channels and margin assumptions. utm_campaign = experiment id, utm_content = post slug (built by publish-pack/publish).",
+  "products": {
+    "class": {
+      "name": "Cooking class",
+      "landing": "https://risthome.it/#classes",
+      "booking": [
+        "GetYourGuide",
+        "risthome.it form",
+        "WhatsApp"
+      ],
+      "avgTicketEur": 120,
+      "marginAssumption": 0.6
+    },
+    "chef": {
+      "name": "Private chef at home",
+      "landing": "https://risthome.it/#private-chef",
+      "booking": [
+        "risthome.it form",
+        "WhatsApp"
+      ],
+      "avgTicketEur": 400,
+      "marginAssumption": 0.6
+    },
+    "villa": {
+      "name": "Villa fine dining",
+      "landing": "https://risthome.it/#private-chef",
+      "booking": [
+        "risthome.it form",
+        "WhatsApp"
+      ],
+      "avgTicketEur": 900,
+      "marginAssumption": 0.6
+    },
+    "events": {
+      "name": "Events and catering",
+      "landing": "https://risthome.it/#events",
+      "booking": [
+        "risthome.it form",
+        "WhatsApp"
+      ],
+      "avgTicketEur": 2500,
+      "marginAssumption": 0.6
+    }
+  }
+}

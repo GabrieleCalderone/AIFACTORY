@@ -4,6 +4,8 @@ import { fade } from "@remotion/transitions/fade";
 import { useMemo } from "react";
 import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { theme } from "../brand/theme";
+import { lookForArchetype, type Look } from "../brand/looks";
+import archetypes from "../../content/archetypes.json";
 import { Brandmark } from "../components/Brandmark";
 import { Chip } from "../components/Chip";
 import { MotionImage } from "../components/MotionImage";
@@ -38,29 +40,30 @@ const shadow = "0 2px 24px rgba(0,0,0,0.55)";
 
 type Media = { image?: string; video?: string; trimSec: number; motion: ReelSpec["hook"]["motion"] };
 
-const SceneMedia: React.FC<{ media: Media; durationInFrames: number }> = ({ media, durationInFrames }) =>
+const SceneMedia: React.FC<{ media: Media; durationInFrames: number; look: Look }> = ({ media, durationInFrames, look }) =>
   media.video ? (
     <MotionVideo src={media.video} trimSec={media.trimSec} />
   ) : (
-    <MotionImage src={media.image ?? ""} motion={media.motion} durationInFrames={durationInFrames} />
+    <MotionImage src={media.image ?? ""} motion={media.motion} durationInFrames={durationInFrames} grade={look.grade} vignette={look.vignette} />
   );
 
-const HookScene: React.FC<{ reel: ReelSpec; lang: PostSpec["lang"]; durationInFrames: number }> = ({ reel, lang, durationInFrames }) => (
+const HookScene: React.FC<{ reel: ReelSpec; lang: PostSpec["lang"]; durationInFrames: number; look: Look }> = ({ reel, lang, durationInFrames, look }) => (
   <AbsoluteFill style={{ backgroundColor: theme.colors.ink }}>
-    <SceneMedia media={reel.hook} durationInFrames={durationInFrames} />
+    <SceneMedia media={reel.hook} durationInFrames={durationInFrames} look={look} />
     <Scrim />
     <Brandmark />
     <div style={textBlock}>
       <Reveal delay={4}>
-        <Chip>{copy[lang].eyebrow}</Chip>
+        <Chip tone={look.chipTone}>{look.eyebrow[lang] ?? copy[lang].eyebrow}</Chip>
       </Reveal>
       <Reveal delay={8}>
         <div
           style={{
             fontFamily: theme.fonts.display,
-            fontWeight: 800,
+            fontWeight: look.titleWeight,
             fontSize: 92,
             lineHeight: 1.04,
+            letterSpacing: look.titleTracking,
             color: theme.colors.white,
             textShadow: shadow,
             textWrap: "balance",
@@ -80,9 +83,9 @@ const HookScene: React.FC<{ reel: ReelSpec; lang: PostSpec["lang"]; durationInFr
   </AbsoluteFill>
 );
 
-const ContentScene: React.FC<{ scene: ReelSpec["scenes"][number]; durationInFrames: number }> = ({ scene, durationInFrames }) => (
+const ContentScene: React.FC<{ scene: ReelSpec["scenes"][number]; durationInFrames: number; look: Look }> = ({ scene, durationInFrames, look }) => (
   <AbsoluteFill style={{ backgroundColor: theme.colors.ink }}>
-    <SceneMedia media={scene} durationInFrames={durationInFrames} />
+    <SceneMedia media={scene} durationInFrames={durationInFrames} look={look} />
     <Scrim bottom={0.72} />
     <Brandmark />
     <div style={textBlock}>
@@ -164,6 +167,7 @@ export const Reel: React.FC<ReelProps> = ({ spec: rawSpec }) => {
     throw new Error(`post "${spec.slug}" has no reel section`);
   }
   const reel = spec.reel;
+  const look = lookForArchetype(spec.brief.archetype, archetypes.archetypes);
   const timeline = reelTimeline(reel, fps);
   const transition = timeline.transitionInFrames;
 
@@ -175,7 +179,7 @@ export const Reel: React.FC<ReelProps> = ({ spec: rawSpec }) => {
   };
   items.push(
     <TransitionSeries.Sequence key="hook" durationInFrames={timeline.sequences[0].durationInFrames}>
-      <HookScene reel={reel} lang={spec.lang} durationInFrames={timeline.sequences[0].durationInFrames} />
+      <HookScene reel={reel} lang={spec.lang} durationInFrames={timeline.sequences[0].durationInFrames} look={look} />
     </TransitionSeries.Sequence>,
   );
   reel.scenes.forEach((scene, i) => {
@@ -183,7 +187,7 @@ export const Reel: React.FC<ReelProps> = ({ spec: rawSpec }) => {
     pushTransition(`t-${i}`);
     items.push(
       <TransitionSeries.Sequence key={`scene-${i}`} durationInFrames={seq.durationInFrames}>
-        <ContentScene scene={scene} durationInFrames={seq.durationInFrames} />
+        <ContentScene scene={scene} durationInFrames={seq.durationInFrames} look={look} />
       </TransitionSeries.Sequence>,
     );
   });
