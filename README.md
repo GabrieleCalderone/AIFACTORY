@@ -35,8 +35,7 @@ npm run describe-assets -- --src "/photos"     # Claude catalogues photos: peopl
 npm run build-pool                              # consent-filtered pool with descriptions
 npm run author -- --archetype A1-process-reveal --lang en --experiment EXP-005   # Claude writes a spec from the photos, reviews it against them
 npm run autopilot -- --dry-run --force          # plan -> author -> render -> host -> publish (dry run without keys)
-bash scripts/setup-media-host.sh                # one-time: public GitHub Pages media repo
-bash scripts/install-autopilot.sh               # one-time: daily launchd agent (10:30)
+bash scripts/setup.sh                           # one-time: push to GitHub, Pages media host, daily launchd agent (10:30)
 npm run buffer:channels                         # one-time: find BUFFER_CHANNEL_ID after setting BUFFER_API_KEY
 
 # preview and cost checks

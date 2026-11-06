@@ -18,6 +18,8 @@ const { values, positionals } = parseArgs({
   options: {
     "repo-dir": { type: "string", default: process.env.MEDIA_REPO_DIR ?? path.join(homedir(), "Projects/risthome-media") },
     base: { type: "string", default: process.env.MEDIA_BASE_URL ?? "https://gabrielecalderone.github.io/risthome-media" },
+    /** Sub-folder inside the repo (set MEDIA_SUBDIR=media when the code repo itself serves the files via Pages). */
+    subdir: { type: "string", default: process.env.MEDIA_SUBDIR ?? "" },
     "no-wait": { type: "boolean", default: false },
     "dry-run": { type: "boolean", default: false },
     out: { type: "string", default: "out" },
@@ -51,7 +53,7 @@ if (!existsSync(path.join(repoDir, ".git"))) {
   console.error(`media repo not found at ${repoDir}: run scripts/setup-media-host.sh once (creates the public GitHub Pages repo)`);
   process.exit(1);
 }
-const target = path.join(repoDir, spec.slug, version);
+const target = path.join(repoDir, values.subdir, spec.slug, version);
 mkdirSync(target, { recursive: true });
 const files = [manifest.reel?.file, manifest.reel?.cover, ...(manifest.carousel ?? []).map((s) => s.file)].filter((f): f is string => Boolean(f));
 for (const f of files) copyFileSync(f, path.join(target, path.basename(f)));
