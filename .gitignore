@@ -1,7 +1,21 @@
 node_modules
 dist
 .DS_Store
-.env
 
-# Ignore the output video from Git but not videos you import into src/.
+# Secrets: never commit credentials. Copy .env.example to .env locally.
+.env
+.env.*
+!.env.example
+
+# Rendered outputs and caches
 out
+renders
+.cache
+*.log
+
+# Python
+.venv
+__pycache__
+
+# Prepared photos (people and personal data; regenerate with `npm run assets`)
+public/assets/

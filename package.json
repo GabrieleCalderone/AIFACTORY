@@ -1,7 +1,7 @@
 {
   "name": "risthome-ai-factory",
   "version": "1.0.0",
-  "description": "My Remotion video",
+  "description": "RistHome AI Content Factory: data-driven Instagram Reels and carousels rendered with Remotion",
   "repository": {},
   "license": "UNLICENSED",
   "engines": {
@@ -9,13 +9,20 @@
   },
   "private": true,
   "dependencies": {
+    "@remotion/bundler": "4.0.540",
     "@remotion/cli": "4.0.540",
+    "@remotion/fonts": "4.0.540",
+    "@remotion/media": "4.0.540",
+    "@remotion/renderer": "4.0.540",
+    "@remotion/transitions": "4.0.540",
     "react": "19.3.1",
     "react-dom": "19.3.1",
-    "remotion": "4.0.540"
+    "remotion": "4.0.540",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@remotion/eslint-config-flat": "4.0.540",
+    "@types/node": "26.6.6",
     "@types/react": "19.3.0",
     "@types/web": "0.0.166",
     "eslint": "10.12.0",
@@ -26,9 +33,17 @@
     "dev": "remotion studio",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
-    "lint": "eslint src && tsc"
+    "lint": "eslint src scripts tests && tsc",
+    "test": "node --test \"tests/**/*.test.ts\"",
+    "check": "npm run lint && npm test && npm run test:py",
+    "render": "node scripts/render.ts",
+    "render:all": "node scripts/render.ts --all",
+    "new-post": "node scripts/new-post.ts",
+    "assets": "uv run python -I tools/py/prepare_assets.py",
+    "test:py": "uv run python -I -m unittest discover -s tools/py -p \"test_*.py\""
   },
   "allowScripts": {
     "esbuild": false
-  }
+  },
+  "type": "module"
 }
