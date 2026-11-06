@@ -4,7 +4,7 @@
  * Field names follow the public guides; any GraphQL error is surfaced verbatim so a
  * schema mismatch is visible on the first real call instead of being swallowed.
  */
-export type FetchLike = (url: string, init: { method: string; headers: Record<string, string>; body: string }) => Promise<{ ok: boolean; status: number; json(): Promise<unknown> }>;
+export type FetchLike = (url: string, init: { method: string; headers: Record<string, string>; body: string }) => Promise<{ ok: boolean; status: number; json(): Promise<unknown>; headers?: { get(name: string): string | null } }>;
 
 export type BufferAsset = { image: { url: string } } | { video: { url: string; metadata?: { thumbnailOffset?: number } } };
 export type BufferChannel = { id: string; name: string; service: string; displayName?: string; isDisconnected?: boolean };
@@ -18,19 +18,29 @@ export type CreatePostArgs = {
   dueAt?: string;
   /** Channel-specific metadata, e.g. { instagram: { type: "reel" } } (verify against PostInputMetaData on first use). */
   metadata?: Record<string, unknown>;
+  /** Save as a Buffer draft instead of queueing (manual approval inside Buffer). Field name from the public reference; verified on first use. */
+  draft?: boolean;
 };
 
-export const createBufferClient = (opts: { apiKey: string; fetchImpl?: FetchLike; endpoint?: string }) => {
+export const createBufferClient = (opts: { apiKey: string; fetchImpl?: FetchLike; endpoint?: string; sleep?: (ms: number) => Promise<void>; maxRetries?: number }) => {
   const endpoint = opts.endpoint ?? "https://api.buffer.com";
   const fetchImpl = opts.fetchImpl ?? (fetch as unknown as FetchLike);
+  const sleep = opts.sleep ?? ((ms: number) => new Promise<void>((r) => setTimeout(r, ms)));
+  const maxRetries = opts.maxRetries ?? 3;
   if (!opts.apiKey) throw new Error("BUFFER_API_KEY is empty");
 
   const graphql = async <T>(query: string, variables: Record<string, unknown> = {}): Promise<T> => {
-    const res = await fetchImpl(endpoint, {
+    let res = await fetchImpl(endpoint, {
       method: "POST",
       headers: { Authorization: `Bearer ${opts.apiKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({ query, variables }),
     });
+    // Rate limits: honour Retry-After (seconds) up to maxRetries times, then surface the 429.
+    for (let attempt = 1; res.status === 429 && attempt <= maxRetries; attempt++) {
+      const wait = Number(res.headers?.get("retry-after") ?? "2");
+      await sleep((Number.isFinite(wait) && wait > 0 ? wait : 2) * 1000);
+      res = await fetchImpl(endpoint, { method: "POST", headers: { Authorization: `Bearer ${opts.apiKey}`, "Content-Type": "application/json" }, body: JSON.stringify({ query, variables }) });
+    }
     if (!res.ok) throw new Error(`Buffer API HTTP ${res.status}`);
     const body = (await res.json()) as { data?: T; errors?: { message: string }[] };
     if (body.errors?.length) throw new Error(`Buffer GraphQL: ${body.errors.map((e) => e.message).join("; ")}`);
@@ -40,6 +50,15 @@ export const createBufferClient = (opts: { apiKey: string; fetchImpl?: FetchLike
 
   return {
     graphql,
+    /** Cheapest authenticated call: proves the key works and lists what it can see. */
+    async verifyAuth(): Promise<{ ok: boolean; organizations: { id: string; name?: string }[]; error?: string }> {
+      try {
+        const organizations = await this.organizations();
+        return { ok: true, organizations };
+      } catch (e) {
+        return { ok: false, organizations: [], error: e instanceof Error ? e.message : String(e) };
+      }
+    },
     async organizations(): Promise<{ id: string; name?: string }[]> {
       const d = await graphql<{ organizations: { id: string; name?: string }[] }>(`query { organizations { id name } }`);
       return d.organizations;
@@ -61,6 +80,7 @@ export const createBufferClient = (opts: { apiKey: string; fetchImpl?: FetchLike
       if (args.dueAt) input.dueAt = args.dueAt;
       if (args.assets?.length) input.assets = args.assets;
       if (args.metadata) input.metadata = args.metadata;
+      if (args.draft) input.saveToDraft = true;
       const d = await graphql<{ createPost: { __typename: string; post?: { id: string; dueAt?: string }; message?: string } }>(
         `mutation CreatePost($input: CreatePostInput!) { createPost(input: $input) { __typename ... on PostActionSuccess { post { id dueAt } } ... on MutationError { message } } }`,
         { input },

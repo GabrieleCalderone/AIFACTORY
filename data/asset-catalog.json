@@ -2,7 +2,7 @@
   "IMG_0001.JPG": {
     "index": 0,
     "people": "guests",
-    "subject": "Selfie of the chef in white jacket and black cap smiling with two women in a kitchen",
+    "subject": "Selfie of the chef in kitchen cap and white jacket with two smiling women, close-up, indoor",
     "tags": [
       "selfie",
       "chef",
@@ -10,63 +10,128 @@
       "class",
       "kitchen"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 22,
+    "premium_fit": 12,
+    "service_fit": {
+      "class": 60,
+      "chef": 20,
+      "villa": 5,
+      "events": 15
+    },
+    "format_fit": {
+      "reel": 30,
+      "carousel": 25
+    },
+    "issues": [
+      "people_faces",
+      "cluttered",
+      "messy_background",
+      "logo_overlay"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0001.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0002.JPG": {
     "index": 1,
     "people": "guests",
-    "subject": "Chef and several smiling guests in black aprons gathered around a table with plates during a cooking class",
+    "subject": "Group selfie of the chef and four smiling guests in aprons around a table in a kitchen class",
     "tags": [
-      "cooking-class",
-      "guests",
-      "aprons",
       "group",
-      "table"
+      "class",
+      "aprons",
+      "selfie",
+      "guests"
     ],
     "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 20,
+    "premium_fit": 10,
+    "service_fit": {
+      "class": 65,
+      "chef": 15,
+      "villa": 5,
+      "events": 15
+    },
+    "format_fit": {
+      "reel": 25,
+      "carousel": 20
+    },
+    "issues": [
+      "people_faces",
+      "cluttered",
+      "messy_background",
+      "logo_overlay"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0002.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0003.JPG": {
     "index": 2,
     "people": "guests",
-    "subject": "Woman in patterned top plating an eggplant dish with tomato sauce and basil on a decorated plate",
+    "subject": "Woman in patterned top plating a small eggplant dish with sauce on a blue patterned plate",
     "tags": [
       "plating",
+      "hands",
       "eggplant",
-      "guest",
-      "sauce",
-      "hands"
+      "class",
+      "technique"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 50,
+    "premium_fit": 35,
+    "service_fit": {
+      "class": 78,
+      "chef": 45,
+      "villa": 25,
+      "events": 20
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 45
+    },
+    "issues": [
+      "people_faces",
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0003.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0004.JPG": {
     "index": 3,
     "people": "none",
-    "subject": "Wooden cones filled with small golden fried balls arranged in a bouquet-like display",
+    "subject": "Wooden paper cones filled with golden fried croquette balls arranged in a radiating bouquet",
     "tags": [
+      "finger food",
       "fried",
-      "finger-food",
-      "appetizer",
-      "presentation",
-      "buffet"
+      "cones",
+      "buffet",
+      "catering"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 72,
+    "premium_fit": 62,
+    "service_fit": {
+      "class": 15,
+      "chef": 35,
+      "villa": 40,
+      "events": 92
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 72
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0004.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0005.JPG": {
     "index": 4,
     "people": "none",
-    "subject": "Close-up of spaghetti with open clams and parsley in a glossy light broth",
+    "subject": "Close view of spaghetti with open clams in a glossy garlic and parsley broth",
     "tags": [
       "pasta",
       "seafood",
@@ -76,77 +141,147 @@
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 70,
+    "premium_fit": 58,
+    "service_fit": {
+      "class": 30,
+      "chef": 70,
+      "villa": 60,
+      "events": 25
+    },
+    "format_fit": {
+      "reel": 62,
+      "carousel": 68
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0005.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0006.JPG": {
     "index": 5,
     "people": "none",
-    "subject": "Breadcrumb-crusted fish or meat portions with roasted potato cubes and greens on a blue patterned plate",
+    "subject": "Breadcrumb-crusted fish pieces with diced golden potatoes and greens on a blue patterned plate",
     "tags": [
-      "breaded",
-      "main-course",
+      "fish",
       "plating",
-      "potatoes",
-      "fish"
+      "breaded",
+      "main course",
+      "tiles"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 60,
+    "premium_fit": 50,
+    "service_fit": {
+      "class": 30,
+      "chef": 72,
+      "villa": 55,
+      "events": 25
+    },
+    "format_fit": {
+      "reel": 45,
+      "carousel": 60
+    },
+    "issues": [
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0006.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0007.JPG": {
     "index": 6,
-    "people": "guests",
-    "subject": "Man in dark chef jacket ladling sauce over plates of spaghetti with clams on a counter",
+    "people": "chef",
+    "subject": "Chef in dark jacket ladling sauce over plates of clam spaghetti on a kitchen counter",
     "tags": [
-      "pasta",
-      "seafood",
-      "cooking",
       "chef",
-      "clams"
+      "pasta",
+      "clams",
+      "cooking",
+      "service"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 45,
+    "premium_fit": 32,
+    "service_fit": {
+      "class": 75,
+      "chef": 55,
+      "villa": 25,
+      "events": 35
+    },
+    "format_fit": {
+      "reel": 55,
+      "carousel": 40
+    },
+    "issues": [
+      "cluttered",
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0007.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0008.JPG": {
     "index": 7,
     "people": "none",
-    "subject": "Layered red tartare and yellow base with orange garnish and green sauce dots on a glass plate",
+    "subject": "Layered tuna or beef tartare with mango-coloured base, herbs, green sauce and a crisp on a glass plate",
     "tags": [
       "tartare",
       "plating",
-      "fine-dining",
-      "appetizer",
-      "sauce"
+      "fine dining",
+      "glass plate",
+      "starter"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 78,
+    "premium_fit": 74,
+    "service_fit": {
+      "class": 35,
+      "chef": 88,
+      "villa": 80,
+      "events": 30
+    },
+    "format_fit": {
+      "reel": 55,
+      "carousel": 80
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0008.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0009.JPG": {
     "index": 8,
     "people": "none",
-    "subject": "Small glasses filled with dark cooked vegetable mixture topped with fresh basil leaves on a light counter",
+    "subject": "Small glasses of dark caponata-style vegetable mixture topped with fresh basil leaves on a bright surface",
     "tags": [
       "appetizer",
       "glasses",
-      "caponata",
       "basil",
-      "finger-food"
+      "finger food",
+      "vegetables"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 66,
+    "premium_fit": 55,
+    "service_fit": {
+      "class": 25,
+      "chef": 65,
+      "villa": 55,
+      "events": 78
+    },
+    "format_fit": {
+      "reel": 55,
+      "carousel": 65
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0009.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0010.JPG": {
     "index": 9,
     "people": "none",
-    "subject": "Cannoli filled with ricotta cream, pistachio and candied orange, dusted with sugar on a glass plate",
+    "subject": "Three cannoli dusted with sugar, ricotta filling with pistachio and candied orange on a textured glass plate",
     "tags": [
       "dessert",
       "cannoli",
@@ -156,393 +291,762 @@
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 76,
+    "premium_fit": 72,
+    "service_fit": {
+      "class": 30,
+      "chef": 80,
+      "villa": 75,
+      "events": 60
+    },
+    "format_fit": {
+      "reel": 55,
+      "carousel": 78
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0010.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0011.JPG": {
     "index": 10,
     "people": "none",
-    "subject": "Round red tartare portions on yellow bases with salad leaves on a patterned glass plate",
+    "subject": "Four raw beef tartare rounds with yellow base and basil on a dimpled glass plate over grey fabric",
     "tags": [
       "tartare",
       "plating",
-      "appetizer",
-      "meat",
-      "glass-plate"
+      "starter",
+      "glass plate",
+      "fine dining"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 68,
+    "premium_fit": 62,
+    "service_fit": {
+      "class": 25,
+      "chef": 78,
+      "villa": 65,
+      "events": 45
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 68
+    },
+    "issues": [
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0011.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0012.JPG": {
     "index": 11,
     "people": "none",
-    "subject": "Rows of shot glasses with red tomato cream, white topping and basil garnish on a grey cloth",
+    "subject": "Rows of shot glasses filled with red pepper cream topped with white cream and basil garnish",
     "tags": [
-      "appetizer",
+      "finger food",
       "glasses",
-      "tomato",
-      "finger-food",
-      "buffet"
+      "appetizer",
+      "catering",
+      "verrine"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 70,
+    "premium_fit": 60,
+    "service_fit": {
+      "class": 20,
+      "chef": 50,
+      "villa": 50,
+      "events": 90
+    },
+    "format_fit": {
+      "reel": 55,
+      "carousel": 70
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0012.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0013.JPG": {
     "index": 12,
     "people": "none",
-    "subject": "Large baking tray of golden-orange baked dish with crispy breadcrumb crust fresh from the oven",
+    "subject": "Large baked golden-orange gratin or pasta bake in a metal tray, top view",
     "tags": [
       "baked",
       "tray",
+      "pasta",
       "oven",
-      "main-course",
-      "rustic"
+      "catering"
     ],
     "quality": "ok",
-    "text_overlay": false,
+    "text_overlay": true,
+    "aesthetic": 40,
+    "premium_fit": 22,
+    "service_fit": {
+      "class": 25,
+      "chef": 30,
+      "villa": 15,
+      "events": 70
+    },
+    "format_fit": {
+      "reel": 35,
+      "carousel": 38
+    },
+    "issues": [
+      "unappetizing",
+      "logo_overlay"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0013.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0014.JPG": {
     "index": 13,
     "people": "none",
-    "subject": "Two golden baked bread rolls or stuffed buns inside a stone oven",
+    "subject": "Two golden baked bread rolls with stuffed tops sitting inside a stone oven",
     "tags": [
       "bread",
       "oven",
       "baked",
       "rustic",
-      "stuffed"
+      "stone"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 52,
+    "premium_fit": 38,
+    "service_fit": {
+      "class": 55,
+      "chef": 30,
+      "villa": 25,
+      "events": 30
+    },
+    "format_fit": {
+      "reel": 45,
+      "carousel": 50
+    },
+    "issues": [
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0014.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0015.JPG": {
     "index": 14,
     "people": "guests",
-    "subject": "White plate held up outdoors with an orange tomato-based dish and dark crispy garnish",
+    "subject": "White plate held aloft with a small red tomato-based dish and dark garnish, outdoor blurred background",
     "tags": [
       "plating",
-      "fine-dining",
+      "held plate",
       "outdoor",
-      "hand",
-      "main-course"
+      "fine dining",
+      "starter"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 62,
+    "premium_fit": 50,
+    "service_fit": {
+      "class": 25,
+      "chef": 65,
+      "villa": 72,
+      "events": 25
+    },
+    "format_fit": {
+      "reel": 62,
+      "carousel": 58
+    },
+    "issues": [
+      "cluttered",
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0015.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0016.JPG": {
     "index": 15,
     "people": "none",
-    "subject": "Close-up of long pasta with clams, parsley and olive oil on a plate",
+    "subject": "Close-up of long pasta with parsley and clams tossed in light sauce, tabletop view",
     "tags": [
       "pasta",
       "seafood",
       "closeup",
-      "spaghetti",
-      "clams"
+      "parsley",
+      "spaghetti"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 55,
+    "premium_fit": 42,
+    "service_fit": {
+      "class": 30,
+      "chef": 62,
+      "villa": 45,
+      "events": 25
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 55
+    },
+    "issues": [
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0016.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0017.JPG": {
     "index": 16,
     "people": "none",
-    "subject": "Round lattice-topped savory pie with golden pastry on a metal tray",
+    "subject": "Golden lattice-topped savoury pie on a pressed metal platter",
     "tags": [
       "pie",
       "baked",
-      "pastry",
       "lattice",
-      "savory"
+      "rustic",
+      "pastry"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 62,
+    "premium_fit": 48,
+    "service_fit": {
+      "class": 40,
+      "chef": 45,
+      "villa": 35,
+      "events": 65
+    },
+    "format_fit": {
+      "reel": 45,
+      "carousel": 58
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0017.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0018.JPG": {
     "index": 17,
     "people": "none",
-    "subject": "Raw sliced fish or prawn rolled with green leaf on a wooden serving board",
+    "subject": "Raw prawns and pink fish strips arranged on a wooden board with basil leaves",
     "tags": [
-      "raw",
       "seafood",
+      "raw",
+      "prawns",
       "board",
-      "preparation",
-      "crudo"
+      "ingredients"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 48,
+    "premium_fit": 35,
+    "service_fit": {
+      "class": 62,
+      "chef": 40,
+      "villa": 30,
+      "events": 25
+    },
+    "format_fit": {
+      "reel": 45,
+      "carousel": 48
+    },
+    "issues": [
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0018.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0019.JPG": {
     "index": 18,
     "people": "none",
-    "subject": "Baked flatbread topped with sliced tomatoes, melted cheese and herbs on a green surface",
+    "subject": "Baked tomato slices over golden crust on a bright green plate, harsh colour",
     "tags": [
       "baked",
       "tomato",
-      "flatbread",
-      "cheese",
-      "rustic"
+      "rustic",
+      "homestyle",
+      "gratin"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 38,
+    "premium_fit": 20,
+    "service_fit": {
+      "class": 30,
+      "chef": 30,
+      "villa": 10,
+      "events": 40
+    },
+    "format_fit": {
+      "reel": 30,
+      "carousel": 35
+    },
+    "issues": [
+      "unappetizing",
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0019.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0020.JPG": {
     "index": 19,
     "people": "none",
-    "subject": "Aluminium trays of baked shrimp in tomato sauce with grated cheese on top",
+    "subject": "Shrimp in red sauce topped with grated cheese in foil trays",
     "tags": [
-      "seafood",
       "shrimp",
-      "baked",
-      "tray",
-      "takeaway"
+      "foil tray",
+      "takeaway",
+      "cheese",
+      "catering"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 30,
+    "premium_fit": 10,
+    "service_fit": {
+      "class": 15,
+      "chef": 15,
+      "villa": 5,
+      "events": 45
+    },
+    "format_fit": {
+      "reel": 25,
+      "carousel": 28
+    },
+    "issues": [
+      "unappetizing",
+      "cluttered",
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0020.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0021.JPG": {
     "index": 20,
     "people": "none",
-    "subject": "Platter of raw seafood with red prawns, squid and a striped fish on a white plate",
+    "subject": "Fresh whole red prawns, squid and a striped fish on a white platter, seafood display",
     "tags": [
       "seafood",
-      "raw",
+      "fresh",
       "prawns",
       "fish",
-      "market"
+      "ingredients"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 66,
+    "premium_fit": 50,
+    "service_fit": {
+      "class": 55,
+      "chef": 55,
+      "villa": 55,
+      "events": 40
+    },
+    "format_fit": {
+      "reel": 55,
+      "carousel": 62
+    },
+    "issues": [
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0021.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0022.JPG": {
     "index": 21,
     "people": "none",
-    "subject": "Three golden fried croquettes or arancini on a white plate with purple background",
+    "subject": "Three golden fried rice croquettes on a white plate against a purple background",
     "tags": [
-      "fried",
       "arancini",
-      "croquettes",
-      "street-food",
+      "fried",
+      "sicilian",
+      "street food",
       "closeup"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 55,
+    "premium_fit": 40,
+    "service_fit": {
+      "class": 30,
+      "chef": 45,
+      "villa": 25,
+      "events": 70
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 55
+    },
+    "issues": [
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0022.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0023.JPG": {
     "index": 22,
     "people": "none",
-    "subject": "Eggplant rolls in tomato sauce topped with grated cheese on a black tray",
+    "subject": "Rolled aubergine in tomato sauce with grated cheese on a dark tray, close-up",
     "tags": [
       "eggplant",
       "baked",
       "tomato",
       "tray",
-      "main-course"
+      "closeup"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 52,
+    "premium_fit": 35,
+    "service_fit": {
+      "class": 25,
+      "chef": 45,
+      "villa": 25,
+      "events": 65
+    },
+    "format_fit": {
+      "reel": 40,
+      "carousel": 50
+    },
+    "issues": [
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0023.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0024.JPG": {
     "index": 23,
     "people": "none",
-    "subject": "Round golden fried balls served on rocket leaves over a dark rectangular plate",
+    "subject": "Round golden fried rice balls on rocket leaves on a black tray",
     "tags": [
-      "fried",
       "arancini",
+      "fried",
       "rocket",
-      "plating",
-      "appetizer"
+      "tray",
+      "street food"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 58,
+    "premium_fit": 45,
+    "service_fit": {
+      "class": 25,
+      "chef": 45,
+      "villa": 35,
+      "events": 72
+    },
+    "format_fit": {
+      "reel": 45,
+      "carousel": 55
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0024.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0025.JPG": {
     "index": 24,
     "people": "none",
-    "subject": "Golden potato croquettes frying in a metal basket in a deep fryer",
+    "subject": "Golden potato croquettes resting in a metal fryer basket above a steel surface",
     "tags": [
       "fried",
       "croquettes",
       "fryer",
-      "cooking",
-      "process"
+      "process",
+      "kitchen"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 38,
+    "premium_fit": 20,
+    "service_fit": {
+      "class": 62,
+      "chef": 20,
+      "villa": 10,
+      "events": 40
+    },
+    "format_fit": {
+      "reel": 45,
+      "carousel": 32
+    },
+    "issues": [
+      "messy_background",
+      "unappetizing"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0025.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0026.JPG": {
     "index": 25,
     "people": "none",
-    "subject": "Tray of baked breaded rolls stacked with orange slices and bacon or ham",
+    "subject": "Baked breaded rolls with orange slices and cured meat on a baking tray",
     "tags": [
       "baked",
-      "rolls",
       "tray",
-      "breaded",
-      "orange"
+      "orange",
+      "rolls",
+      "rustic"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 45,
+    "premium_fit": 28,
+    "service_fit": {
+      "class": 35,
+      "chef": 30,
+      "villa": 15,
+      "events": 55
+    },
+    "format_fit": {
+      "reel": 35,
+      "carousel": 42
+    },
+    "issues": [
+      "messy_background",
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0026.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0027.JPG": {
     "index": 26,
     "people": "none",
-    "subject": "Spaghetti nest with crispy cured pork, creamy sauce and pepper on a white plate",
+    "subject": "Twirled creamy pasta nest with crisp guanciale pieces and pepper on a white plate",
     "tags": [
       "pasta",
-      "spaghetti",
       "carbonara",
       "plating",
-      "pork"
+      "closeup",
+      "creamy"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 76,
+    "premium_fit": 66,
+    "service_fit": {
+      "class": 35,
+      "chef": 85,
+      "villa": 65,
+      "events": 25
+    },
+    "format_fit": {
+      "reel": 62,
+      "carousel": 76
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0027.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0028.JPG": {
     "index": 27,
     "people": "none",
-    "subject": "Spaghetti with large prawns, lemon zest and herbs on a blue patterned plate",
+    "subject": "Spaghetti twirl with red prawns, lemon zest strips and herbs on a blue tiled table",
     "tags": [
       "pasta",
-      "seafood",
       "prawns",
-      "spaghetti",
-      "plating"
+      "seafood",
+      "plating",
+      "lemon zest"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 74,
+    "premium_fit": 66,
+    "service_fit": {
+      "class": 30,
+      "chef": 84,
+      "villa": 72,
+      "events": 25
+    },
+    "format_fit": {
+      "reel": 60,
+      "carousel": 74
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0028.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0029.JPG": {
     "index": 28,
     "people": "none",
-    "subject": "Round baked pie or focaccia topped with white cheese and golden breadcrumbs on a metal tray",
+    "subject": "Round baked tart with golden breadcrumb and cheese topping in a metal pan",
     "tags": [
       "baked",
-      "focaccia",
-      "cheese",
-      "breadcrumbs",
-      "tray"
+      "tart",
+      "breadcrumb",
+      "rustic",
+      "pan"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 50,
+    "premium_fit": 32,
+    "service_fit": {
+      "class": 35,
+      "chef": 35,
+      "villa": 25,
+      "events": 60
+    },
+    "format_fit": {
+      "reel": 40,
+      "carousel": 48
+    },
+    "issues": [
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0029.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0030.JPG": {
     "index": 29,
     "people": "none",
-    "subject": "Golden fried potato croquettes with herbs inside a sesame-seeded bread roll",
+    "subject": "Golden fried potato croquettes with herbs stuffed inside a sesame bread roll, tight crop",
     "tags": [
+      "street food",
       "sandwich",
       "fried",
-      "croquettes",
-      "street-food",
+      "bread",
       "closeup"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 45,
+    "premium_fit": 25,
+    "service_fit": {
+      "class": 15,
+      "chef": 20,
+      "villa": 10,
+      "events": 65
+    },
+    "format_fit": {
+      "reel": 40,
+      "carousel": 42
+    },
+    "issues": [
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0030.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0031.JPG": {
     "index": 30,
     "people": "none",
-    "subject": "Rows of rolled sardine fillets alternating with orange slices and bay leaves on a tray",
+    "subject": "Rolled sardine fillets alternated with orange slices and bay leaves, arranged in dense rows on a tray",
     "tags": [
       "seafood",
       "sardines",
-      "antipasto",
-      "raw"
+      "citrus",
+      "prep",
+      "buffet"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 45,
+    "premium_fit": 30,
+    "service_fit": {
+      "class": 50,
+      "chef": 25,
+      "villa": 20,
+      "events": 65
+    },
+    "format_fit": {
+      "reel": 30,
+      "carousel": 40
+    },
+    "issues": [
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0031.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0032.JPG": {
     "index": 31,
     "people": "none",
-    "subject": "Two twisted sesame-seed bread loaves, golden brown, on a dark baking surface",
+    "subject": "Two braided sesame-topped golden bread loaves on a dark surface, close up",
     "tags": [
       "bread",
-      "bakery",
+      "baking",
       "sesame",
-      "baking"
+      "bakery"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 62,
+    "premium_fit": 48,
+    "service_fit": {
+      "class": 55,
+      "chef": 35,
+      "villa": 30,
+      "events": 50
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 60
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0032.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0033.JPG": {
     "index": 32,
     "people": "none",
-    "subject": "Short pasta with a red prawn on top, diced peppers and zucchini in a metal pan",
+    "subject": "Short pasta with red prawn, diced zucchini and tomato in a metal pan, top view",
     "tags": [
       "pasta",
       "seafood",
       "prawn",
       "plating"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 55,
+    "premium_fit": 42,
+    "service_fit": {
+      "class": 35,
+      "chef": 60,
+      "villa": 45,
+      "events": 30
+    },
+    "format_fit": {
+      "reel": 45,
+      "carousel": 55
+    },
+    "issues": [
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0033.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0034.JPG": {
     "index": 33,
     "people": "none",
-    "subject": "Small oval pizza bases topped with tomato sauce and cheese slices on a baking tray",
+    "subject": "Small oval flatbreads topped with tomato sauce and cheese shavings on a metal baking tray",
     "tags": [
       "pizza",
       "baking",
-      "savory",
-      "tray"
+      "finger-food",
+      "prep"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 45,
+    "premium_fit": 30,
+    "service_fit": {
+      "class": 60,
+      "chef": 25,
+      "villa": 15,
+      "events": 65
+    },
+    "format_fit": {
+      "reel": 35,
+      "carousel": 45
+    },
+    "issues": [
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0034.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0035.JPG": {
     "index": 34,
     "people": "none",
-    "subject": "Dark bowl of curly pasta with clams, mussels, cherry tomatoes and zucchini",
+    "subject": "Gemelli-style pasta with clams, mussels and cherry tomatoes in a dark bowl, close up",
     "tags": [
       "pasta",
       "seafood",
@@ -551,13 +1055,26 @@
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 72,
+    "premium_fit": 65,
+    "service_fit": {
+      "class": 35,
+      "chef": 78,
+      "villa": 65,
+      "events": 30
+    },
+    "format_fit": {
+      "reel": 60,
+      "carousel": 72
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0035.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0036.JPG": {
     "index": 35,
     "people": "none",
-    "subject": "Close-up of a round baked flatbread with tomato topping and herbs on parchment paper",
+    "subject": "Close crop of a baked round focaccia topped with tomato sauce and herbs",
     "tags": [
       "bread",
       "focaccia",
@@ -566,523 +1083,1025 @@
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 48,
+    "premium_fit": 32,
+    "service_fit": {
+      "class": 45,
+      "chef": 25,
+      "villa": 20,
+      "events": 45
+    },
+    "format_fit": {
+      "reel": 35,
+      "carousel": 45
+    },
+    "issues": [
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0036.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0037.JPG": {
     "index": 36,
     "people": "none",
-    "subject": "Rolled white fish fillets layered with orange slices and red onion on a tray",
+    "subject": "Rolls of white fish fillet layered with orange slices and red onion on a foil tray",
     "tags": [
       "seafood",
-      "raw",
-      "antipasto",
-      "tray"
+      "prep",
+      "citrus",
+      "raw-fish"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 42,
+    "premium_fit": 25,
+    "service_fit": {
+      "class": 50,
+      "chef": 25,
+      "villa": 15,
+      "events": 60
+    },
+    "format_fit": {
+      "reel": 30,
+      "carousel": 38
+    },
+    "issues": [
+      "cluttered",
+      "unappetizing"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0037.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0038.JPG": {
     "index": 37,
     "people": "none",
-    "subject": "Round savory tart with cherry tomato halves, onion and a creamy filling in a metal tin",
+    "subject": "Savoury baked tart with tomato slices, onion and filling in a round metal tin",
     "tags": [
       "tart",
-      "savory",
       "baking",
-      "tomato"
+      "tomato",
+      "savoury"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 52,
+    "premium_fit": 38,
+    "service_fit": {
+      "class": 45,
+      "chef": 40,
+      "villa": 30,
+      "events": 50
+    },
+    "format_fit": {
+      "reel": 40,
+      "carousel": 50
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0038.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0039.JPG": {
     "index": 38,
     "people": "none",
-    "subject": "Golden fried potato croquettes dusted with salt on a metal tray",
+    "subject": "Golden fried potato croquettes scattered on a silver tray, close view",
     "tags": [
-      "fried",
       "potato",
-      "side",
-      "croquettes"
+      "fried",
+      "finger-food",
+      "appetizer"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 50,
+    "premium_fit": 35,
+    "service_fit": {
+      "class": 35,
+      "chef": 35,
+      "villa": 20,
+      "events": 65
+    },
+    "format_fit": {
+      "reel": 40,
+      "carousel": 48
+    },
+    "issues": [
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0039.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0040.JPG": {
     "index": 39,
     "people": "none",
-    "subject": "Grilled sausages and roasted potato wedges served on a white plate",
+    "subject": "Grilled sausages and roasted potato wedges on a white plate, close up",
     "tags": [
       "meat",
       "sausage",
       "potatoes",
       "grill"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 50,
+    "premium_fit": 35,
+    "service_fit": {
+      "class": 25,
+      "chef": 50,
+      "villa": 35,
+      "events": 50
+    },
+    "format_fit": {
+      "reel": 40,
+      "carousel": 50
+    },
+    "issues": [
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0040.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0041.JPG": {
     "index": 40,
     "people": "none",
-    "subject": "Breaded round fried croquette topped with a heart-shaped orange sauce on a plate",
+    "subject": "Breaded round fried croquette topped with a heart-shaped dollop of orange sauce",
     "tags": [
       "fried",
-      "plating",
-      "arancina",
-      "heart"
+      "appetizer",
+      "sauce",
+      "plating"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 55,
+    "premium_fit": 40,
+    "service_fit": {
+      "class": 30,
+      "chef": 50,
+      "villa": 35,
+      "events": 55
+    },
+    "format_fit": {
+      "reel": 45,
+      "carousel": 55
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0041.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0042.JPG": {
     "index": 41,
     "people": "none",
-    "subject": "Nest of spaghetti in orange tomato sauce with golden breadcrumbs on a blue plate",
+    "subject": "Nest of spaghetti in orange tomato sauce with breadcrumb dust on a blue plate",
     "tags": [
       "pasta",
       "spaghetti",
       "plating",
-      "breadcrumbs"
+      "tomato"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 76,
+    "premium_fit": 70,
+    "service_fit": {
+      "class": 40,
+      "chef": 82,
+      "villa": 68,
+      "events": 30
+    },
+    "format_fit": {
+      "reel": 68,
+      "carousel": 78
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0042.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0043.JPG": {
     "index": 42,
     "people": "none",
-    "subject": "Close-up of raw red prawns lined up on a white surface",
+    "subject": "Several raw red prawns lying on a white surface, very close up",
     "tags": [
       "seafood",
       "prawns",
       "raw",
-      "closeup"
+      "ingredient"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 68,
+    "premium_fit": 55,
+    "service_fit": {
+      "class": 65,
+      "chef": 50,
+      "villa": 45,
+      "events": 25
+    },
+    "format_fit": {
+      "reel": 65,
+      "carousel": 62
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0043.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0044.JPG": {
     "index": 43,
     "people": "none",
-    "subject": "Salad of lamb's lettuce with avocado, mozzarella ball, smoked salmon and toast on a blue plate",
+    "subject": "Salad of mache, avocado slices, mozzarella ball and smoked salmon on a blue plate with toast",
     "tags": [
       "salad",
       "avocado",
-      "seafood",
+      "salmon",
       "plating"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 65,
+    "premium_fit": 50,
+    "service_fit": {
+      "class": 30,
+      "chef": 62,
+      "villa": 50,
+      "events": 40
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 62
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0044.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0045.JPG": {
     "index": 44,
     "people": "none",
-    "subject": "Spaghetti with creamy sauce and crispy cured pork pieces on a white plate",
+    "subject": "Spaghetti carbonara-style with crisp pork and creamy sauce on a white plate",
     "tags": [
       "pasta",
       "spaghetti",
-      "creamy",
+      "pork",
       "plating"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 62,
+    "premium_fit": 50,
+    "service_fit": {
+      "class": 35,
+      "chef": 68,
+      "villa": 45,
+      "events": 25
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 62
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0045.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0046.JPG": {
     "index": 45,
     "people": "none",
-    "subject": "Sesame-seed bread rolls wrapped around sausages, golden brown, baked together",
+    "subject": "Sesame-topped baked bread rolls wrapped around sausages, clustered together, close up",
     "tags": [
       "bread",
+      "finger-food",
       "sausage",
-      "baking",
-      "sesame"
+      "baking"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 52,
+    "premium_fit": 35,
+    "service_fit": {
+      "class": 40,
+      "chef": 30,
+      "villa": 15,
+      "events": 72
+    },
+    "format_fit": {
+      "reel": 38,
+      "carousel": 48
+    },
+    "issues": [
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0046.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0047.JPG": {
     "index": 46,
     "people": "none",
-    "subject": "Wicker basket with aubergines, cherry tomatoes, peppers and fresh basil leaves",
+    "subject": "Wicker basket of purple aubergines, ripe tomatoes, basil and peppers, with wine bottle label at top",
     "tags": [
       "vegetables",
       "aubergine",
-      "produce",
+      "ingredients",
       "basket"
     ],
     "quality": "good",
-    "text_overlay": false,
+    "text_overlay": true,
+    "aesthetic": 72,
+    "premium_fit": 55,
+    "service_fit": {
+      "class": 78,
+      "chef": 45,
+      "villa": 50,
+      "events": 25
+    },
+    "format_fit": {
+      "reel": 65,
+      "carousel": 70
+    },
+    "issues": [
+      "logo_overlay"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0047.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0048.JPG": {
     "index": 47,
     "people": "none",
-    "subject": "Spaghetti with tomato sauce, aubergine and seafood pieces, wine bottle label visible behind",
+    "subject": "Spaghetti with aubergine, seafood and tomato sauce, herbs on top, wine bottle edge visible",
     "tags": [
       "pasta",
-      "spaghetti",
+      "seafood",
       "aubergine",
-      "seafood"
+      "plating"
     ],
     "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 60,
+    "premium_fit": 48,
+    "service_fit": {
+      "class": 30,
+      "chef": 68,
+      "villa": 58,
+      "events": 25
+    },
+    "format_fit": {
+      "reel": 55,
+      "carousel": 60
+    },
+    "issues": [
+      "logo_overlay",
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0048.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0049.JPG": {
     "index": 48,
     "people": "none",
-    "subject": "Roasted chicken pieces with golden potatoes in a baking tray",
+    "subject": "Roasted chicken pieces with golden potatoes in a baking tray, close up",
     "tags": [
       "meat",
       "chicken",
-      "potatoes",
-      "roast"
+      "roast",
+      "potatoes"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 55,
+    "premium_fit": 35,
+    "service_fit": {
+      "class": 30,
+      "chef": 50,
+      "villa": 35,
+      "events": 55
+    },
+    "format_fit": {
+      "reel": 40,
+      "carousel": 50
+    },
+    "issues": [
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0049.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0050.JPG": {
     "index": 49,
     "people": "none",
-    "subject": "Pile of sesame-topped bread buns and braided rolls, glossy and golden",
+    "subject": "Assorted sesame-seeded bread rolls and buns piled together, golden brown",
     "tags": [
       "bread",
-      "bakery",
-      "sesame",
-      "buns"
+      "buns",
+      "baking",
+      "sesame"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 55,
+    "premium_fit": 36,
+    "service_fit": {
+      "class": 50,
+      "chef": 25,
+      "villa": 20,
+      "events": 60
+    },
+    "format_fit": {
+      "reel": 40,
+      "carousel": 50
+    },
+    "issues": [
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0050.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0051.JPG": {
     "index": 50,
     "people": "none",
-    "subject": "Slice of thick focaccia-style pizza with tomato sauce, anchovies and cheese on printed paper",
+    "subject": "Thick slice of tomato-topped focaccia pizza with cheese on a paper-lined tray",
     "tags": [
       "pizza",
       "focaccia",
-      "anchovy",
-      "slice"
+      "bakery",
+      "tomato"
     ],
     "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 50,
+    "premium_fit": 30,
+    "service_fit": {
+      "class": 40,
+      "chef": 25,
+      "villa": 15,
+      "events": 55
+    },
+    "format_fit": {
+      "reel": 38,
+      "carousel": 48
+    },
+    "issues": [
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0051.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0052.JPG": {
     "index": 51,
     "people": "none",
-    "subject": "Round baked focaccia topped with tomato slices and herbs on a white background",
+    "subject": "Round baked bun topped with tomato slices and herbs, close-up on a light surface",
     "tags": [
-      "focaccia",
       "bread",
       "tomato",
-      "baking"
+      "baking",
+      "focaccia"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 55,
+    "premium_fit": 38,
+    "service_fit": {
+      "class": 45,
+      "chef": 30,
+      "villa": 20,
+      "events": 50
+    },
+    "format_fit": {
+      "reel": 42,
+      "carousel": 52
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0052.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0053.JPG": {
     "index": 52,
     "people": "none",
-    "subject": "Rows of red prawns covered with green pistachio crumb on a tray",
+    "subject": "Rows of red prawns coated with green pistachio crumb, arranged on a tray",
     "tags": [
       "seafood",
       "prawns",
       "pistachio",
-      "tray"
+      "buffet"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 66,
+    "premium_fit": 52,
+    "service_fit": {
+      "class": 50,
+      "chef": 50,
+      "villa": 42,
+      "events": 68
+    },
+    "format_fit": {
+      "reel": 45,
+      "carousel": 58
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0053.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0054.JPG": {
     "index": 53,
     "people": "guests",
-    "subject": "Plate of pasta with seafood and garnish on a terrace table, a hand visible at top right",
+    "subject": "Pasta with seafood and microgreens on a pale plate at an outdoor terrace table, glass and hand in background",
     "tags": [
       "pasta",
       "seafood",
-      "outdoor",
-      "plating"
+      "terrace",
+      "plating",
+      "outdoor"
     ],
-    "quality": "ok",
+    "quality": "good",
     "text_overlay": false,
+    "aesthetic": 72,
+    "premium_fit": 62,
+    "service_fit": {
+      "class": 20,
+      "chef": 75,
+      "villa": 88,
+      "events": 30
+    },
+    "format_fit": {
+      "reel": 70,
+      "carousel": 72
+    },
+    "issues": [
+      "people_faces"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0054.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0055.JPG": {
     "index": 54,
     "people": "none",
-    "subject": "Stacked fried aubergine tower with tomato sauce, basil and a golden crisp wrap on white plate",
+    "subject": "Fried aubergine tower with tomato and basil, crisp wrap and red sauce swirl on white plate",
     "tags": [
-      "aubergine",
       "plating",
+      "aubergine",
       "fine-dining",
       "vegetarian"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 80,
+    "premium_fit": 78,
+    "service_fit": {
+      "class": 40,
+      "chef": 90,
+      "villa": 80,
+      "events": 30
+    },
+    "format_fit": {
+      "reel": 65,
+      "carousel": 82
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0055.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0056.JPG": {
     "index": 55,
     "people": "none",
-    "subject": "Two cannoli with poppy seed ends and cream, garnished with mint leaves on a dark surface",
+    "subject": "Two cannoli with poppy seed ends, ricotta cream and mint leaves on a dark surface",
     "tags": [
       "dessert",
       "cannoli",
-      "pastry",
-      "plating"
+      "plating",
+      "sicilian"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 78,
+    "premium_fit": 72,
+    "service_fit": {
+      "class": 40,
+      "chef": 78,
+      "villa": 70,
+      "events": 60
+    },
+    "format_fit": {
+      "reel": 62,
+      "carousel": 78
+    },
+    "issues": [
+      "dark"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0056.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0057.JPG": {
     "index": 56,
     "people": "none",
-    "subject": "Sesame-seed bread rolls arranged in a flower pattern on a white plate",
+    "subject": "Sesame-topped glazed bread rolls arranged in a radial pattern on a white plate",
     "tags": [
       "bread",
-      "bakery",
+      "finger-food",
       "sesame",
       "plating"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 62,
+    "premium_fit": 48,
+    "service_fit": {
+      "class": 40,
+      "chef": 45,
+      "villa": 35,
+      "events": 70
+    },
+    "format_fit": {
+      "reel": 48,
+      "carousel": 62
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0057.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0058.JPG": {
     "index": 57,
     "people": "none",
-    "subject": "Spaghetti with mussels, tomatoes and herbs on a white plate",
+    "subject": "Spaghetti with mussels, cherry tomatoes and herbs, twirled on a plate from above",
     "tags": [
       "pasta",
-      "spaghetti",
       "seafood",
-      "mussels"
+      "mussels",
+      "plating"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 66,
+    "premium_fit": 55,
+    "service_fit": {
+      "class": 35,
+      "chef": 72,
+      "villa": 58,
+      "events": 30
+    },
+    "format_fit": {
+      "reel": 55,
+      "carousel": 65
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0058.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0059.JPG": {
     "index": 58,
     "people": "none",
-    "subject": "Many small round pizzas topped with tomato, mozzarella and grated cheese on a tray",
+    "subject": "Many mini pizzas with tomato, mozzarella and grated cheese crowded on a tray",
     "tags": [
       "pizza",
-      "mini",
-      "baking",
-      "tray"
+      "finger-food",
+      "buffet",
+      "appetizer"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 55,
+    "premium_fit": 35,
+    "service_fit": {
+      "class": 50,
+      "chef": 25,
+      "villa": 15,
+      "events": 85
+    },
+    "format_fit": {
+      "reel": 40,
+      "carousel": 52
+    },
+    "issues": [
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0059.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0060.JPG": {
     "index": 59,
     "people": "none",
-    "subject": "Close-up of spaghetti with pink shrimp, herbs and lemon zest strands",
+    "subject": "Spaghetti with pink prawns, lemon zest and herbs, very close crop",
     "tags": [
       "pasta",
-      "spaghetti",
-      "shrimp",
-      "closeup"
+      "seafood",
+      "prawns",
+      "spaghetti"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 66,
+    "premium_fit": 52,
+    "service_fit": {
+      "class": 35,
+      "chef": 72,
+      "villa": 55,
+      "events": 30
+    },
+    "format_fit": {
+      "reel": 55,
+      "carousel": 65
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0060.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0061.JPG": {
     "index": 60,
     "people": "guests",
-    "subject": "Chef and two other people in black aprons preparing small plated appetizers and mini burgers at a cooking table",
+    "subject": "Chef and two helpers in aprons cooking at a styled counter with sliders and small plates during a class",
     "tags": [
       "cooking class",
+      "hands",
+      "guests",
       "appetizers",
-      "plating",
-      "people"
+      "kitchen"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 40,
+    "premium_fit": 30,
+    "service_fit": {
+      "class": 80,
+      "chef": 40,
+      "villa": 15,
+      "events": 45
+    },
+    "format_fit": {
+      "reel": 40,
+      "carousel": 40
+    },
+    "issues": [
+      "cluttered",
+      "people_faces"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0061.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0062.JPG": {
     "index": 61,
     "people": "none",
-    "subject": "Tray packed with rows of golden fried rice balls arranged in neat lines",
+    "subject": "Tray packed with rows of golden fried rice balls, close overhead view of many identical portions",
     "tags": [
-      "fried",
       "arancini",
+      "fried",
       "tray",
-      "buffet"
+      "buffet",
+      "catering"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 60,
+    "premium_fit": 40,
+    "service_fit": {
+      "class": 15,
+      "chef": 25,
+      "villa": 10,
+      "events": 85
+    },
+    "format_fit": {
+      "reel": 40,
+      "carousel": 60
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0062.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0063.JPG": {
     "index": 62,
     "people": "none",
-    "subject": "Round fried pastry topped with tomato sauce shaped like a heart, with a cartoon sticker in the corner",
+    "subject": "Round fried dough disc topped with tomato sauce shaped like a heart, with a cartoon sticker in the corner",
     "tags": [
       "fried",
       "tomato",
-      "heart",
+      "street food",
       "sticker"
     ],
     "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 35,
+    "premium_fit": 15,
+    "service_fit": {
+      "class": 20,
+      "chef": 15,
+      "villa": 5,
+      "events": 50
+    },
+    "format_fit": {
+      "reel": 30,
+      "carousel": 30
+    },
+    "issues": [
+      "logo_overlay",
+      "low_resolution_look"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0063.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0064.JPG": {
     "index": 63,
     "people": "none",
-    "subject": "Close-up of a round baked bread bun topped with tomato, melted white cheese drizzle and dried herbs",
+    "subject": "Baked mini pizza with tomato, melted white cheese drizzle and dried oregano, shot close from above",
     "tags": [
-      "pizzette",
-      "cheese",
+      "pizza",
       "baked",
-      "closeup"
+      "cheese",
+      "finger food"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 62,
+    "premium_fit": 45,
+    "service_fit": {
+      "class": 30,
+      "chef": 25,
+      "villa": 10,
+      "events": 75
+    },
+    "format_fit": {
+      "reel": 45,
+      "carousel": 60
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0064.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0065.JPG": {
     "index": 64,
     "people": "none",
-    "subject": "Several small round baked pizzette with tomato, melted cheese and oregano on a baking tray",
+    "subject": "Several baked mini pizzas with cheese and tomato on parchment paper, tight overhead view",
     "tags": [
-      "pizzette",
-      "cheese",
+      "pizza",
       "baked",
-      "tray"
+      "finger food",
+      "catering"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 50,
+    "premium_fit": 35,
+    "service_fit": {
+      "class": 30,
+      "chef": 20,
+      "villa": 10,
+      "events": 75
+    },
+    "format_fit": {
+      "reel": 35,
+      "carousel": 50
+    },
+    "issues": [
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0065.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0066.JPG": {
     "index": 65,
     "people": "none",
-    "subject": "Clear plastic cup with a tomato-red sauce over a pale cream, a crisp garnish and spoon, on a white table",
+    "subject": "Clear plastic cup with tomato and cream layers, crisp garnish, on white table with other cups behind",
     "tags": [
       "appetizer",
-      "finger food",
       "cup",
+      "finger food",
       "plating"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 55,
+    "premium_fit": 40,
+    "service_fit": {
+      "class": 15,
+      "chef": 40,
+      "villa": 30,
+      "events": 80
+    },
+    "format_fit": {
+      "reel": 45,
+      "carousel": 55
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0066.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0067.JPG": {
     "index": 66,
     "people": "none",
-    "subject": "Clear plastic dishes of prawn and avocado salad with pineapple pieces, served as small portions",
+    "subject": "Clear plastic tray of prawns with avocado and pineapple pieces, more cups blurred behind",
     "tags": [
       "seafood",
       "prawns",
-      "appetizer",
-      "cups"
+      "finger food",
+      "plastic",
+      "catering"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 50,
+    "premium_fit": 30,
+    "service_fit": {
+      "class": 10,
+      "chef": 30,
+      "villa": 20,
+      "events": 80
+    },
+    "format_fit": {
+      "reel": 35,
+      "carousel": 50
+    },
+    "issues": [
+      "unappetizing"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0067.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0068.JPG": {
     "index": 67,
     "people": "none",
-    "subject": "Clear plastic tasting dish with braised meat pieces in glossy sauce and a spoon lifting a bite",
+    "subject": "Braised meat and vegetable pieces in glossy sauce in a clear plastic dish with a plastic spoon",
     "tags": [
       "meat",
-      "tasting",
-      "appetizer",
-      "closeup"
+      "braised",
+      "plastic",
+      "finger food"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 45,
+    "premium_fit": 25,
+    "service_fit": {
+      "class": 10,
+      "chef": 30,
+      "villa": 15,
+      "events": 75
+    },
+    "format_fit": {
+      "reel": 35,
+      "carousel": 45
+    },
+    "issues": [
+      "unappetizing"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0068.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0069.JPG": {
     "index": 68,
     "people": "none",
-    "subject": "White plate of clear tasting spoons each holding a cheese cube with greens and a green garnish",
+    "subject": "White plate with clear tasting spoons holding seared cheese or fish cubes, greens and basil leaf",
     "tags": [
-      "appetizer",
+      "canapes",
       "spoons",
-      "cheese",
+      "appetizer",
       "plating"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 65,
+    "premium_fit": 55,
+    "service_fit": {
+      "class": 15,
+      "chef": 55,
+      "villa": 50,
+      "events": 85
+    },
+    "format_fit": {
+      "reel": 40,
+      "carousel": 70
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0069.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0070.JPG": {
     "index": 69,
     "people": "chef",
-    "subject": "Chef in white jacket working at a kitchen counter with a cutting board and ingredients, seen from the side",
+    "subject": "Chef in white jacket working at a kitchen counter with a cutting board, eggs and lemon beside him",
     "tags": [
       "chef",
       "kitchen",
-      "preparation",
-      "cooking"
+      "prep",
+      "technique"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 45,
+    "premium_fit": 40,
+    "service_fit": {
+      "class": 65,
+      "chef": 55,
+      "villa": 25,
+      "events": 20
+    },
+    "format_fit": {
+      "reel": 45,
+      "carousel": 45
+    },
+    "issues": [
+      "cluttered",
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0070.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0071.JPG": {
     "index": 70,
     "people": "chef",
-    "subject": "Man in blue shirt and apron frying food in a pan on an outdoor gas burner, garden behind him",
+    "subject": "Chef in apron frying food in a pan on a portable gas burner outdoors with greenery behind",
     "tags": [
       "chef",
       "frying",
@@ -1091,269 +2110,555 @@
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 50,
+    "premium_fit": 35,
+    "service_fit": {
+      "class": 60,
+      "chef": 50,
+      "villa": 40,
+      "events": 55
+    },
+    "format_fit": {
+      "reel": 65,
+      "carousel": 45
+    },
+    "issues": [
+      "cluttered",
+      "people_faces"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0071.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0072.JPG": {
     "index": 71,
     "people": "none",
-    "subject": "Foil tray with herbed potato dumplings and fresh pasta sheets stacked above them",
+    "subject": "Foil tray of herb potato dumplings with sheets of fresh pasta layered at the back",
     "tags": [
-      "pasta",
       "potatoes",
-      "tray",
-      "preparation"
+      "pasta",
+      "foil tray",
+      "prep"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 40,
+    "premium_fit": 20,
+    "service_fit": {
+      "class": 50,
+      "chef": 15,
+      "villa": 5,
+      "events": 55
+    },
+    "format_fit": {
+      "reel": 30,
+      "carousel": 35
+    },
+    "issues": [
+      "unappetizing",
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0072.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0073.JPG": {
     "index": 72,
     "people": "none",
-    "subject": "Four breaded fried prawns with tails on brown paper, with some sauce nearby",
+    "subject": "Golden breaded fried prawns with tails on brown parchment paper, oil stains visible",
     "tags": [
       "seafood",
       "prawns",
       "fried",
-      "closeup"
+      "street food"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 55,
+    "premium_fit": 35,
+    "service_fit": {
+      "class": 15,
+      "chef": 30,
+      "villa": 15,
+      "events": 70
+    },
+    "format_fit": {
+      "reel": 45,
+      "carousel": 55
+    },
+    "issues": [
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0073.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0074.JPG": {
     "index": 73,
     "people": "guests",
-    "subject": "Three smiling people in RIST HOME chef hats and aprons posing together, arms around each other",
+    "subject": "Smiling trio in aprons, two wearing Rist Home chef hats, posing arm in arm in a kitchen",
     "tags": [
       "group",
       "chef hats",
       "logo",
-      "portrait"
+      "class",
+      "guests"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 40,
+    "premium_fit": 35,
+    "service_fit": {
+      "class": 75,
+      "chef": 35,
+      "villa": 10,
+      "events": 20
+    },
+    "format_fit": {
+      "reel": 40,
+      "carousel": 50
+    },
+    "issues": [
+      "people_faces",
+      "logo_overlay",
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0074.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0075.JPG": {
     "index": 74,
     "people": "none",
-    "subject": "Close-up of mini burgers with melted cheese, cured meat and tomato slices on skewers",
+    "subject": "Close view of mini burger sliders with melted cheese, tomato and meat on skewers",
     "tags": [
-      "burger",
       "sliders",
+      "burger",
+      "finger food",
       "cheese",
-      "closeup"
+      "catering"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 65,
+    "premium_fit": 40,
+    "service_fit": {
+      "class": 10,
+      "chef": 25,
+      "villa": 10,
+      "events": 90
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 65
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0075.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0076.JPG": {
     "index": 75,
     "people": "none",
-    "subject": "Buffet platter of skewered meat and potato bites with salad and a green ceramic pine cone ornament",
+    "subject": "Buffet platter of skewered roasted meat and potato bites on salad, green pine cone ceramic behind",
     "tags": [
       "buffet",
       "skewers",
-      "meat",
+      "outdoor",
+      "catering",
       "platter"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 60,
+    "premium_fit": 40,
+    "service_fit": {
+      "class": 10,
+      "chef": 30,
+      "villa": 50,
+      "events": 90
+    },
+    "format_fit": {
+      "reel": 45,
+      "carousel": 60
+    },
+    "issues": [
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0076.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0077.JPG": {
     "index": 76,
     "people": "chef",
-    "subject": "Hands placing a ring of small filled cannoli on a dark slate, with RIST HOME logo banner below",
+    "subject": "Hands placing a ring of filled cannoli-like pastries on a slate, Rist Home logo banner below",
     "tags": [
       "hands",
-      "dessert",
-      "cannoli",
+      "pastry",
       "logo",
-      "plating"
+      "plating",
+      "cannoli"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 55,
+    "premium_fit": 40,
+    "service_fit": {
+      "class": 55,
+      "chef": 55,
+      "villa": 30,
+      "events": 55
+    },
+    "format_fit": {
+      "reel": 30,
+      "carousel": 45
+    },
+    "issues": [
+      "logo_overlay",
+      "collage"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0077.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0078.JPG": {
     "index": 77,
     "people": "none",
-    "subject": "Screenshot of a search listing for catering businesses with ratings, buttons and small thumbnails",
+    "subject": "Screenshot of a map listing for catering businesses with ratings, buttons and small thumbnails",
     "tags": [
       "screenshot",
       "listing",
-      "catering",
       "text"
     ],
     "quality": "poor",
     "text_overlay": true,
+    "aesthetic": 5,
+    "premium_fit": 2,
+    "service_fit": {
+      "class": 0,
+      "chef": 0,
+      "villa": 0,
+      "events": 5
+    },
+    "format_fit": {
+      "reel": 5,
+      "carousel": 5
+    },
+    "issues": [
+      "screenshot",
+      "logo_overlay"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0078.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0079.JPG": {
     "index": 78,
     "people": "guests",
-    "subject": "Blurry, dark close-up of a person leaning on a pillow with a remote control, unrelated to food",
+    "subject": "Blurry indoor snapshot of a person lying near a pillow, remote control and bicycle",
     "tags": [
-      "blurry",
-      "person",
       "personal",
-      "off-topic"
+      "snapshot"
     ],
     "quality": "poor",
     "text_overlay": false,
+    "aesthetic": 3,
+    "premium_fit": 0,
+    "service_fit": {
+      "class": 0,
+      "chef": 0,
+      "villa": 0,
+      "events": 0
+    },
+    "format_fit": {
+      "reel": 5,
+      "carousel": 3
+    },
+    "issues": [
+      "blurry",
+      "cluttered",
+      "low_resolution_look",
+      "people_faces"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0079.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0080.JPG": {
     "index": 79,
     "people": "none",
-    "subject": "Close-up of spaghetti with open clams, parsley and a light broth",
+    "subject": "Close-up of linguine with open clams, parsley and glossy garlic-oil sauce",
     "tags": [
       "pasta",
       "seafood",
       "clams",
-      "closeup"
+      "close-up"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 78,
+    "premium_fit": 65,
+    "service_fit": {
+      "class": 30,
+      "chef": 80,
+      "villa": 65,
+      "events": 30
+    },
+    "format_fit": {
+      "reel": 65,
+      "carousel": 75
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0080.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0081.JPG": {
     "index": 80,
     "people": "none",
-    "subject": "Wooden paper cones arranged like a flower, each holding small fried croquettes",
+    "subject": "Wooden cones arranged like a flower, each holding golden fried croquette bites with small picks",
     "tags": [
-      "fried",
       "finger food",
       "cones",
-      "presentation"
+      "fried",
+      "buffet",
+      "catering"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 72,
+    "premium_fit": 55,
+    "service_fit": {
+      "class": 10,
+      "chef": 40,
+      "villa": 35,
+      "events": 95
+    },
+    "format_fit": {
+      "reel": 55,
+      "carousel": 75
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0081.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0082.JPG": {
     "index": 81,
     "people": "none",
-    "subject": "Plate with breaded fish or meat slices, roasted potatoes and lemon on a patterned tile-style dish",
+    "subject": "Breaded baked fish fillets with roasted potatoes, lemon and greens on a blue patterned plate",
     "tags": [
+      "fish",
+      "plated",
       "main course",
-      "breaded",
-      "potatoes",
-      "plating"
+      "tile plate"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 65,
+    "premium_fit": 55,
+    "service_fit": {
+      "class": 20,
+      "chef": 75,
+      "villa": 60,
+      "events": 30
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 70
+    },
+    "issues": [
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0082.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0083.JPG": {
     "index": 82,
     "people": "guests",
-    "subject": "Three smiling people in chef hats and aprons posing together, arms around each other, a second shot",
+    "subject": "Smiling trio in aprons, two wearing Rist Home chef hats, posing arm in arm in a kitchen",
     "tags": [
       "group",
       "chef hats",
       "logo",
-      "portrait"
+      "class",
+      "guests"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 40,
+    "premium_fit": 35,
+    "service_fit": {
+      "class": 75,
+      "chef": 35,
+      "villa": 10,
+      "events": 20
+    },
+    "format_fit": {
+      "reel": 40,
+      "carousel": 50
+    },
+    "issues": [
+      "people_faces",
+      "logo_overlay",
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0083.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0084.JPG": {
     "index": 83,
     "people": "chef",
-    "subject": "Chef in blue jacket lifting fresh yellow tagliatelle from a pan with a ladle and tongs",
+    "subject": "Chef lifting fresh yellow tagliatella with tongs over a steaming pan in a kitchen",
     "tags": [
       "pasta",
       "chef",
-      "cooking",
-      "action"
+      "technique",
+      "action",
+      "steam"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 75,
+    "premium_fit": 60,
+    "service_fit": {
+      "class": 90,
+      "chef": 75,
+      "villa": 45,
+      "events": 25
+    },
+    "format_fit": {
+      "reel": 85,
+      "carousel": 70
+    },
+    "issues": [
+      "people_faces"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0084.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0085.JPG": {
     "index": 84,
     "people": "guests",
-    "subject": "Selfie of a chef between a woman and a man in checked shirt, smiling indoors",
+    "subject": "Selfie of three smiling people in a kitchen, one wearing a Rist Home shirt, mirrored logo",
     "tags": [
       "selfie",
       "group",
-      "people",
-      "portrait"
+      "guests",
+      "logo"
     ],
     "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 30,
+    "premium_fit": 20,
+    "service_fit": {
+      "class": 50,
+      "chef": 20,
+      "villa": 5,
+      "events": 10
+    },
+    "format_fit": {
+      "reel": 35,
+      "carousel": 35
+    },
+    "issues": [
+      "people_faces",
+      "logo_overlay",
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0085.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0086.JPG": {
     "index": 85,
     "people": "guests",
-    "subject": "Smiling woman in black apron holding a tray of small stuffed pasta or sardine rolls in a kitchen",
+    "subject": "Smiling woman in Rist Home apron holding a tray of stuffed pasta pieces in a home kitchen",
     "tags": [
-      "woman",
-      "fresh pasta",
-      "tray",
-      "kitchen"
+      "guest",
+      "pasta",
+      "apron",
+      "class",
+      "logo"
     ],
     "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 45,
+    "premium_fit": 30,
+    "service_fit": {
+      "class": 80,
+      "chef": 30,
+      "villa": 10,
+      "events": 15
+    },
+    "format_fit": {
+      "reel": 65,
+      "carousel": 50
+    },
+    "issues": [
+      "people_faces",
+      "cluttered",
+      "messy_background",
+      "logo_overlay"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0086.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0087.JPG": {
     "index": 86,
     "people": "guests",
-    "subject": "Smiling woman in black apron holding a tray of fresh tagliatelle nests in a kitchen",
+    "subject": "Smiling woman in Rist Home apron beside a tray of fresh tagliatelle nests, fridge behind",
     "tags": [
-      "woman",
-      "fresh pasta",
-      "tray",
-      "kitchen"
+      "guest",
+      "pasta",
+      "apron",
+      "class",
+      "logo"
     ],
     "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 45,
+    "premium_fit": 30,
+    "service_fit": {
+      "class": 80,
+      "chef": 30,
+      "villa": 10,
+      "events": 15
+    },
+    "format_fit": {
+      "reel": 65,
+      "carousel": 50
+    },
+    "issues": [
+      "people_faces",
+      "cluttered",
+      "messy_background",
+      "logo_overlay"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0087.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0088.JPG": {
     "index": 87,
     "people": "none",
-    "subject": "Sliced loaf of sesame-crusted bread showing the soft airy crumb",
+    "subject": "Sliced sesame-crusted bread loaf showing soft crumb, close-up with warm light",
     "tags": [
       "bread",
+      "baking",
       "sesame",
-      "baked",
-      "closeup"
+      "close-up"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 65,
+    "premium_fit": 50,
+    "service_fit": {
+      "class": 60,
+      "chef": 35,
+      "villa": 30,
+      "events": 25
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 65
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0088.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0089.JPG": {
     "index": 88,
     "people": "none",
-    "subject": "Toasted bread slices topped with fresh tomato slices, crumbled white cheese and basil on a square plate",
+    "subject": "Toasted bread topped with tomato slices, crumbled white cheese and basil on a square white plate",
     "tags": [
       "bruschetta",
       "tomato",
@@ -1362,325 +2667,625 @@
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 70,
+    "premium_fit": 55,
+    "service_fit": {
+      "class": 30,
+      "chef": 60,
+      "villa": 55,
+      "events": 65
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 72
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0089.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0090.JPG": {
     "index": 89,
     "people": "none",
-    "subject": "Round golden bread loaf baking on an oven rack, seen close up",
+    "subject": "Golden crusty bread loaf baking on an oven rack, seen close up",
     "tags": [
       "bread",
       "baking",
       "oven",
-      "closeup"
+      "rustic"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 62,
+    "premium_fit": 45,
+    "service_fit": {
+      "class": 65,
+      "chef": 30,
+      "villa": 25,
+      "events": 20
+    },
+    "format_fit": {
+      "reel": 55,
+      "carousel": 60
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0090.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0092.JPG": {
     "index": 90,
     "people": "none",
-    "subject": "Four round beef tartare portions on a yellow base with basil leaves, served on a textured glass plate",
+    "subject": "Four round beef tartare portions topped with herbs on a textured glass plate, sofa background",
     "tags": [
       "tartare",
-      "beef",
+      "meat",
       "plating",
       "starter"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 55,
+    "premium_fit": 45,
+    "service_fit": {
+      "class": 10,
+      "chef": 70,
+      "villa": 50,
+      "events": 45
+    },
+    "format_fit": {
+      "reel": 35,
+      "carousel": 60
+    },
+    "issues": [
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0092.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0093.JPG": {
     "index": 91,
     "people": "none",
-    "subject": "Sicilian cannoli filled with ricotta cream, topped with candied orange and pistachio, on a clear glass plate",
+    "subject": "Sicilian cannoli filled with ricotta cream, candied orange and pistachio on a dimpled glass plate",
     "tags": [
-      "dessert",
       "cannoli",
+      "dessert",
       "ricotta",
       "pistachio",
       "plating"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 72,
+    "premium_fit": 65,
+    "service_fit": {
+      "class": 25,
+      "chef": 65,
+      "villa": 60,
+      "events": 55
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 75
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0093.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0094.JPG": {
     "index": 92,
     "people": "chef",
-    "subject": "Chef in striped apron arranging small cannoli in a circle on a slate board, with logo banner",
+    "subject": "Chef in striped apron placing a ring of mini cannoli on a slate board, logo banner below",
     "tags": [
-      "hands",
       "cannoli",
-      "plating",
-      "kitchen",
-      "logo"
+      "hands",
+      "dessert",
+      "logo",
+      "plating"
     ],
     "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 50,
+    "premium_fit": 25,
+    "service_fit": {
+      "class": 60,
+      "chef": 45,
+      "villa": 25,
+      "events": 55
+    },
+    "format_fit": {
+      "reel": 25,
+      "carousel": 35
+    },
+    "issues": [
+      "logo_overlay",
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0094.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0095.JPG": {
     "index": 93,
     "people": "none",
-    "subject": "Finger-food canapés in clear spoons arranged on a large white round plate, with logo at top",
+    "subject": "Clear plastic tasting spoons with small canapé bites arranged on a large white round plate, logo above",
     "tags": [
       "canapes",
       "finger-food",
-      "plating",
       "buffet",
       "logo"
     ],
     "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 45,
+    "premium_fit": 25,
+    "service_fit": {
+      "class": 10,
+      "chef": 35,
+      "villa": 30,
+      "events": 70
+    },
+    "format_fit": {
+      "reel": 25,
+      "carousel": 35
+    },
+    "issues": [
+      "logo_overlay",
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0095.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0096.JPG": {
     "index": 94,
     "people": "none",
-    "subject": "Rows of shot glasses with tomato gazpacho and white cream topped with basil, with logo underneath",
+    "subject": "Rows of plastic cups holding red pepper cream topped with white cream and basil leaf, logo below",
     "tags": [
-      "appetizer",
-      "glasses",
-      "tomato",
-      "buffet",
+      "verrine",
+      "starter",
+      "finger-food",
       "logo"
     ],
     "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 50,
+    "premium_fit": 25,
+    "service_fit": {
+      "class": 10,
+      "chef": 30,
+      "villa": 25,
+      "events": 75
+    },
+    "format_fit": {
+      "reel": 25,
+      "carousel": 35
+    },
+    "issues": [
+      "logo_overlay"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0096.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0097.JPG": {
     "index": 95,
     "people": "none",
-    "subject": "Salad with avocado slices, burrata, smoked salmon and lamb's lettuce on a blue plate, large logo below",
+    "subject": "Salad of lamb's lettuce, avocado, smoked salmon and a burrata ball on a blue plate, logo below",
     "tags": [
       "salad",
+      "burrata",
       "avocado",
       "salmon",
-      "burrata",
       "logo"
     ],
     "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 55,
+    "premium_fit": 30,
+    "service_fit": {
+      "class": 15,
+      "chef": 55,
+      "villa": 45,
+      "events": 40
+    },
+    "format_fit": {
+      "reel": 25,
+      "carousel": 40
+    },
+    "issues": [
+      "logo_overlay"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0097.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0098.JPG": {
     "index": 96,
     "people": "none",
-    "subject": "Close-up of battered fried prawns with a basil leaf, large logo banner at the bottom",
+    "subject": "Close view of battered fried prawns with a basil leaf, logo banner at the bottom",
     "tags": [
       "seafood",
       "prawns",
       "fried",
-      "close-up",
       "logo"
     ],
     "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 50,
+    "premium_fit": 25,
+    "service_fit": {
+      "class": 15,
+      "chef": 45,
+      "villa": 35,
+      "events": 50
+    },
+    "format_fit": {
+      "reel": 25,
+      "carousel": 35
+    },
+    "issues": [
+      "logo_overlay"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0098.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0099.JPG": {
     "index": 97,
     "people": "none",
-    "subject": "Panna cotta with red strawberry glaze, pistachio crumbs and a fresh strawberry on a dark plate, logo below",
+    "subject": "Panna cotta with strawberry coulis and pistachio beside a whole strawberry on a dark plate, logo below",
     "tags": [
       "dessert",
       "panna-cotta",
       "strawberry",
-      "plating",
       "logo"
     ],
     "quality": "good",
     "text_overlay": true,
+    "aesthetic": 68,
+    "premium_fit": 35,
+    "service_fit": {
+      "class": 20,
+      "chef": 65,
+      "villa": 55,
+      "events": 40
+    },
+    "format_fit": {
+      "reel": 30,
+      "carousel": 45
+    },
+    "issues": [
+      "logo_overlay"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0099.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0100.JPG": {
     "index": 98,
     "people": "none",
-    "subject": "Close-up of filled rolled crepes dusted with powdered sugar and cinnamon, with large logo above",
+    "subject": "Close-up of filled rolled crepes dusted with powdered sugar and cinnamon, logo at the top",
     "tags": [
       "dessert",
       "crepes",
-      "close-up",
-      "sweet",
+      "closeup",
       "logo"
     ],
     "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 50,
+    "premium_fit": 25,
+    "service_fit": {
+      "class": 30,
+      "chef": 40,
+      "villa": 30,
+      "events": 40
+    },
+    "format_fit": {
+      "reel": 25,
+      "carousel": 35
+    },
+    "issues": [
+      "logo_overlay"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0100.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0101.JPG": {
     "index": 99,
     "people": "chef",
-    "subject": "Logo above two photos: gloved hands working on a tray, and a tray of fried arancini in paper boats",
+    "subject": "Collage with logo on top: gloved hands handling a tray and arancini in paper boats",
     "tags": [
+      "collage",
       "arancini",
       "hands",
-      "kitchen",
-      "street-food",
-      "logo"
+      "logo",
+      "catering"
     ],
     "quality": "ok",
     "text_overlay": true,
+    "aesthetic": 30,
+    "premium_fit": 10,
+    "service_fit": {
+      "class": 30,
+      "chef": 20,
+      "villa": 10,
+      "events": 60
+    },
+    "format_fit": {
+      "reel": 10,
+      "carousel": 20
+    },
+    "issues": [
+      "collage",
+      "logo_overlay",
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0101.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0102.JPG": {
     "index": 100,
     "people": "none",
-    "subject": "Square white plate on a festive table with crispy canapés topped with avocado and smoked salmon",
+    "subject": "Smoked salmon and avocado canapés on a square white plate at a sunlit table with red chargers",
     "tags": [
-      "appetizer",
+      "canapes",
       "salmon",
       "avocado",
       "table",
-      "plating"
+      "terrace"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 72,
+    "premium_fit": 60,
+    "service_fit": {
+      "class": 15,
+      "chef": 70,
+      "villa": 75,
+      "events": 65
+    },
+    "format_fit": {
+      "reel": 55,
+      "carousel": 75
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0102.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0103.JPG": {
     "index": 101,
     "people": "chef",
-    "subject": "Hand holding a white plate with a ravioli-style pasta, red sauce and crispy garnish in sunlight",
+    "subject": "Hand holding a white plate with a small ravioli in tomato sauce garnished with fried strands, sunny outdoors",
     "tags": [
       "pasta",
       "plating",
       "hands",
-      "outdoor"
+      "terrace",
+      "ravioli"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 74,
+    "premium_fit": 65,
+    "service_fit": {
+      "class": 35,
+      "chef": 75,
+      "villa": 75,
+      "events": 35
+    },
+    "format_fit": {
+      "reel": 60,
+      "carousel": 75
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0103.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0104.JPG": {
     "index": 102,
     "people": "none",
-    "subject": "Collage of baked stuffed bites, avocado salmon toast and spaghetti topped with a large red prawn",
+    "subject": "Collage of baked stuffed vegetables, avocado canapés and spaghetti with a whole prawn",
     "tags": [
       "collage",
       "pasta",
       "seafood",
-      "prawns",
-      "appetizer"
+      "starter"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 40,
+    "premium_fit": 15,
+    "service_fit": {
+      "class": 15,
+      "chef": 40,
+      "villa": 30,
+      "events": 45
+    },
+    "format_fit": {
+      "reel": 10,
+      "carousel": 25
+    },
+    "issues": [
+      "collage",
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0104.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0105.JPG": {
     "index": 103,
     "people": "none",
-    "subject": "Pasta ribbons with creamy meat and crispy bacon sauce on a large white plate at a set table",
+    "subject": "Tagliolini with creamy meat and bacon sauce on a large white plate at a set table with glasses",
     "tags": [
       "pasta",
-      "creamy",
-      "plating",
-      "table"
+      "table",
+      "dinner",
+      "plating"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 58,
+    "premium_fit": 45,
+    "service_fit": {
+      "class": 20,
+      "chef": 70,
+      "villa": 55,
+      "events": 25
+    },
+    "format_fit": {
+      "reel": 45,
+      "carousel": 65
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0105.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0106.JPG": {
     "index": 104,
     "people": "chef",
-    "subject": "Hand holding a white plate with a ravioli-style pasta, red sauce and dark crispy garnish outdoors",
+    "subject": "Hand holding a white plate with a small tomato-sauced ravioli, sunlit terrace blurred behind",
     "tags": [
       "pasta",
       "plating",
       "hands",
-      "outdoor"
+      "terrace",
+      "ravioli"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 74,
+    "premium_fit": 65,
+    "service_fit": {
+      "class": 35,
+      "chef": 75,
+      "villa": 75,
+      "events": 35
+    },
+    "format_fit": {
+      "reel": 60,
+      "carousel": 75
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0106.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0107.JPG": {
     "index": 105,
     "people": "none",
-    "subject": "Spaghetti with large red prawns, lemon zest and herbs on a blue patterned plate",
+    "subject": "Spaghetti with lemon zest and a large red prawn on a blue patterned plate in sunlight",
     "tags": [
       "pasta",
       "seafood",
-      "prawns",
+      "prawn",
       "plating",
-      "spaghetti"
+      "lemon"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 80,
+    "premium_fit": 72,
+    "service_fit": {
+      "class": 30,
+      "chef": 85,
+      "villa": 75,
+      "events": 25
+    },
+    "format_fit": {
+      "reel": 65,
+      "carousel": 85
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0107.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0108.JPG": {
     "index": 106,
     "people": "none",
-    "subject": "Wide pasta ribbons with seafood, cherry tomatoes and purple microgreens on a blue-rimmed plate at an outdoor table",
+    "subject": "Wide pasta ribbons with seafood and purple micro-herbs on a blue plate on a sunny outdoor table",
     "tags": [
       "pasta",
       "seafood",
       "plating",
-      "outdoor"
+      "terrace",
+      "table"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 70,
+    "premium_fit": 62,
+    "service_fit": {
+      "class": 25,
+      "chef": 80,
+      "villa": 80,
+      "events": 25
+    },
+    "format_fit": {
+      "reel": 55,
+      "carousel": 75
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0108.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0109.JPG": {
     "index": 107,
     "people": "none",
-    "subject": "Two cannoli with poppy seed coating and ricotta cream topped with mint on a dark background",
+    "subject": "Two cannoli with white cream and mint, one coated in poppy seeds, on a dark background",
     "tags": [
-      "dessert",
       "cannoli",
+      "dessert",
       "poppy-seed",
-      "close-up"
+      "plating"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 68,
+    "premium_fit": 58,
+    "service_fit": {
+      "class": 20,
+      "chef": 60,
+      "villa": 55,
+      "events": 50
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 70
+    },
+    "issues": [
+      "dark"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0109.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0110.JPG": {
     "index": 108,
     "people": "none",
-    "subject": "Split image of spaghetti with prawns and short pasta with green pesto on white plates",
+    "subject": "Side-by-side photos of spaghetti with prawn and cavatelli with pesto on white plates",
     "tags": [
-      "pasta",
       "collage",
-      "pesto",
-      "seafood"
+      "pasta",
+      "seafood",
+      "pesto"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 40,
+    "premium_fit": 25,
+    "service_fit": {
+      "class": 20,
+      "chef": 45,
+      "villa": 30,
+      "events": 30
+    },
+    "format_fit": {
+      "reel": 10,
+      "carousel": 25
+    },
+    "issues": [
+      "collage",
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0110.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0111.JPG": {
     "index": 109,
     "people": "guests",
-    "subject": "Selfie of the chef in white jacket and black cap with two smiling women",
+    "subject": "Selfie of the chef in a black cap and white jacket with two smiling women in a kitchen",
     "tags": [
       "selfie",
       "chef",
@@ -1689,110 +3294,234 @@
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 35,
+    "premium_fit": 15,
+    "service_fit": {
+      "class": 40,
+      "chef": 35,
+      "villa": 15,
+      "events": 30
+    },
+    "format_fit": {
+      "reel": 30,
+      "carousel": 30
+    },
+    "issues": [
+      "people_faces",
+      "cluttered",
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0111.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0112.JPG": {
     "index": 110,
     "people": "none",
-    "subject": "Wooden paper cones filled with golden fried arancini bites arranged together in a bunch",
+    "subject": "Many golden fried arancini served in wooden cones with skewers, arranged in a crowded display",
     "tags": [
       "arancini",
       "finger-food",
-      "fried",
-      "buffet"
+      "buffet",
+      "catering",
+      "fried"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 65,
+    "premium_fit": 45,
+    "service_fit": {
+      "class": 10,
+      "chef": 35,
+      "villa": 35,
+      "events": 90
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 70
+    },
+    "issues": [],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0112.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0113.JPG": {
     "index": 111,
     "people": "none",
-    "subject": "Wooden mortar filled with whole pistachios and a basil leaf on a festive red tablecloth",
+    "subject": "Shelled pistachios in a wooden mortar topped with a basil leaf on a festive red cloth",
     "tags": [
       "pistachio",
       "ingredients",
       "mortar",
-      "basil"
+      "sicilian"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 62,
+    "premium_fit": 42,
+    "service_fit": {
+      "class": 80,
+      "chef": 30,
+      "villa": 20,
+      "events": 15
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 65
+    },
+    "issues": [
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0113.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0114.JPG": {
     "index": 112,
     "people": "none",
-    "subject": "Crushed pistachios and herbs in a wooden mortar with a pestle on a red festive tablecloth",
+    "subject": "Crushed pistachios in a wooden mortar with pestle on a red patterned cloth",
     "tags": [
       "pistachio",
-      "ingredients",
+      "technique",
       "mortar",
-      "preparation"
+      "ingredients",
+      "pesto"
     ],
     "quality": "good",
     "text_overlay": false,
+    "aesthetic": 58,
+    "premium_fit": 38,
+    "service_fit": {
+      "class": 85,
+      "chef": 25,
+      "villa": 15,
+      "events": 10
+    },
+    "format_fit": {
+      "reel": 50,
+      "carousel": 60
+    },
+    "issues": [
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0114.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0115.JPG": {
     "index": 113,
     "people": "none",
-    "subject": "Golden breaded fried prawns or fish strips on a dark marble board with a dip behind",
+    "subject": "Four golden breaded fried prawns on a dark speckled board with dip, red petals at the edge",
     "tags": [
-      "fried",
       "seafood",
-      "breaded",
-      "plating"
+      "fried",
+      "prawns",
+      "plating",
+      "starter"
     ],
-    "quality": "good",
+    "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 52,
+    "premium_fit": 38,
+    "service_fit": {
+      "class": 15,
+      "chef": 55,
+      "villa": 35,
+      "events": 55
+    },
+    "format_fit": {
+      "reel": 40,
+      "carousel": 55
+    },
+    "issues": [
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0115.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0116.JPG": {
     "index": 114,
     "people": "none",
-    "subject": "Bowl of orange seafood soup with herbs on a gold charger plate, Christmas decorations around",
+    "subject": "Seafood soup in a patterned bowl on a gold charger with a festive Christmas table around it",
     "tags": [
       "soup",
       "seafood",
+      "table",
       "festive",
-      "table"
+      "dinner"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 48,
+    "premium_fit": 35,
+    "service_fit": {
+      "class": 10,
+      "chef": 60,
+      "villa": 45,
+      "events": 15
+    },
+    "format_fit": {
+      "reel": 35,
+      "carousel": 50
+    },
+    "issues": [
+      "cluttered",
+      "messy_background"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0116.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "IMG_0117.JPG": {
     "index": 115,
     "people": "none",
-    "subject": "Christmas table setting with patterned plates, cutlery, candles and red rose petals scattered around",
+    "subject": "Festive table setting with gold charger, patterned plate, cutlery, candles and scattered red rose petals",
     "tags": [
-      "table-setting",
+      "table",
+      "setting",
       "festive",
-      "christmas",
-      "decor"
+      "tableware"
     ],
     "quality": "ok",
     "text_overlay": false,
+    "aesthetic": 55,
+    "premium_fit": 42,
+    "service_fit": {
+      "class": 5,
+      "chef": 65,
+      "villa": 70,
+      "events": 30
+    },
+    "format_fit": {
+      "reel": 40,
+      "carousel": 60
+    },
+    "issues": [
+      "cluttered"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/IMG_0117.JPG",
     "cataloguedAt": "2026-11-06"
   },
   "LOGORISTHOME.png": {
     "index": 116,
     "people": "none",
-    "subject": "Ristorante Home logo on white background with the tagline Il tuo chef a domicilio",
+    "subject": "Rist Home logo, fork and knife icon with text 'Il tuo chef a domicilio' on white background",
     "tags": [
       "logo",
-      "branding",
-      "graphic"
+      "brand"
     ],
     "quality": "good",
     "text_overlay": true,
+    "aesthetic": 20,
+    "premium_fit": 10,
+    "service_fit": {
+      "class": 0,
+      "chef": 0,
+      "villa": 0,
+      "events": 0
+    },
+    "format_fit": {
+      "reel": 5,
+      "carousel": 10
+    },
+    "issues": [
+      "logo_overlay"
+    ],
     "source": "/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME/LOGORISTHOME.png",
     "cataloguedAt": "2026-11-06"
   }

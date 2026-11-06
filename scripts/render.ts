@@ -27,6 +27,7 @@ import { CAROUSEL, REEL } from "../src/lib/formats.ts";
 import { gateSpec } from "../src/lib/gate-io.ts";
 import { buildCaption, reelTimeline } from "../src/lib/timeline.ts";
 import { parsePostSpec } from "../src/schemas/post.ts";
+import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
@@ -198,6 +199,8 @@ const main = async () => {
       writeFileSync(captionFile, buildCaption(spec) + "\n");
       manifest.caption = captionFile;
       writeFileSync(path.join(outDir, "manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
+      const st = loadPipeline()[spec.slug]?.state;
+      if (st && ["QUALITY_CHECKED", "APPROVED", "RENDERED", "FAILED", "BLOCKED"].includes(st)) setState(spec.slug, "RENDERED", `reel ${manifest.reel ? "yes" : "no"}, slides ${(manifest.carousel as unknown[] | undefined)?.length ?? 0}`);
       log(`${spec.slug}: done -> ${outDir}/manifest.json`);
     }
   } finally {

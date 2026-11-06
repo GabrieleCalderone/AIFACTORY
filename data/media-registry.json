@@ -1,0 +1,2361 @@
+{
+ "version": 1,
+ "assets": {
+  "6ee91423eecef1d6325c6e236507f26f4e41803600486398f91da0033286d1df": {
+   "id": "6ee91423eecef1d6325c6e236507f26f4e41803600486398f91da0033286d1df",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/chef-a-domicilio/01-IMG_0071.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/96-IMG_0071.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 1560,
+   "mime": "image/jpeg",
+   "people": "chef",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "96bf9bcd7830ff9f24fc369667fd6edc6c528767f20cbff95362f288d5f8c0f1": {
+   "id": "96bf9bcd7830ff9f24fc369667fd6edc6c528767f20cbff95362f288d5f8c0f1",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/chef-a-domicilio/02-IMG_0117.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/93-IMG_0117.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1152,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "1481fd072d970b33887e0ae6a184543c50b06228a45a050e768fd91195a6f7fc": {
+   "id": "1481fd072d970b33887e0ae6a184543c50b06228a45a050e768fd91195a6f7fc",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/chef-a-domicilio/03-IMG_0055.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/49-IMG_0055.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 989,
+   "height": 914,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "657dedd6f1936bca0bebbb9d3db14689bd0b462477d0a4ce812a9d3eee094ab6": {
+   "id": "657dedd6f1936bca0bebbb9d3db14689bd0b462477d0a4ce812a9d3eee094ab6",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/chef-a-domicilio/04-IMG_0043.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/38-IMG_0043.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 899,
+   "height": 1599,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "5418b70efcc430dfa6db0fc4edeff063e019947c473a4c5ff593bca923cb8734": {
+   "id": "5418b70efcc430dfa6db0fc4edeff063e019947c473a4c5ff593bca923cb8734",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/chef-a-domicilio/05-IMG_0028.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pasta-class-palermo/05-IMG_0107.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/23-IMG_0028.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/84-IMG_0107.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 668,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "693a777264d2c511f4f5e5f34499ff28a2fa7d960cb1fc9d5aa0264a1bf53060": {
+   "id": "693a777264d2c511f4f5e5f34499ff28a2fa7d960cb1fc9d5aa0264a1bf53060",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/chef-a-domicilio/06-IMG_0099.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/79-IMG_0099.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2048,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "a14cc2defc2f5a3e71c63e9ebd46aa94c1947e0de50321e3a3a19d59f7f4a3d9": {
+   "id": "a14cc2defc2f5a3e71c63e9ebd46aa94c1947e0de50321e3a3a19d59f7f4a3d9",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/chef-a-domicilio/07-IMG_0054.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/85-IMG_0108.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1024,
+   "height": 768,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "f940228c5446ee4de569339bffd5ea9b84e2ee2f077d1c745fddf390fab9a683": {
+   "id": "f940228c5446ee4de569339bffd5ea9b84e2ee2f077d1c745fddf390fab9a683",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/chef-a-domicilio/08-IMG_0116.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/92-IMG_0116.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2048,
+   "height": 1781,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "6288e9ca7c8df9cb493628a36bb58f7bae2f8bb4d0098103abcd072f557ca3cc": {
+   "id": "6288e9ca7c8df9cb493628a36bb58f7bae2f8bb4d0098103abcd072f557ca3cc",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/chef-a-domicilio/09-IMG_0044.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/39-IMG_0044.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1536,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "8e9638ece32bafd426404a3c1dd64d7d28e59cd90ef255bd791902ab5aba96e8": {
+   "id": "8e9638ece32bafd426404a3c1dd64d7d28e59cd90ef255bd791902ab5aba96e8",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/chef-a-domicilio/10-IMG_0058.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/52-IMG_0058.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1023,
+   "height": 1105,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "73bf2f19bbab15892e1a0e26235c42835076225d5e5ebcf3b6e372394ee86442": {
+   "id": "73bf2f19bbab15892e1a0e26235c42835076225d5e5ebcf3b6e372394ee86442",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/chef-a-domicilio/11-IMG_0099.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2048,
+   "height": 1556,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "3a72d215ca46882f61e4da91c9da2cc81a0ff7103c76abefe1069ee22e7823df": {
+   "id": "3a72d215ca46882f61e4da91c9da2cc81a0ff7103c76abefe1069ee22e7823df",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food/01-IMG_0076.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/66-IMG_0076.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 1560,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "9d5c0019bc94b404d3c468bda4eecb731e092e87eb79b5c5260db7d5ab455358": {
+   "id": "9d5c0019bc94b404d3c468bda4eecb731e092e87eb79b5c5260db7d5ab455358",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food/02-IMG_0005.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/02-IMG_0005.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/67-IMG_0080.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1470,
+   "height": 1104,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "1835d829863fe8c36406eb8620cf391d860d97f788edd5b765d7e1c903fb707b": {
+   "id": "1835d829863fe8c36406eb8620cf391d860d97f788edd5b765d7e1c903fb707b",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food/03-IMG_0012.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/08-IMG_0012.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1299,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "e97ed749f6fa3af3d454203466ae95af7d0694937020d051b0a7778b662b6b2a": {
+   "id": "e97ed749f6fa3af3d454203466ae95af7d0694937020d051b0a7778b662b6b2a",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food/04-IMG_0011.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/07-IMG_0011.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2048,
+   "height": 1528,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "f11b5ab201b4296c80be468e4d4580744d888d103cf2d5c93e0d0d055dcf70d0": {
+   "id": "f11b5ab201b4296c80be468e4d4580744d888d103cf2d5c93e0d0d055dcf70d0",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food/05-IMG_0075.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/65-IMG_0075.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 1560,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "4adc9c6dad0273c58397ccfd53c60128fedb7632acb43e12d94992b2321c5b79": {
+   "id": "4adc9c6dad0273c58397ccfd53c60128fedb7632acb43e12d94992b2321c5b79",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food/06-IMG_0046.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/41-IMG_0046.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1042,
+   "height": 982,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "45fec174d1f88d4606eabae4e4822aa1554559f0afcf34b33cac5112a7b16e89": {
+   "id": "45fec174d1f88d4606eabae4e4822aa1554559f0afcf34b33cac5112a7b16e89",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food/07-IMG_0068.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/61-IMG_0068.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 1005,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "abcf8a59ae03f625d9d8c336a1f54475319972728d39e3388a5fad2db89dbf34": {
+   "id": "abcf8a59ae03f625d9d8c336a1f54475319972728d39e3388a5fad2db89dbf34",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food/08-IMG_0081.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/01-IMG_0004.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/68-IMG_0081.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 841,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "00815e24a6cb1f558ddb59317507408267ae73aa698b84428aa70f7bc872937f": {
+   "id": "00815e24a6cb1f558ddb59317507408267ae73aa698b84428aa70f7bc872937f",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food/09-IMG_0062.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pasta-class-palermo/12-IMG_0062.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/55-IMG_0062.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1152,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "63737f7e025ca10f3669003f92e9d72b063a2a7d1d823bcf13e0c87ee21b13b8": {
+   "id": "63737f7e025ca10f3669003f92e9d72b063a2a7d1d823bcf13e0c87ee21b13b8",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food/10-IMG_0050.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/45-IMG_0050.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1454,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "fd0ef1e156d213f60a2b3e267b11ae82cb3e30f9f26ca8287ee9fd71a5cc2f33": {
+   "id": "fd0ef1e156d213f60a2b3e267b11ae82cb3e30f9f26ca8287ee9fd71a5cc2f33",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food/11-IMG_0112.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/88-IMG_0112.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 1560,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "545d51052e4f67eb7c406eb987f1bc548f37f5de0678e99542218cc0b13cdd0c": {
+   "id": "545d51052e4f67eb7c406eb987f1bc548f37f5de0678e99542218cc0b13cdd0c",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food-dslr/01-DSC_9472.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2160,
+   "height": 1239,
+   "mime": "image/jpeg",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "3e215255c1b7538ceecd1f7d44d8890fe8105918291f7bb817c38567c9ad48cf": {
+   "id": "3e215255c1b7538ceecd1f7d44d8890fe8105918291f7bb817c38567c9ad48cf",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food-dslr/02-DSC_9415.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2160,
+   "height": 1287,
+   "mime": "image/jpeg",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "cb0cd99cfc6eb9eb19111608bf9d4989d3615b884353ff4bf951ee84969756dd": {
+   "id": "cb0cd99cfc6eb9eb19111608bf9d4989d3615b884353ff4bf951ee84969756dd",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food-dslr/03-DSC_9440.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2160,
+   "height": 1338,
+   "mime": "image/jpeg",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "b6ceca46a12b93219324cd202f88f35ff34c0d4508f984e67c7216aa9563f8af": {
+   "id": "b6ceca46a12b93219324cd202f88f35ff34c0d4508f984e67c7216aa9563f8af",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food-dslr/04-DSC_9499.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2160,
+   "height": 1440,
+   "mime": "image/jpeg",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "5b58a0c25577f96853c023bec606ea7d4eda2d6e1c85e8a19693f765502ed790": {
+   "id": "5b58a0c25577f96853c023bec606ea7d4eda2d6e1c85e8a19693f765502ed790",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food-dslr/05-DSC_9367.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2160,
+   "height": 1440,
+   "mime": "image/jpeg",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "dd1c951c6bf48230eb925c73e34bee29bdb239b25e33b8c14a70546d7707e1a9": {
+   "id": "dd1c951c6bf48230eb925c73e34bee29bdb239b25e33b8c14a70546d7707e1a9",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food-dslr/06-DSC_9468.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2160,
+   "height": 1440,
+   "mime": "image/jpeg",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "ce203e0027b75e005ad45d17cabd33952dc8a8da11aad52c7779fb7739ebca02": {
+   "id": "ce203e0027b75e005ad45d17cabd33952dc8a8da11aad52c7779fb7739ebca02",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food-dslr/07-DSC_9562.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2160,
+   "height": 1440,
+   "mime": "image/jpeg",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "f93a113740435491f1718eeabbae175934245d983f3fd8b4cbc53ff3cb96a5f5": {
+   "id": "f93a113740435491f1718eeabbae175934245d983f3fd8b4cbc53ff3cb96a5f5",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/eventi-finger-food-dslr/08-DSC_9296.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2160,
+   "height": 1440,
+   "mime": "image/jpeg",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "932353e8f09b551957f38174b05a0f93d737ce2d0f0c09e26e5b8f597439d900": {
+   "id": "932353e8f09b551957f38174b05a0f93d737ce2d0f0c09e26e5b8f597439d900",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pasta-class-palermo/01-IMG_0070.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/95-IMG_0070.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 715,
+   "height": 961,
+   "mime": "image/jpeg",
+   "people": "chef",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "ca14d21d885ec5e1057fd3daffb68c8ded1a02265618a482e43032b4985025a1": {
+   "id": "ca14d21d885ec5e1057fd3daffb68c8ded1a02265618a482e43032b4985025a1",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pasta-class-palermo/02-IMG_0113.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/89-IMG_0113.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1200,
+   "height": 1600,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "d56106702521a9bbf150fbd8790b07db9144173de893275353c9b4072289fc97": {
+   "id": "d56106702521a9bbf150fbd8790b07db9144173de893275353c9b4072289fc97",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pasta-class-palermo/03-IMG_0114.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/90-IMG_0114.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1152,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "e2ebb6e74661dd225e72b9dc0d1c8028e45dc383b2e34126f88f2ddfb33403cd": {
+   "id": "e2ebb6e74661dd225e72b9dc0d1c8028e45dc383b2e34126f88f2ddfb33403cd",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pasta-class-palermo/04-IMG_0110.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/87-IMG_0110.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 968,
+   "height": 460,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "f92851555419929109fb0c1f78030342d51afd52d9a55bbd93f5909b67c68496": {
+   "id": "f92851555419929109fb0c1f78030342d51afd52d9a55bbd93f5909b67c68496",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pasta-class-palermo/06-IMG_0093.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/74-IMG_0093.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2048,
+   "height": 1826,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "4ec54a2945f34f9c090ca737dd62ef7ae199061639bf3cd8c8aea134f3f4e2c8": {
+   "id": "4ec54a2945f34f9c090ca737dd62ef7ae199061639bf3cd8c8aea134f3f4e2c8",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pasta-class-palermo/07-IMG_0088.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/70-IMG_0088.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 899,
+   "height": 1599,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "cd87566474f8678b52fcab6dad2625385adbad6a795dbfe051c5fd89256f765c": {
+   "id": "cd87566474f8678b52fcab6dad2625385adbad6a795dbfe051c5fd89256f765c",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pasta-class-palermo/08-IMG_0094.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/99-IMG_0094.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2048,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "chef",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "db96b7c52213b0a0d18c2ac6d10fde68dccdc44883a81a6966787d535e67c5b4": {
+   "id": "db96b7c52213b0a0d18c2ac6d10fde68dccdc44883a81a6966787d535e67c5b4",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pasta-class-palermo/09-IMG_0077.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/97-IMG_0077.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2048,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "chef",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "7780378de893b758bc07b9afac71d31be2487d569fdc7a831e2273e743d1edab": {
+   "id": "7780378de893b758bc07b9afac71d31be2487d569fdc7a831e2273e743d1edab",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pasta-class-palermo/10-IMG_0047.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/42-IMG_0047.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1536,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "ca715a7d4d748a375cbeba9d19259142668311670a66dd452a0bf658d933ff96": {
+   "id": "ca715a7d4d748a375cbeba9d19259142668311670a66dd452a0bf658d933ff96",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pasta-class-palermo/11-IMG_0042.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/37-IMG_0042.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1080,
+   "height": 1458,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "9efef5ae9f2731961f9e71b99cd60d4e719d20fb2c2f614f3d18888815c88a2d": {
+   "id": "9efef5ae9f2731961f9e71b99cd60d4e719d20fb2c2f614f3d18888815c88a2d",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pasta-class-palermo/13-IMG_0077.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2048,
+   "height": 1556,
+   "mime": "image/jpeg",
+   "people": "chef",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "7c683c772b70b5a85ec7ad7b9bf5b6bf1f99dc0213e75998a62bba7623761594": {
+   "id": "7c683c772b70b5a85ec7ad7b9bf5b6bf1f99dc0213e75998a62bba7623761594",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/03-IMG_0006.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/69-IMG_0082.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 540,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "e06d33cbfc4e79e05ae8d0e5ab37893d9cae9dc9c1fc5eeb534de4ce6afb3925": {
+   "id": "e06d33cbfc4e79e05ae8d0e5ab37893d9cae9dc9c1fc5eeb534de4ce6afb3925",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/04-IMG_0008.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 523,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "4ec95a90a6971b82e50856d04e6ea48fe400361e9e9cd45cd99dacf110333dd4": {
+   "id": "4ec95a90a6971b82e50856d04e6ea48fe400361e9e9cd45cd99dacf110333dd4",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/05-IMG_0009.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 960,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "e70853eea39ea9f3065a2800dfb029c11e27ec53e33fac6f5b42853273c831c8": {
+   "id": "e70853eea39ea9f3065a2800dfb029c11e27ec53e33fac6f5b42853273c831c8",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/06-IMG_0010.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1600,
+   "height": 1427,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "6422e890900ac9fecedddf51a4fb526474bd36730a9434b495c6a39f29f0bff1": {
+   "id": "6422e890900ac9fecedddf51a4fb526474bd36730a9434b495c6a39f29f0bff1",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/09-IMG_0013.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 960,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "dbcf458fd8b22fc0d02c56a05ad3ccf6790fe83d1a1dcd67803477d7e5d3c079": {
+   "id": "dbcf458fd8b22fc0d02c56a05ad3ccf6790fe83d1a1dcd67803477d7e5d3c079",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/10-IMG_0014.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 703,
+   "height": 604,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "8fb4f889e49fe6d7749bbcf40674ed1a2c319fdbe30c00e4315d0c8ce91941e4": {
+   "id": "8fb4f889e49fe6d7749bbcf40674ed1a2c319fdbe30c00e4315d0c8ce91941e4",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/11-IMG_0016.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1536,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "929382a63906bf0a4ea9500de7d779066a31b66d9391175e75e672c898195c40": {
+   "id": "929382a63906bf0a4ea9500de7d779066a31b66d9391175e75e672c898195c40",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/12-IMG_0017.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 694,
+   "height": 608,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "15c52cb84476b00bafbde5ad1901ded22f30be108b43ed1399922c0954ccdebc": {
+   "id": "15c52cb84476b00bafbde5ad1901ded22f30be108b43ed1399922c0954ccdebc",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/13-IMG_0018.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1080,
+   "height": 1920,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "95ecbfa06c385377ecd613ed927fbe6f6c104760e65cbb40b66be85677acefd5": {
+   "id": "95ecbfa06c385377ecd613ed927fbe6f6c104760e65cbb40b66be85677acefd5",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/14-IMG_0019.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 662,
+   "height": 734,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "78b738c0dad7d567a4fea804382c113a851538396feee857eaef31d8bc5a1e8d": {
+   "id": "78b738c0dad7d567a4fea804382c113a851538396feee857eaef31d8bc5a1e8d",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/15-IMG_0020.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1080,
+   "height": 1920,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "6ed1b2ab8cd1e01c2f1270b044fe3cba095e9e25311e48fc691aa586192150e7": {
+   "id": "6ed1b2ab8cd1e01c2f1270b044fe3cba095e9e25311e48fc691aa586192150e7",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/16-IMG_0021.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 1262,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "94294db40a4e5c86905b1da616030a8b8136d220c039ca5657b8a64c67ac21ad": {
+   "id": "94294db40a4e5c86905b1da616030a8b8136d220c039ca5657b8a64c67ac21ad",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/17-IMG_0022.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1517,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "d15e8966f94838c8b45798b2301642b178c7ff3b8077535aed4868244ef3ab09": {
+   "id": "d15e8966f94838c8b45798b2301642b178c7ff3b8077535aed4868244ef3ab09",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/18-IMG_0023.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1466,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "73bb9aeab645f40197347fdcea2db695b56d194cdde7c6e1724973ea96f9a781": {
+   "id": "73bb9aeab645f40197347fdcea2db695b56d194cdde7c6e1724973ea96f9a781",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/19-IMG_0024.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2048,
+   "height": 946,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "117aef0a27f2f85c7b9b6e341fec866f7026a2d997116db60a32db7ec6604276": {
+   "id": "117aef0a27f2f85c7b9b6e341fec866f7026a2d997116db60a32db7ec6604276",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/20-IMG_0025.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1080,
+   "height": 1920,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "40f50d6a763e613a681ae1501a21375a6a13ac7c1424c751b12eda42831701c0": {
+   "id": "40f50d6a763e613a681ae1501a21375a6a13ac7c1424c751b12eda42831701c0",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/21-IMG_0026.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 415,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "fd92208624d76b8285750c535b4aa9517842297e1c2530d862e930d9c799ea0d": {
+   "id": "fd92208624d76b8285750c535b4aa9517842297e1c2530d862e930d9c799ea0d",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/22-IMG_0027.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 707,
+   "height": 739,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "1f2177aa1ad27f5e3263938604e11d970400283215a82c807dc1edfa42c381fc": {
+   "id": "1f2177aa1ad27f5e3263938604e11d970400283215a82c807dc1edfa42c381fc",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/24-IMG_0029.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1600,
+   "height": 1347,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "25630a280a5e5625af93b7e39f73dac45e72b3b3465e6af9dec29c6feb20f7aa": {
+   "id": "25630a280a5e5625af93b7e39f73dac45e72b3b3465e6af9dec29c6feb20f7aa",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/25-IMG_0030.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2048,
+   "height": 1211,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "0a896d6e84d24b8e35475769b3da7482e0c0d9903d293c3c2f0971e83d67f230": {
+   "id": "0a896d6e84d24b8e35475769b3da7482e0c0d9903d293c3c2f0971e83d67f230",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/26-IMG_0031.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1080,
+   "height": 1920,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "8255f8bd4c52681f0e61f4db735c06bd73b03acac99cd8ad1aca36c66a07964f": {
+   "id": "8255f8bd4c52681f0e61f4db735c06bd73b03acac99cd8ad1aca36c66a07964f",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/27-IMG_0032.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1152,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "91b05626351992387cb0958b4c6047cfabb14c81b3ad36bd55ebd8b9ff40ef43": {
+   "id": "91b05626351992387cb0958b4c6047cfabb14c81b3ad36bd55ebd8b9ff40ef43",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/28-IMG_0033.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 718,
+   "height": 694,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "57faede119487315ebe9853f57899547df0a9b6e6605598c4343382ac3f5ab1a": {
+   "id": "57faede119487315ebe9853f57899547df0a9b6e6605598c4343382ac3f5ab1a",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/29-IMG_0034.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 900,
+   "height": 1600,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "5586475f3d2c754ac88ae759fe07e3eec8da300538c8b057fba44c7f79a6441c": {
+   "id": "5586475f3d2c754ac88ae759fe07e3eec8da300538c8b057fba44c7f79a6441c",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/30-IMG_0035.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 752,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "d3aed0ab358bda420a7e805a9ddf7e7f4042be8184556fd49d463f1e9a50aa75": {
+   "id": "d3aed0ab358bda420a7e805a9ddf7e7f4042be8184556fd49d463f1e9a50aa75",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/31-IMG_0036.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1461,
+   "height": 1496,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "1102efbd9eb4a3bbace0b27e7024db71db89325d664cfa09448b7d82467b4d96": {
+   "id": "1102efbd9eb4a3bbace0b27e7024db71db89325d664cfa09448b7d82467b4d96",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/32-IMG_0037.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 866,
+   "height": 558,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "f1b0685a9ad3bbd4a5c354f5451a97efadceab96ccaff54ee7315405e358b364": {
+   "id": "f1b0685a9ad3bbd4a5c354f5451a97efadceab96ccaff54ee7315405e358b364",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/33-IMG_0038.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1535,
+   "height": 1600,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "f29103aa8d8de07746cb796b42df2501d0e9c9e7785c5997dd1f2880d39fae74": {
+   "id": "f29103aa8d8de07746cb796b42df2501d0e9c9e7785c5997dd1f2880d39fae74",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/34-IMG_0039.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 899,
+   "height": 1600,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "2400fb943b58d1228ef42da98d32c8924441e57ab48bda96450b37bf1bfcd7dc": {
+   "id": "2400fb943b58d1228ef42da98d32c8924441e57ab48bda96450b37bf1bfcd7dc",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/35-IMG_0040.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1210,
+   "height": 1600,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "d02384509b606c19c4252607958567d391a2a0c9b3b3709b1bc2923670707b16": {
+   "id": "d02384509b606c19c4252607958567d391a2a0c9b3b3709b1bc2923670707b16",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/36-IMG_0041.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1470,
+   "height": 1600,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "9759668208359c5273337d6803319dc069da4ecc786fe34e5facb4b8129ba51a": {
+   "id": "9759668208359c5273337d6803319dc069da4ecc786fe34e5facb4b8129ba51a",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/40-IMG_0045.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1134,
+   "height": 1052,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "998565878c8ff2cff8704217ff94d4d7e97852d776adf7f77e61466ab0667fe6": {
+   "id": "998565878c8ff2cff8704217ff94d4d7e97852d776adf7f77e61466ab0667fe6",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/43-IMG_0048.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1600,
+   "height": 1600,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "73e1ebb5aaae5ea7bbe175e38372e7442c1a1dcd625c3824b828c1c890efe466": {
+   "id": "73e1ebb5aaae5ea7bbe175e38372e7442c1a1dcd625c3824b828c1c890efe466",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/44-IMG_0049.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1600,
+   "height": 1245,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "95a47ab4f6d23a2d516796cfa2081b0373d612a92ddb41787778382491282f7b": {
+   "id": "95a47ab4f6d23a2d516796cfa2081b0373d612a92ddb41787778382491282f7b",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/46-IMG_0051.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1600,
+   "height": 900,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "e264df191609a495af4ca18234fa8b4892dd161616b3d6a42c007cc259ac5cb1": {
+   "id": "e264df191609a495af4ca18234fa8b4892dd161616b3d6a42c007cc259ac5cb1",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/47-IMG_0052.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1600,
+   "height": 1419,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "cec19cb675f6aa8f1b9b311f29526d0f40ba837cf7997ab7a3cabe5476c35007": {
+   "id": "cec19cb675f6aa8f1b9b311f29526d0f40ba837cf7997ab7a3cabe5476c35007",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/48-IMG_0053.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 800,
+   "height": 1600,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "c5b6eb97ec7436f11686c9268704944bdad579a6f9b54bccbc733e8f7ca02ee2": {
+   "id": "c5b6eb97ec7436f11686c9268704944bdad579a6f9b54bccbc733e8f7ca02ee2",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/50-IMG_0056.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/86-IMG_0109.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1053,
+   "height": 743,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "29b4ff1d2064cec0ef5baf340fa476ae5e21002823bb132cb936a378a76d3bf2": {
+   "id": "29b4ff1d2064cec0ef5baf340fa476ae5e21002823bb132cb936a378a76d3bf2",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/51-IMG_0057.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1051,
+   "height": 1153,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "a97c1f2d52c304ebe767a589c0a8ddfbfc160586d803270bb33b8d24a12035ec": {
+   "id": "a97c1f2d52c304ebe767a589c0a8ddfbfc160586d803270bb33b8d24a12035ec",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/53-IMG_0059.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 576,
+   "height": 1024,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "6f12cb7c63e5c1432e64c6863cd2263d56e18d07e9630f0fe9835c333152bfd0": {
+   "id": "6f12cb7c63e5c1432e64c6863cd2263d56e18d07e9630f0fe9835c333152bfd0",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/54-IMG_0060.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 899,
+   "height": 1600,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "2163eca0af2518e5fb15edf650139bc96e1194d62e33f6caa80c9d889a6a7a78": {
+   "id": "2163eca0af2518e5fb15edf650139bc96e1194d62e33f6caa80c9d889a6a7a78",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/56-IMG_0063.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1534,
+   "height": 1600,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "360b7b274b1b060efcfb5ed4b89a95c42339b4ca31b8b14a1ff8e3baa94135d8": {
+   "id": "360b7b274b1b060efcfb5ed4b89a95c42339b4ca31b8b14a1ff8e3baa94135d8",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/57-IMG_0064.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1542,
+   "height": 1390,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "030d76281079b3512194ac94460b012f8799ab87f70f7a84b8394a3ff6af807b": {
+   "id": "030d76281079b3512194ac94460b012f8799ab87f70f7a84b8394a3ff6af807b",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/58-IMG_0065.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1152,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "64fc81e4d246e4a115fa8bf350251fd09e5a97f2f31155826030eec5ff1c8371": {
+   "id": "64fc81e4d246e4a115fa8bf350251fd09e5a97f2f31155826030eec5ff1c8371",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/59-IMG_0066.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 713,
+   "height": 949,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "c19aa6598a424391649167987768830f38a721a5f7aef7c72572a5b2fff60e03": {
+   "id": "c19aa6598a424391649167987768830f38a721a5f7aef7c72572a5b2fff60e03",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/60-IMG_0067.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 895,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "855d8d2ede9b89aa35eeb0b083a2e241344dae4e888b66f4f1d6dcc6bc716339": {
+   "id": "855d8d2ede9b89aa35eeb0b083a2e241344dae4e888b66f4f1d6dcc6bc716339",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/62-IMG_0069.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 531,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "7651770280d2655a00911f7033496ca3625a4f0d8541bf9161b0323acb83541a": {
+   "id": "7651770280d2655a00911f7033496ca3625a4f0d8541bf9161b0323acb83541a",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/63-IMG_0072.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 1560,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "990a31568e23102ec75377b9c64e8af00796e5e9207ba6053bf6b3a69285bd00": {
+   "id": "990a31568e23102ec75377b9c64e8af00796e5e9207ba6053bf6b3a69285bd00",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/64-IMG_0073.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 1560,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "b702a2f005f5b7582c4bd13dfe9807a42b8d6ab9baade690cf5b51a2c79c71b7": {
+   "id": "b702a2f005f5b7582c4bd13dfe9807a42b8d6ab9baade690cf5b51a2c79c71b7",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/71-IMG_0089.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1599,
+   "height": 899,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "a6bd19b7be882d3f8309fbb71e29c0c3d92b4bcb0500125eb4da8d281285b237": {
+   "id": "a6bd19b7be882d3f8309fbb71e29c0c3d92b4bcb0500125eb4da8d281285b237",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/72-IMG_0090.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 899,
+   "height": 1599,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "ce99899df4db0b45096c271d40aa74fe8a7efa5c8df8b2478a6cdd2d369a0557": {
+   "id": "ce99899df4db0b45096c271d40aa74fe8a7efa5c8df8b2478a6cdd2d369a0557",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/73-IMG_0092.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1439,
+   "height": 970,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "c1efecbc8398d554fac0242f26b4fc77afe4f7f09be3cc2a9cb4966b8fe11821": {
+   "id": "c1efecbc8398d554fac0242f26b4fc77afe4f7f09be3cc2a9cb4966b8fe11821",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/75-IMG_0095.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2048,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "7fcc0f5911d2699adc3a62aa523849906c342339df7515eaabcd06bba06d7a5b": {
+   "id": "7fcc0f5911d2699adc3a62aa523849906c342339df7515eaabcd06bba06d7a5b",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/76-IMG_0096.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1440,
+   "height": 1440,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "94a447ca76617d04bbe1ad69d14558a86888574e1c75ff948fa94ea213d035c1": {
+   "id": "94a447ca76617d04bbe1ad69d14558a86888574e1c75ff948fa94ea213d035c1",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/77-IMG_0097.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2048,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "a3b3801e112dc8c88a8f8c11811b207f7395a40af25033101a32a9e5fadd3a65": {
+   "id": "a3b3801e112dc8c88a8f8c11811b207f7395a40af25033101a32a9e5fadd3a65",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/78-IMG_0098.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2048,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "07f675b7edcba5fcfd54079695271a8515342ebb5625fd095a4c44c94552c1b1": {
+   "id": "07f675b7edcba5fcfd54079695271a8515342ebb5625fd095a4c44c94552c1b1",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/80-IMG_0100.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2048,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "3d49349bbc8045d387ee079a0d7202cc2992b6caabff3e98836bb75734a5ab4e": {
+   "id": "3d49349bbc8045d387ee079a0d7202cc2992b6caabff3e98836bb75734a5ab4e",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/81-IMG_0102.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 942,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "9488961456ca8ddc94909992387347fbe26a6cdf2847b012e2841594a23cdcd0": {
+   "id": "9488961456ca8ddc94909992387347fbe26a6cdf2847b012e2841594a23cdcd0",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/82-IMG_0104.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 2048,
+   "height": 2048,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "89e9ed2384d4abad0789c6d7e9454224c8cb7f3ee43d74b3463583fd79de317b": {
+   "id": "89e9ed2384d4abad0789c6d7e9454224c8cb7f3ee43d74b3463583fd79de317b",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/83-IMG_0105.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 874,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "258daa892314c02dbe67f00d4a2891ec0831d54755bc94607718085c2da1874c": {
+   "id": "258daa892314c02dbe67f00d4a2891ec0831d54755bc94607718085c2da1874c",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/91-IMG_0115.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 768,
+   "height": 1024,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "d3621f187bda09c53aa6ad3ef9d2964d3597e800a41829d57bc9c8d0bbc52cab": {
+   "id": "d3621f187bda09c53aa6ad3ef9d2964d3597e800a41829d57bc9c8d0bbc52cab",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/94-LOGORISTHOME.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 612,
+   "height": 858,
+   "mime": "image/jpeg",
+   "people": "none",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "b5127f5ab65c99ca505bc5d830a501fdbda73e764f0271b95157515e34b15b65": {
+   "id": "b5127f5ab65c99ca505bc5d830a501fdbda73e764f0271b95157515e34b15b65",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/98-IMG_0084.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1170,
+   "height": 1560,
+   "mime": "image/jpeg",
+   "people": "chef",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "2b384db50345955eab3086ce03f6acc563c592defa6d9571311af804c61dd066": {
+   "id": "2b384db50345955eab3086ce03f6acc563c592defa6d9571311af804c61dd066",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/100-IMG_0101.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 1440,
+   "height": 1440,
+   "mime": "image/jpeg",
+   "people": "chef",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "8900bb1248c932f6379303417dfc0d3b20bc7b4002572e1bb4703e23836790df": {
+   "id": "8900bb1248c932f6379303417dfc0d3b20bc7b4002572e1bb4703e23836790df",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/101-IMG_0103.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    },
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/102-IMG_0106.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 601,
+   "mime": "image/jpeg",
+   "people": "chef",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "4aee64f457d6aebd3dbb5eee09c097219e1683b8d35750c03d7144e66abf1f53": {
+   "id": "4aee64f457d6aebd3dbb5eee09c097219e1683b8d35750c03d7144e66abf1f53",
+   "sources": [
+    {
+     "kind": "pool",
+     "path": "public/assets/pool/103-IMG_0007.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z"
+    }
+   ],
+   "width": 720,
+   "height": 540,
+   "mime": "image/jpeg",
+   "people": "chef",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "86e3cb2e4870de5541bbbc4ed37caff7f98f174f0b8274eff669d9a611020371": {
+   "id": "86e3cb2e4870de5541bbbc4ed37caff7f98f174f0b8274eff669d9a611020371",
+   "sources": [
+    {
+     "kind": "render",
+     "path": "out/a1-20261106/reel.mp4",
+     "addedAt": "2026-11-06T23:21:59.975Z",
+     "note": "a1-20261106"
+    }
+   ],
+   "mime": "video/mp4",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "9fc2d0d990dcd121184e99ca5d49248ca78066720d53157bd77e636e63c399e2": {
+   "id": "9fc2d0d990dcd121184e99ca5d49248ca78066720d53157bd77e636e63c399e2",
+   "sources": [
+    {
+     "kind": "render",
+     "path": "out/a1-20261106/reel-cover.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z",
+     "note": "a1-20261106"
+    }
+   ],
+   "mime": "image/jpeg",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "77e6246496ba3a2244de0d5cfbff4f41d77e5f6817f6cb526fec3777ca9a566b": {
+   "id": "77e6246496ba3a2244de0d5cfbff4f41d77e5f6817f6cb526fec3777ca9a566b",
+   "sources": [
+    {
+     "kind": "render",
+     "path": "out/chef-a-domicilio/reel.mp4",
+     "addedAt": "2026-11-06T23:21:59.975Z",
+     "note": "chef-a-domicilio"
+    }
+   ],
+   "mime": "video/mp4",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "4caa3ddad46bbdd3bd4d9617ee42e8aac2cb7b1cd8e1844d655adc91e7fb2d1d": {
+   "id": "4caa3ddad46bbdd3bd4d9617ee42e8aac2cb7b1cd8e1844d655adc91e7fb2d1d",
+   "sources": [
+    {
+     "kind": "render",
+     "path": "out/chef-a-domicilio/reel-cover.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z",
+     "note": "chef-a-domicilio"
+    }
+   ],
+   "mime": "image/jpeg",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "36204697ffeedcbf7b373dad58c7fb4da7ad59f04eab564610b2dc24039f2801": {
+   "id": "36204697ffeedcbf7b373dad58c7fb4da7ad59f04eab564610b2dc24039f2801",
+   "sources": [
+    {
+     "kind": "render",
+     "path": "out/pasta-class-palermo/reel.mp4",
+     "addedAt": "2026-11-06T23:21:59.975Z",
+     "note": "pasta-class-palermo"
+    }
+   ],
+   "mime": "video/mp4",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "43b209650cd5e2364d88828e9758a7f6de4aa1852fc58af4208c4afe747a325f": {
+   "id": "43b209650cd5e2364d88828e9758a7f6de4aa1852fc58af4208c4afe747a325f",
+   "sources": [
+    {
+     "kind": "render",
+     "path": "out/pasta-class-palermo/reel-cover.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z",
+     "note": "pasta-class-palermo"
+    }
+   ],
+   "mime": "image/jpeg",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "a328362fc7937223404364a3954cde9d91695d40a33c333a62ab73497451cdc6": {
+   "id": "a328362fc7937223404364a3954cde9d91695d40a33c333a62ab73497451cdc6",
+   "sources": [
+    {
+     "kind": "render",
+     "path": "out/pasta-class-palermo-b/reel.mp4",
+     "addedAt": "2026-11-06T23:21:59.975Z",
+     "note": "pasta-class-palermo-b"
+    }
+   ],
+   "mime": "video/mp4",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  },
+  "9266ec3e3cf08871332bb37be44ca12389a67b99e90d02defe2f930065b4a51d": {
+   "id": "9266ec3e3cf08871332bb37be44ca12389a67b99e90d02defe2f930065b4a51d",
+   "sources": [
+    {
+     "kind": "render",
+     "path": "out/pasta-class-palermo-b/reel-cover.jpg",
+     "addedAt": "2026-11-06T23:21:59.975Z",
+     "note": "pasta-class-palermo-b"
+    }
+   ],
+   "mime": "image/jpeg",
+   "license": "risthome-own",
+   "synthetic": false,
+   "status": "active",
+   "firstSeen": "2026-11-06T23:21:59.975Z",
+   "lastSeen": "2026-11-06T23:21:59.975Z"
+  }
+ }
+}

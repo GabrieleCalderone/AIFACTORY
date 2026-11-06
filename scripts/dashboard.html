@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>RistHome Console</title>
+    <title>RistHome Content Intelligence</title>
     <style>
       :root {
         --ink: #0b0b0b;
@@ -13,6 +13,7 @@
         --warn: #b36b00;
         --bad: #b00020;
         --line: #e4ddd2;
+        --muted: #6b6560;
       }
       * {
         box-sizing: border-box;
@@ -20,7 +21,7 @@
       body {
         margin: 0;
         font:
-          15px/1.45 -apple-system,
+          15px/1.5 -apple-system,
           "Helvetica Neue",
           Arial,
           sans-serif;
@@ -30,55 +31,112 @@
       header {
         background: var(--ink);
         color: #fff;
-        padding: 14px 24px;
+        padding: 0 28px;
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: 20px;
+        height: 64px;
+        position: sticky;
+        top: 0;
+        z-index: 5;
       }
       header h1 {
         font:
           700 20px Georgia,
           serif;
         margin: 0;
-        letter-spacing: 0.02em;
       }
       header .tag {
         background: var(--accent);
-        color: #fff;
         font-size: 11px;
         letter-spacing: 0.14em;
         text-transform: uppercase;
         padding: 4px 9px;
         border-radius: 999px;
       }
+      nav {
+        display: flex;
+        gap: 4px;
+        margin-left: auto;
+      }
+      nav button {
+        background: transparent;
+        color: #ddd;
+        border: 0;
+        padding: 10px 14px;
+        font: 600 14px inherit;
+        cursor: pointer;
+        border-bottom: 3px solid transparent;
+        border-radius: 0;
+      }
+      nav button.active {
+        color: #fff;
+        border-bottom-color: var(--accent);
+      }
       main {
-        max-width: 1240px;
+        max-width: 1400px;
         margin: 0 auto;
-        padding: 20px 24px 60px;
+        padding: 28px;
+      }
+      section.view {
+        display: none;
+      }
+      section.view.active {
+        display: block;
+      }
+      .kpis {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+      .kpi {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 18px 20px;
+      }
+      .kpi .n {
+        font:
+          700 34px Georgia,
+          serif;
+        line-height: 1.1;
+      }
+      .kpi .l {
+        color: var(--muted);
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-top: 4px;
+      }
+      .kpi .s {
+        font-size: 13px;
+        margin-top: 6px;
       }
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 20px;
       }
       .card {
         background: #fff;
         border: 1px solid var(--line);
-        border-radius: 12px;
-        padding: 16px 18px;
+        border-radius: 14px;
+        padding: 20px 22px;
       }
       .card h2 {
         font:
-          700 17px Georgia,
+          700 18px Georgia,
           serif;
-        margin: 0 0 10px;
+        margin: 0 0 12px;
       }
       .row {
         display: flex;
         justify-content: space-between;
-        gap: 10px;
-        padding: 6px 0;
+        gap: 12px;
+        padding: 7px 0;
         border-bottom: 1px solid #f0ebe3;
+        align-items: center;
       }
       .row:last-child {
         border-bottom: 0;
@@ -86,7 +144,7 @@
       .pill {
         font-size: 12px;
         font-weight: 700;
-        padding: 2px 9px;
+        padding: 3px 10px;
         border-radius: 999px;
         color: #fff;
         white-space: nowrap;
@@ -101,12 +159,15 @@
         background: var(--bad);
       }
       .muted {
-        background: #777;
+        background: #8a8580;
+      }
+      .ink {
+        background: var(--ink);
       }
       button {
         font: 600 14px inherit;
-        padding: 9px 14px;
-        border-radius: 8px;
+        padding: 10px 16px;
+        border-radius: 9px;
         border: 1px solid var(--ink);
         background: var(--ink);
         color: #fff;
@@ -120,26 +181,33 @@
         background: var(--accent);
         border-color: var(--accent);
       }
+      button.small {
+        padding: 6px 10px;
+        font-size: 13px;
+      }
       .actions {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        margin-top: 10px;
+        margin-top: 12px;
       }
-      input[type="password"] {
+      input,
+      select,
+      textarea {
         width: 100%;
-        padding: 9px 10px;
+        padding: 10px 12px;
         border: 1px solid var(--line);
-        border-radius: 8px;
+        border-radius: 9px;
         font: inherit;
+        background: #fff;
       }
       label {
         font-size: 12px;
-        color: #555;
+        color: var(--muted);
         text-transform: uppercase;
         letter-spacing: 0.08em;
         display: block;
-        margin: 8px 0 4px;
+        margin: 10px 0 4px;
       }
       pre {
         background: #111;
@@ -148,9 +216,9 @@
           12px/1.5 ui-monospace,
           Menlo,
           monospace;
-        padding: 12px;
-        border-radius: 8px;
-        max-height: 280px;
+        padding: 14px;
+        border-radius: 10px;
+        max-height: 320px;
         overflow: auto;
         white-space: pre-wrap;
       }
@@ -162,7 +230,7 @@
       th,
       td {
         text-align: left;
-        padding: 7px 8px;
+        padding: 8px 10px;
         border-bottom: 1px solid #f0ebe3;
         vertical-align: top;
       }
@@ -172,168 +240,240 @@
       }
       .posts {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 16px;
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 22px;
       }
       .post video {
         width: 100%;
-        border-radius: 8px;
+        border-radius: 10px;
         background: #111;
         aspect-ratio: 9/16;
         object-fit: cover;
-        max-height: 420px;
+        max-height: 560px;
       }
       .slides {
         display: flex;
-        gap: 6px;
+        gap: 8px;
         overflow-x: auto;
-        margin-top: 8px;
+        margin-top: 10px;
+        padding-bottom: 4px;
       }
       .slides img {
-        height: 90px;
-        border-radius: 4px;
+        height: 130px;
+        border-radius: 6px;
       }
       .caption {
         font-size: 13px;
         white-space: pre-wrap;
         background: var(--cream);
-        padding: 8px;
-        border-radius: 6px;
-        margin-top: 8px;
-        max-height: 140px;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 10px;
+        max-height: 160px;
         overflow: auto;
       }
-      .step {
-        display: flex;
-        gap: 12px;
-        align-items: flex-start;
-        padding: 10px 0;
-        border-bottom: 1px solid #f0ebe3;
+      .media {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 18px;
       }
-      .step .n {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
+      .asset {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .asset img {
+        width: 100%;
+        aspect-ratio: 4/5;
+        object-fit: cover;
+        display: block;
+        background: #222;
+      }
+      .asset .b {
+        padding: 10px 12px;
+      }
+      .asset .q {
+        font:
+          700 22px Georgia,
+          serif;
+      }
+      .bar {
+        display: flex;
+        gap: 3px;
+        margin: 6px 0;
+      }
+      .bar span {
+        flex: 1;
+        height: 6px;
+        border-radius: 3px;
+        background: #e4ddd2;
+        position: relative;
+      }
+      .bar span i {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: 3px;
         background: var(--accent);
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        flex: none;
       }
-      .step.done .n {
-        background: var(--ok);
+      .reasons {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .toolbar {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: end;
+        margin-bottom: 16px;
+      }
+      .toolbar > div {
+        min-width: 160px;
       }
       small {
-        color: #666;
+        color: var(--muted);
       }
-      details summary {
-        cursor: pointer;
-        font-weight: 600;
+      .state {
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
       }
     </style>
   </head>
   <body>
     <header>
-      <h1>RistHome Console</h1>
-      <span class="tag">AI Content Factory</span
-      ><span
-        id="clock"
-        style="margin-left: auto; opacity: 0.75; font-size: 13px"
-      ></span>
+      <h1>RistHome</h1>
+      <span class="tag">Content Intelligence</span>
+      <nav>
+        <button data-view="overview" class="active">Overview</button>
+        <button data-view="media">Media Intelligence</button>
+        <button data-view="studio">Creative Studio</button>
+        <button data-view="publishing">Publishing</button>
+        <button data-view="performance">Performance</button>
+        <button data-view="settings">Settings</button>
+      </nav>
     </header>
     <main>
-      <section class="grid">
-        <div class="card">
-          <h2>Configurazione</h2>
-          <div id="setup"></div>
-          <details style="margin-top: 10px">
-            <summary>Collega Buffer</summary>
-            <label>Chiave API Buffer (Settings → API → Create key)</label>
-            <input
-              type="password"
-              id="bufferKey"
-              placeholder="incolla la chiave e premi Salva"
-              autocomplete="off"
+      <section class="view active" id="overview">
+        <div class="kpis" id="kpis"></div>
+        <div class="grid">
+          <div class="card">
+            <h2>Stato operativo</h2>
+            <div id="ops"></div>
+            <div class="actions">
+              <button class="accent" id="runNow">
+                Produci il post di oggi
+              </button>
+              <button class="secondary" id="runDry">
+                Prova senza pubblicare
+              </button>
+              <button class="secondary" id="toggleStop">Pausa</button>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Pipeline (stati reali)</h2>
+            <div id="pipe"></div>
+          </div>
+          <div class="card">
+            <h2>Problemi e avvisi</h2>
+            <div id="issues"></div>
+          </div>
+        </div>
+        <div class="card" style="margin-top: 20px">
+          <h2>Attività</h2>
+          <pre id="jobs">nessuna</pre>
+        </div>
+      </section>
+
+      <section class="view" id="media">
+        <div class="toolbar">
+          <div>
+            <label>Servizio</label
+            ><select id="mService">
+              <option value="class">Cooking class</option>
+              <option value="chef">Private chef</option>
+              <option value="villa">Villa dining</option>
+              <option value="events">Eventi</option>
+            </select>
+          </div>
+          <div>
+            <label>Formato</label
+            ><select id="mFormat">
+              <option value="reel">Reel 9:16</option>
+              <option value="carousel">Carosello 4:5</option>
+            </select>
+          </div>
+          <div>
+            <label>Mostra</label
+            ><select id="mTier">
+              <option value="all">tutte</option>
+              <option value="premium">premium (≥85)</option>
+              <option value="usable">utilizzabili (≥70)</option>
+              <option value="excluded">escluse</option>
+              <option value="blocked">bloccate</option>
+            </select>
+          </div>
+          <div>
+            <button class="secondary" id="rescore">Ricalcola punteggi</button>
+            <button class="secondary" id="rebuildPool">
+              Ricostruisci pool
+            </button>
+          </div>
+        </div>
+        <div id="mediaSummary" style="margin-bottom: 12px"></div>
+        <div class="media" id="mediaGrid"></div>
+      </section>
+
+      <section class="view" id="studio">
+        <div class="grid">
+          <div class="card">
+            <h2>Higgsfield · generazione controllata</h2>
+            <div id="studioStatus"></div>
+            <label>Modello (percorso API)</label
+            ><input id="sModel" value="higgsfield-ai/soul/v2/standard" />
+            <label>Prompt</label
+            ><textarea
+              id="sPrompt"
+              rows="4"
+              placeholder="es. editorial food photography, plated Sicilian pasta on white ceramic, soft daylight, 4:5"
+            ></textarea>
+            <label
+              >Immagine di riferimento (URL https pubblico, opzionale)</label
+            ><input
+              id="sImage"
+              placeholder="https://gabrielecalderone.github.io/AIFACTORY/media/..."
             />
             <div class="actions">
-              <button id="saveKey">Salva chiave</button
-              ><button class="secondary" id="detect">Rileva canali</button>
+              <button class="secondary" id="sEstimate">Stima il costo</button
+              ><button class="accent" id="sRun">Genera (addebita)</button>
             </div>
-            <div id="channels" style="margin-top: 8px"></div>
-          </details>
-        </div>
-        <div class="card">
-          <h2>Autopilota</h2>
-          <div id="auto"></div>
-          <div class="actions">
-            <button class="accent" id="runNow">Genera e programma ora</button>
-            <button class="secondary" id="runDry">
-              Prova senza pubblicare
-            </button>
-            <button class="secondary" id="toggleStop">Pausa</button>
+            <small
+              >Regola: prima gli asset reali. I media sintetici restano marcati
+              e non rappresentano piatti, chef o location come reali.</small
+            >
           </div>
-        </div>
-        <div class="card">
-          <h2>Dati e report</h2>
-          <div id="data"></div>
-          <div class="actions">
-            <button class="secondary" id="metrics">Aggiorna metriche</button>
-            <button class="secondary" id="report">Rigenera report</button>
-            <button class="secondary" id="check">Esegui i test</button>
+          <div class="card">
+            <h2>Storyboard e revisione</h2>
+            <div id="studioPosts"></div>
           </div>
         </div>
       </section>
 
-      <section class="card" style="margin-top: 16px">
-        <h2>Guida rapida</h2>
-        <div class="step" id="s1">
-          <div class="n">1</div>
-          <div>
-            <b>Terminale, una volta:</b>
-            <code>bash scripts/setup.sh</code> (push su GitHub, host dei media,
-            agente giornaliero). Richiede i tuoi permessi, non può farlo la
-            console.
+      <section class="view" id="publishing">
+        <div class="grid" style="grid-template-columns: 1fr">
+          <div class="card">
+            <h2>Coda e approvazioni</h2>
+            <div id="queue"></div>
           </div>
         </div>
-        <div class="step" id="s2">
-          <div class="n">2</div>
-          <div>
-            <b>Buffer:</b> account su buffer.com, collega Instagram (account
-            professionale), TikTok, pagina Facebook, YouTube. Poi Settings → API
-            → Create key e incollala qui sopra in "Collega Buffer", quindi
-            "Rileva canali".
-          </div>
-        </div>
-        <div class="step" id="s3">
-          <div class="n">3</div>
-          <div>
-            <b>Prova:</b> "Prova senza pubblicare" produce un post completo in
-            <code>out/</code> e mostra qui l'anteprima.
-          </div>
-        </div>
-        <div class="step" id="s4">
-          <div class="n">4</div>
-          <div>
-            <b>Avvio:</b> "Genera e programma ora" pubblica il primo post; da lì
-            l'agente delle 10:30 ne produce uno al giorno. "Pausa" ferma tutto,
-            ripremi per riprendere.
-          </div>
-        </div>
-      </section>
-
-      <section class="card" style="margin-top: 16px">
-        <h2>Attività in corso</h2>
-        <pre id="jobs">nessuna</pre>
-      </section>
-
-      <section style="margin-top: 16px">
         <h2
           style="
             font:
               700 20px Georgia,
               serif;
+            margin: 24px 0 12px;
           "
         >
           Post prodotti
@@ -341,178 +481,215 @@
         <div class="posts" id="posts"></div>
       </section>
 
-      <section class="card" style="margin-top: 16px">
-        <h2>Esperimenti e metriche</h2>
-        <div style="overflow: auto"><table id="exps"></table></div>
+      <section class="view" id="performance">
+        <div class="grid" style="grid-template-columns: 1fr">
+          <div class="card">
+            <h2>Esperimenti e risultati</h2>
+            <div style="overflow: auto"><table id="exps"></table></div>
+            <div class="actions">
+              <button class="secondary" id="metrics">
+                Aggiorna metriche da Buffer</button
+              ><button class="secondary" id="report">Rigenera report</button>
+            </div>
+            <small
+              >Le celle vuote sono metriche non ancora disponibili; nulla viene
+              stimato. Confronti con intervalli di confidenza:
+              <code>npm run compare</code>.</small
+            >
+          </div>
+          <div class="card">
+            <h2>Costi</h2>
+            <div id="costs"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="settings">
+        <div class="grid">
+          <div class="card">
+            <h2>Buffer</h2>
+            <div id="bufferStatus"></div>
+            <label>Chiave API (salvata solo in .env locale)</label
+            ><input
+              type="password"
+              id="bufferKey"
+              placeholder="incolla e Salva"
+              autocomplete="off"
+            />
+            <div class="actions">
+              <button id="saveKey">Salva chiave</button
+              ><button class="secondary" id="verify">Verifica accesso</button
+              ><button class="secondary" id="detect">Rileva canali</button>
+            </div>
+            <div id="channels"></div>
+          </div>
+          <div class="card">
+            <h2>Pubblicazione</h2>
+            <div id="pubSettings"></div>
+            <div class="actions">
+              <button class="secondary" id="toggleAuto">
+                Attiva pubblicazione automatica
+              </button>
+            </div>
+            <small
+              >Finché è disattivata ogni post si ferma in READY e aspetta
+              "Approva" nella sezione Publishing.</small
+            >
+          </div>
+          <div class="card">
+            <h2>Higgsfield e budget</h2>
+            <label>Key ID</label
+            ><input type="password" id="hfId" autocomplete="off" /><label
+              >Key secret</label
+            ><input type="password" id="hfSecret" autocomplete="off" />
+            <label>Tetto mensile EUR (0 = nulla approvato, max 20)</label
+            ><input id="hfCap" type="number" min="0" max="20" step="1" />
+            <div class="actions"><button id="saveHf">Salva</button></div>
+            <div id="hfStatus"></div>
+          </div>
+          <div class="card">
+            <h2>Infrastruttura</h2>
+            <div id="infra"></div>
+            <div class="actions">
+              <button class="secondary" id="check">Esegui i test</button
+              ><button class="secondary" id="registry">
+                Sincronizza registro media
+              </button>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
     <script>
-      // Session token injected by the server at page load; every request carries it (CSRF / DNS-rebinding protection).
       const TOKEN = "__TOKEN__";
       const $ = (s) => document.querySelector(s);
-      const esc = (v) =>
-        String(v ?? "").replace(
-          /[&<>"']/g,
-          (c) =>
-            ({
-              "&": "&amp;",
-              "<": "&lt;",
-              ">": "&gt;",
-              '"': "&quot;",
-              "'": "&#39;",
-            })[c],
-        );
-      const media = (u) =>
-        typeof u === "string" && u.startsWith("/out/") && !u.includes("..")
-          ? `${u}?t=${TOKEN}`
-          : "";
-      const pill = (ok, yes, no) =>
-        `<span class="pill ${ok ? "ok" : "bad"}">${esc(ok ? yes : no)}</span>`;
-      const api = (path, body) =>
-        fetch(path, {
-          method: body ? "POST" : "GET",
-          headers: {
-            "X-Console-Token": TOKEN,
-            ...(body ? { "Content-Type": "application/json" } : {}),
-          },
-          body: body ? JSON.stringify(body) : undefined,
-        }).then((r) => r.json());
-      const run = async (job, slug) => {
-        await api("/api/run", { job, slug });
-        refresh();
-      };
-      const fmt = (iso) =>
-        iso
-          ? new Date(iso).toLocaleString("it-IT", {
-              dateStyle: "short",
-              timeStyle: "short",
-            })
-          : "–";
+      const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+      const media = (u) => (typeof u === "string" && (u.startsWith("/out/") || u.startsWith("/pool/") || u.startsWith("/generated/")) && !u.includes("..") ? `${u}?t=${TOKEN}` : "");
+      const pill = (cls, text) => `<span class="pill ${cls}">${esc(text)}</span>`;
+      const yesno = (ok, yes, no) => pill(ok ? "ok" : "bad", ok ? yes : no);
+      const api = (path, body) => fetch(path, { method: body ? "POST" : "GET", headers: { "X-Console-Token": TOKEN, ...(body ? { "Content-Type": "application/json" } : {}) }, body: body ? JSON.stringify(body) : undefined }).then((r) => r.json());
+      const run = async (job, extra) => { await api("/api/run", { job, ...(extra || {}) }); setTimeout(refresh, 800); };
+      const fmt = (iso) => (iso ? new Date(iso).toLocaleString("it-IT", { dateStyle: "short", timeStyle: "short" }) : "–");
+      const stateCls = (s) => ({ MEASURED: "ok", PUBLISHED: "ok", SCHEDULED: "ok", APPROVED: "ink", READY: "warn", RENDERED: "warn", QUALITY_CHECKED: "muted", DISCOVERED: "muted", REJECTED: "bad", BLOCKED: "bad", FAILED: "bad", UNTRACKED: "muted" })[s] || "muted";
+      document.querySelectorAll("nav button").forEach((b) => (b.onclick = () => { document.querySelectorAll("nav button").forEach((x) => x.classList.toggle("active", x === b)); document.querySelectorAll("section.view").forEach((v) => v.classList.toggle("active", v.id === b.dataset.view)); if (b.dataset.view === "media") loadMedia(); }));
+
+      let S = null;
       async function refresh() {
         const s = await api("/api/status");
-        if (s.error) {
-          $("#jobs").textContent = s.error;
-          return;
-        }
-        $("#clock").textContent = new Date(s.now).toLocaleString("it-IT");
-        const ch = Object.entries(s.setup.channels);
-        $("#setup").innerHTML = `
-    <div class="row"><span>Chiave Buffer</span>${pill(s.setup.bufferKey, "presente", "mancante")}</div>
-    <div class="row"><span>Canali Buffer</span>${ch.length ? `<span class="pill ok">${esc(ch.map(([p]) => p).join(", "))}</span>` : `<span class="pill bad">nessuno</span>`}</div>
-    <div class="row"><span>Host dei media</span>${pill(s.setup.mediaRepo, "pronto", "manca (setup.sh)")}</div>
-    <div class="row"><span>Repo GitHub collegato</span>${pill(s.setup.gitRemote, "sì", "no (setup.sh)")}</div>
-    <div class="row"><span>Agente giornaliero 10:30</span>${pill(s.setup.launchd, "installato", "manca (setup.sh)")}</div>
-    <div class="row"><span>Foto nel pool</span><span class="pill ${s.setup.freshForReels < 20 ? "warn" : "muted"}">${esc(s.setup.pool)} · ${esc(s.setup.freshForReels)} fresche per i reel${s.setup.freshForReels < 20 ? " · aggiungi foto" : ""}</span></div>
-    ${s.setup.channelsError ? `<small style="color:var(--bad)">${esc(s.setup.channelsError)}</small>` : ""}`;
-        $("#s1").classList.toggle(
-          "done",
-          s.setup.gitRemote && s.setup.mediaRepo && s.setup.launchd,
-        );
-        $("#s2").classList.toggle("done", s.setup.bufferKey && ch.length > 0);
-        $("#s3").classList.toggle("done", s.posts.length > 0);
-        $("#s4").classList.toggle("done", s.publications.length > 0);
+        if (s.error) { $("#jobs").textContent = s.error; return; }
+        S = s;
+        const ch = Object.keys(s.setup.channels);
+        const ready = s.posts.filter((p) => ["READY", "RENDERED"].includes(p.state)).length;
+        const measured = s.experiments.filter((e) => e.status === "measured").length;
+        $("#kpis").innerHTML = [
+          [s.setup.pool - s.setup.poolBlocked, "asset utilizzabili", `${s.setup.poolBlocked} bloccati (ospiti, loghi, qualità)`],
+          [ready, "pronti da approvare", s.setup.autopublish ? "pubblicazione automatica attiva" : "approvazione manuale"],
+          [s.pipeline.SCHEDULED + s.pipeline.PUBLISHED + s.pipeline.MEASURED, "programmati o pubblicati", ch.length ? `${ch.length} canali Buffer` : "Buffer da collegare"],
+          [`${measured}/${s.experiments.length}`, "esperimenti misurati", measured ? "" : "metriche dopo la prima pubblicazione"],
+          [`€ ${s.setup.genaiSpentEur}`, "spesa AI questo mese", `tetto € ${s.setup.genaiCapEur}`],
+        ].map(([n, l, sub]) => `<div class="kpi"><div class="n">${esc(n)}</div><div class="l">${esc(l)}</div><div class="s">${esc(sub)}</div></div>`).join("");
         const a = s.autopilot;
-        $("#auto").innerHTML = `
-    <div class="row"><span>Stato</span>${s.setup.stop ? `<span class="pill warn">in pausa (STOP)</span>` : `<span class="pill ok">attivo</span>`}</div>
-    <div class="row"><span>Prossimo post</span><span>${esc(a.plan.archetype)} · ${esc(a.plan.lang.toUpperCase())} · ${esc(a.plan.experimentId)}/${esc(a.plan.variantId)}</span></div>
-    <div class="row"><span>Perché</span><small>${esc(a.plan.reason)}</small></div>
-    <div class="row"><span>Ultimo post</span><span>${esc(fmt(a.state.lastPostAt))}</span></div>
-    <div class="row"><span>Slot di pubblicazione</span><span>${esc(fmt(a.nextSlot))}</span></div>
-    <div class="row"><span>Cadenza</span><span>ogni ${esc(a.state.cadenceDays)} giorno/i${a.due ? " · dovuto ora" : ""}</span></div>`;
+        $("#ops").innerHTML = `
+          <div class="row"><span>Autopilota</span>${s.setup.stop ? pill("warn", "in pausa") : pill("ok", "attivo")}</div>
+          <div class="row"><span>Prossimo post</span><span>${esc(a.plan.archetype)} · ${esc(a.plan.lang.toUpperCase())} · ${esc(a.plan.experimentId)}/${esc(a.plan.variantId)}</span></div>
+          <div class="row"><span>Ultimo prodotto</span><span>${esc(fmt(a.state.lastPostAt))}</span></div>
+          <div class="row"><span>Prossimo slot</span><span>${esc(fmt(a.nextSlot))}${a.due ? " · dovuto ora" : ""}</span></div>
+          <div class="row"><span>Pubblicazione</span>${s.setup.autopublish ? pill("ok", "automatica") : pill("warn", "manuale (approva in Publishing)")}</div>`;
         $("#toggleStop").textContent = s.setup.stop ? "Riprendi" : "Pausa";
-        $("#toggleStop").className = s.setup.stop ? "accent" : "secondary";
-        const measured = s.experiments.filter(
-          (e) => e.status === "measured",
-        ).length;
-        $("#data").innerHTML = `
-    <div class="row"><span>Esperimenti</span><span>${esc(s.experiments.length)} righe · ${esc(measured)} misurate</span></div>
-    <div class="row"><span>Pubblicazioni su Buffer</span><span>${esc(s.publications.length)}</span></div>
-    <div class="row"><span>Validazione dati</span>${pill(s.dataIssues.length === 0, "ok", s.dataIssues.length + " problemi")}</div>
-    <div class="row"><span>Report</span><span style="color:#666">docs/performance.md</span></div>`;
-        $("#jobs").textContent = s.jobs.length
-          ? s.jobs
-              .map(
-                (j) =>
-                  `[${j.name}] ${j.endedAt ? (j.code === 0 ? "ok" : "ERRORE " + j.code) : "in corso…"} ${fmt(j.startedAt)}\n${j.log.join("\n")}`,
-              )
-              .join("\n\n")
-          : s.recentLog.length
-            ? s.recentLog.join("\n")
-            : "nessuna";
-        $("#posts").innerHTML =
-          s.posts
-            .map(
-              (p) => `
-    <div class="card post">
-      <div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><b>${esc(p.slug)}</b><span class="pill ${p.published ? "ok" : p.hosted === "public" ? "warn" : "muted"}">${p.published ? "programmato" : p.hosted === "public" ? "online, non programmato" : "solo locale"}</span></div>
-      <small>${esc(p.title)} · ${esc(p.lang.toUpperCase())} · ${esc(p.experiment.archetype)} · ${esc(p.experiment.id ?? "–")}/${esc(p.experiment.variant ?? "–")} · ${esc(fmt(p.renderedAt))}</small>
-      ${media(p.reel) ? `<video controls preload="metadata" poster="${esc(media(p.cover))}" src="${esc(media(p.reel))}" style="margin-top:8px"></video>` : ""}
-      ${p.slides.length ? `<div class="slides">${p.slides.map((u) => (media(u) ? `<a href="${esc(media(u))}" target="_blank"><img src="${esc(media(u))}" alt=""></a>` : "")).join("")}</div>` : ""}
-      <div class="caption">${esc(p.caption)}</div>
-      ${p.warnings.length ? `<small style="color:var(--warn)">${esc(p.warnings.join(" · "))}</small>` : ""}
-      <div class="actions">${media(p.storyboard) ? `<a href="${esc(media(p.storyboard))}" target="_blank"><button class="secondary">Storyboard</button></a>` : ""}${p.published ? "" : `<button class="accent" data-publish="${esc(p.slug)}">Pubblica</button>`}</div>
-    </div>`,
-            )
-            .join("") ||
-          "<small>Nessun post ancora: premi “Prova senza pubblicare”.</small>";
-        const cols = [
-          "experiment_id",
-          "variant_id",
-          "post_slug",
-          "archetype",
-          "status",
-          "reach",
-          "plays",
-          "saves",
-          "shares",
-          "link_clicks",
-          "qualified_inquiries",
-          "bookings",
-        ];
-        $("#exps").innerHTML =
-          `<tr>${cols.map((c) => `<th>${esc(c.replace(/_/g, " "))}</th>`).join("")}</tr>` +
-          s.experiments
-            .map(
-              (e) =>
-                `<tr>${cols.map((c) => `<td>${esc(e[c] ?? "–")}</td>`).join("")}</tr>`,
-            )
-            .join("");
+        $("#pipe").innerHTML = Object.entries(s.pipeline).filter(([, n]) => n > 0).map(([st, n]) => `<div class="row"><span class="state">${esc(st)}</span>${pill(stateCls(st), n)}</div>`).join("") || "<small>nessun post nella pipeline</small>";
+        const issues = [];
+        if (!s.setup.bufferKey) issues.push(["bad", "Buffer: chiave API mancante (Settings)"]);
+        else if (!ch.length) issues.push(["bad", "Buffer: nessun canale rilevato (Settings → Rileva canali)"]);
+        if (!s.setup.mediaRepo) issues.push(["bad", "Host dei media non configurato (bash scripts/setup.sh)"]);
+        if (!s.setup.launchd) issues.push(["warn", "Agente giornaliero non installato"]);
+        for (const [k, v] of Object.entries(s.setup.fresh)) if (v < 6) issues.push(["warn", `Foto fresche insufficienti per ${k}: ${v} (servono 6)`]);
+        if (s.dataIssues.length) issues.push(["bad", `${s.dataIssues.length} problemi nei dati`]);
+        for (const p of s.posts) if (p.warnings.length) issues.push(["warn", `${p.slug}: ${p.warnings[0]}`]);
+        $("#issues").innerHTML = issues.length ? issues.map(([c, t]) => `<div class="row"><span>${esc(t)}</span>${pill(c, c === "bad" ? "da fare" : "avviso")}</div>`).join("") : pill("ok", "nessun problema");
+        $("#jobs").textContent = s.jobs.length ? s.jobs.map((j) => `[${j.name}] ${j.endedAt ? (j.code === 0 ? "ok" : "ERRORE " + j.code) : "in corso…"} ${fmt(j.startedAt)}\n${j.log.join("\n")}`).join("\n\n") : (s.recentLog.length ? s.recentLog.join("\n") : "nessuna");
+
+        const postCard = (p, compact) => `
+          <div class="card post">
+            <div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><b>${esc(p.slug)}</b>${pill(stateCls(p.state), p.state)}</div>
+            <small>${esc(p.title)} · ${esc(p.lang.toUpperCase())} · ${esc(p.experiment.archetype)} · ${esc(p.experiment.id ?? "–")}/${esc(p.experiment.variant ?? "–")} · ${esc(fmt(p.renderedAt))}</small>
+            ${!compact && media(p.reel) ? `<video controls preload="metadata" poster="${esc(media(p.cover))}" src="${esc(media(p.reel))}" style="margin-top:10px"></video>` : ""}
+            ${p.slides.length ? `<div class="slides">${p.slides.map((u) => (media(u) ? `<a href="${esc(media(u))}" target="_blank"><img src="${esc(media(u))}" alt=""></a>` : "")).join("")}</div>` : ""}
+            ${!compact ? `<div class="caption">${esc(p.caption)}</div>` : ""}
+            ${p.publications.length ? `<small>Buffer: ${p.publications.map((x) => `${esc(x.platform)} ${esc(x.kind)} ${esc(fmt(x.dueAt))}${x.draft ? " (bozza)" : ""}`).join(" · ")}</small>` : ""}
+            <div class="actions">
+              ${media(p.storyboard) ? `<a href="${esc(media(p.storyboard))}" target="_blank"><button class="secondary small">Storyboard</button></a>` : ""}
+              ${["READY", "RENDERED", "QUALITY_CHECKED"].includes(p.state) ? `<button class="accent small" data-approve="${esc(p.slug)}">Approva</button><button class="secondary small" data-reject="${esc(p.slug)}">Rifiuta</button>` : ""}
+              ${p.state === "APPROVED" ? `<button class="accent small" data-publish="${esc(p.slug)}">Programma su Buffer</button>` : ""}
+              ${["READY", "RENDERED", "APPROVED"].includes(p.state) ? `<button class="secondary small" data-draft="${esc(p.slug)}">Bozza su Buffer</button>` : ""}
+              <button class="secondary small" data-render="${esc(p.slug)}">Ri-renderizza</button>
+            </div>
+          </div>`;
+        $("#posts").innerHTML = s.posts.map((p) => postCard(p, false)).join("") || "<small>Nessun post: premi “Prova senza pubblicare”.</small>";
+        $("#queue").innerHTML = s.posts.filter((p) => !["MEASURED", "REJECTED"].includes(p.state)).map((p) => `<div class="row"><span><b>${esc(p.slug)}</b> <small>${esc(p.history.map((h) => h.to).join(" → "))}</small></span><span>${pill(stateCls(p.state), p.state)}</span></div>`).join("") || "<small>coda vuota</small>";
+        $("#studioPosts").innerHTML = s.posts.slice(0, 6).map((p) => postCard(p, true)).join("");
+        const cols = ["experiment_id", "variant_id", "post_slug", "archetype", "status", "reach", "plays", "avg_watch_time_sec", "saves", "shares", "link_clicks", "qualified_inquiries", "bookings", "revenue_eur"];
+        $("#exps").innerHTML = `<tr>${cols.map((c) => `<th>${esc(c.replace(/_/g, " "))}</th>`).join("")}</tr>` + s.experiments.map((e) => `<tr>${cols.map((c) => `<td>${esc(e[c] ?? "–")}</td>`).join("")}</tr>`).join("");
+        $("#costs").innerHTML = `<div class="row"><span>Generazione AI (mese)</span><span>€ ${esc(s.setup.genaiSpentEur)} su € ${esc(s.setup.genaiCapEur)}</span></div><div class="row"><span>Rendering, hosting, Buffer (free), Claude headless</span><span>€ 0 (abbonamento esistente)</span></div><div class="row"><span>Costo per lead / prenotazione</span><span>– (nessuna metrica)</span></div>`;
+        $("#bufferStatus").innerHTML = `<div class="row"><span>Chiave</span>${yesno(s.setup.bufferKey, "presente", "mancante")}</div><div class="row"><span>Canali</span>${ch.length ? pill("ok", ch.join(", ")) : pill("bad", "nessuno")}</div>${s.setup.channelsError ? `<small style="color:var(--bad)">${esc(s.setup.channelsError)}</small>` : ""}`;
+        $("#pubSettings").innerHTML = `<div class="row"><span>Pubblicazione automatica</span>${s.setup.autopublish ? pill("ok", "attiva") : pill("warn", "disattivata")}</div><div class="row"><span>Interruttore STOP</span>${s.setup.stop ? pill("warn", "attivo") : pill("ok", "libero")}</div>`;
+        $("#toggleAuto").textContent = s.setup.autopublish ? "Disattiva pubblicazione automatica" : "Attiva pubblicazione automatica";
+        $("#hfStatus").innerHTML = `<div class="row"><span>Chiavi Higgsfield</span>${yesno(s.setup.higgsfieldKey, "presenti", "assenti")}</div><div class="row"><span>Budget</span><span>€ ${esc(s.setup.genaiSpentEur)} / € ${esc(s.setup.genaiCapEur)}</span></div>`;
+        $("#studioStatus").innerHTML = $("#hfStatus").innerHTML;
+        $("#infra").innerHTML = `<div class="row"><span>Repo GitHub</span>${yesno(s.setup.gitRemote, "collegato", "no")}</div><div class="row"><span>Host media</span>${yesno(s.setup.mediaRepo, "pronto", "manca")}</div><div class="row"><span>Agente 10:30</span>${yesno(s.setup.launchd, "installato", "manca")}</div><div class="row"><span>Registro media</span><span>${s.setup.registry ? `${esc(s.setup.registry.total)} asset · ${esc(s.setup.registry.synthetic)} sintetici` : "non sincronizzato"}</span></div>`;
       }
-      $("#saveKey").onclick = async () => {
-        const v = $("#bufferKey").value.trim();
-        if (!v) return;
-        await api("/api/env", { BUFFER_API_KEY: v });
-        $("#bufferKey").value = "";
-        refresh();
-      };
-      $("#detect").onclick = async () => {
-        $("#channels").textContent = "rilevo…";
-        const r = await api("/api/buffer/detect", {});
-        $("#channels").innerHTML = r.error
-          ? `<small style="color:var(--bad)">${esc(r.error)}</small>`
-          : r.found.length
-            ? r.found
-                .map(
-                  (f) =>
-                    `<div class="row"><span>${esc(f.platform)}</span><small>${esc(f.name)} · ${esc(f.id)}</small></div>`,
-                )
-                .join("") +
-              `<small>Salvato: BUFFER_CHANNELS=${esc(r.BUFFER_CHANNELS)}</small>`
-            : "<small>nessun canale collegato su Buffer</small>";
-        refresh();
-      };
-      document.addEventListener("click", (ev) => { const b = ev.target.closest("[data-publish]"); if (b && confirm(`Programmare "${b.dataset.publish}" al prossimo slot su tutti i canali collegati?`)) run("publish-post", b.dataset.publish); });
-$("#runNow").onclick = () => run("autopilot");
+      async function loadMedia() {
+        const service = $("#mService").value, format = $("#mFormat").value, tier = $("#mTier").value;
+        const rows = await api(`/api/media?service=${service}&format=${format}`);
+        const counts = { premium: 0, usable: 0, excluded: 0, blocked: 0 };
+        rows.forEach((r) => { if (counts[r.tier] !== undefined) counts[r.tier]++; });
+        $("#mediaSummary").innerHTML = `${pill("ok", `${counts.premium} premium`)} ${pill("ink", `${counts.usable} utilizzabili`)} ${pill("muted", `${counts.excluded} escluse`)} ${pill("bad", `${counts.blocked} bloccate`)} <small>Q = 0.30 estetica + 0.25 pertinenza + 0.20 tecnica + 0.15 composizione + 0.10 originalità · soglie 85 / 70</small>`;
+        $("#mediaGrid").innerHTML = rows.filter((r) => tier === "all" || r.tier === tier).map((r) => `
+          <div class="asset">
+            <a href="${esc(media(r.url))}" target="_blank"><img loading="lazy" src="${esc(media(r.url))}" alt=""></a>
+            <div class="b">
+              <div style="display:flex;justify-content:space-between;align-items:center"><span class="q">${r.Q ?? "–"}</span>${pill(r.tier === "premium" ? "ok" : r.tier === "usable" ? "ink" : r.tier === "blocked" ? "bad" : "muted", r.tier)}</div>
+              ${r.parts ? `<div class="bar">${["A", "R", "T", "C", "U"].map((k) => `<span title="${k} ${r.parts[k]}"><i style="width:${r.parts[k]}%"></i></span>`).join("")}</div>` : ""}
+              <div style="font-size:13px">${esc(r.subject)}</div>
+              <small>${esc(r.source)} · ${r.width}×${r.height} · ${esc(r.people)}${r.used.length ? ` · usata in ${r.used.length}` : ""}</small>
+              <div class="reasons">${esc(r.reasons.slice(0, 3).join(" · "))}</div>
+              ${r.override ? `<small style="color:var(--accent)">override: ${esc(r.override.include ? "inclusa" : "esclusa")} ${esc(r.override.note ?? "")}</small>` : ""}
+              <div class="actions" style="margin-top:8px">
+                ${r.tier === "excluded" ? `<button class="secondary small" data-ov="include" data-file="${esc(r.file)}">Includi</button>` : ""}
+                ${r.tier !== "blocked" ? `<button class="secondary small" data-ov="exclude" data-file="${esc(r.file)}">Escludi</button>` : ""}
+                ${r.override ? `<button class="secondary small" data-ov="clear" data-file="${esc(r.file)}">Annulla override</button>` : ""}
+              </div>
+            </div>
+          </div>`).join("") || "<small>nessuna foto in questa categoria</small>";
+      }
+      document.addEventListener("click", async (ev) => {
+        const t = ev.target.closest("button");
+        if (!t) return;
+        if (t.dataset.approve) { await api("/api/approve", { slug: t.dataset.approve }); refresh(); }
+        if (t.dataset.reject) { const note = prompt("Motivo del rifiuto (facoltativo)") ?? ""; await api("/api/reject", { slug: t.dataset.reject, note }); refresh(); }
+        if (t.dataset.publish && confirm(`Programmare "${t.dataset.publish}" su tutti i canali collegati al prossimo slot?`)) run("publish-post", { slug: t.dataset.publish });
+        if (t.dataset.draft) run("publish-draft", { slug: t.dataset.draft });
+        if (t.dataset.render) run("render", { slug: t.dataset.render });
+        if (t.dataset.ov) { const note = t.dataset.ov === "clear" ? "" : (prompt("Nota (facoltativa)") ?? ""); await api("/api/override", { file: t.dataset.file, action: t.dataset.ov, note }); setTimeout(loadMedia, 2500); }
+      });
+      ["mService", "mFormat", "mTier"].forEach((id) => ($("#" + id).onchange = loadMedia));
+      $("#rescore").onclick = () => { run("score-assets"); setTimeout(loadMedia, 8000); };
+      $("#rebuildPool").onclick = () => { run("build-pool"); setTimeout(() => run("score-assets"), 4000); };
+      $("#runNow").onclick = () => run("autopilot");
       $("#runDry").onclick = () => run("autopilot-dry");
-      $("#toggleStop").onclick = async () => {
-        await api("/api/stop", {});
-        refresh();
-      };
+      $("#toggleStop").onclick = async () => { await api("/api/stop", {}); refresh(); };
       $("#metrics").onclick = () => run("metrics");
       $("#report").onclick = () => run("report");
       $("#check").onclick = () => run("check");
+      $("#registry").onclick = () => run("registry-sync");
+      $("#saveKey").onclick = async () => { const v = $("#bufferKey").value.trim(); if (!v) return; await api("/api/env", { BUFFER_API_KEY: v }); $("#bufferKey").value = ""; refresh(); };
+      $("#verify").onclick = async () => { const r = await api("/api/buffer/verify", {}); $("#channels").innerHTML = r.ok ? pill("ok", `accesso valido · ${r.organizations.length} organizzazione/i`) : `<small style="color:var(--bad)">${esc(r.error)}</small>`; };
+      $("#detect").onclick = async () => { $("#channels").textContent = "rilevo…"; const r = await api("/api/buffer/detect", {}); $("#channels").innerHTML = r.error ? `<small style="color:var(--bad)">${esc(r.error)}</small>` : (r.found.length ? r.found.map((f) => `<div class="row"><span>${esc(f.platform)}</span><small>${esc(f.name)} · ${esc(f.id)}</small></div>`).join("") : "<small>nessun canale collegato su Buffer</small>"); refresh(); };
+      $("#toggleAuto").onclick = async () => { if (!S) return; if (!S.setup.autopublish && !confirm("Attivare la pubblicazione automatica? Da ora i post approvati dal gate vengono programmati senza passaggi manuali.")) return; await api("/api/env", { AUTOPUBLISH: S.setup.autopublish ? "false" : "true" }); refresh(); };
+      $("#saveHf").onclick = async () => { const u = {}; if ($("#hfId").value.trim()) u.HF_API_KEY_ID = $("#hfId").value.trim(); if ($("#hfSecret").value.trim()) u.HF_API_KEY_SECRET = $("#hfSecret").value.trim(); if ($("#hfCap").value !== "") u.GENAI_MONTHLY_CAP_EUR = String(Math.min(20, Math.max(0, Number($("#hfCap").value)))); await api("/api/env", u); $("#hfId").value = ""; $("#hfSecret").value = ""; refresh(); };
+      $("#sEstimate").onclick = () => run("studio-estimate", { model: $("#sModel").value.trim(), prompt: $("#sPrompt").value.trim(), imageUrl: $("#sImage").value.trim() || undefined });
+      $("#sRun").onclick = () => { if (confirm("Generare con Higgsfield? Il costo stimato viene addebitato al credito API entro il tetto mensile.")) run("studio-run", { model: $("#sModel").value.trim(), prompt: $("#sPrompt").value.trim(), imageUrl: $("#sImage").value.trim() || undefined }); };
       refresh();
-      setInterval(refresh, 4000);
+      setInterval(refresh, 5000);
     </script>
   </body>
 </html>

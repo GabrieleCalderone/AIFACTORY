@@ -11,6 +11,7 @@ import path from "node:path";
 import { parseArgs } from "node:util";
 import { readExperiments } from "../src/lib/data.ts";
 import { advance, defaultState, isDue, nextSlot, planNext, type AutopilotState } from "../src/lib/autopilot.ts";
+import { loadPipeline } from "../src/lib/pipeline-io.ts";
 
 const { values } = parseArgs({ options: { force: { type: "boolean", default: false }, "dry-run": { type: "boolean", default: false }, model: { type: "string", default: "sonnet" } } });
 mkdirSync("logs", { recursive: true });
@@ -78,12 +79,17 @@ try {
   if (values["dry-run"]) hostArgs.push("--dry-run");
   run("host", hostArgs);
   const when = nextSlot(state, now).toISOString();
-  const publishArgs = ["scripts/publish.ts", specFile, "--when", when];
-  if (values["dry-run"]) publishArgs.push("--dry-run");
-  run("publish", publishArgs);
+  const approved = loadPipeline()[slug]?.state === "APPROVED" || process.env.AUTOPUBLISH === "true";
+  if (approved || values["dry-run"]) {
+    const publishArgs = ["scripts/publish.ts", specFile, "--when", when];
+    if (values["dry-run"]) publishArgs.push("--dry-run");
+    run("publish", publishArgs);
+  } else {
+    log(`${slug} is READY and waits for approval in the console (set AUTOPUBLISH=true after the first validated publish to skip this step)`);
+  }
   const next = advance(state, now);
   writeFileSync(statePath, JSON.stringify(next, null, 2) + "\n");
-  log(`done: ${slug} scheduled for ${when}; next archetype ${next.rotation[next.nextIndex]}`);
+  log(`done: ${slug} ${approved ? `scheduled for ${when}` : "produced, awaiting approval"}; next archetype ${next.rotation[next.nextIndex]}`);
 } catch (e) {
   log(`FAILED: ${e instanceof Error ? e.message : e}`);
   process.exit(1);

@@ -1,11 +1,12 @@
 /**
- * Local control panel (no dependencies): status, previews, metrics, one-click actions.
+ * RistHome Content Intelligence console (local, no dependencies).
  *
- *   npm run dashboard        -> http://127.0.0.1:4747 (binds to localhost only)
+ *   npm run dashboard  -> prints http://127.0.0.1:4747/?t=<session token> and opens it
  *
- * Endpoints: GET /api/status, GET /api/jobs, POST /api/run {job, slug?}, POST /api/stop,
- * POST /api/env {key: value}, POST /api/buffer/detect, GET /out/<slug>/<file>.
- * Jobs are fixed commands (no shell), .env writes are limited to an allow-list of keys.
+ * Security: binds to 127.0.0.1; every request needs the per-launch token (header or ?t=);
+ * Host/Origin must be local; POST bodies must be JSON; .env writes are limited to an allow-list;
+ * jobs are fixed commands; static files are served only from out/ and public/assets/.
+ * The UI shows backend facts only: pipeline states, Buffer ids, measured metrics.
  */
 import { spawn } from "node:child_process";
 import { randomBytes, timingSafeEqual } from "node:crypto";
@@ -22,36 +23,40 @@ import { homedir } from "node:os";
 import http from "node:http";
 import path from "node:path";
 import { createBufferClient } from "../src/adapters/buffer.ts";
+import { monthSpendEur, type SpendEntry } from "../src/adapters/higgsfield.ts";
 import { parseChannels } from "../src/lib/channels.ts";
 import { readExperiments } from "../src/lib/data.ts";
 import {
-  advance,
   defaultState,
   isDue,
   nextSlot,
   planNext,
   type AutopilotState,
 } from "../src/lib/autopilot.ts";
+import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
+import { summarize, type State } from "../src/lib/pipeline.ts";
+import { summarizeRegistry, type Registry } from "../src/lib/registry.ts";
+import type { Override, Verdict } from "../src/lib/visual-score.ts";
 
 const PORT = Number(process.env.DASHBOARD_PORT ?? 4747);
 const ROOT = process.cwd();
-/** Per-launch session token: printed in the launch URL, required on every request (DNS-rebinding and CSRF protection). */
 const TOKEN = randomBytes(24).toString("hex");
-const tokenOk = (candidate: string | null | undefined): boolean => {
-  if (!candidate || candidate.length !== TOKEN.length) return false;
-  return timingSafeEqual(Buffer.from(candidate), Buffer.from(TOKEN));
-};
+const tokenOk = (c: string | null | undefined) =>
+  Boolean(
+    c &&
+    c.length === TOKEN.length &&
+    timingSafeEqual(Buffer.from(c), Buffer.from(TOKEN)),
+  );
 const LOCAL_HOSTS = new Set([`127.0.0.1:${PORT}`, `localhost:${PORT}`]);
 const sameOrigin = (req: http.IncomingMessage): boolean => {
-  const host = req.headers.host ?? "";
-  if (!LOCAL_HOSTS.has(host)) return false;
+  if (!LOCAL_HOSTS.has(req.headers.host ?? "")) return false;
   const origin = req.headers.origin;
   if (origin && !LOCAL_HOSTS.has(origin.replace(/^https?:\/\//, "")))
     return false;
   const site = req.headers["sec-fetch-site"];
-  if (site && site !== "same-origin" && site !== "none") return false;
-  return true;
+  return !site || site === "same-origin" || site === "none";
 };
+
 const ENV_KEYS = [
   "BUFFER_API_KEY",
   "BUFFER_CHANNELS",
@@ -59,7 +64,15 @@ const ENV_KEYS = [
   "MEDIA_BASE_URL",
   "MEDIA_SUBDIR",
   "GENAI_MONTHLY_CAP_EUR",
+  "HF_API_KEY_ID",
+  "HF_API_KEY_SECRET",
+  "AUTOPUBLISH",
 ] as const;
+const SECRET_KEYS = new Set([
+  "BUFFER_API_KEY",
+  "HF_API_KEY_ID",
+  "HF_API_KEY_SECRET",
+]);
 const JOBS: Record<string, string[]> = {
   "autopilot-dry": ["scripts/autopilot.ts", "--force", "--dry-run"],
   autopilot: ["scripts/autopilot.ts", "--force"],
@@ -68,7 +81,13 @@ const JOBS: Record<string, string[]> = {
   validate: ["scripts/validate-data.ts"],
   "render-all": ["scripts/render.ts", "--all", "--qa"],
   "build-pool": ["scripts/build-pool.ts"],
+  "score-assets": ["scripts/score-assets.ts"],
+  "registry-sync": ["scripts/registry-sync.ts"],
   "publish-post": ["scripts/publish-post.ts"],
+  "publish-draft": ["scripts/publish.ts"],
+  render: ["scripts/render.ts"],
+  "studio-estimate": ["scripts/genai-studio.ts"],
+  "studio-run": ["scripts/genai-studio.ts"],
   check: ["--run", "check"],
 };
 
@@ -82,7 +101,6 @@ type Job = {
 };
 const jobs: Job[] = [];
 let nextJobId = 1;
-
 const readEnvFile = (): Record<string, string> => {
   if (!existsSync(".env")) return {};
   const out: Record<string, string> = {};
@@ -107,6 +125,10 @@ const writeEnv = (updates: Record<string, string>) => {
   writeFileSync(".env", lines.join("\n").replace(/\n*$/, "\n"));
 };
 const envNow = () => ({ ...process.env, ...readEnvFile() });
+const redact = (line: string) =>
+  line
+    .replace(/(Key |Bearer )[A-Za-z0-9:_-]{8,}/g, "$1***")
+    .replace(/([A-Z_]*(KEY|SECRET|TOKEN)[A-Z_]*=)[^\s]+/g, "$1***");
 
 const runJob = (name: string, extra: string[] = []): Job => {
   const args = JOBS[name];
@@ -118,13 +140,13 @@ const runJob = (name: string, extra: string[] = []): Job => {
     log: [],
   };
   jobs.unshift(job);
-  const isNpm = args[0] === "--run";
-  const child = isNpm
-    ? spawn("npm", ["run", args[1]], { cwd: ROOT, env: envNow() })
-    : spawn("node", ["--env-file-if-exists=.env", ...args, ...extra], {
-        cwd: ROOT,
-        env: envNow(),
-      });
+  const child =
+    args[0] === "--run"
+      ? spawn("npm", ["run", args[1]], { cwd: ROOT, env: envNow() })
+      : spawn("node", ["--env-file-if-exists=.env", ...args, ...extra], {
+          cwd: ROOT,
+          env: envNow(),
+        });
   const push = (chunk: Buffer) => {
     for (const line of chunk.toString().split("\n"))
       if (
@@ -133,7 +155,7 @@ const runJob = (name: string, extra: string[] = []): Job => {
           line,
         )
       )
-        job.log.push(line);
+        job.log.push(redact(line));
     if (job.log.length > 400) job.log.splice(0, job.log.length - 400);
   };
   child.stdout.on("data", push);
@@ -145,6 +167,9 @@ const runJob = (name: string, extra: string[] = []): Job => {
   return job;
 };
 
+const readJson = <T>(file: string, fallback: T): T =>
+  existsSync(file) ? (JSON.parse(readFileSync(file, "utf8")) as T) : fallback;
+
 const status = () => {
   const env = envNow();
   let channels: Record<string, string> = {};
@@ -154,15 +179,10 @@ const status = () => {
   } catch (e) {
     channelsError = e instanceof Error ? e.message : String(e);
   }
-  const statePath = "data/autopilot.json";
-  const state: AutopilotState = existsSync(statePath)
-    ? {
-        ...defaultState,
-        ...(JSON.parse(
-          readFileSync(statePath, "utf8"),
-        ) as Partial<AutopilotState>),
-      }
-    : defaultState;
+  const state: AutopilotState = {
+    ...defaultState,
+    ...readJson<Partial<AutopilotState>>("data/autopilot.json", {}),
+  };
   const exps = readExperiments();
   const plan = planNext(
     state,
@@ -174,13 +194,16 @@ const status = () => {
     })),
   );
   const now = new Date();
+  const pipeline = loadPipeline();
+  const publications = readJson<Record<string, unknown>[]>(
+    "data/publications.json",
+    [],
+  );
   const posts = existsSync("out")
     ? readdirSync("out")
         .filter((d) => existsSync(path.join("out", d, "manifest.json")))
         .map((slug) => {
-          const m = JSON.parse(
-            readFileSync(path.join("out", slug, "manifest.json"), "utf8"),
-          ) as {
+          const m = readJson<{
             title: string;
             lang: string;
             renderedAt: string;
@@ -192,17 +215,19 @@ const status = () => {
               variant: string | null;
               archetype: string;
             };
-          };
+          }>(path.join("out", slug, "manifest.json"), {
+            title: slug,
+            lang: "it",
+            renderedAt: "",
+            warnings: [],
+            experiment: { id: null, variant: null, archetype: "" },
+          });
           const dir = path.join("out", slug);
-          const caption = existsSync(path.join(dir, "caption.txt"))
-            ? readFileSync(path.join(dir, "caption.txt"), "utf8")
-            : "";
-          const hosted = existsSync(path.join(dir, "hosted.json"))
-            ? (JSON.parse(
-                readFileSync(path.join(dir, "hosted.json"), "utf8"),
-              ) as { dryRun?: boolean })
-            : null;
-          const published = existsSync(path.join(dir, "published.json"));
+          const hosted = readJson<{ dryRun?: boolean } | null>(
+            path.join(dir, "hosted.json"),
+            null,
+          );
+          const pubs = publications.filter((p) => p.slug === slug);
           return {
             slug,
             title: m.title,
@@ -210,6 +235,8 @@ const status = () => {
             renderedAt: m.renderedAt,
             warnings: m.warnings,
             experiment: m.experiment,
+            state: pipeline[slug]?.state ?? "UNTRACKED",
+            history: pipeline[slug]?.history.slice(-3) ?? [],
             reel: existsSync(path.join(dir, "reel.mp4"))
               ? `/out/${slug}/reel.mp4`
               : null,
@@ -223,53 +250,46 @@ const status = () => {
             storyboard: existsSync(path.join(dir, "storyboard.html"))
               ? `/out/${slug}/storyboard.html`
               : null,
-            caption,
+            caption: existsSync(path.join(dir, "caption.txt"))
+              ? readFileSync(path.join(dir, "caption.txt"), "utf8")
+              : "",
             hosted: hosted ? (hosted.dryRun ? "dry-run" : "public") : "no",
-            published,
+            publications: pubs,
           };
         })
         .sort((a, b) => (a.renderedAt < b.renderedAt ? 1 : -1))
     : [];
-  const publications = existsSync("data/publications.json")
-    ? (JSON.parse(readFileSync("data/publications.json", "utf8")) as Record<
-        string,
-        unknown
-      >[])
-    : [];
-  const poolManifest = "public/assets/pool/manifest.json";
-  const pool = existsSync(poolManifest)
-    ? (JSON.parse(readFileSync(poolManifest, "utf8")) as {
-        file: string;
-        width: number;
-        height: number;
-        text_overlay?: boolean;
-        quality?: string;
-      }[])
-    : [];
-  // Photos still offerable for reels: right size, no printed logo, not used in the last eight posts.
-  const usage = existsSync("data/asset-usage.json")
-    ? (JSON.parse(readFileSync("data/asset-usage.json", "utf8")) as Record<
-        string,
-        string[]
-      >)
-    : {};
+  const pool = readJson<
+    {
+      file: string;
+      tier_best?: string;
+      blocked?: boolean;
+      scores?: Record<string, { Q: number; tier: string }>;
+    }[]
+  >("public/assets/pool/manifest.json", []);
+  const usage = readJson<Record<string, string[]>>("data/asset-usage.json", {});
   const lastEight = new Set(
     [...new Set(Object.values(usage).flat())].sort().slice(-8),
   );
-  const freshForReels = pool.filter(
-    (r) =>
-      !r.text_overlay &&
-      r.quality !== "poor" &&
-      Math.max(1080 / r.width, 1920 / r.height) <= 2 &&
-      !(usage[r.file] ?? []).some((sl) => lastEight.has(sl)),
-  ).length;
+  const freshUsable = (service: string, format: string) =>
+    pool.filter(
+      (r) =>
+        ["usable", "premium"].includes(
+          r.scores?.[`${service}:${format}`]?.tier ?? "",
+        ) && !(usage[r.file] ?? []).some((sl) => lastEight.has(sl)),
+    ).length;
+  const ledger = readJson<SpendEntry[]>("data/genai-spend.json", []);
+  const registry = readJson<Registry | null>("data/media-registry.json", null);
   const logs = existsSync("logs")
     ? readdirSync("logs")
         .filter((f) => f.startsWith("autopilot-"))
         .sort()
         .slice(-1)
         .map((f) =>
-          readFileSync(path.join("logs", f), "utf8").split("\n").slice(-30),
+          readFileSync(path.join("logs", f), "utf8")
+            .split("\n")
+            .slice(-30)
+            .map(redact),
         )
     : [];
   return {
@@ -292,8 +312,20 @@ const status = () => {
         ),
       ),
       stop: existsSync("STOP"),
+      autopublish: env.AUTOPUBLISH === "true",
+      higgsfieldKey: Boolean(env.HF_API_KEY_ID && env.HF_API_KEY_SECRET),
+      genaiCapEur: Number(env.GENAI_MONTHLY_CAP_EUR ?? 0),
+      genaiSpentEur: Number(monthSpendEur(ledger, now).toFixed(2)),
       pool: pool.length,
-      freshForReels,
+      poolBlocked: pool.filter((r) => r.blocked).length,
+      fresh: {
+        "class:reel": freshUsable("class", "reel"),
+        "chef:reel": freshUsable("chef", "reel"),
+        "villa:reel": freshUsable("villa", "reel"),
+        "events:reel": freshUsable("events", "reel"),
+        "events:carousel": freshUsable("events", "carousel"),
+      },
+      registry: registry ? summarizeRegistry(registry) : null,
     },
     autopilot: {
       state,
@@ -301,13 +333,59 @@ const status = () => {
       nextSlot: nextSlot(state, now).toISOString(),
       plan,
     },
+    pipeline: summarize(pipeline),
     posts,
     experiments: exps.records,
     dataIssues: exps.issues,
     publications,
     recentLog: logs[0] ?? [],
-    jobs: jobs.slice(0, 5).map((j) => ({ ...j, log: j.log.slice(-12) })),
+    jobs: jobs.slice(0, 6).map((j) => ({ ...j, log: j.log.slice(-15) })),
   };
+};
+
+const mediaList = (service: string, format: string) => {
+  const pool = readJson<
+    {
+      file: string;
+      source: string;
+      width: number;
+      height: number;
+      people: string;
+      subject?: string;
+      tags?: string[];
+      scores?: Record<string, { Q: number; tier: string }>;
+    }[]
+  >("public/assets/pool/manifest.json", []);
+  const scores = readJson<{
+    verdicts: Record<string, Record<string, Verdict>>;
+  }>("data/asset-scores.json", { verdicts: {} });
+  const overrides = readJson<Record<string, Override>>(
+    "data/asset-overrides.json",
+    {},
+  );
+  const usage = readJson<Record<string, string[]>>("data/asset-usage.json", {});
+  const key = `${service}:${format}`;
+  return pool
+    .map((r) => {
+      const v = scores.verdicts[r.file]?.[key];
+      return {
+        file: r.file,
+        url: `/pool/${r.file}`,
+        source: path.basename(r.source ?? ""),
+        width: r.width,
+        height: r.height,
+        people: r.people,
+        subject: r.subject ?? "",
+        tags: r.tags ?? [],
+        Q: v?.Q ?? null,
+        tier: v?.tier ?? "unscored",
+        parts: v?.parts ?? null,
+        reasons: v?.reasons ?? [],
+        override: overrides[r.file] ?? null,
+        used: usage[r.file] ?? [],
+      };
+    })
+    .sort((a, b) => (b.Q ?? -1) - (a.Q ?? -1));
 };
 
 const json = (res: http.ServerResponse, code: number, body: unknown) => {
@@ -329,17 +407,37 @@ const readBody = (req: http.IncomingMessage): Promise<Record<string, string>> =>
       }
     });
   });
-
 const html = readFileSync(path.join(ROOT, "scripts/dashboard.html"), "utf8");
 const MIME: Record<string, string> = {
   ".mp4": "video/mp4",
   ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
   ".png": "image/png",
+  ".webp": "image/webp",
   ".html": "text/html; charset=utf-8",
   ".md": "text/plain; charset=utf-8",
   ".json": "application/json",
   ".txt": "text/plain; charset=utf-8",
 };
+const serveStatic = (
+  req: http.IncomingMessage,
+  res: http.ServerResponse,
+  rel: string,
+  rootDir: string,
+) => {
+  const file = path.resolve(ROOT, rel);
+  const base = path.resolve(ROOT, rootDir) + path.sep;
+  if (!file.startsWith(base) || !existsSync(file) || !statSync(file).isFile())
+    return json(res, 404, { error: "not found" });
+  res.writeHead(200, {
+    "Content-Type":
+      MIME[path.extname(file).toLowerCase()] ?? "application/octet-stream",
+    "Content-Length": statSync(file).size,
+  });
+  if (req.method === "HEAD") return res.end();
+  return createReadStream(file).pipe(res);
+};
+const slugOk = (s: string | undefined) => Boolean(s && /^[a-z0-9-]+$/.test(s));
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url ?? "/", "http://localhost");
@@ -362,46 +460,129 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
       return res.end(html.replace("__TOKEN__", TOKEN));
     }
+    if (req.method === "GET" && url.pathname === "/api/health")
+      return json(res, 200, {
+        ok: true,
+        time: new Date().toISOString(),
+        jobsRunning: jobs.filter((j) => !j.endedAt).length,
+      });
     if (req.method === "GET" && url.pathname === "/api/status")
       return json(res, 200, status());
     if (req.method === "GET" && url.pathname === "/api/jobs")
       return json(res, 200, jobs.slice(0, 10));
+    if (req.method === "GET" && url.pathname === "/api/media")
+      return json(
+        res,
+        200,
+        mediaList(
+          url.searchParams.get("service") ?? "class",
+          url.searchParams.get("format") ?? "reel",
+        ),
+      );
+    if (req.method === "GET" && url.pathname === "/api/pipeline")
+      return json(res, 200, loadPipeline());
+    if (req.method === "GET" && url.pathname === "/api/env") {
+      const env = readEnvFile();
+      return json(
+        res,
+        200,
+        Object.fromEntries(
+          ENV_KEYS.map((k) => [
+            k,
+            SECRET_KEYS.has(k) ? (env[k] ? "***set***" : "") : (env[k] ?? ""),
+          ]),
+        ),
+      );
+    }
     if (req.method === "POST" && url.pathname === "/api/run") {
       const body = await readBody(req);
-      const extra =
-        body.slug && /^[a-z0-9-]+$/.test(body.slug)
-          ? [path.join("content/posts", `${body.slug}.json`)]
-          : [];
-      const job = runJob(body.job, extra);
-      return json(res, 200, { id: job.id });
+      const extra: string[] = [];
+      if (body.slug && slugOk(body.slug))
+        extra.push(path.join("content/posts", `${body.slug}.json`));
+      if (body.job === "publish-draft") extra.push("--draft");
+      if (body.job === "render") extra.push("--qa");
+      if (body.job === "studio-estimate" || body.job === "studio-run") {
+        if (!body.prompt || !body.model)
+          return json(res, 400, { error: "model and prompt required" });
+        extra.push("--model", body.model, "--prompt", body.prompt);
+        if (body.imageUrl) extra.push("--image-url", body.imageUrl);
+        if (body.job === "studio-run") extra.push("--run");
+      }
+      return json(res, 200, { id: runJob(body.job, extra).id });
     }
     if (req.method === "POST" && url.pathname === "/api/stop") {
       if (existsSync("STOP")) unlinkSync("STOP");
       else
         writeFileSync(
           "STOP",
-          `paused from dashboard ${new Date().toISOString()}\n`,
+          `paused from console ${new Date().toISOString()}\n`,
         );
       return json(res, 200, { stop: existsSync("STOP") });
     }
     if (req.method === "POST" && url.pathname === "/api/env") {
-      const body = await readBody(req);
-      writeEnv(body);
+      writeEnv(await readBody(req));
       return json(res, 200, { ok: true });
+    }
+    if (req.method === "POST" && url.pathname === "/api/approve") {
+      const body = await readBody(req);
+      if (!slugOk(body.slug)) return json(res, 400, { error: "bad slug" });
+      const rec = setState(body.slug, "APPROVED", "approved in the console");
+      return json(res, 200, { state: rec.state });
+    }
+    if (req.method === "POST" && url.pathname === "/api/reject") {
+      const body = await readBody(req);
+      if (!slugOk(body.slug)) return json(res, 400, { error: "bad slug" });
+      const rec = setState(
+        body.slug,
+        "REJECTED",
+        (body.note ?? "rejected in the console").slice(0, 200),
+      );
+      return json(res, 200, { state: rec.state });
+    }
+    if (req.method === "POST" && url.pathname === "/api/override") {
+      const body = await readBody(req);
+      if (!body.file || !/^[\w.-]+\.(jpe?g|png|webp)$/i.test(body.file))
+        return json(res, 400, { error: "bad file" });
+      const overrides = readJson<Record<string, Override>>(
+        "data/asset-overrides.json",
+        {},
+      );
+      if (body.action === "clear") delete overrides[body.file];
+      else if (body.action === "include" || body.action === "exclude")
+        overrides[body.file] = {
+          [body.action]: true,
+          note: (body.note ?? "").slice(0, 120),
+        };
+      else
+        return json(res, 400, {
+          error: "action must be include|exclude|clear",
+        });
+      writeFileSync(
+        "data/asset-overrides.json",
+        JSON.stringify(overrides, null, 2) + "\n",
+      );
+      runJob("score-assets");
+      return json(res, 200, { ok: true });
+    }
+    if (req.method === "POST" && url.pathname === "/api/buffer/verify") {
+      const env = envNow();
+      if (!env.BUFFER_API_KEY)
+        return json(res, 400, { error: "BUFFER_API_KEY mancante" });
+      const buffer = createBufferClient({ apiKey: env.BUFFER_API_KEY });
+      return json(res, 200, await buffer.verifyAuth());
     }
     if (req.method === "POST" && url.pathname === "/api/buffer/detect") {
       const env = envNow();
       if (!env.BUFFER_API_KEY)
         return json(res, 400, { error: "BUFFER_API_KEY mancante" });
       const buffer = createBufferClient({ apiKey: env.BUFFER_API_KEY });
-      const orgs = await buffer.organizations();
       const found: {
         platform: string;
         id: string;
         name: string;
         org: string;
       }[] = [];
-      for (const org of orgs) {
+      for (const org of await buffer.organizations()) {
         for (const ch of await buffer.channels(org.id)) {
           const service = ch.service.toLowerCase();
           const platform = service.includes("instagram")
@@ -432,21 +613,39 @@ const server = http.createServer(async (req, res) => {
     if (
       (req.method === "GET" || req.method === "HEAD") &&
       url.pathname.startsWith("/out/")
-    ) {
-      const rel = decodeURIComponent(url.pathname.slice(1));
-      const file = path.resolve(ROOT, rel);
-      if (
-        !file.startsWith(path.resolve(ROOT, "out") + path.sep) ||
-        !existsSync(file) ||
-        !statSync(file).isFile()
-      )
-        return json(res, 404, { error: "not found" });
-      res.writeHead(200, {
-        "Content-Type": MIME[path.extname(file)] ?? "application/octet-stream",
-        "Content-Length": statSync(file).size,
-      });
-      return createReadStream(file).pipe(res);
-    }
+    )
+      return serveStatic(
+        req,
+        res,
+        decodeURIComponent(url.pathname.slice(1)),
+        "out",
+      );
+    if (
+      (req.method === "GET" || req.method === "HEAD") &&
+      url.pathname.startsWith("/pool/")
+    )
+      return serveStatic(
+        req,
+        res,
+        path.join(
+          "public/assets/pool",
+          decodeURIComponent(url.pathname.slice(6)),
+        ),
+        "public/assets/pool",
+      );
+    if (
+      (req.method === "GET" || req.method === "HEAD") &&
+      url.pathname.startsWith("/generated/")
+    )
+      return serveStatic(
+        req,
+        res,
+        path.join(
+          "public/assets/generated",
+          decodeURIComponent(url.pathname.slice(11)),
+        ),
+        "public/assets/generated",
+      );
     return json(res, 404, { error: "not found" });
   } catch (e) {
     return json(res, 500, {
@@ -460,4 +659,4 @@ server.listen(PORT, "127.0.0.1", () => {
   console.log(`RistHome console: ${link}`);
   if (process.argv.includes("--open")) spawn("open", [link]);
 });
-void advance;
+void (0 as unknown as State);

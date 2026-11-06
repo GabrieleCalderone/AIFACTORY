@@ -17,6 +17,8 @@ import { nextId, readExperiments, writeExperiments } from "../src/lib/data.ts";
 import { gateSpec } from "../src/lib/gate-io.ts";
 import { mediaOf } from "../src/lib/gate.ts";
 import { parsePostSpec, PostSpec, type PostSpecInput } from "../src/schemas/post.ts";
+import { rankForService, type Format, type Service, type TechnicalRow, type Verdict } from "../src/lib/visual-score.ts";
+import { setState } from "../src/lib/pipeline-io.ts";
 
 const { values } = parseArgs({
   options: {
@@ -57,46 +59,43 @@ if (existsSync(target)) {
   process.exit(2);
 }
 
-// ---- candidate photos: consent-filtered pool, unused first, keyword match, orientation mix
+// ---- candidate photos: verdicts of the Visual Quality & Brand Fit Engine (data/asset-scores.json)
 type PoolRow = { file: string; width: number; height: number; orientation: string; people: string; subject?: string; tags?: string[]; quality?: string; text_overlay?: boolean };
 const poolDir = path.join("public/assets", values.pool);
-// Reels fill 1080x1920 and carousel photo slots 1080x840: refuse photos that would be upscaled more than 2x there.
-const fitsReel = (r: PoolRow) => Math.max(1080 / r.width, 1920 / r.height) <= 2;
-const fitsCarousel = (r: PoolRow) => Math.max(1080 / r.width, 1350 / r.height) <= 2 || Math.max(1080 / r.width, 840 / r.height) <= 2;
-const pool = (JSON.parse(readFileSync(path.join(poolDir, "manifest.json"), "utf8")) as PoolRow[]).filter(
-  (r) => ["none", "chef"].includes(r.people) && r.quality !== "poor" && !r.text_overlay && r.subject && (archetype.formats.reel ? fitsReel(r) : fitsCarousel(r)),
-);
+const poolRows = JSON.parse(readFileSync(path.join(poolDir, "manifest.json"), "utf8")) as PoolRow[];
+if (!existsSync("data/asset-scores.json") || !existsSync("data/asset-technical.json")) {
+  console.error("[author] run `node scripts/score-assets.ts` first (visual ranking missing)");
+  process.exit(1);
+}
+const scoresFile = JSON.parse(readFileSync("data/asset-scores.json", "utf8")) as { verdicts: Record<string, Record<string, Verdict>> };
+const technical = JSON.parse(readFileSync("data/asset-technical.json", "utf8")) as Record<string, TechnicalRow>;
+const format: Format = archetype.formats.reel ? "reel" : "carousel";
+const service = archetype.service as Service;
 const usagePath = "data/asset-usage.json";
 const usage = existsSync(usagePath) ? (JSON.parse(readFileSync(usagePath, "utf8")) as Record<string, string[]>) : {};
 // Differentiation rule (platform dedup): a photo used in any of the last 8 posts is not offered again.
-const recentSlugs = new Set(
-  Object.values(usage)
-    .flat()
-    .sort()
-    .slice(-8 * 8),
-);
 const allPostSlugs = [...new Set(Object.values(usage).flat())].sort();
 const lastEight = new Set(allPostSlugs.slice(-8));
-void recentSlugs;
 const episode = allPostSlugs.filter((sl) => sl.startsWith(archetype.id.slice(0, 2).toLowerCase() + "-")).length + 1;
 const seriesLine = archetype.seriesName ? `SERIES: this is episode ${episode} of "${archetype.seriesName[lang]}": the hook title must start with "${archetype.seriesName[lang]}, ep. ${episode}" and the caption must open with the same line.` : "";
-const score = (r: PoolRow) => {
-  const text = `${r.subject ?? ""} ${(r.tags ?? []).join(" ")}`.toLowerCase();
-  let s = archetype.assetKeywords.reduce((n, k) => n + (text.includes(k) ? 2 : 0), 0);
-  if (r.orientation === "portrait") s += 1;
-  if (r.text_overlay) s -= 2;
-  if (r.quality === "good") s += 1;
-  s -= (usage[r.file]?.length ?? 0) * 3;
-  if ((usage[r.file] ?? []).some((sl) => lastEight.has(sl))) s -= 1000;
-  if (archetype.id === "A2-chef-at-work" && r.people === "chef") s += 4;
-  return s;
-};
-const candidates = [...pool].filter((r) => score(r) > -500).sort((a, b) => score(b) - score(a)).slice(0, Number(values.candidates));
+const verdicts = Object.values(scoresFile.verdicts)
+  .map((byKey) => byKey[`${service}:${format}`])
+  .filter((v): v is Verdict => Boolean(v))
+  .filter((v) => !(usage[v.file] ?? []).some((sl) => lastEight.has(sl)));
+const ranked = rankForService(verdicts, technical, Number(values.candidates));
+const byFile = new Map(poolRows.map((r) => [r.file, r]));
+const candidates = ranked.map((v) => byFile.get(v.file)).filter((r): r is PoolRow => Boolean(r));
+const verdictOf = new Map(ranked.map((v) => [v.file, v]));
 if (candidates.length < 6) {
-  console.error(`[author] only ${candidates.length} fresh photos left in the pool for ${archetype.id}; add photos or clips before the next post`);
-  process.exit(1);
+  console.error(`[author] insufficient media: ${candidates.length} photo(s) rated usable or premium for ${service}/${format} that were not used in the last 8 posts (need 6). Add photos or clips, raise quality with the studio, or review data/asset-overrides.json.`);
+  process.exit(3);
 }
-const candidateList = candidates.map((r) => `- assets/${values.pool}/${r.file} | ${r.orientation} ${r.width}x${r.height} | ${r.people === "chef" ? "chef visible" : "no people"} | ${r.subject} | tags: ${(r.tags ?? []).join(", ")}`).join("\n");
+const candidateList = candidates
+  .map((r) => {
+    const v = verdictOf.get(r.file)!;
+    return `- assets/${values.pool}/${r.file} | Q ${v.Q} (${v.tier}) | ${r.orientation} ${r.width}x${r.height} | ${r.people === "chef" ? "chef visible" : "no people"} | ${r.subject} | tags: ${(r.tags ?? []).join(", ")}`;
+  })
+  .join("\n");
 
 // ---- prompt
 const fmt = archetype.formats;
@@ -117,7 +116,7 @@ ${JSON.stringify({ id: archetype.id, name: archetype.name, useFor: archetype.use
 LANGUAGE: ${lang === "it" ? "Italian" : "English"}. Service to sell: ${archetype.service}. CTA to use: "${brand.cta[lang][archetype.service]}".
 ${seriesLine}
 
-PHOTOS YOU MAY USE (use only these exact file paths; each photo at most once; the description after the path is what is visible):
+PHOTOS YOU MAY USE (ranked by the visual quality engine: higher Q first; use only these exact file paths; each photo at most once; prefer the highest-Q photos and put the best one in the hook; the description after the path is what is visible):
 ${candidateList}
 
 OUTPUT SHAPE:
@@ -281,11 +280,15 @@ if (spec.brief.experimentId) {
 }
 const gate = gateSpec(spec);
 gate.warnings.forEach((w) => console.warn(`[gate] ${slug}: warning ${w}`));
+setState(slug, "DISCOVERED", `authored by ${values.model} from ${candidates.length} ranked photos`);
 if (gate.errors.length) {
   gate.errors.forEach((e) => console.error(`[gate] ${slug}: ERROR ${e}`));
+  setState(slug, "REJECTED", gate.errors.join("; "));
   process.exit(1);
 }
 writeFileSync(target, JSON.stringify(spec, null, 2) + "\n");
+setState(slug, "QUALITY_CHECKED", `gate passed with ${gate.warnings.length} warning(s)`);
+if (process.env.AUTOPUBLISH === "true") setState(slug, "APPROVED", "auto-approved (AUTOPUBLISH=true)");
 for (const img of mediaOf(spec).images) {
   const key = path.basename(img);
   usage[key] = [...(usage[key] ?? []), slug];

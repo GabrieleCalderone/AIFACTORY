@@ -8,6 +8,7 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { createBufferClient, metricsToColumns } from "../src/adapters/buffer.ts";
 import { readExperiments, writeExperiments } from "../src/lib/data.ts";
+import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
 
 const apiKey = process.env.BUFFER_API_KEY;
 if (!apiKey) {
@@ -48,6 +49,12 @@ for (const pub of pubs) {
     if (m.externalLink && !row.post_url) row.post_url = m.externalLink;
     if (Object.keys(cols).length > 0) row.status = "measured";
     else if (row.status === "scheduled" && m.status === "sent") row.status = "published";
+    const st = loadPipeline()[pub.slug]?.state;
+    if (st === "SCHEDULED" && (m.status === "sent" || m.externalLink)) setState(pub.slug, "PUBLISHED", `Buffer status ${m.status ?? "?"}`, { postUrl: m.externalLink });
+    if (Object.keys(cols).length > 0 && ["SCHEDULED", "PUBLISHED", "MEASURED"].includes(loadPipeline()[pub.slug]?.state ?? "")) {
+      if (loadPipeline()[pub.slug]?.state === "SCHEDULED") setState(pub.slug, "PUBLISHED", "metrics present imply publication", { postUrl: m.externalLink });
+      setState(pub.slug, "MEASURED", `${Object.keys(cols).length} metrics`, { metricsAt: new Date().toISOString() });
+    }
     data.raw[idx] = row;
     updated++;
     console.log(`[metrics] ${pub.slug} ${pub.kind}: ${Object.keys(cols).length} metrics (${m.metricsUpdatedAt ?? "no timestamp"})`);

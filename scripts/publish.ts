@@ -16,8 +16,9 @@ import { readExperiments, writeExperiments } from "../src/lib/data.ts";
 import { gateSpec } from "../src/lib/gate-io.ts";
 import { buildCaption } from "../src/lib/timeline.ts";
 import { parsePostSpec } from "../src/schemas/post.ts";
+import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
 
-const { values, positionals } = parseArgs({ allowPositionals: true, options: { when: { type: "string" }, "dry-run": { type: "boolean", default: false }, out: { type: "string", default: "out" } } });
+const { values, positionals } = parseArgs({ allowPositionals: true, options: { when: { type: "string" }, "dry-run": { type: "boolean", default: false }, draft: { type: "boolean", default: false }, out: { type: "string", default: "out" } } });
 const file = positionals[0];
 if (!file) {
   console.error("usage: node scripts/publish.ts content/posts/<slug>.json [--when ISO] [--dry-run]");
@@ -32,6 +33,17 @@ const gateResult = gateSpec(spec);
 if (gateResult.errors.length) {
   gateResult.errors.forEach((e) => console.error(`[publish] gate ERROR ${e}`));
   process.exit(1);
+}
+// Approval: a human (console) or AUTOPUBLISH=true after the loop has been validated end-to-end.
+const pipelineState = loadPipeline()[spec.slug]?.state ?? null;
+const autoApprove = process.env.AUTOPUBLISH === "true";
+if (!values["dry-run"] && !values.draft && pipelineState !== "APPROVED" && !autoApprove) {
+  console.log(`[publish] ${spec.slug} is ${pipelineState ?? "not in the pipeline"}: approve it in the console (or set AUTOPUBLISH=true) before scheduling; use --draft to save Buffer drafts instead`);
+  process.exit(0);
+}
+if (pipelineState === "SCHEDULED" || pipelineState === "PUBLISHED" || pipelineState === "MEASURED") {
+  console.log(`[publish] ${spec.slug} already ${pipelineState}: not scheduling twice`);
+  process.exit(0);
 }
 const outDir = path.join(values.out, spec.slug);
 const hostedPath = path.join(outDir, "hosted.json");
@@ -81,13 +93,18 @@ if (dryRun) {
 }
 const buffer = createBufferClient({ apiKey: apiKey! });
 const publications = existsSync("data/publications.json") ? (JSON.parse(readFileSync("data/publications.json", "utf8")) as Record<string, unknown>[]) : [];
+const already = new Set(publications.filter((p) => p.slug === spec.slug).map((p) => `${p.kind}:${p.platform ?? "instagram"}`));
 const results: Record<string, unknown>[] = [];
 let failures = 0;
 for (const j of jobs) {
+  if (already.has(`${j.kind}:${j.platform}`)) {
+    console.log(`[publish] ${spec.slug} ${j.kind} -> ${j.platform}: already in Buffer, skipped`);
+    continue;
+  }
   try {
-    const post = await buffer.createPost({ channelId: j.channelId, text: j.text, assets: j.assets, mode: "customScheduled", dueAt: j.dueAt, metadata: j.metadata });
+    const post = await buffer.createPost({ channelId: j.channelId, text: j.text, assets: j.assets, mode: "customScheduled", dueAt: j.dueAt, metadata: j.metadata, draft: values.draft });
     console.log(`[publish] ${spec.slug} ${j.kind} -> ${j.platform}: Buffer post ${post.id} due ${post.dueAt ?? j.dueAt}`);
-    results.push({ slug: spec.slug, kind: j.kind, platform: j.platform, bufferPostId: post.id, dueAt: post.dueAt ?? j.dueAt, experimentId: spec.brief.experimentId ?? null, variantId: spec.brief.variantId ?? null, createdAt: new Date().toISOString() });
+    results.push({ slug: spec.slug, kind: j.kind, platform: j.platform, bufferPostId: post.id, dueAt: post.dueAt ?? j.dueAt, draft: values.draft, experimentId: spec.brief.experimentId ?? null, variantId: spec.brief.variantId ?? null, createdAt: new Date().toISOString() });
   } catch (e) {
     failures++;
     console.error(`[publish] ${spec.slug} ${j.kind} -> ${j.platform} FAILED: ${e instanceof Error ? e.message : e}`);
@@ -96,7 +113,7 @@ for (const j of jobs) {
 if (results.length) {
   writeFileSync("data/publications.json", JSON.stringify([...publications, ...results], null, 2) + "\n");
   writeFileSync(path.join(outDir, "published.json"), JSON.stringify(results, null, 2) + "\n");
-  if (spec.brief.experimentId) {
+  if (spec.brief.experimentId && !values.draft) {
     const data = readExperiments();
     const idx = data.raw.findIndex((r) => r.experiment_id === spec.brief.experimentId && r.variant_id === (spec.brief.variantId ?? "A"));
     if (idx >= 0) {
@@ -104,5 +121,7 @@ if (results.length) {
       writeExperiments(data.raw);
     }
   }
+  if (!values.draft) setState(spec.slug, "SCHEDULED", `${results.length} Buffer post(s)`, { bufferPostIds: results.map((r) => String(r.bufferPostId)) });
+  else console.log(`[publish] ${results.length} Buffer draft(s) saved; schedule them in Buffer or approve here`);
 }
 process.exit(failures > 0 && results.length === 0 ? 1 : 0);

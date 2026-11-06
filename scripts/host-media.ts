@@ -12,6 +12,7 @@ import { homedir } from "node:os";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { parsePostSpec } from "../src/schemas/post.ts";
+import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
@@ -90,4 +91,6 @@ if (!values["no-wait"]) {
     process.exit(1);
   }
   console.log(`${urls.length} files public under ${values.base}/${spec.slug}/${version}/`);
+  const st = loadPipeline()[spec.slug]?.state;
+  if (st && ["RENDERED", "READY", "APPROVED", "FAILED", "BLOCKED"].includes(st)) setState(spec.slug, st === "APPROVED" ? "APPROVED" : "READY", `media public at ${values.base}/${spec.slug}/${version}/`);
 }

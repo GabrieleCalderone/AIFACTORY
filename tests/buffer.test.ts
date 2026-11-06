@@ -43,3 +43,22 @@ test("metrics map onto experiment columns and ignore unknown names", () => {
   ]);
   assert.deepEqual(cols, { reach: 1200, likes: 80, saves: 31 });
 });
+
+test("429 responses are retried after Retry-After and drafts set saveToDraft", async () => {
+  let n = 0;
+  const waits: number[] = [];
+  const impl = async (_url: string, init: { body: string }) => {
+    n++;
+    if (n === 1) return { ok: false, status: 429, headers: { get: (h: string) => (h === "retry-after" ? "1" : null) }, json: async () => ({}) };
+    const vars = (JSON.parse(init.body) as { variables: { input: Record<string, unknown> } }).variables;
+    return { ok: true, status: 200, json: async () => ({ data: { createPost: { __typename: "PostActionSuccess", post: { id: "d1", draft: vars.input.saveToDraft } } } }) };
+  };
+  const c = createBufferClient({ apiKey: "k", fetchImpl: impl, sleep: async (ms) => { waits.push(ms); } });
+  const post = await c.createPost({ channelId: "ch", text: "t", draft: true });
+  assert.equal(post.id, "d1");
+  assert.deepEqual(waits, [1000]);
+  assert.equal(n, 2);
+  const auth = await createBufferClient({ apiKey: "k", fetchImpl: async () => ({ ok: false, status: 401, json: async () => ({}) }) }).verifyAuth();
+  assert.equal(auth.ok, false);
+  assert.match(auth.error ?? "", /401/);
+});

@@ -29,6 +29,7 @@ if (!values.src) {
   process.exit(2);
 }
 
+const pct = z.number().min(0).max(100);
 export const CatalogEntry = z.object({
   index: z.number().int().nonnegative(),
   people: z.enum(["none", "chef", "guests"]),
@@ -36,6 +37,12 @@ export const CatalogEntry = z.object({
   tags: z.array(z.string().min(1).max(30)).max(10).default([]),
   quality: z.enum(["good", "ok", "poor"]),
   text_overlay: z.boolean().default(false),
+  /** Visual-LLM judgements (0-100) used by src/lib/visual-score.ts; absent in older catalogues. */
+  aesthetic: pct.default(50),
+  premium_fit: pct.default(50),
+  service_fit: z.object({ class: pct.default(0), chef: pct.default(0), villa: pct.default(0), events: pct.default(0) }).default({ class: 0, chef: 0, villa: 0, events: 0 }),
+  format_fit: z.object({ reel: pct.default(50), carousel: pct.default(50) }).default({ reel: 50, carousel: 50 }),
+  issues: z.array(z.enum(["dark", "blurry", "cluttered", "messy_background", "low_resolution_look", "unappetizing", "screenshot", "collage", "logo_overlay", "people_faces", "none"])).default([]),
 });
 const Sheet = z.array(CatalogEntry).min(1);
 
@@ -55,8 +62,8 @@ const catalog: Catalog = existsSync(values.out) ? (JSON.parse(readFileSync(value
 
 const ask = (sheetPath: string, expected: number[]): z.infer<typeof Sheet> => {
   const prompt = `You are cataloguing photos for a Sicilian chef's social media. Read the contact sheet image at ${sheetPath}. It is a grid of ${expected.length} photos; under each photo a black label shows its index and filename ("NNN name.jpg"). The indexes on this sheet are: ${expected.join(", ")}.
-For EVERY photo return one object: {"index": <NNN as integer>, "people": "none"|"chef"|"guests", "subject": "<what is visible, 8-18 words, no guesses about dish names you cannot see>", "tags": ["<3-6 short tags like pasta, dessert, seafood, hands, plating, buffet, logo>"], "quality": "good"|"ok"|"poor", "text_overlay": <true if a logo or text is printed on the photo>}.
-Rules: "chef" means only the chef is recognisable (a man in chef jacket/apron/cap, or only hands); "guests" means any other person or face is visible, even partially; when unsure choose "guests". "poor" means blurry, dark, tiny or a screenshot.
+For EVERY photo return one object: {"index": <NNN as integer>, "people": "none"|"chef"|"guests", "subject": "<what is visible, 8-18 words, no guesses about dish names you cannot see>", "tags": ["<3-6 short tags like pasta, dessert, seafood, hands, plating, buffet, logo>"], "quality": "good"|"ok"|"poor", "text_overlay": <true if a logo or text is printed on the photo>, "aesthetic": <0-100: editorial food-photography appeal: light, colour, appetising, styling>, "premium_fit": <0-100: would a luxury private-chef brand publish this as is?>, "service_fit": {"class": <0-100 cooking class: hands at work, ingredients, technique>, "chef": <0-100 private chef at home: plated courses, table, service>, "villa": <0-100 villa fine dining: setting, terrace, elegant table>, "events": <0-100 events and catering: buffets, finger food, many portions>}, "format_fit": {"reel": <0-100 works as a full-screen vertical frame>, "carousel": <0-100 works as a 4:5 slide with text below>}, "issues": [<zero or more of "dark","blurry","cluttered","messy_background","low_resolution_look","unappetizing","screenshot","collage","logo_overlay","people_faces">]}.
+Rules: "chef" means only the chef is recognisable (a man in chef jacket/apron/cap, or only hands); "guests" means any other person or face is visible, even partially; when unsure choose "guests". "poor" means blurry, dark, tiny or a screenshot. Be strict on "premium_fit": plastic cups, foil trays, messy counters or harsh flash lower it.
 Output ONLY the JSON array, no prose, no code fence.`;
   for (let attempt = 1; attempt <= 3; attempt++) {
     const res = spawnSync("claude", ["-p", prompt, "--allowedTools", "Read", "--output-format", "json", "--model", values.model], { encoding: "utf8", maxBuffer: 50 * 1024 * 1024 });
