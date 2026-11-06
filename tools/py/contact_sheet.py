@@ -9,7 +9,31 @@ import argparse
 import sys
 from pathlib import Path
 
+import io
 from PIL import Image, ImageDraw, ImageOps
+import signal
+
+
+class _ReadTimeout(Exception):
+    pass
+
+
+def _alarm(*_a):  # noqa: ANN001
+    raise _ReadTimeout()
+
+
+def read_with_timeout(path, seconds=5):
+    """Return the file bytes, or None if the file cannot be read in time (iCloud evicted / slow)."""
+    signal.signal(signal.SIGALRM, _alarm)
+    signal.alarm(seconds)
+    try:
+        with open(path, "rb") as fh:
+            return fh.read()
+    except (_ReadTimeout, OSError):
+        return None
+    finally:
+        signal.alarm(0)
+
 
 EXTS = {".jpg", ".jpeg", ".png", ".heic", ".webp"}
 
@@ -43,7 +67,10 @@ def main() -> int:
         for i, p in enumerate(chunk):
             idx = start + i
             try:
-                im = Image.open(p)
+                raw = read_with_timeout(p)
+                if raw is None:
+                    raise OSError("unreadable or not downloaded (iCloud)")
+                im = Image.open(io.BytesIO(raw))
                 im = ImageOps.exif_transpose(im).convert("RGB")
                 im = ImageOps.fit(im, (a.thumb, a.thumb))
             except Exception as e:  # noqa: BLE001

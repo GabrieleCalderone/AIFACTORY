@@ -15,7 +15,31 @@ import json
 import sys
 from pathlib import Path
 
+import io
 from PIL import Image, ImageOps
+import signal
+
+
+class _ReadTimeout(Exception):
+    pass
+
+
+def _alarm(*_a):  # noqa: ANN001
+    raise _ReadTimeout()
+
+
+def read_with_timeout(path, seconds=5):
+    """Return the file bytes, or None if the file cannot be read in time (iCloud evicted / slow)."""
+    signal.signal(signal.SIGALRM, _alarm)
+    signal.alarm(seconds)
+    try:
+        with open(path, "rb") as fh:
+            return fh.read()
+    except (_ReadTimeout, OSError):
+        return None
+    finally:
+        signal.alarm(0)
+
 
 
 def find(name: str, roots: list[Path]) -> Path | None:
@@ -50,7 +74,12 @@ def main() -> int:
         if src is None:
             missing.append(name)
             continue
-        im = Image.open(src)
+        raw = read_with_timeout(src)
+        if raw is None:
+            print(f"skip {name}: unreadable or not downloaded from iCloud", file=sys.stderr)
+            missing.append(name)
+            continue
+        im = Image.open(io.BytesIO(raw))
         im = ImageOps.exif_transpose(im).convert("RGB")
         if a.crop_bottom > 0:
             im = im.crop((0, 0, im.width, round(im.height * (1 - a.crop_bottom))))
