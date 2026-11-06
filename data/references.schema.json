@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Public creative reference (data/references.csv)",
+  "description": "Permitted public references for inspiration, never for copying. Rows are added by hand from what the platform shows to a logged-in human, or from official exports/APIs the account is entitled to. No scraping, no private content, no engagement figures that were not visible on the post.",
+  "type": "object",
+  "required": ["reference_id", "collected_at", "collection_method", "permission_basis", "source_platform", "source_url", "format", "hook_type", "narrative_structure", "creative_pattern"],
+  "properties": {
+    "reference_id": { "type": "string", "pattern": "^REF-\\d{3,}$" },
+    "collected_at": { "type": "string", "format": "date" },
+    "collection_method": { "type": "string", "enum": ["manual", "platform_export", "official_api"] },
+    "permission_basis": { "type": "string", "enum": ["public_post_viewed_manually", "own_account_export", "creator_consent", "tiktok_creative_center"] },
+    "source_platform": { "type": "string", "enum": ["instagram", "tiktok", "youtube", "facebook", "other"] },
+    "source_url": { "type": "string", "format": "uri" },
+    "creator_handle": { "type": ["string", "null"] },
+    "posted_at": { "type": ["string", "null"], "format": "date" },
+    "format": { "type": "string", "enum": ["reel", "carousel", "photo", "story", "short"] },
+    "duration_sec": { "type": ["number", "null"] },
+    "language": { "type": ["string", "null"] },
+    "hook_type": { "type": "string", "enum": ["promise", "question", "number", "action_frame", "contrast", "proof", "offer", "other"] },
+    "hook_text": { "type": ["string", "null"], "description": "First on-screen line, verbatim" },
+    "narrative_structure": { "type": "string", "enum": ["process", "list", "before_after", "day_in_the_life", "testimonial", "offer", "other"] },
+    "cta": { "type": ["string", "null"] },
+    "creative_pattern": { "type": "string", "description": "Reusable idea in one line, e.g. 'numbered steps with ingredient close-ups'" },
+    "views": { "type": ["integer", "null"] },
+    "likes": { "type": ["integer", "null"] },
+    "comments": { "type": ["integer", "null"] },
+    "shares": { "type": ["integer", "null"] },
+    "saves": { "type": ["integer", "null"] },
+    "why_it_matters": { "type": ["string", "null"] },
+    "notes": { "type": ["string", "null"] }
+  }
+}
