@@ -1,77 +1,70 @@
-# RistHome AI Content Factory
+# RistHome Content Intelligence OS
 
-Evidence-driven Instagram Reels (1080x1920) and carousels (1080x1350) for RistHome,
-rendered with Remotion from the business's own photos and clips. One JSON spec per post
-holds the brief (audience, objective, hook, sequence, CTA, hypothesis, experiment and
-variant ids) and the render data, so every output stays linked to the idea it tests and
-to the metrics it earns.
+Media intelligence, content production, controlled publishing and measurement for
+RistHome (private chef and cooking classes, Palermo). Real photos are ranked by a
+Visual Quality & Brand Fit Engine, headless Claude writes and reviews every text, Remotion
+renders reels (1080x1920) and carousels (1080x1350) with product looks, Buffer schedules
+them on four platforms once approved, metrics flow back into experiments and a revenue view.
+Spend: EUR 0 unless a generative budget is set.
+
+## Start
+
+```bash
+npm install && uv sync          # once
+npm run dashboard               # console at http://127.0.0.1:4747/?t=<session token>
+npm run check                   # eslint + tsc + 69 Node tests + Python tests + data validation
+```
+
+Italian startup guide: `docs/GUIDA-AVVIO.md`. How the loop works: `docs/automation.md`.
 
 ## Commands
 
 ```bash
-npm install && uv sync              # once (Node >= 24, uv for the Python helpers)
-npm run dashboard                   # local console at http://127.0.0.1:4747: status, previews, buttons, Buffer setup
-npm run check                       # eslint + tsc + 53 Node tests + Python tests + data validation
+# media intelligence
+npm run describe-assets -- --src "/photos"      # vision catalogue (people, subject, aesthetic, premium, service/format fit)
+npm run build-pool                               # consent-filtered pool
+npm run score-assets                             # technical analysis + Q per service/format + tiers + reasons
+npm run registry-sync                            # unified media registry (sha256, sources, licence, provenance)
 
-# produce
-npm run assets -- <slug> --src "/photos" --pick IMG_1.JPG IMG_2.JPG --people chef   # normalise photos
-npm run clips  -- <slug> --src "/clips" --pick VID_1.mp4 --max-seconds 6            # normalise clips (FFmpeg)
-npm run new-post -- <slug> --archetype A1-process-reveal --lang en --experiment EXP-004
-npm run storyboard -- content/posts/<slug>.json                                       # HTML/MD for approval
-npm run gate -- content/posts/<slug>.json [--strict]                                  # quality gate only
-npm run render -- content/posts/<slug>.json --qa                                      # reel + slides + cover + caption + QA frames
-npm run render:all -- --qa
-npm run publish-pack -- content/posts/<slug>.json [--schedule 2026-11-12T18:00:00+01:00]
+# production
+npm run autopilot -- --dry-run --force           # plan -> select -> author -> review -> gate -> render -> host (dry) -> publish (dry)
+npm run author -- --archetype A6-chef-series --lang it --experiment EXP-006
+npm run render -- content/posts/<slug>.json --qa
+npm run storyboard -- content/posts/<slug>.json
+npm run gate -- content/posts/<slug>.json --strict
 
-# experiment
-npm run variant -- content/posts/<slug>.json B --set reel.hook.title="..."           # clone + experiment row
-npm run log-metrics -- EXP-001 A --reach 1200 --plays 950 --saves 31 --post-url https://...
-npm run compare -- EXP-001 --metric saves --base reach                                # Wilson intervals
-npm run report                                                                        # docs/performance.md
-npm run add-reference -- --url https://... --platform instagram --format reel --hook-type promise --narrative list --pattern "..."
-npm run validate:data
+# publishing (manual approval until AUTOPUBLISH=true)
+npm run host -- content/posts/<slug>.json        # GitHub Pages or R2 (MEDIA_STORE=r2)
+npm run publish -- content/posts/<slug>.json --draft      # Buffer drafts
+npm run publish-post -- content/posts/<slug>.json         # schedule at the next slot (needs APPROVED)
+npm run sync-metrics && npm run report
 
-# automation (docs/automation.md)
-npm run describe-assets -- --src "/photos"     # Claude catalogues photos: people, subject, tags, quality
-npm run build-pool                              # consent-filtered pool with descriptions
-npm run author -- --archetype A1-process-reveal --lang en --experiment EXP-005   # Claude writes a spec from the photos, reviews it against them
-npm run autopilot -- --dry-run --force          # plan -> author -> render -> host -> publish (dry run without keys)
-bash scripts/setup.sh                           # one-time: push to GitHub, Pages media host, daily launchd agent (10:30)
-npm run buffer:channels                         # one-time: find BUFFER_CHANNEL_ID after setting BUFFER_API_KEY
+# generative studio (REAL-FIRST, budget-gated)
+npm run studio -- --model higgsfield-ai/soul/v2/standard --prompt "..."          # estimate
+npm run studio -- --model ... --prompt "..." --run                               # generate within the monthly cap
 
-# preview and cost checks
-npm run dev                         # Remotion Studio ("Reel", "CarouselSlide")
-npm run estimate -- --model higgsfield-ai/soul/v2/standard --prompt "..."             # dry run unless keys in .env
+# experiments
+npm run variant -- content/posts/<slug>.json B --set reel.hook.title="..."
+npm run compare -- EXP-001 --metric saves --base reach
+npm run log-metrics -- EXP-001 A --reach 1200 --plays 950 --saves 31
 ```
-
-Outputs per post in `out/<slug>/`: `reel.mp4`, `reel-cover.jpg`, `carousel-NN.jpg`,
-`caption.txt`, `manifest.json` (ffprobe, scene timings, spec hash, gate warnings),
-`qa/*.png`, `storyboard.html`, `publish.json`. Open with `open out/<slug>`.
 
 ## Layout
 
-| Path                                                                                                | Role                                                                                                                                                                                                                                                                                 |
-| --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `content/posts/*.json`                                                                              | post specs (brief + reel + carousel + caption); samples: pasta-class-palermo (+ variant b), chef-a-domicilio, eventi-finger-food                                                                                                                                                     |
-| `content/archetypes.json`                                                                           | five archetypes: hook type, narrative, format recipe, platform adaptations, quality gates, KPIs                                                                                                                                                                                      |
-| `content/README.md`                                                                                 | spec format, workflow, brief-to-spec prompt                                                                                                                                                                                                                                          |
-| `src/schemas/`                                                                                      | Zod schemas: post, experiment row, reference row                                                                                                                                                                                                                                     |
-| `src/lib/`                                                                                          | timeline math, formats, CSV, data access, stats (Wilson), quality gate, variant helpers                                                                                                                                                                                              |
-| `src/compositions/`, `src/components/`                                                              | Reel and CarouselSlide templates; MotionImage (camera moves), MotionVideo, Scrim, Reveal, Chip, Brandmark                                                                                                                                                                            |
-| `src/adapters/genai.ts`, `src/adapters/buffer.ts`                                                   | estimate-only Higgsfield adapter + budget policy; Buffer GraphQL client (schedule posts, read metrics)                                                                                                                                                                               |
-| `src/lib/autopilot.ts`                                                                              | planning rules (cadence, rotation, variant B after A is measured)                                                                                                                                                                                                                    |
-| `content/brand-facts.json`, `content/audio.json`                                                    | the only claims the author may use; CC BY tracks with credits                                                                                                                                                                                                                        |
-| `src/lib/channels.ts`                                                                               | Buffer channel map, four-platform distribution (Instagram, TikTok, YouTube Shorts, Facebook) and per-platform captions                                                                                                                                                               |
-| `docs/research-volume.md`, `docs/adr/0004-*.md`                                                     | state of the art on farms and account matrices, what was adopted (daily cadence, chef series A6, cooldown)                                                                                                                                                                           |
-| `data/asset-catalog.json`, `data/asset-usage.json`, `data/publications.json`, `data/autopilot.json` | photo catalogue (people/subject), usage ledger, Buffer post ids, scheduler state                                                                                                                                                                                                     |
-| `scripts/`                                                                                          | render, gate, storyboard, new-post, variant, publish-pack, log-metrics, compare, report, add-reference, validate-data, estimate-genai, describe-assets, build-pool, author, host-media, publish, sync-metrics, autopilot, buffer-channels, setup-media-host.sh, install-autopilot.sh |
-| `tools/py/`                                                                                         | prepare_assets, prepare_clips (FFmpeg), contact_sheet, logo_trim                                                                                                                                                                                                                     |
-| `data/`                                                                                             | experiments.csv, references.csv and their JSON schemas                                                                                                                                                                                                                               |
-| `docs/`                                                                                             | ADRs, research (classified), Higgsfield dossier, analytics process, performance report, roadmap, STATUS                                                                                                                                                                              |
+| Path                                                                                                                     | Role                                                                                                                 |
+| ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| `src/lib/visual-score.ts`, `tools/py/analyze_assets.py`, `scripts/describe-assets.ts`, `scripts/score-assets.ts`         | Visual Quality & Brand Fit Engine                                                                                    |
+| `src/lib/pipeline.ts`, `data/pipeline.json`                                                                              | editorial state machine with evidence                                                                                |
+| `src/lib/registry.ts`, `data/media-registry.json`                                                                        | unified media registry                                                                                               |
+| `src/adapters/buffer.ts`, `higgsfield.ts`, `r2.ts`, `genai.ts`                                                           | publishing, generation, storage adapters                                                                             |
+| `src/compositions/`, `src/components/`, `src/brand/looks.ts`                                                             | Reel and CarouselSlide templates with product looks                                                                  |
+| `scripts/author.ts`, `autopilot.ts`, `publish.ts`, `host-media.ts`, `sync-metrics.ts`, `genai-studio.ts`, `dashboard.ts` | pipeline and console                                                                                                 |
+| `content/`                                                                                                               | post specs, archetypes, brand facts, products, audio                                                                 |
+| `data/`                                                                                                                  | catalogue, technical analysis, scores, overrides, usage, experiments, publications, pipeline, registry, spend ledger |
+| `docs/`                                                                                                                  | ADR 0001-0005, research, automation, Italian guide, performance report, STATUS                                       |
 
 ## Rules
 
-EUR 0 incremental spend (cap EUR 20/month); publishing is automated through Buffer once
-the keys are in `.env` (docs/automation.md); real RistHome assets only, guests excluded by
-the catalogue; texts describe what the media shows (Claude review pass); metrics are
-measured, never estimated.
+Real RistHome media first; guests never without recorded consent; texts describe what the
+photos show and only the brand facts; produced is never reported as published; no bots,
+no reposts, no bought views; synthetic media stays marked and never impersonates reality.

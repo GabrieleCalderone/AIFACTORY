@@ -1,81 +1,71 @@
 # Guida di avvio (italiano)
 
-Sistema: RistHome AI Content Factory, cartella `~/Projects/risthome-ai-factory`.
-Produce ogni giorno un reel e, quando previsto, un carosello dalle foto vere di RistHome,
-li controlla, li pubblica su Instagram, TikTok, YouTube Shorts e Facebook tramite Buffer e
-raccoglie le metriche. Costo: 0 EUR (usa l'abbonamento Claude Code e servizi gratuiti).
+Sistema: RistHome Content Intelligence OS, cartella `~/Projects/risthome-ai-factory`.
+Seleziona le foto migliori, scrive e produce reel e caroselli, li fa approvare, li
+programma su Instagram, TikTok, YouTube Shorts e Facebook tramite Buffer e misura i
+risultati. Costo: 0 EUR finché non attivi un budget per la generazione AI.
 
-## 1. Stato di partenza (fatto il 6 novembre 2026)
+## 1. Cosa è già fatto (6-7 novembre 2026)
 
-- Codice su GitHub: `GabrieleCalderone/AIFACTORY` (pubblico). I media pubblicati vengono
-  serviti da `https://gabrielecalderone.github.io/AIFACTORY/media/`.
-- Agente giornaliero `it.risthome.autopilot` installato: parte alle 10:30 se il Mac è
-  acceso (altrimenti al risveglio), log in `logs/`.
-- 102 foto catalogate e filtrate (ospiti esclusi), 4 post già renderizzati in `out/`.
-- Manca solo Buffer (vedi punto 2). Fino ad allora l'agente produce e renderizza ma non
-  invia nulla ("dry run").
+- Codice su GitHub (`GabrieleCalderone/AIFACTORY`), media pubblici serviti da GitHub Pages,
+  agente giornaliero alle 10:30 installato.
+- Archivio catalogato: ogni foto ha persone, soggetto, qualità, punteggio estetico,
+  adeguatezza per servizio e formato; punteggio Q per ogni combinazione servizio/formato.
+- Pipeline editoriale con stati reali: prodotto ≠ pubblicato. Finché la pubblicazione
+  automatica è spenta, ogni post si ferma in READY e aspetta "Approva".
 
-## 2. Collegare Buffer (una volta, 15 minuti, serve il tuo login)
-
-1. buffer.com → crea account. Piano gratuito: 3 canali. Per 4 (Instagram, TikTok,
-   Facebook, YouTube) serve Essentials, altrimenti scegli 3.
-2. "Connect channel": Instagram RistHome (account professionale), TikTok, pagina Facebook,
-   canale YouTube.
-3. Settings → API → "Create a new API key" → copia.
-4. Terminale: `npm run dashboard`. Nella console: "Collega Buffer" → incolla → "Salva
-   chiave" → "Rileva canali". I canali vengono scritti da soli in `.env`.
-
-## 3. Avvio
+## 2. Avvio
 
 ```bash
 cd ~/Projects/risthome-ai-factory
-git push                     # pubblica gli ultimi commit (una volta)
-npm run dashboard            # apre la console nel browser
+npm run dashboard      # apre la console con il link di sessione
 ```
 
-Nella console:
+Sezioni della console:
 
-- "Prova senza pubblicare": produce un post completo (90 secondi) e lo mostra con anteprima.
-- "Genera e programma ora": produce e programma il post di oggi alle 18:00 (reel su
-  Instagram, poi TikTok, YouTube, Facebook a un'ora di distanza; carosello due giorni dopo).
-- "Pubblica" su un post già pronto: lo programma al prossimo slot.
-- "Pausa" / "Riprendi": ferma o riattiva tutto (file `STOP`).
-- "Aggiorna metriche", "Rigenera report", "Esegui i test".
+- **Overview**: numeri chiave, stato dell'autopilota, pipeline, problemi, attività.
+- **Media Intelligence**: foto ordinate per punteggio con motivazioni; "Includi" e
+  "Escludi" per correggere a mano; "Ricalcola punteggi".
+- **Creative Studio**: Higgsfield (stima costo, generazione entro il tetto mensile).
+- **Publishing**: coda, "Approva", "Rifiuta", "Programma su Buffer", "Bozza su Buffer".
+- **Performance**: esperimenti, metriche misurate, costi.
+- **Settings**: Buffer (chiave, verifica, canali), pubblicazione automatica, Higgsfield e
+  budget, infrastruttura, test.
 
-Da qui in poi l'agente delle 10:30 fa tutto da solo, un post al giorno.
+## 3. Buffer (serve il tuo login)
 
-## 4. Controllare che funzioni
+1. buffer.com → account → collega Instagram RistHome (account professionale), TikTok,
+   pagina Facebook, YouTube (3 canali gratis; il quarto richiede Essentials).
+2. Settings → API → "Create a new API key".
+3. Console → Settings → incolla → "Salva chiave" → "Verifica accesso" → "Rileva canali".
 
-- Console: semafori verdi in "Configurazione", "Attività in corso" senza ERRORE,
-  nuovi post ogni giorno in "Post prodotti".
-- Buffer: il post compare in coda con data e ora; un post sbagliato si cancella lì prima
-  delle 18:00.
-- Metriche: dopo 24-48 ore compaiono nella tabella "Esperimenti e metriche" e in
-  `docs/performance.md` (report).
-- Log dettagliato: `logs/autopilot-AAAA-MM-GG.log` e `logs/launchd.log`.
+## 4. Il primo post vero
 
-## 5. Quando serve intervenire
+1. Overview → "Prova senza pubblicare": produce un post completo (circa 90 secondi).
+2. Publishing → guarda anteprima, caption e storyboard → "Approva".
+3. "Bozza su Buffer" per vederlo in Buffer senza programmarlo, oppure "Programma su
+   Buffer" per metterlo in coda al prossimo slot (18:00).
+4. Dopo la prima pubblicazione confermata, Settings → "Attiva pubblicazione automatica":
+   da quel momento l'agente delle 10:30 produce, programma e misura da solo.
 
-| Segnale                                                          | Cosa fare                                                                                                      |
-| ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| "aggiungi foto" nel contatore del pool (meno di 20 foto fresche) | metti le nuove foto in una cartella, poi `npm run describe-assets -- --src "/cartella"` e `npm run build-pool` |
-| clip del telefono                                                | `npm run clips -- pool --src "/cartella" --pick VID_1.mp4 --max-seconds 6 --people chef`                       |
-| errore Buffer su una piattaforma                                 | il log stampa il messaggio esatto; le altre piattaforme partono comunque; verifica il canale in Buffer         |
-| testo da correggere in un post già prodotto                      | modifica `content/posts/<slug>.json`, poi `npm run render -- content/posts/<slug>.json --qa` e "Pubblica"      |
-| cambiare cadenza o ordine degli archetipi                        | `data/autopilot.json` (`cadenceDays`, `rotation`)                                                              |
-| cambiare i fatti di brand o il CTA                               | `content/brand-facts.json`                                                                                     |
-| cambiare hook, serie, parole chiave delle foto                   | `content/archetypes.json`                                                                                      |
-| fermare tutto                                                    | pulsante "Pausa" o `touch STOP` nella cartella                                                                 |
-| disinstallare l'agente                                           | `bash scripts/install-autopilot.sh --uninstall`                                                                |
+## 5. Controlli e interventi
+
+| Situazione                               | Cosa fare                                                                                                                   |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| "Foto fresche insufficienti" in Overview | nuove foto in una cartella → `npm run describe-assets -- --src "/cartella"` → `npm run build-pool` → `npm run score-assets` |
+| una foto buona è stata esclusa           | Media Intelligence → "Includi" (resta tracciato come override umano)                                                        |
+| una foto non va usata                    | Media Intelligence → "Escludi" con nota                                                                                     |
+| post da correggere                       | Publishing → "Rifiuta"; modifica `content/posts/<slug>.json`; "Ri-renderizza"; "Approva"                                    |
+| fermare tutto                            | Overview → "Pausa" (file STOP)                                                                                              |
+| vedere cosa è successo                   | Overview → Attività, oppure `logs/autopilot-<data>.log`                                                                     |
+| generare un'immagine AI                  | Settings → chiavi Higgsfield e tetto mensile; Creative Studio → "Stima il costo" → "Genera"                                 |
 
 ## 6. Regole che il sistema applica da solo
 
-- Solo foto catalogate senza ospiti e senza loghi stampati; nessuna foto riusata negli
-  ultimi 8 post.
-- Testi scritti dalle descrizioni delle foto e ricontrollati foto per foto; i fatti di
-  brand ammessi sono solo quelli in `content/brand-facts.json`; mai prezzi, sconti,
-  promesse, telefoni, email o domini diversi da risthome.it.
-- Musica CC BY con credito automatico in caption (Instagram penalizza i reel muti).
-- Reel sotto i 90 secondi, caroselli da 2 a 20 slide, foto mai ingrandite oltre 2x
-  senza avviso.
-- Nessun bot, nessun repost, nessun acquisto di visualizzazioni.
+- Solo foto senza ospiti, senza loghi stampati, non screenshot, con qualità tecnica
+  sufficiente e pertinenti al servizio; nessuna foto riusata negli ultimi 8 post; una
+  foto per gruppo di quasi-duplicati.
+- Testi scritti dalle descrizioni delle foto e ricontrollati foto per foto; solo i fatti di
+  `content/brand-facts.json`; mai prezzi, sconti, telefoni, email o domini estranei.
+- Musica CC BY con credito; reel sotto i 90 secondi; look editoriale per prodotto.
+- Nessun bot, nessun repost, nessun media sintetico spacciato per reale.
