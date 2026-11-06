@@ -65,17 +65,20 @@ export const runGate = ({ spec, exists, info, archetypeIds, experimentRows }: Ga
     } catch (e) {
       errors.push(e instanceof Error ? e.message : String(e));
     }
+    if (!spec.reel.audio) {
+      warnings.push("reel has no audio track: Instagram says muted reels are made less visible; add a licensed track in the app when posting, or set reel.audio");
+    }
   }
 
   const checkFit = (media: string, w: number, h: number, where: string) => {
     const d = info(media);
     if (!d) {
-      warnings.push(`${where}: no manifest entry for ${media}; size and consent unknown`);
+      errors.push(`${where}: no manifest entry for ${media}; prepare it with prepare_assets/prepare_clips so size and consent are recorded`);
       return;
     }
     const factor = Math.max(w / d.width, h / d.height);
     if (factor > 2) warnings.push(`${where}: ${media} is ${d.width}x${d.height}, upscaled ${factor.toFixed(1)}x to fill ${w}x${h}`);
-    if (d.people === undefined) warnings.push(`${where}: consent not recorded for ${media} (prepare_assets --people)`);
+    if (d.people === undefined) errors.push(`${where}: consent not recorded for ${media} (re-run prepare_assets --people none|chef|guests-consented)`);
     else if (!["none", "chef", "guests-consented"].includes(d.people)) errors.push(`${where}: ${media} shows people without recorded consent (${d.people})`);
   };
   if (spec.reel) {

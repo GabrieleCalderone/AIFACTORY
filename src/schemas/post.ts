@@ -6,15 +6,19 @@ import { z } from "zod";
  * Image paths are relative to public/ (e.g. "assets/<slug>/01-photo.jpg").
  */
 
+/** Relative path under public/: no leading slash, no "." or ".." segments, safe characters only. */
+const relativeUnderPublic = /^(?!\/)(?!(?:.*\/)?\.\.?(?:\/|$))[\w][\w./-]*$/;
 const imagePath = z
   .string()
   .min(1)
-  .regex(/^[\w./-]+\.(jpe?g|png|webp)$/i, "image must be a relative path under public/ ending in jpg/png/webp");
+  .regex(relativeUnderPublic, "image must be a relative path under public/ without ../ segments")
+  .regex(/\.(jpe?g|png|webp)$/i, "image must end in jpg/png/webp");
 
 const videoPath = z
   .string()
   .min(1)
-  .regex(/^[\w./-]+\.(mp4|mov|webm)$/i, "video must be a relative path under public/ ending in mp4/mov/webm");
+  .regex(relativeUnderPublic, "video must be a relative path under public/ without ../ segments")
+  .regex(/\.(mp4|mov|webm)$/i, "video must end in mp4/mov/webm");
 
 /** A scene shows either a still photo (with a camera move) or a real clip (looped, muted). */
 const media = {

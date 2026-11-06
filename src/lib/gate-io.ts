@@ -5,9 +5,19 @@ import { readExperiments } from "./data.ts";
 import { runGate, type GateResult, type MediaInfo } from "./gate.ts";
 import type { PostSpec } from "../schemas/post.ts";
 
+const PUBLIC_ROOT = path.resolve("public");
+
+/** Resolve a spec media path and refuse anything that escapes public/. */
+export const publicFile = (publicPath: string): string => {
+  const resolved = path.resolve(PUBLIC_ROOT, publicPath);
+  if (!resolved.startsWith(PUBLIC_ROOT + path.sep)) throw new Error(`media path escapes public/: ${publicPath}`);
+  return resolved;
+};
+
 /** Wires the pure gate to the file system, the asset manifests, ffprobe and the data files. */
 export const mediaInfo = (publicPath: string): MediaInfo => {
-  const manifest = path.join("public", path.dirname(publicPath), "manifest.json");
+  const file = publicFile(publicPath);
+  const manifest = path.join(path.dirname(file), "manifest.json");
   if (existsSync(manifest)) {
     const rows = JSON.parse(readFileSync(manifest, "utf8")) as { file: string; width: number; height: number; people?: string; durationSec?: number }[];
     const row = rows.find((r) => r.file === path.basename(publicPath));
@@ -15,7 +25,7 @@ export const mediaInfo = (publicPath: string): MediaInfo => {
   }
   if (/\.(mp4|mov|webm)$/i.test(publicPath)) {
     try {
-      const out = execFileSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height:format=duration", "-of", "json", path.join("public", publicPath)], { encoding: "utf8" });
+      const out = execFileSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height:format=duration", "-of", "json", file], { encoding: "utf8" });
       const j = JSON.parse(out) as { streams?: { width: number; height: number }[]; format?: { duration?: string } };
       const s = j.streams?.[0];
       if (s) return { width: s.width, height: s.height, durationSec: j.format?.duration ? Number(j.format.duration) : undefined };
@@ -33,7 +43,7 @@ export const gateSpec = (spec: PostSpec): GateResult => {
     : [];
   return runGate({
     spec,
-    exists: (p) => existsSync(path.join("public", p)),
+    exists: (p) => existsSync(publicFile(p)),
     info: mediaInfo,
     archetypeIds,
     experimentRows,

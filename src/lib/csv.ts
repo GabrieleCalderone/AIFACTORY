@@ -53,7 +53,13 @@ export const parseCsv = (text: string): { headers: string[]; rows: CsvRow[] } =>
   return { headers, rows };
 };
 
-const quote = (v: string): string => (/[",\n\r]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v);
+/** Neutralise spreadsheet formula injection: a cell starting with = + - @ tab or CR gets a leading apostrophe (plain numbers are left alone). */
+const defuse = (v: string): string => (/^[=+@\t\r]/.test(v) || (/^-/.test(v) && !/^-?\d+(\.\d+)?$/.test(v)) ? `'${v}` : v);
+
+const quote = (raw: string): string => {
+  const v = defuse(raw);
+  return /[",\n\r]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
+};
 
 export const stringifyCsv = (headers: string[], rows: CsvRow[]): string =>
   [headers.join(","), ...rows.map((r) => headers.map((h) => quote(r[h] ?? "")).join(","))].join("\n") + "\n";

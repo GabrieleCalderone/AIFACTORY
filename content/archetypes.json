@@ -8,18 +8,65 @@
       "name": "Process reveal (ingredient to dish)",
       "useFor": "Cooking classes; any dish with a visible technique (mortar, rolling pasta, frying, filling cannoli).",
       "hookType": "Hands at work + explicit promise in the first second ('Cook Sicilian pasta with a chef in Palermo').",
-      "narrative": ["hook: chef at work", "3 to 5 numbered steps from raw to plated", "one alternative dish", "dessert", "CTA"],
+      "narrative": [
+        "hook: chef at work",
+        "3 to 5 numbered steps from raw to plated",
+        "one alternative dish",
+        "dessert",
+        "CTA"
+      ],
       "formats": {
-        "reel": { "hookDurationSec": 3.4, "sceneDurationSec": 2.7, "sceneCount": 5, "motions": ["dolly-in", "pan-right", "dolly-in", "crash-zoom-in", "arc-left", "dolly-in"], "labels": ["Step 1", "Step 2", "Step 3", "Also on the menu", "Dessert"] },
-        "carousel": { "slides": ["cover", "photo", "photo", "photo", "photo", "text", "cta"] }
+        "reel": {
+          "hookDurationSec": 3.4,
+          "sceneDurationSec": 2.7,
+          "sceneCount": 5,
+          "motions": [
+            "dolly-in",
+            "pan-right",
+            "dolly-in",
+            "crash-zoom-in",
+            "arc-left",
+            "dolly-in"
+          ],
+          "labels": [
+            "Step 1",
+            "Step 2",
+            "Step 3",
+            "Also on the menu",
+            "Dessert"
+          ]
+        },
+        "carousel": {
+          "slides": [
+            "cover",
+            "photo",
+            "photo",
+            "photo",
+            "photo",
+            "text",
+            "cta"
+          ]
+        }
       },
       "platformAdaptations": {
         "instagram_reels": "9:16, 18-25 s, text inside the safe area, cover frame = hook frame.",
         "tiktok": "same cut; add native captions and a trending sound inside the app; never upload music files you do not own.",
         "instagram_carousel": "4:5, 6-8 slides, one dish per slide, text slide before the CTA."
       },
-      "qualityGates": ["real RistHome photos only", "texts describe what the photo shows", "headline >= 84 px, support >= 44 px on 1080 px width", "no guest faces without written consent", "no price claims unless confirmed by the chef"],
-      "kpis": ["average watch time / length", "completion rate", "saves", "booking enquiries per 1,000 plays"],
+      "qualityGates": [
+        "real RistHome photos only",
+        "texts describe what the photo shows",
+        "headline >= 84 px, support >= 44 px on 1080 px width",
+        "no guest faces without written consent",
+        "no price claims unless confirmed by the chef",
+        "add audio in-app at posting time or via reel.audio (Instagram downranks muted reels)"
+      ],
+      "kpis": [
+        "average watch time / length",
+        "completion rate",
+        "saves",
+        "booking enquiries per 1,000 plays"
+      ],
       "briefDefaults": {
         "audience": "English-speaking travellers in Palermo for 2-4 days, booking experiences on mobile",
         "objective": "Cooking-class bookings on risthome.it or GetYourGuide",
@@ -27,24 +74,61 @@
         "cta": "Book your class on risthome.it (link in bio)",
         "hypothesisTemplate": "A step-by-step process reel keeps viewers longer than a plate montage. Success: average watch time >= 60% of length."
       },
-      "examples": ["pasta-class-palermo"]
+      "examples": [
+        "pasta-class-palermo",
+        "pasta-class-palermo-b"
+      ]
     },
     {
       "id": "A2-chef-at-work",
       "name": "Chef at work (behind the scenes)",
       "useFor": "Short, fast reels built from action frames: flame, pouring, plating, pasta lifted from the pot.",
       "hookType": "Action frame with a crash zoom; one short line that names the moment ('3 seconds before service').",
-      "narrative": ["hook: the most dynamic frame", "4-6 fast cuts of the chef working", "the plated result", "CTA"],
+      "narrative": [
+        "hook: the most dynamic frame",
+        "4-6 fast cuts of the chef working",
+        "the plated result",
+        "CTA"
+      ],
       "formats": {
-        "reel": { "hookDurationSec": 2.4, "sceneDurationSec": 1.8, "sceneCount": 5, "motions": ["crash-zoom-in", "dolly-in", "crash-zoom-in", "arc-right", "dolly-in", "zoom-in"], "labels": ["", "", "", "", "Servito"] }
+        "reel": {
+          "hookDurationSec": 2.4,
+          "sceneDurationSec": 1.8,
+          "sceneCount": 5,
+          "motions": [
+            "crash-zoom-in",
+            "dolly-in",
+            "crash-zoom-in",
+            "arc-right",
+            "dolly-in",
+            "zoom-in"
+          ],
+          "labels": [
+            "",
+            "",
+            "",
+            "",
+            "Servito"
+          ]
+        }
       },
       "platformAdaptations": {
         "instagram_reels": "9:16, 10-15 s, cuts on the beat if music is added in-app.",
         "tiktok": "same cut, native captions.",
         "instagram_carousel": "not recommended; use a single photo post with the plated result instead."
       },
-      "qualityGates": ["chef only, or guests with consent", "no blurry hook frame", "labels optional, keep text under 6 words per scene"],
-      "kpis": ["plays", "shares", "profile visits", "follows"],
+      "qualityGates": [
+        "chef only, or guests with consent",
+        "no blurry hook frame",
+        "labels optional, keep text under 6 words per scene",
+        "add audio in-app at posting time or via reel.audio (Instagram downranks muted reels)"
+      ],
+      "kpis": [
+        "plays",
+        "shares",
+        "profile visits",
+        "follows"
+      ],
       "briefDefaults": {
         "audience": "Food lovers in Sicily and Italian-speaking locals who follow chefs",
         "objective": "Reach and profile visits",
@@ -59,18 +143,65 @@
       "name": "Menu list (N things you will eat or cook)",
       "useFor": "Carousels that name dishes one by one: class menus, event finger food, seasonal menus.",
       "hookType": "Numbered promise on the cover ('6 finger foods for your event').",
-      "narrative": ["cover with the promise", "one dish per slide, name + one factual line", "how it works", "CTA"],
+      "narrative": [
+        "cover with the promise",
+        "one dish per slide, name + one factual line",
+        "how it works",
+        "CTA"
+      ],
       "formats": {
-        "carousel": { "slides": ["cover", "photo", "photo", "photo", "photo", "photo", "text", "cta"] },
-        "reel": { "hookDurationSec": 3.0, "sceneDurationSec": 2.2, "sceneCount": 6, "motions": ["dolly-in", "pan-left", "pan-right", "dolly-in", "arc-left", "zoom-in", "dolly-in"], "labels": ["1", "2", "3", "4", "5", "6"] }
+        "carousel": {
+          "slides": [
+            "cover",
+            "photo",
+            "photo",
+            "photo",
+            "photo",
+            "photo",
+            "text",
+            "cta"
+          ]
+        },
+        "reel": {
+          "hookDurationSec": 3.0,
+          "sceneDurationSec": 2.2,
+          "sceneCount": 6,
+          "motions": [
+            "dolly-in",
+            "pan-left",
+            "pan-right",
+            "dolly-in",
+            "arc-left",
+            "zoom-in",
+            "dolly-in"
+          ],
+          "labels": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ]
+        }
       },
       "platformAdaptations": {
         "instagram_carousel": "4:5, 7-9 slides, the cover must work alone in the feed.",
         "instagram_reels": "optional cut: same slides as 2 s scenes with numbers as labels.",
         "tiktok": "photo-mode post with the same slides."
       },
-      "qualityGates": ["every dish name matches the photo", "no more than 220 characters per slide body", "page indicator on every inner slide"],
-      "kpis": ["saves", "shares", "reach from non-followers", "enquiries"],
+      "qualityGates": [
+        "every dish name matches the photo",
+        "no more than 220 characters per slide body",
+        "page indicator on every inner slide",
+        "add audio in-app at posting time or via reel.audio (Instagram downranks muted reels)"
+      ],
+      "kpis": [
+        "saves",
+        "shares",
+        "reach from non-followers",
+        "enquiries"
+      ],
       "briefDefaults": {
         "audience": "People planning an event or a class who compare options and save posts",
         "objective": "Saves and enquiries",
@@ -78,25 +209,71 @@
         "cta": "Ask for a proposal on risthome.it",
         "hypothesisTemplate": "A list carousel earns more saves than a single photo. Success: save rate >= 2% of reach."
       },
-      "examples": ["eventi-finger-food"]
+      "examples": [
+        "eventi-finger-food"
+      ]
     },
     {
       "id": "A4-private-table",
       "name": "Private table (place, mise en place, courses)",
       "useFor": "Private chef at home, villa dinners, boats, events: sell the setting before the food.",
       "hookType": "The setting first (garden, terrace, laid table) + 'a chef cooks at your place'.",
-      "narrative": ["hook: chef in the setting", "the laid table", "3-4 courses in order", "CTA with the quote promise"],
+      "narrative": [
+        "hook: chef in the setting",
+        "the laid table",
+        "3-4 courses in order",
+        "CTA with the quote promise"
+      ],
       "formats": {
-        "reel": { "hookDurationSec": 3.4, "sceneDurationSec": 2.7, "sceneCount": 5, "motions": ["dolly-in", "arc-right", "dolly-in", "pan-left", "crash-zoom-in", "dolly-in"], "labels": ["Mise en place", "Antipasto", "Primo", "Secondo", "Dolce"] },
-        "carousel": { "slides": ["cover", "photo", "photo", "photo", "photo", "text", "cta"] }
+        "reel": {
+          "hookDurationSec": 3.4,
+          "sceneDurationSec": 2.7,
+          "sceneCount": 5,
+          "motions": [
+            "dolly-in",
+            "arc-right",
+            "dolly-in",
+            "pan-left",
+            "crash-zoom-in",
+            "dolly-in"
+          ],
+          "labels": [
+            "Mise en place",
+            "Antipasto",
+            "Primo",
+            "Secondo",
+            "Dolce"
+          ]
+        },
+        "carousel": {
+          "slides": [
+            "cover",
+            "photo",
+            "photo",
+            "photo",
+            "photo",
+            "text",
+            "cta"
+          ]
+        }
       },
       "platformAdaptations": {
         "instagram_reels": "9:16, 15-20 s, calmer pacing than A2.",
         "instagram_carousel": "4:5; the text slide states what is included (shopping, cooking, service, cleanup).",
         "tiktok": "same cut; captions in English for tourists."
       },
-      "qualityGates": ["the setting shown is a real RistHome service", "courses named only when the photo shows them", "the 24-hour quote promise must stay true operationally"],
-      "kpis": ["qualified enquiries (WhatsApp/form)", "quote requests per 1,000 plays", "bookings", "contribution margin"],
+      "qualityGates": [
+        "the setting shown is a real RistHome service",
+        "courses named only when the photo shows them",
+        "the 24-hour quote promise must stay true operationally",
+        "add audio in-app at posting time or via reel.audio (Instagram downranks muted reels)"
+      ],
+      "kpis": [
+        "qualified enquiries (WhatsApp/form)",
+        "quote requests per 1,000 plays",
+        "bookings",
+        "contribution margin"
+      ],
       "briefDefaults": {
         "audience": "Couples and families renting villas or apartments around Palermo",
         "objective": "Qualified quote requests",
@@ -104,25 +281,66 @@
         "cta": "Write to us on risthome.it, quote within 24 hours",
         "hypothesisTemplate": "Showing the setting before the plates raises quote requests. Success: >= 2 qualified requests per 1,000 plays."
       },
-      "examples": ["chef-a-domicilio"]
+      "examples": [
+        "chef-a-domicilio"
+      ]
     },
     {
       "id": "A5-proof-and-offer",
       "name": "Proof and offer (social proof, seasonal offer, gift)",
       "useFor": "Christmas gift vouchers, seasonal menus, review highlights, milestone posts.",
       "hookType": "A verified number or quote ('5.0 on Google, 101 reviews') or a dated offer.",
-      "narrative": ["hook: the proof or the offer", "what you get, in 2-3 beats", "who it is for", "CTA with a deadline or a link"],
+      "narrative": [
+        "hook: the proof or the offer",
+        "what you get, in 2-3 beats",
+        "who it is for",
+        "CTA with a deadline or a link"
+      ],
       "formats": {
-        "carousel": { "slides": ["cover", "text", "photo", "photo", "text", "cta"] },
-        "reel": { "hookDurationSec": 3.0, "sceneDurationSec": 2.5, "sceneCount": 3, "motions": ["zoom-in", "dolly-in", "arc-left", "dolly-in"], "labels": ["", "", ""] }
+        "carousel": {
+          "slides": [
+            "cover",
+            "text",
+            "photo",
+            "photo",
+            "text",
+            "cta"
+          ]
+        },
+        "reel": {
+          "hookDurationSec": 3.0,
+          "sceneDurationSec": 2.5,
+          "sceneCount": 3,
+          "motions": [
+            "zoom-in",
+            "dolly-in",
+            "arc-left",
+            "dolly-in"
+          ],
+          "labels": [
+            "",
+            "",
+            ""
+          ]
+        }
       },
       "platformAdaptations": {
         "instagram_carousel": "4:5; the proof slide quotes a real review verbatim with the reviewer's first name only.",
         "instagram_reels": "optional; use when the offer has a deadline.",
         "tiktok": "rarely; offers convert better on Instagram for this brand."
       },
-      "qualityGates": ["numbers and quotes verified on the platform the day of posting", "offers approved by the chef with price and validity", "no AI-generated testimonials"],
-      "kpis": ["link clicks", "bookings", "voucher sales", "revenue"],
+      "qualityGates": [
+        "numbers and quotes verified on the platform the day of posting",
+        "offers approved by the chef with price and validity",
+        "no AI-generated testimonials",
+        "add audio in-app at posting time or via reel.audio (Instagram downranks muted reels)"
+      ],
+      "kpis": [
+        "link clicks",
+        "bookings",
+        "voucher sales",
+        "revenue"
+      ],
       "briefDefaults": {
         "audience": "Past guests, locals buying gifts, followers who have not booked yet",
         "objective": "Direct bookings or voucher sales",

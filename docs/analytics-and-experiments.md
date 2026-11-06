@@ -21,10 +21,17 @@
 
 ## Reading results with small samples
 
-Run `uv run python -I tools/py/compare_variants.py data/experiments.csv EXP-001 --metric saves --base reach`.
-It prints a 95% Wilson interval per variant and refuses to name a winner when intervals
-overlap. With a few hundred plays per post that is the normal outcome; keep publishing
-variants and compare across weeks, not single posts.
+Run `npm run compare -- EXP-001 --metric saves --base reach`. It prints a 95% Wilson
+interval per variant and refuses to name a winner when intervals overlap. With a few
+hundred plays per post that is the normal outcome; keep publishing variants and compare
+across weeks, not single posts. `npm run report` rebuilds `docs/performance.md` (funnel
+per variant, pooled rates per archetype).
+
+## Entering data
+
+- Metrics: `npm run log-metrics -- EXP-001 A --published-at ... --post-url ... --reach N --plays N --avg-watch-time-sec S --saves N --shares N --profile-visits N --link-clicks N --inquiries N --qualified-inquiries N --bookings N --revenue-eur X`
+- References (compliant, manual): `npm run add-reference -- --url ... --platform instagram --format reel --hook-type promise --narrative process --pattern "..."`; only figures visible on the post, never scraped.
+- Validation runs in `npm run check` (`npm run validate:data`).
 
 ## Quality gates before `status=approved`
 
@@ -35,3 +42,4 @@ variants and compare across weeks, not single posts.
 4. Reel at most 90 s (the timeline math enforces it), carousel 2 to 20 slides.
 5. The experiment row exists with hypothesis and success metric.
 6. Pre-publication "AI scores" of virality are not used as evidence.
+7. `npm run gate -- <spec> --strict` passes, or every warning is understood (silent reel, upscaling, consent).

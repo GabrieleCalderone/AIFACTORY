@@ -50,7 +50,8 @@
     "variant": "node scripts/variant.ts",
     "gate": "node scripts/gate.ts",
     "estimate": "node --env-file-if-exists=.env scripts/estimate-genai.ts",
-    "clips": "uv run python -I tools/py/prepare_clips.py"
+    "clips": "uv run python -I tools/py/prepare_clips.py",
+    "publish-pack": "node scripts/publish-pack.ts"
   },
   "allowScripts": {
     "esbuild": false

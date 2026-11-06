@@ -13,14 +13,30 @@ export type GenAiAdapter = {
 
 type FetchLike = (url: string, init: { method: string; headers: Record<string, string>; body: string }) => Promise<{ ok: boolean; status: number; json(): Promise<unknown> }>;
 
+/**
+ * Build the estimate URL from a model id such as "higgsfield-ai/soul/v2/standard".
+ * Each segment is validated and encoded so an id can never point outside /estimate/.
+ */
+export const estimateUrl = (baseUrl: string, model: string): string => {
+  const segments = model.split("/");
+  if (segments.length < 2 || segments.some((seg) => !/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(seg) || seg === "." || seg === "..")) {
+    throw new Error(`model id looks wrong: ${model}`);
+  }
+  const url = new URL(`/estimate/${segments.map(encodeURIComponent).join("/")}`, baseUrl);
+  if (!url.pathname.startsWith("/estimate/") || url.origin !== new URL(baseUrl).origin) {
+    throw new Error(`refusing to call ${url.href}: only the estimate endpoint is allowed`);
+  }
+  return url.href;
+};
+
 export const createHiggsfieldAdapter = (opts: { keyId: string; keySecret: string; fetchImpl?: FetchLike; baseUrl?: string }): GenAiAdapter => {
   const baseUrl = opts.baseUrl ?? "https://api.higgsfield.ai";
   const fetchImpl = opts.fetchImpl ?? (fetch as unknown as FetchLike);
   return {
     name: "higgsfield",
     async estimateUsd({ model, input }) {
-      if (!/^[\w.-]+(\/[\w.-]+)+$/.test(model)) throw new Error(`model id looks wrong: ${model}`);
-      const res = await fetchImpl(`${baseUrl}/estimate/${model}`, {
+      const url = estimateUrl(baseUrl, model);
+      const res = await fetchImpl(url, {
         method: "POST",
         headers: { Authorization: `Key ${opts.keyId}:${opts.keySecret}`, "Content-Type": "application/json" },
         body: JSON.stringify(input),

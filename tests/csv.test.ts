@@ -19,3 +19,8 @@ test("stringifyCsv round-trips through parseCsv", () => {
   const out = stringifyCsv(headers, rows);
   assert.deepEqual(parseCsv(out).rows, rows);
 });
+
+test("cells that look like spreadsheet formulas are defused on write", () => {
+  const out = stringifyCsv(["a", "b", "c", "d"], [{ a: "=SUM(1)", b: "-5", c: "-not a number", d: "+39 340" }]);
+  assert.equal(out, "a,b,c,d\n'=SUM(1),-5,'-not a number,'+39 340\n");
+});

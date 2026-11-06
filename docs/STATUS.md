@@ -1,49 +1,58 @@
-# Status and verification report, 2026-11-06
+# Status and verification report, 2026-11-06 (end of day)
 
-## Delivered in this session
+## What exists now
 
-- Pipeline brief -> spec -> Reel MP4 (1080x1920, H.264, 30 fps) + carousel JPEGs
-  (1080x1350) + caption + manifest, one command: `npm run render -- <spec> --qa`.
-- Three sample creatives rendered from the business's own photos
-  (`/Users/gabrielecalderone/Desktop/IDEE/FOTORISTHOME`, chef and food only):
-  - `pasta-class-palermo` (EN, archetype A1): reel 20.0 s (600 frames) + 8 slides.
-  - `chef-a-domicilio` (IT, archetype A4): reel 17.6 s (528 frames).
-  - `eventi-finger-food` (IT, archetype A3): 8 slides.
-- Local camera presets inspired by Higgsfield Camera Controls (dolly-in, crash-zoom-in,
-  arc-left/right) in `src/components/MotionImage.tsx`; research and costed option in
-  `docs/higgsfield.md`.
-- Five archetypes (`content/archetypes.json`), brief generator (`scripts/new-post.ts`),
-  experiment and reference schemas (`data/`), small-sample comparison tool.
+Brief -> spec -> storyboard -> gate -> render (reel + carousel + cover + caption + QA
+frames) -> publish pack -> metrics -> comparison -> report. Every step is a command in
+`README.md`; nothing is published and nothing has been bought (EUR 0).
 
-## Checks executed (all on 2026-11-06)
+Deliverables of the "CREATIVE INTELLIGENCE UPGRADE" brief:
+
+| Deliverable | Where | State |
+|---|---|---|
+| Architecture decision record | `docs/adr/0001`, `docs/adr/0002` | done |
+| Working creative intelligence pipeline | `scripts/*.ts`, `src/` | done, verified below |
+| Competitor/reference dataset schema | `data/references.csv`, `data/references.schema.json`, `scripts/add-reference.ts` | done (0 rows: manual, compliant import only) |
+| Creative brief generator | `scripts/new-post.ts` + `content/archetypes.json` | done |
+| Five reusable creative archetypes | `content/archetypes.json` | done |
+| Three completed sample creatives | `out/pasta-class-palermo` (reel + 8 slides, EN), `out/chef-a-domicilio` (reel, IT), `out/eventi-finger-food` (8 slides, IT); plus variant B of EXP-001 | done, rendered and inspected |
+| Analytics and experimentation schema | `data/experiments.csv` (4 rows, metrics empty), `data/experiments.schema.json`, `scripts/log-metrics.ts`, `compare.ts`, `report.ts` | done |
+| Tests and verification report | `tests/*.test.ts` (39), `tools/py/test_*.py` (2), this file | done |
+| Costed next-step roadmap | `docs/roadmap.md`, `docs/higgsfield.md` | done |
+| Research with classified sources | `docs/research.md` | done; Help Center limits still unread |
+
+Six capabilities: competitive intelligence (schema + manual import), knowledge base
+(archetypes + performance report), planning (brief, storyboard), production (Remotion
+templates, local camera moves, video scenes via FFmpeg), experimentation (variants,
+experiment ids, hypotheses, gate, Wilson comparison), revenue intelligence (funnel
+columns from reach to contribution margin, left empty until measured).
+
+## Checks executed (2026-11-06)
 
 | Check | Command | Result |
-|-------|---------|--------|
-| Lint + types | `npm run lint` (eslint src scripts tests && tsc) | 0 errors |
-| Unit tests (Node) | `npm test` | 14 passed, 0 failed |
-| Unit tests (Python) | `npm run test:py` | 5 passed |
-| Compositions load | `npx remotion compositions` | Reel 600 frames 20.00 s, CarouselSlide still |
-| Full render | `node scripts/render.ts --all --qa` | 3 posts, 43 s wall clock, no errors |
-| ffprobe reel 1 | `ffprobe out/pasta-class-palermo/reel.mp4` | h264 1080x1920 30/1 600 frames 20.000 s yuv420p 10.2 MB |
-| ffprobe reel 2 | `ffprobe out/chef-a-domicilio/reel.mp4` | h264 1080x1920 30/1 528 frames 17.600 s 8.3 MB |
-| Visual QA | 15 reel frames + 16 slides inspected | correct photos, legible text, inside safe areas; three texts corrected for fidelity, one wrong photo (clams instead of cones) replaced, two baked-in logo bands cropped |
-| Brief generator | `node scripts/new-post.ts smoke-test --archetype A2-chef-at-work --lang it` | valid spec with 5 scenes (file removed after the check) |
+|---|---|---|
+| Lint + types | `npm run lint` | 0 errors |
+| Node unit tests | `npm test` | 39 passed, 0 failed |
+| Python tests | `npm run test:py` | 2 passed |
+| Data validation | `npm run validate:data` | 4 experiment rows valid, 0 references |
+| Quality gate | `node scripts/gate.ts content/posts/*.json` | 4 PASS; warnings: silent reels (3), one 2.1x upscale |
+| Full render | `node scripts/render.ts --all --qa` | 4 posts, no errors |
+| ffprobe | reels | pasta-class A and B: h264 1080x1920 600 frames 20.0 s; chef-a-domicilio: 528 frames 17.6 s |
+| Visual QA | 23 reel frames + 24 slides inspected | correct media, legible text in safe areas |
+| Video scene path | temporary post with a real phone clip (480x848 -> 1080x1920 via FFmpeg), rendered at 0.5 scale, frames inspected, artifacts removed | works |
+| Storyboards, publish packs, report | `storyboard.ts`, `publish-pack.ts`, `report.ts` on all posts | written to `out/<slug>/` and `docs/performance.md` |
+| Security review follow-up | adapter URL confinement, media path traversal, CSV formula injection, fail-closed consent | fixed with tests |
 
-Quality-gate warning still open: `chef-a-domicilio` scene 2 photo (IMG_0055, 989x914) is
-upscaled 2.1x; the hook photo (IMG_0071, 720x1560) is 1.5x. Both acceptable on phones,
-better originals would help.
+## Open work (needs Gabriele or the chef)
 
-## Not done / open
-
-- Nothing was published, no social account connected, no credit bought (EUR 0 spent).
-- Metrics columns in `data/experiments.csv` are empty by design until the posts go live.
-- Research gaps from the interrupted session: Meta/TikTok official ranking docs, short-form
-  retention evidence, Buffer API, AI image/video economics were fetched as raw HTML on
-  2026-11-05 (scratchpad of that session) but only the Higgsfield subset was digested.
-- Business facts used in texts to confirm with Chef Giacomo before posting: "quote within
-  24 hours", "villas, resorts and venues across Sicily", "English spoken".
-- Music: reels are silent; add a licensed track in the Instagram editor at posting time or
-  provide a licensed file via the optional `reel.audio` field.
-- Competitive-intelligence import is a schema plus a manual process; no automation (the
-  brief forbids unauthorized scraping).
-- Optional: a `video` scene type for the five phone clips (480x848, too small today).
+1. Approve texts and business claims ("preventivo in 24 ore", "English spoken",
+   "ville, resort e location in tutta la Sicilia") before posting.
+2. Post the three samples by hand with a licensed track chosen in the Instagram editor
+   (`out/<slug>/publish.json` has the checklist and the UTM bio link), then
+   `npm run log-metrics` after 7 days and `npm run compare` / `npm run report`.
+3. Read reel length and carousel limits on help.instagram.com from a browser (the
+   fetcher got an empty page) and record them in `docs/research.md`.
+4. Shoot vertical clips to replace the two soft photos (chef in the garden 720x1560,
+   parmigiana 989x914).
+5. Decisions in `docs/roadmap.md`: connect Buffer (free), Meta app for metrics, first
+   generative spend (Higgsfield estimate first). None started.

@@ -64,9 +64,10 @@ def main() -> int:
                          "orientation": "portrait" if im.height > im.width else "landscape", "people": a.people})
         print(f"{dst.name}  {im.width}x{im.height}  <- {name}")
     mpath = out / "manifest.json"
-    if a.start > 1 and mpath.exists():
-        manifest = json.loads(mpath.read_text()) + manifest
-    mpath.write_text(json.dumps(manifest, indent=2) + "\n")
+    existing = json.loads(mpath.read_text()) if mpath.exists() else []
+    new_names = {m["file"] for m in manifest}
+    merged = [m for m in existing if m.get("file") not in new_names] + manifest
+    mpath.write_text(json.dumps(merged, indent=2) + "\n")
     if missing:
         print("missing: " + ", ".join(missing), file=sys.stderr)
         return 1

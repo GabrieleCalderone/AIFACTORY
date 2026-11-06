@@ -78,3 +78,14 @@ test("a reel scene takes exactly one of image or video", () => {
   none.reel!.scenes[0] = { text: "no media" };
   assert.equal(PostSpec.safeParse(none).success, false);
 });
+
+test("media paths cannot escape public/", () => {
+  for (const bad of ["../secret.jpg", "/etc/x.png", "assets/../../x.jpg", "assets/./x.jpg", "assets/a..b/../x.webp"]) {
+    const spec = structuredClone(demoSpec);
+    spec.reel!.scenes[0] = { image: bad };
+    assert.equal(PostSpec.safeParse(spec).success, false, bad);
+  }
+  const ok = structuredClone(demoSpec);
+  ok.reel!.scenes[0] = { image: "assets/demo/a.b-c_1.jpg" };
+  assert.equal(PostSpec.safeParse(ok).success, true);
+});

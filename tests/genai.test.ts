@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { budgetPolicy, createHiggsfieldAdapter } from "../src/adapters/genai.ts";
+import { budgetPolicy, createHiggsfieldAdapter, estimateUrl } from "../src/adapters/genai.ts";
 
 const fakeFetch = (status: number, body: unknown) => {
   const calls: { url: string; auth: string; body: string }[] = [];
@@ -32,4 +32,11 @@ test("budget policy defaults to zero and refuses more than EUR 20", () => {
   assert.deepEqual(budgetPolicy({}), { approvedEur: 0, ceilingEur: 20, spendAllowed: false });
   assert.equal(budgetPolicy({ GENAI_MONTHLY_CAP_EUR: "15" }).spendAllowed, true);
   assert.throws(() => budgetPolicy({ GENAI_MONTHLY_CAP_EUR: "25" }), /ceiling/);
+});
+
+test("model ids cannot steer the request away from the estimate endpoint", () => {
+  assert.equal(estimateUrl("https://api.higgsfield.ai", "higgsfield-ai/soul/v2/standard"), "https://api.higgsfield.ai/estimate/higgsfield-ai/soul/v2/standard");
+  for (const bad of ["../requests", "a/../../requests", "a//b", "a/./b", "a/b?x=1", "a/b#c", "/a/b", "a/b/", "%2e%2e/a", "single"]) {
+    assert.throws(() => estimateUrl("https://api.higgsfield.ai", bad), new RegExp("model id looks wrong|only the estimate endpoint"), bad);
+  }
 });
