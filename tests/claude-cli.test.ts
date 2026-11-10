@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { DEFAULT_TIMEOUT_MS, describeFailure, redactSecrets, runClaudeCli, timeoutFromEnv, type CliResult } from "../src/lib/claude-cli.ts";
+import { boundForScan, DEFAULT_TIMEOUT_MS, describeFailure, redactSecrets, runClaudeCli, timeoutFromEnv, type CliResult } from "../src/lib/claude-cli.ts";
 
 const ok = (result: string): CliResult => ({ status: 0, stdout: JSON.stringify({ result }), stderr: "" });
 const quiet = { sleep: () => {}, log: () => {}, pauseMs: 0 };
@@ -64,4 +64,14 @@ test("a very large failure output is cut before it is scanned, and stays fast", 
   const started = Date.now();
   const reason = describeFailure({ status: 1, stderr: "eyJ" + "a".repeat(5_000_000), stdout: "" }, 1000) ?? "";
   assert.ok(reason.length < 450 && Date.now() - started < 1000, `${reason.length} chars in ${Date.now() - started} ms`);
+});
+
+test("long credentials are redacted whole, and a cut never leaves a partial token", () => {
+  const jwt = `eyJ${"a".repeat(700)}.${"b".repeat(900)}.${"c".repeat(600)}`;
+  assert.equal(redactSecrets(`x ${jwt} y`), "x [redacted] y");
+  assert.equal(redactSecrets(`sk-${"k".repeat(900)} end`), "[redacted] end");
+  const straddling = `${"w ".repeat(1995)}sk-${"z".repeat(40)}`;
+  assert.ok(!boundForScan(straddling).includes("sk-"), "partial key survived the cut");
+  assert.equal(boundForScan("q".repeat(5000)), "output omitted (5000 chars, no whitespace)");
+  assert.equal(boundForScan("short text"), "short text");
 });
