@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { DEFAULT_TIMEOUT_MS, describeFailure, runClaudeCli, timeoutFromEnv, type CliResult } from "../src/lib/claude-cli.ts";
+import { DEFAULT_TIMEOUT_MS, describeFailure, redactSecrets, runClaudeCli, timeoutFromEnv, type CliResult } from "../src/lib/claude-cli.ts";
 
 const ok = (result: string): CliResult => ({ status: 0, stdout: JSON.stringify({ result }), stderr: "" });
 const quiet = { sleep: () => {}, log: () => {}, pauseMs: 0 };
@@ -41,4 +41,21 @@ test("the timeout is read from the environment and falls back on invalid values"
   assert.equal(timeoutFromEnv({ CLAUDE_CLI_TIMEOUT_MS: "120000" }), 120000);
   assert.equal(timeoutFromEnv({ CLAUDE_CLI_TIMEOUT_MS: "abc" }), DEFAULT_TIMEOUT_MS);
   assert.equal(timeoutFromEnv({ CLAUDE_CLI_TIMEOUT_MS: "5" }), DEFAULT_TIMEOUT_MS);
+});
+
+test("secrets never reach the failure reason, and raw non-JSON stdout is not echoed", () => {
+  const key = "sk-ant-" + "a".repeat(30);
+  const envelope = JSON.stringify({ result: `Invalid key ${key} with access_token=abcdef123456 and Bearer abcdefghijklmnop` });
+  const reason = describeFailure({ status: 1, stderr: "", stdout: envelope }, 1000) ?? "";
+  assert.ok(!reason.includes(key) && !reason.includes("abcdef123456") && !reason.includes("abcdefghijklmnop"), reason);
+  assert.match(reason, /Invalid key \[redacted\]/);
+  assert.equal(describeFailure({ status: 1, stderr: "", stdout: "raw text sk-secret" }, 1000), "claude exited 1: unparseable stdout (18 chars)");
+  assert.equal(redactSecrets("Usage limit reached"), "Usage limit reached");
+});
+
+test("a zero exit with unparseable stdout is retried and reported without the raw output", () => {
+  let n = 0;
+  const runner = () => (n++, { status: 0, stdout: "not json sk-" + "b".repeat(20), stderr: "" });
+  assert.throws(() => runClaudeCli([], { ...quiet, runner }), (e: Error) => e.message === "claude returned unparseable JSON (32 chars)");
+  assert.equal(n, 2);
 });

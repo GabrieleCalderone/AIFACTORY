@@ -16,6 +16,14 @@ export const timeoutFromEnv = (env: Record<string, string | undefined> = process
   return Number.isFinite(n) && n >= 1000 ? Math.floor(n) : DEFAULT_TIMEOUT_MS;
 };
 
+/** Removes well-known secret shapes (API keys, bearer tokens, JWTs, key=value credentials) from text bound for logs. */
+export const redactSecrets = (text: string): string =>
+  text
+    .replace(/\bsk-[A-Za-z0-9_-]{16,}/g, "[redacted]")
+    .replace(/\beyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}/g, "[redacted]")
+    .replace(/\b(Bearer)\s+[A-Za-z0-9._~+/=-]{12,}/gi, "$1 [redacted]")
+    .replace(/\b((?:access|refresh|id)_token|api[_-]?key|secret|password|authorization)(["']?\s*[=:]\s*["']?)[^\s"'&,;]+/gi, "$1$2[redacted]");
+
 /** One-line cause for a failed call; null when the call succeeded. */
 export const describeFailure = (res: CliResult, timeoutMs: number): string | null => {
   if (res.error?.code === "ETIMEDOUT") return `claude timed out after ${Math.round(timeoutMs / 1000)}s`;
@@ -28,11 +36,11 @@ export const describeFailure = (res: CliResult, timeoutMs: number): string | nul
       const envelope = JSON.parse(out) as { result?: unknown; subtype?: unknown };
       detail = [envelope.subtype, envelope.result].filter((v) => typeof v === "string" && v).join(": ");
     } catch {
-      detail = out;
+      detail = out ? `unparseable stdout (${out.length} chars)` : "";
     }
   }
   const exit = res.status === null ? `was killed by ${res.signal ?? "a signal"}` : `exited ${res.status}`;
-  return `claude ${exit}: ${detail.replace(/\s+/g, " ").slice(0, 400) || "no output on stderr or stdout"}`;
+  return `claude ${exit}: ${redactSecrets(detail).replace(/\s+/g, " ").slice(0, 400) || "no output on stderr or stdout"}`;
 };
 
 const spawnRunner: CliRunner = (args, timeoutMs) =>
@@ -54,8 +62,14 @@ export const runClaudeCli = (
   let failure = "";
   for (let attempt = 1; attempt <= attempts; attempt++) {
     const res = runner(args, timeoutMs);
-    const reason = describeFailure(res, timeoutMs);
-    if (!reason) return (JSON.parse(res.stdout ?? "") as { result?: string }).result ?? "";
+    let reason = describeFailure(res, timeoutMs);
+    if (!reason) {
+      try {
+        return (JSON.parse(res.stdout ?? "") as { result?: string }).result ?? "";
+      } catch {
+        reason = `claude returned unparseable JSON (${(res.stdout ?? "").length} chars)`;
+      }
+    }
     failure = reason;
     if (attempt < attempts) {
       log(`[claude] ${reason}; retrying (${attempt + 1}/${attempts})`);
