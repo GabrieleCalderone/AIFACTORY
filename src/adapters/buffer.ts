@@ -60,8 +60,9 @@ export const createBufferClient = (opts: { apiKey: string; fetchImpl?: FetchLike
       }
     },
     async organizations(): Promise<{ id: string; name?: string }[]> {
-      const d = await graphql<{ organizations: { id: string; name?: string }[] }>(`query { organizations { id name } }`);
-      return d.organizations;
+      // Verified against the live schema on 2026-11-10: organizations hang off `account`; there is no root field.
+      const d = await graphql<{ account: { organizations: { id: string; name?: string }[] } }>(`query { account { organizations { id name } } }`);
+      return d.account.organizations;
     },
     async channels(organizationId: string): Promise<BufferChannel[]> {
       const d = await graphql<{ channels: BufferChannel[] }>(

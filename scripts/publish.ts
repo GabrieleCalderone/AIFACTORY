@@ -70,7 +70,7 @@ if (spec.reel && hosted.reel) {
     const channelId = target(d.platform);
     if (!channelId) continue;
     const dueAt = new Date(when.getTime() + d.offsetHours * 3600 * 1000).toISOString();
-    const metadata = d.platform === "instagram" ? { instagram: { type: "reel", shareToFeed: true } } : d.platform === "youtube" ? { youtube: { title: hookTitle.slice(0, 100) } } : undefined;
+    const metadata = d.platform === "instagram" ? { instagram: { type: "reel", shouldShareToFeed: true } } : d.platform === "youtube" ? { youtube: { title: hookTitle.slice(0, 100) } } : undefined;
     jobs.push({ kind: "reel", platform: d.platform, channelId, text: captionFor(d.platform, full, spec.hashtags, hookTitle), assets: [{ video: { url: hosted.reel, metadata: { thumbnailOffset: 1500 } } }], dueAt, metadata });
   }
 }
@@ -79,7 +79,7 @@ if (spec.carousel && hosted.carousel?.length) {
     const channelId = target(d.platform);
     if (!channelId) continue;
     const dueAt = new Date(when.getTime() + d.offsetHours * 3600 * 1000).toISOString();
-    jobs.push({ kind: "carousel", platform: d.platform, channelId, text: captionFor(d.platform, full, spec.hashtags, hookTitle), assets: hosted.carousel.map((url) => ({ image: { url } })), dueAt, metadata: d.platform === "instagram" ? { instagram: { type: "post" } } : undefined });
+    jobs.push({ kind: "carousel", platform: d.platform, channelId, text: captionFor(d.platform, full, spec.hashtags, hookTitle), assets: hosted.carousel.map((url) => ({ image: { url } })), dueAt, metadata: d.platform === "instagram" ? { instagram: { type: "post", shouldShareToFeed: true } } : undefined });
   }
 }
 if (jobs.length === 0) {

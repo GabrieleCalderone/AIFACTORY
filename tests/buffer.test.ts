@@ -62,3 +62,14 @@ test("429 responses are retried after Retry-After and drafts set saveToDraft", a
   assert.equal(auth.ok, false);
   assert.match(auth.error ?? "", /401/);
 });
+
+test("organizations are read from the account, as the live schema requires", async () => {
+  let sent = "";
+  const fetchImpl = async (_url: string, init: { body: string }) => {
+    sent = (JSON.parse(init.body) as { query: string }).query;
+    return { ok: true, status: 200, json: async () => ({ data: { account: { organizations: [{ id: "o1", name: "RistHome" }] } } }) };
+  };
+  const c = createBufferClient({ apiKey: "k", fetchImpl: fetchImpl as never });
+  assert.deepEqual(await c.organizations(), [{ id: "o1", name: "RistHome" }]);
+  assert.match(sent, /account\s*\{\s*organizations/);
+});
