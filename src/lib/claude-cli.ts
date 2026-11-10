@@ -19,10 +19,10 @@ export const timeoutFromEnv = (env: Record<string, string | undefined> = process
 /** Removes well-known secret shapes (API keys, bearer tokens, JWTs, key=value credentials) from text bound for logs. */
 export const redactSecrets = (text: string): string =>
   text
-    .replace(/\bsk-[A-Za-z0-9_-]{16,}/g, "[redacted]")
-    .replace(/\beyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}/g, "[redacted]")
-    .replace(/\b(Bearer)\s+[A-Za-z0-9._~+/=-]{12,}/gi, "$1 [redacted]")
-    .replace(/\b((?:access|refresh|id)_token|api[_-]?key|secret|password|authorization)(["']?\s*[=:]\s*["']?)[^\s"'&,;]+/gi, "$1$2[redacted]");
+    .replace(/\bsk-[A-Za-z0-9_-]{16,512}/g, "[redacted]")
+    .replace(/\beyJ[A-Za-z0-9_-]{8,512}\.[A-Za-z0-9_-]{8,512}\.[A-Za-z0-9_-]{8,512}/g, "[redacted]")
+    .replace(/\b(Bearer)\s+[A-Za-z0-9._~+/=-]{12,512}/gi, "$1 [redacted]")
+    .replace(/\b((?:access|refresh|id)_token|api[_-]?key|secret|password|authorization)(["']?\s*[=:]\s*["']?)[^\s"'&,;]{1,512}/gi, "$1$2[redacted]");
 
 /** One-line cause for a failed call; null when the call succeeded. */
 export const describeFailure = (res: CliResult, timeoutMs: number): string | null => {
@@ -40,7 +40,7 @@ export const describeFailure = (res: CliResult, timeoutMs: number): string | nul
     }
   }
   const exit = res.status === null ? `was killed by ${res.signal ?? "a signal"}` : `exited ${res.status}`;
-  return `claude ${exit}: ${redactSecrets(detail).replace(/\s+/g, " ").slice(0, 400) || "no output on stderr or stdout"}`;
+  return `claude ${exit}: ${redactSecrets(detail.slice(0, 4000).replace(/\s+/g, " ")).slice(0, 400) || "no output on stderr or stdout"}`;
 };
 
 const spawnRunner: CliRunner = (args, timeoutMs) =>

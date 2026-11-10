@@ -59,3 +59,9 @@ test("a zero exit with unparseable stdout is retried and reported without the ra
   assert.throws(() => runClaudeCli([], { ...quiet, runner }), (e: Error) => e.message === "claude returned unparseable JSON (32 chars)");
   assert.equal(n, 2);
 });
+
+test("a very large failure output is cut before it is scanned, and stays fast", () => {
+  const started = Date.now();
+  const reason = describeFailure({ status: 1, stderr: "eyJ" + "a".repeat(5_000_000), stdout: "" }, 1000) ?? "";
+  assert.ok(reason.length < 450 && Date.now() - started < 1000, `${reason.length} chars in ${Date.now() - started} ms`);
+});
