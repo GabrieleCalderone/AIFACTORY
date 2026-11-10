@@ -8,7 +8,11 @@ import { spawnSync } from "node:child_process";
 export type CliResult = { status: number | null; signal?: string | null; stdout?: string | null; stderr?: string | null; error?: (Error & { code?: string }) | null };
 export type CliRunner = (args: string[], timeoutMs: number) => CliResult;
 
-export const DEFAULT_TIMEOUT_MS = 15 * 60 * 1000;
+/**
+ * 45 minutes per call. The run of 2026-11-10 succeeded with two calls in about 50 minutes, so a
+ * shorter limit would have failed a run that worked; the hangs of 8 and 9 November lasted 3-4 hours.
+ */
+export const DEFAULT_TIMEOUT_MS = 45 * 60 * 1000;
 
 /** Timeout from the environment (CLAUDE_CLI_TIMEOUT_MS), falling back to the default on missing or invalid values. */
 export const timeoutFromEnv = (env: Record<string, string | undefined> = process.env): number => {
