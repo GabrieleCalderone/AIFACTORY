@@ -9,7 +9,6 @@
  *
  * Uses the `claude` CLI (subscription); no API key. Exit 1 if the gate reports errors.
  */
-import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
@@ -19,6 +18,7 @@ import { mediaOf } from "../src/lib/gate.ts";
 import { parsePostSpec, PostSpec, type PostSpecInput } from "../src/schemas/post.ts";
 import { rankForService, type Format, type Service, type TechnicalRow, type Verdict } from "../src/lib/visual-score.ts";
 import { setState } from "../src/lib/pipeline-io.ts";
+import { runClaudeCli } from "../src/lib/claude-cli.ts";
 
 const { values } = parseArgs({
   options: {
@@ -144,10 +144,7 @@ const problemCode = (problem: string): string => PROBLEM_CODES.find(([re]) => re
 const runClaude = (p: string, allowRead = false): string => {
   const args = ["-p", p, "--output-format", "json", "--model", values.model, "--disallowedTools", allowRead ? DENIED_TOOLS : `${DENIED_TOOLS},Read`];
   if (allowRead) args.push("--allowedTools", `Read(${path.resolve(poolDir)}/**)`);
-  const res = spawnSync("claude", args, { encoding: "utf8", maxBuffer: 50 * 1024 * 1024 });
-  if (res.status !== 0) throw new Error(`claude exited ${res.status}: ${res.stderr.slice(0, 400)}`);
-  const envelope = JSON.parse(res.stdout) as { result?: string };
-  return envelope.result ?? "";
+  return runClaudeCli(args);
 };
 const extractJson = (text: string): unknown => {
   const start = text.indexOf("{");
