@@ -24,14 +24,15 @@
     "awards or reviews not listed above",
     "dish names not visible in the photo"
   ],
+  "cta_note": "One invitation, in the site's own words. Checked on 2026-11-11: risthome.it takes requests on /request-availability and has no instant booking, so no text says \"book\".",
   "cta": {
     "en": {
-      "class": "Book your class on risthome.it (link in bio)",
-      "chef": "Ask for a quote on risthome.it (link in bio)"
+      "class": "Request availability on risthome.it (link in bio)",
+      "chef": "Request availability on risthome.it (link in bio)"
     },
     "it": {
-      "class": "Prenota la lezione su risthome.it (link in bio)",
-      "chef": "Chiedi un preventivo su risthome.it (link in bio)"
+      "class": "Richiedi disponibilità su risthome.it (link in bio)",
+      "chef": "Richiedi disponibilità su risthome.it (link in bio)"
     }
   },
   "retired": [

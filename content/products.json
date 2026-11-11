@@ -1,10 +1,11 @@
 {
-  "updated": "2026-11-07",
+  "updated": "2026-11-11",
   "note": "Product taxonomy linking content to landing pages, booking channels and margin assumptions. utm_campaign = experiment id, utm_content = post slug (built by publish-pack/publish).",
   "products": {
     "class": {
       "name": "Cooking class",
-      "landing": "https://risthome.it/#classes",
+      "landing": "https://risthome.it/cooking-classes",
+      "request": "https://risthome.it/request-availability",
       "booking": [
         "GetYourGuide",
         "risthome.it form",
@@ -15,7 +16,8 @@
     },
     "chef": {
       "name": "Private chef at home",
-      "landing": "https://risthome.it/#private-chef",
+      "landing": "https://risthome.it/private-chef-at-home",
+      "request": "https://risthome.it/request-availability",
       "booking": [
         "risthome.it form",
         "WhatsApp"
@@ -25,7 +27,8 @@
     },
     "villa": {
       "name": "Villa fine dining",
-      "landing": "https://risthome.it/#private-chef",
+      "landing": "https://risthome.it/private-chef-at-home",
+      "request": "https://risthome.it/request-availability",
       "booking": [
         "risthome.it form",
         "WhatsApp"

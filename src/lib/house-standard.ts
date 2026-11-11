@@ -4,6 +4,7 @@
  * The parts that need eyes (light, plating, mood) live in the author and reviewer prompts.
  */
 import type { PostSpec } from "../schemas/post.ts";
+import type { Scorecard } from "./scorecard.ts";
 
 export type HouseStandard = {
   version: string;
@@ -24,6 +25,8 @@ export type HouseStandard = {
   /** Being found: the place and one of the service phrases must be in every English caption. */
   seo?: { place: string; phrases: string[]; rules: string[] };
   measure?: { primary: string; then: string[]; commercial: string; rules: string[] };
+  /** Editorial judgement out of 100 on a finished piece (src/lib/scorecard.ts). */
+  scorecard?: Scorecard & { note?: string };
   principles: { id: string; rule: string; why: string }[];
 };
 
