@@ -11,7 +11,8 @@
  * exclusion) block an asset regardless of its score. Every verdict carries its reasons.
  */
 
-export type Service = "class" | "chef" | "villa" | "events";
+/** The two experiences the house sells. Older catalogue entries still carry marks for retired lines; they are ignored. */
+export type Service = "class" | "chef";
 export type Format = "reel" | "carousel";
 
 export type TechnicalRow = {

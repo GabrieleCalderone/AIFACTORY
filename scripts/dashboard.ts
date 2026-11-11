@@ -333,9 +333,6 @@ const status = () => {
       scores?: Record<string, { Q: number; tier: string }>;
     }[]
   >("public/assets/pool/manifest.json", []);
-  const usage = readJson<Record<string, string[]>>("data/asset-usage.json", {});
-  // Same rule as the author: only posts that reached the audience, or wait to, use up their photos.
-  const lastEight = new Set(recentLiveSlugs(loadPipeline(), 8));
   // The archive as the author sees it: fit photos that are not held back, different shots of one dish counted once.
   const heldBack = readJson<Record<string, AssetOverride>>("data/asset-overrides.json", {});
   const subjects = readJson<{ groups?: Record<string, string> }>("data/asset-subjects.json", {}).groups ?? {};
@@ -343,13 +340,6 @@ const status = () => {
     const fit = pool.filter((r) => ["usable", "premium"].includes(r.scores?.[`${service}:carousel`]?.tier ?? "") && !isHeldBack(heldBack[r.file]));
     return { photos: fit.length, dishes: new Set(fit.map((r) => subjects[r.file] ?? r.file)).size };
   };
-  const freshUsable = (service: string, format: string) =>
-    pool.filter(
-      (r) =>
-        ["usable", "premium"].includes(
-          r.scores?.[`${service}:${format}`]?.tier ?? "",
-        ) && !(usage[r.file] ?? []).some((sl) => lastEight.has(sl)),
-    ).length;
   const ledger = readJson<SpendEntry[]>("data/genai-spend.json", []);
   const registry = readJson<Registry | null>("data/media-registry.json", null);
   const logs = existsSync("logs")
@@ -391,13 +381,6 @@ const status = () => {
       pool: pool.length,
       archive: { chef: archive("chef"), class: archive("class") },
       poolBlocked: pool.filter((r) => r.blocked).length,
-      fresh: {
-        "class:reel": freshUsable("class", "reel"),
-        "chef:reel": freshUsable("chef", "reel"),
-        "villa:reel": freshUsable("villa", "reel"),
-        "events:reel": freshUsable("events", "reel"),
-        "events:carousel": freshUsable("events", "carousel"),
-      },
       registry: registry ? summarizeRegistry(registry) : null,
     },
     autopilot: {

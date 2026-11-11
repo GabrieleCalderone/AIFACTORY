@@ -1,9 +1,9 @@
 /**
  * Editorial looks per product line. A look sets the colour grade applied to photos
  * (CSS filters at render time), the accent used for chips and rules, and the typographic
- * register. Chosen from the post's archetype service (class | chef | villa | events).
+ * register. Chosen from the post's archetype service (class | chef: the two experiences the house sells).
  */
-export type Service = "class" | "chef" | "villa" | "events";
+export type Service = "class" | "chef";
 
 export type Look = {
   id: Service;
@@ -42,32 +42,11 @@ export const looks: Record<Service, Look> = {
     titleTracking: "0",
     eyebrow: { it: "Chef a domicilio", en: "Private chef at home" },
   },
-  villa: {
-    id: "villa",
-    name: "Villa evening",
-    grade: "contrast(1.1) saturate(0.9) brightness(0.98) sepia(0.14)",
-    vignette: 0.45,
-    accent: "#4a1a1f",
-    chipTone: "light",
-    titleWeight: 700,
-    titleTracking: "0.01em",
-    eyebrow: { it: "Cena in villa", en: "Villa fine dining" },
-  },
-  events: {
-    id: "events",
-    name: "Event bright",
-    grade: "contrast(1.05) saturate(1.12) brightness(1.04)",
-    vignette: 0.2,
-    accent: "#983038",
-    chipTone: "accent",
-    titleWeight: 800,
-    titleTracking: "-0.01em",
-    eyebrow: { it: "Eventi e catering", en: "Events and catering" },
-  },
 };
 
 /** Archetype id -> service (mirrors content/archetypes.json "service"); defaults to class. */
 export const lookForArchetype = (archetypeId: string, catalog: { id: string; service?: string }[]): Look => {
-  const service = catalog.find((a) => a.id === archetypeId)?.service as Service | undefined;
-  return looks[service ?? "class"];
+  const service = catalog.find((a) => a.id === archetypeId)?.service;
+  // a retired format of a line the house no longer sells falls back to the class look
+  return service === "chef" ? looks.chef : looks.class;
 };

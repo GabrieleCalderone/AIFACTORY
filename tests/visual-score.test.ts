@@ -40,7 +40,7 @@ const cat = (over: Partial<CatalogRow> = {}): CatalogRow => ({
   text_overlay: false,
   aesthetic: 85,
   premium_fit: 80,
-  service_fit: { class: 90, chef: 60, villa: 30, events: 20 },
+  service_fit: { class: 90, chef: 20 },
   format_fit: { reel: 90, carousel: 80 },
   issues: [],
   ...over,
@@ -111,14 +111,14 @@ test("Q follows the weights and the tiers; hard constraints block regardless of 
   const wrongService = scoreAsset({
     tech: tech(),
     cat: cat(),
-    service: "events",
+    service: "chef",
     format: "reel",
     usedTimes: 0,
     groupUsedTimes: 0,
   });
   assert.ok(
     wrongService.Q < v.Q &&
-      wrongService.reasons.some((r) => /weak fit for events/.test(r)),
+      wrongService.reasons.some((r) => /weak fit for chef/.test(r)),
   );
   const guests = scoreAsset({
     tech: tech(),
@@ -177,7 +177,7 @@ test("ranking keeps one photo per near-duplicate group and skips excluded or blo
       c: cat({
         aesthetic: 20,
         premium_fit: 10,
-        service_fit: { class: 10, chef: 0, villa: 0, events: 0 },
+        service_fit: { class: 10, chef: 0 },
       }),
     },
   ];

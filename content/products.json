@@ -24,29 +24,6 @@
       ],
       "avgTicketEur": 400,
       "marginAssumption": 0.6
-    },
-    "villa": {
-      "name": "Villa fine dining",
-      "landing": "https://risthome.it/private-chef-at-home",
-      "request": "https://risthome.it/request-availability",
-      "booking": [
-        "risthome.it form",
-        "WhatsApp"
-      ],
-      "avgTicketEur": 900,
-      "marginAssumption": 0.6
-    },
-    "events": {
-      "name": "Events and catering",
-      "landing": "https://risthome.it/#events",
-      "booking": [
-        "risthome.it form",
-        "WhatsApp"
-      ],
-      "avgTicketEur": 2500,
-      "marginAssumption": 0.6,
-      "active": false,
-      "retired": "2026-11-11"
     }
   }
 }

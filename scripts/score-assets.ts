@@ -75,7 +75,7 @@ const overrides = existsSync("data/asset-overrides.json")
     >)
   : {};
 
-const services: Service[] = ["class", "chef", "villa", "events"];
+const services: Service[] = ["class", "chef"];
 const formats: Format[] = ["reel", "carousel"];
 const groupUsed = new Map<number, number>();
 for (const row of pool) {
