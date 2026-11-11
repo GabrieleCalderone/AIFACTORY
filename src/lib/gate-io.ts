@@ -52,7 +52,12 @@ export const gateSpec = (spec: PostSpec): GateResult => {
     archetypeIds,
     experimentRows,
   });
-  const archetypes = existsSync("content/archetypes.json") ? (JSON.parse(readFileSync("content/archetypes.json", "utf8")) as { archetypes: { id: string; context?: Partial<ContextLimits> }[] }).archetypes : [];
+  const archetypes = existsSync("content/archetypes.json") ? (JSON.parse(readFileSync("content/archetypes.json", "utf8")) as { archetypes: { id: string; active?: boolean; service?: string; context?: Partial<ContextLimits> }[] }).archetypes : [];
+  // A draft in a retired format, or for a line the house no longer sells, never reaches rendering or publishing.
+  const format = archetypes.find((a) => a.id === spec.brief.archetype);
+  const sold = loadStandard()?.calendar?.services ?? ["class", "chef"];
+  if (format?.active === false) result.errors.push(`the format ${format.id} is retired`);
+  else if (format && !sold.includes(format.service ?? "")) result.errors.push(`the format ${format.id} sells "${format.service ?? "nothing"}", which the house does not offer`);
   contextIssues(spec, contextCredits(), limitsFor(archetypes.find((a) => a.id === spec.brief.archetype)), premiumFitOf()).forEach((issue) => result.errors.push(`context picture, ${issue}`));
   const standard = loadStandard();
   // Guests: a manifest that says "consented" is not enough, there must be a written yes on record for the very file.
