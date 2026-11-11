@@ -1,8 +1,8 @@
 {
-  "version": "2026-11-11c",
-  "audience": "Travellers and locals who pay 100 to 200 EUR per person for a private experience with a chef in Palermo: a hands-on class in his kitchen or a dinner cooked and served at their home or villa. They compare RistHome with starred restaurants and five-star hotels, not with caterers.",
+  "version": "2026-11-12",
+  "audience": "Travellers, seven in ten of them American, who are planning a stay in Sicily: couples, families, small groups and guests of villas who pay 100 to 200 EUR per person for a private experience with a chef in Palermo, a hands-on class in his kitchen or a dinner cooked and served where they stay. They meet the house while they dream of the trip, save it while they plan, and write when they want to book. They compare RistHome with starred restaurants and five-star hotels, not with caterers.",
   "limits": {
-    "hookTitleWords": 7,
+    "hookTitleWords": 10,
     "sceneTextWords": 6,
     "slideTitleWords": 6,
     "slideBodyWords": 16,
@@ -119,7 +119,10 @@
     "One invitation at the end, phrased as a host would: the exact CTA line given, once. Nothing else asks for anything.",
     "Never ask for engagement: no \"comment\", \"tag a friend\", \"share\", \"follow us\", \"save this post\", no questions to the reader. The house keeps a courteous distance.",
     "Proof is stated once, flat, as a fact (the Google rating or the chef's background), never as a boast.",
-    "A dish is named only in the chef's own words, the way the best kitchens write a menu: its two to four main ingredients, separated by commas, no adjectives, no invented or poetic titles. Without the chef's words a slide carries the course (Antipasto, Primo, Dolce) or nothing: the photograph speaks."
+    "A dish is named only in the chef's own words, the way the best kitchens write a menu: its two to four main ingredients, separated by commas, no adjectives, no invented or poetic titles. Without the chef's words a slide carries the course (Antipasto, Primo, Dolce) or nothing: the photograph speaks.",
+    "American English, in spelling and in idiom.",
+    "The cover line gives a feeling the traveller wants, never the name of a service: two short sentences at most, ten words in all. (\"You came to Sicily for the food. Make it personal.\")",
+    "The experience leads, the dish follows: the place, the hands, the table and the moment it is served say more than a finished plate alone."
   ],
   "visual": [
     "One subject per frame, with air around it, and few colours. Crowded trays, buffet overviews and repeated identical items read as catering, not as a private table.",
@@ -133,7 +136,9 @@
     "Follow the order of the real experience: produce, gesture, plate, table. A sequence the viewer can predict feels effortless.",
     "End on the peak: the served dish or the table, then one quiet invitation.",
     "Slow, even pacing. Fewer, longer scenes rather than many fast cuts.",
-    "Repeat the same few signature elements in every post (wordmark, type, tone) so the house is recognised without reading."
+    "Repeat the same few signature elements in every post (wordmark, type, tone) so the house is recognised without reading.",
+    "Every piece is something a traveller would send to the person they are travelling with: one clear promise of an experience in Sicily, readable without knowing the house.",
+    "Sicily or Palermo is named on the first or the second slide; the service (private chef, cooking class) is named in the cover's small line."
   ],
   "calendar": {
     "services": [
@@ -287,6 +292,21 @@
       "Three to five hashtags, always the place and the house, then the service. Never trend tags.",
       "Every image carries a description of what it shows, with the house and the place (alt text): it is read by people who cannot see and by search.",
       "The same name, the same place and the same words on every channel, so the house is found as one thing."
+    ]
+  },
+  "measure": {
+    "primary": "sends per account reached",
+    "then": [
+      "saves per reach",
+      "profile visits",
+      "qualified requests",
+      "bookings"
+    ],
+    "commercial": "margin from bookings divided by reach, times 1000 (value per 1,000 reached)",
+    "rules": [
+      "Sends carry a post to people who do not follow the house: they are read before likes.",
+      "A post is compared with the account's own median, never with other accounts.",
+      "Reach from the United States is noted for every post once the channel reports it."
     ]
   }
 }

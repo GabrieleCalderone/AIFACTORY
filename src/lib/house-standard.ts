@@ -21,6 +21,7 @@ export type HouseStandard = {
   calendar?: { services: string[]; maxServiceShare: number; maxOfferShare: number; offerArchetypes: string[]; rules: string[] };
   /** Being found: the place and one of the service phrases must be in every English caption. */
   seo?: { place: string; phrases: string[]; rules: string[] };
+  measure?: { primary: string; then: string[]; commercial: string; rules: string[] };
   principles: { id: string; rule: string; why: string }[];
 };
 
@@ -78,6 +79,11 @@ export const lintStandard = (spec: PostSpec, std: HouseStandard): Violation[] =>
   };
   for (const f of fields(spec, std.limits)) check(f.where, f.text, f.optional, f.maxWords);
   check("caption", spec.caption, false);
+  if (std.seo && spec.lang === "en" && spec.carousel) {
+    // A traveller who does not know the house must read where this is within the first two slides.
+    const opening = spec.carousel.slides.slice(0, 2).map((sl) => [("kicker" in sl && sl.kicker) || "", ("title" in sl && sl.title) || "", ("body" in sl && sl.body) || ""].join(" ")).join(" ").toLowerCase();
+    if (!opening.includes("sicily") && !opening.includes(std.seo.place.toLowerCase())) out.push({ where: "carousel.slides.0", optional: false, message: `the first two slides name neither Sicily nor ${std.seo.place}` });
+  }
   if (std.seo && spec.lang === "en") {
     // The words people search with: said once, in the caption, in plain language.
     const text = spec.caption.toLowerCase();

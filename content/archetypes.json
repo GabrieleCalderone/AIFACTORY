@@ -68,9 +68,9 @@
         "booking enquiries per 1,000 plays"
       ],
       "briefDefaults": {
-        "audience": "English-speaking travellers in Palermo for 2-4 days, booking experiences on mobile",
+        "audience": "American travellers who want to do something with their hands in Sicily, not only see it",
         "objective": "Cooking-class bookings on risthome.it or GetYourGuide",
-        "hook": "Chef's hands at work + a direct promise",
+        "hook": "A feeling, not a service: for example \"Don't just visit Sicily. Learn to make it.\" The hands or the chef first.",
         "cta": "Book your class on risthome.it (link in bio)",
         "hypothesisTemplate": "A step-by-step process reel keeps viewers longer than a plate montage. Success: average watch time >= 60% of length."
       },
@@ -324,9 +324,9 @@
         "contribution margin"
       ],
       "briefDefaults": {
-        "audience": "Couples and families renting villas or apartments around Palermo",
+        "audience": "American couples, families and small groups planning Sicily, and guests of villas around Palermo",
         "objective": "Qualified quote requests",
-        "hook": "The setting first, then the promise",
+        "hook": "A feeling, not a service: for example \"You came to Sicily for the food. Make it personal.\" The setting or the table first.",
         "cta": "Write to us on risthome.it, quote within 24 hours",
         "hypothesisTemplate": "Showing the setting before the plates raises quote requests. Success: >= 2 qualified requests per 1,000 plays."
       },
@@ -546,7 +546,7 @@
         "follows"
       ],
       "briefDefaults": {
-        "audience": "Travellers planning Sicily and people who rent a villa or a boat around Palermo",
+        "audience": "American travellers dreaming of and planning a stay in Sicily; guests of villas and boats around Palermo",
         "objective": "Saves, sends and profile visits from people planning a stay",
         "hook": "The island first: one landscape, the place and the month",
         "cta": "Ask for a quote on risthome.it",
@@ -609,9 +609,9 @@
         "class bookings"
       ],
       "briefDefaults": {
-        "audience": "Travellers who choose a cooking class as the centre of a day in Palermo",
+        "audience": "American travellers who want to do something with their hands in Sicily, not only see it",
         "objective": "Saves and profile visits that turn into class bookings",
-        "hook": "The season first: one picture of produce, the season named",
+        "hook": "A feeling, not a service: for example \"Don't just visit Sicily. Learn to make it.\" Produce of the season first.",
         "cta": "Book the class on risthome.it",
         "hypothesisTemplate": "A piece that opens on the season's produce earns more saves than one that opens on the kitchen. Success: saves >= 2% of reach."
       },

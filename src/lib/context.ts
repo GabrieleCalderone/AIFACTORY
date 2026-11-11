@@ -117,9 +117,10 @@ export const contextIssues = (spec: PostSpec, creditOf: (image: string) => strin
   if (spec.carousel && limits.coverMayBeContext) {
     // A piece that opens on the island closes on the house: the last photograph is the house's own, and there is more than one of them.
     const pictures = spec.carousel.slides.filter((s): s is Extract<typeof s, { image: string }> => "image" in s && typeof s.image === "string" && s.type !== "cta");
-    const own = pictures.filter((s) => !isContext(s.image));
+    // different photographs of the house: a detail of the same picture, or the same file twice, counts once
+    const own = new Set(pictures.filter((s) => !isContext(s.image) && !(s.type === "photo" && s.detail)).map((s) => s.image));
     if (pictures.length && isContext(pictures[pictures.length - 1].image)) issues.push("carousel: the last photograph must be the house's own");
-    if (own.length < 2) issues.push(`carousel: ${own.length} of the house's own photographs, at least 2`);
+    if (own.size < 2) issues.push(`carousel: ${own.size} of the house's own photographs, at least 2`);
   }
   // Generated material is disclosed: the post is flagged so the platforms show their AI label.
   const made = generatedIn(spec);
@@ -163,6 +164,8 @@ export const prepareContext = (raw: { reel?: { scenes: Record<string, unknown>[]
       delete s.title;
       note(s.image);
     }
+    // a context cover (only the formats that allow one) keeps its title and owes its credit like any other
+    if (s.type === "cover" && typeof s.image === "string" && isContext(s.image)) note(s.image);
   }
   return credits;
 };

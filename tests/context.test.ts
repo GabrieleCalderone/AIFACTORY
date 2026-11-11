@@ -160,3 +160,9 @@ test("an editorial format may open on a licensed picture, and must end on the ho
   assert.deepEqual(limitsFor({ context: { coverMayBeContext: true } }), { maxPerReel: 2, maxPerCarousel: 1, coverMayBeContext: true });
   assert.deepEqual(limitsFor(undefined), { maxPerReel: 2, maxPerCarousel: 1 });
 });
+
+test("a context cover keeps its title and its credit is owed", () => {
+  const raw = { carousel: { slides: [{ type: "cover", image: "assets/context/1.jpg", title: "Sicily, in November" }, { type: "photo", image: "assets/pool/a.jpg", title: "Primo" }] } };
+  assert.deepEqual(prepareContext(raw, creditOf), ["Mario Rossi, CC BY 4.0, via Wikimedia Commons"]);
+  assert.equal(raw.carousel.slides[0].title, "Sicily, in November");
+});

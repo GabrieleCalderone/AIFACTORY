@@ -508,5 +508,42 @@
         "6af4c865b459c6001d4ab836"
       ]
     }
+  },
+  "a7-20261112": {
+    "slug": "a7-20261112",
+    "state": "RENDERED",
+    "updatedAt": "2026-11-11T20:07:23.400Z",
+    "history": [
+      {
+        "at": "2026-11-11T20:02:03.756Z",
+        "from": null,
+        "to": "DISCOVERED",
+        "note": "authored by sonnet from 16 ranked photos (standard 2026-11-11c, rules fb5a07cf)"
+      },
+      {
+        "at": "2026-11-11T20:02:03.758Z",
+        "from": "DISCOVERED",
+        "to": "REJECTED",
+        "note": "context picture, missing photo credit in the caption: Bernard Gagnon, CC BY 4.0, via Wikimedia Commons"
+      },
+      {
+        "at": "2026-11-11T20:07:09.041Z",
+        "from": "REJECTED",
+        "to": "DISCOVERED",
+        "note": "authored by sonnet from 16 ranked photos (standard 2026-11-12, rules 2b5939d6)"
+      },
+      {
+        "at": "2026-11-11T20:07:09.042Z",
+        "from": "DISCOVERED",
+        "to": "QUALITY_CHECKED",
+        "note": "gate passed with 1 warning(s)"
+      },
+      {
+        "at": "2026-11-11T20:07:23.400Z",
+        "from": "QUALITY_CHECKED",
+        "to": "RENDERED",
+        "note": "reel no, slides 6"
+      }
+    ]
   }
 }

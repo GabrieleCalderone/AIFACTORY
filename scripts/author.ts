@@ -158,7 +158,7 @@ const contextList = context.map((r) => `- ${CONTEXT_PREFIX}${r.file} | ${r.orien
 const contextLimits = limitsFor(archetype as Parameters<typeof limitsFor>[0]);
 const contextBlock = context.length
   ? contextLimits.coverMayBeContext
-    ? `\nCONTEXT PICTURES (licensed photographs of Sicily, the sea and raw produce that are NOT RistHome's). THIS FORMAT IS ABOUT THE PLACE AND THE SEASON: use ${Math.min(2, contextLimits.maxPerCarousel)} to ${contextLimits.maxPerCarousel} of them, and the cover should be one of them (the widest, calmest landscape or the most beautiful produce). The LAST photo slide, and at least two photographs in all, must be the house's own: the piece opens on the island and ends at the table. A context cover's title names the place or the season in plain words (for example "Sicily, in November"); context photo slides carry no title and a body that is empty or names only the place or the season in general terms. Nothing ever says or implies that a context picture shows the house's kitchen, table, dishes, ingredients bought for the guests, or the chef.\n${contextList}\n`
+    ? `\nCONTEXT PICTURES (licensed photographs of Sicily, the sea and raw produce that are NOT RistHome's). THIS FORMAT IS ABOUT THE PLACE AND THE SEASON: use ${Math.min(2, contextLimits.maxPerCarousel)} to ${contextLimits.maxPerCarousel} of them, and the cover should be one of them (the widest, calmest landscape or the most beautiful produce). The LAST photo slide, and at least two photographs in all, must be the house's own: the piece opens on the island and ends at the table. A context cover's title names the place or the season in plain words (for example "Sicily, in November"); context photo slides carry no title and a body that is empty or names only the place or the season in general terms. Nothing ever says or implies that a context picture shows the house's kitchen, table, dishes, ingredients bought for the guests, or the chef. Do not explain licences or say whose pictures they are in the caption: the credits are added below it automatically.\n${contextList}\n`
     : `\nCONTEXT PICTURES (optional; licensed photographs of Sicily, the sea and raw produce that are NOT RistHome's): you may place at most ${contextLimits.maxPerReel} of them among the reel scenes and at most ${contextLimits.maxPerCarousel} on a carousel photo slide, to set the place or the season between the house's own pictures. Never as the hook or cover, never as the last scene, never with a label or a slide title. Their text is empty or names only the place or the season in general terms (Sicily, the sea, the season's produce); it never says or implies that the picture shows the house's kitchen, table, dishes, ingredients bought for the guests, or the chef. Use one only when it makes the post more beautiful.\n${contextList}\n`
   : "";
 
@@ -208,7 +208,7 @@ ${standard.visual.map((r) => `- ${r}`).join("\n")}
 STRUCTURE:
 ${standard.structure.map((r) => `- ${r}`).join("\n")}
 CAROUSEL (it is the leading format: the archive is photographs):
-${(standard.carousel ?? []).map((r) => `- ${r}`).join("\n")}
+${(standard.carousel ?? []).map((r) => `- ${r}`).join("\n")}${standard.seo ? `\nBEING FOUND (the caption must contain "${standard.seo.place}" and one of: ${standard.seo.phrases.join(", ")}; the hashtags must include ${standard.seo.place.toLowerCase()}):\n${standard.seo.rules.map((r) => `- ${r}`).join("\n")}` : ""}
 LIMITS: hook and cover titles at most ${standard.limits.hookTitleWords} words; a scene "text" at most ${standard.limits.sceneTextWords} words; a photo slide title at most ${standard.limits.slideTitleWords} words and its body at most ${standard.limits.slideBodyWords} words; caption at most ${standard.limits.captionChars} characters; at most ${standard.limits.hashtagsMax} hashtags.
 NEVER USE THESE WORDS: ${standard.banned[lang as "it" | "en"].join(", ")}.` : ""}
 
@@ -312,6 +312,8 @@ for (const slide of (raw as unknown as { carousel?: { slides: { type: string; im
   const size = slide.type === "cover" && slide.image ? byFile.get(path.basename(slide.image)) : null;
   if (size) slide.frame = coverFrameFor(size.width, size.height);
 }
+// The format a post is judged by is the one this run was asked for, never what the model wrote in its answer.
+(raw as { brief?: Record<string, unknown> }).brief = { ...((raw as { brief?: Record<string, unknown> }).brief ?? {}), archetype: archetype.id };
 let spec = parsePostSpec(raw);
 if (!values["no-review"]) {
   type Pair = ReviewPair & { fields: Record<string, string> };

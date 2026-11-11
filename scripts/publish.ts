@@ -14,7 +14,7 @@ import { parseArgs } from "node:util";
 import { createBufferClient, type BufferAsset } from "../src/adapters/buffer.ts";
 import { captionFor, distributionFor, materialOf, parseChannels, postMetadata, type Platform } from "../src/lib/channels.ts";
 import { readExperiments, writeExperiments } from "../src/lib/data.ts";
-import { generatedIn } from "../src/lib/context.ts";
+import { generatedIn, isContext, isGenerated } from "../src/lib/context.ts";
 import { contextRows, gateSpec } from "../src/lib/gate-io.ts";
 import { buildCaption } from "../src/lib/timeline.ts";
 import { parsePostSpec } from "../src/schemas/post.ts";
@@ -96,8 +96,12 @@ console.log(`[publish] ${spec.slug}: ${material === "video" ? "real footage, the
 const altTextFor = (i: number): string => {
   const slide = spec.carousel?.slides[i];
   // A licensed picture of the place is described as what it is, never as the house's dish.
-  const place = slide && "image" in slide && slide.image ? contextRows().find((r) => `assets/context/${r.file}` === slide.image) : undefined;
-  if (place) return `Sicily: ${place.subject ?? "the island"}. Shared by RistHome, private chef and cooking classes in Palermo.`.slice(0, 1000);
+  const image = slide && "image" in slide ? slide.image : undefined;
+  if (isContext(image)) {
+    // Decided by where the picture lives, not by finding its record: anything that is not the house's own is never called a dish of the chef.
+    const subject = contextRows().find((r) => `assets/context/${r.file}` === image)?.subject ?? "the island";
+    return `Sicily: ${subject}${isGenerated(image) ? " (illustration made with AI)" : ""}. Shared by RistHome, private chef and cooking classes in Palermo.`.slice(0, 1000);
+  }
   const said = slide ? [("title" in slide && slide.title) || "", ("body" in slide && slide.body) || ""].filter(Boolean).join(". ") : "";
   const what = said || (spec.lang === "it" ? "Un piatto dello chef Giacomo Napolitano" : "A dish by Chef Giacomo Napolitano");
   return `${what}. RistHome, ${spec.lang === "it" ? "chef a domicilio e lezioni di cucina a Palermo" : "private chef and cooking classes in Palermo, Sicily"}.`.slice(0, 1000);

@@ -332,12 +332,23 @@
     "artist": "Robert Flogaus-Faust",
     "credit": "Robert Flogaus-Faust, CC BY 4.0, via Wikimedia Commons",
     "query": "Zingaro Sicily",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T19:56:57.127Z",
     "file": "69587484.jpg",
     "width": 2406,
     "height": 2406,
-    "sha256": "58318fa3d5d7fbc8c26b821b3d705ab8fba505b2f51a35d67c3ce63f365013a7"
+    "sha256": "58318fa3d5d7fbc8c26b821b3d705ab8fba505b2f51a35d67c3ce63f365013a7",
+    "review": {
+      "ok": false,
+      "people": "none",
+      "category": "landscape",
+      "subject": "Purple viper's bugloss flowers with pink geranium among leaves, close up",
+      "reasons": [
+        "Crowded frame, no air around the subject",
+        "Harsh midday sun, flat snapshot look",
+        "Wild flowers, not food or a craft detail"
+      ]
+    }
   },
   "69589998": {
     "id": "69589998",
@@ -351,12 +362,23 @@
     "artist": "Robert Flogaus-Faust",
     "credit": "Robert Flogaus-Faust, CC BY 4.0, via Wikimedia Commons",
     "query": "Zingaro Sicily",
-    "status": "fetched",
+    "status": "reviewed",
     "foundAt": "2026-11-11T19:56:57.128Z",
     "file": "69589998.jpg",
     "width": 3041,
     "height": 3042,
-    "sha256": "9981459e97f8b745786416f54090e85ae9ae6fe8aed88364b93296537c6a60cf"
+    "sha256": "9981459e97f8b745786416f54090e85ae9ae6fe8aed88364b93296537c6a60cf",
+    "review": {
+      "ok": true,
+      "people": "none",
+      "category": "landscape",
+      "subject": "Wild purple stock plant growing on warm orange Sicilian rock",
+      "reasons": [
+        "One plant with air around it, few colours",
+        "Soft natural light, true colours",
+        "Clean frame, no signs or clutter"
+      ]
+    }
   },
   "70371426": {
     "id": "70371426",
@@ -370,12 +392,23 @@
     "artist": "Robert Flogaus-Faust",
     "credit": "Robert Flogaus-Faust, CC BY 4.0, via Wikimedia Commons",
     "query": "Zingaro Sicily",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T19:56:57.128Z",
     "file": "70371426.jpg",
     "width": 2904,
     "height": 2893,
-    "sha256": "70351cbedd583fcb8d61ac863889f092dc07aaf55ecf209d37d04bd2544079a5"
+    "sha256": "70351cbedd583fcb8d61ac863889f092dc07aaf55ecf209d37d04bd2544079a5",
+    "review": {
+      "ok": false,
+      "people": "none",
+      "category": "landscape",
+      "subject": "Yellow coronilla shrub with flowers and long seed pods, dark background",
+      "reasons": [
+        "Busy, cluttered frame with dead petals",
+        "Dark, uneven light",
+        "No single clear subject"
+      ]
+    }
   },
   "70531509": {
     "id": "70531509",
@@ -389,12 +422,23 @@
     "artist": "Robert Flogaus-Faust",
     "credit": "Robert Flogaus-Faust, CC BY 4.0, via Wikimedia Commons",
     "query": "Zingaro Sicily",
-    "status": "fetched",
+    "status": "reviewed",
     "foundAt": "2026-11-11T19:56:57.128Z",
     "file": "70531509.jpg",
     "width": 3456,
     "height": 4608,
-    "sha256": "e2e46790036e70c0007945d4238e036e5a9492c6673977950d2bf66306347456"
+    "sha256": "e2e46790036e70c0007945d4238e036e5a9492c6673977950d2bf66306347456",
+    "review": {
+      "ok": true,
+      "people": "none",
+      "category": "produce",
+      "subject": "Spiny golden thistle stem with yellow flowers against soft wildflower meadow",
+      "reasons": [
+        "Single sharp subject, blurred background",
+        "Wild edible plant that suits a Sicilian table",
+        "Natural light, true colours"
+      ]
+    }
   },
   "76367592": {
     "id": "76367592",
@@ -1176,14 +1220,25 @@
     "artist": "Luca N",
     "credit": "Luca N, Unsplash",
     "query": "sicily sea coast",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:31.407Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/zZy_vsGtkWc/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MXx8c2ljaWx5JTIwc2VhJTIwY29hc3R8ZW58MXx8fHwxNzk0NDIyODUxfDA",
     "file": "u-zZy_vsGtkWc.jpg",
     "width": 2160,
     "height": 1215,
-    "sha256": "165fac511d9febeca9711235ee5d578581c4be6a7712d39e75fc690151e1604e"
+    "sha256": "165fac511d9febeca9711235ee5d578581c4be6a7712d39e75fc690151e1604e",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "sea",
+      "subject": "Fishing village cove with boats, church tower and seaside terrace",
+      "reasons": [
+        "Church is a main subject people on terrace",
+        "Tourist-snapshot framing, cluttered with boats and umbrellas",
+        "Strong saturation, heavy editing"
+      ]
+    }
   },
   "u-TkQIuzWn5-8": {
     "id": "u-TkQIuzWn5-8",
@@ -1197,14 +1252,25 @@
     "artist": "Alina Fedorchenko",
     "credit": "Alina Fedorchenko, Unsplash",
     "query": "sicily sea coast",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:31.408Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/TkQIuzWn5-8/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8Mnx8c2ljaWx5JTIwc2VhJTIwY29hc3R8ZW58MXx8fHwxNzk0NDIyODUxfDA",
     "file": "u-TkQIuzWn5-8.jpg",
     "width": 2160,
     "height": 2880,
-    "sha256": "af9f6860fb46746e3839c1a3b96ce796e5f6e40d8ffc30b0904dbbc7675feb21"
+    "sha256": "af9f6860fb46746e3839c1a3b96ce796e5f6e40d8ffc30b0904dbbc7675feb21",
+    "review": {
+      "ok": false,
+      "people": "none",
+      "category": "sea",
+      "subject": "Aerial view of turquoise sea, hillside, railway line and rooftops",
+      "reasons": [
+        "Oversaturated, heavily edited colours",
+        "Railway and power lines clutter the frame",
+        "Tourist-viewpoint snapshot"
+      ]
+    }
   },
   "u-pfsvqWXjMjU": {
     "id": "u-pfsvqWXjMjU",
@@ -1218,14 +1284,25 @@
     "artist": "Carlos Leret",
     "credit": "Carlos Leret, Unsplash",
     "query": "sicily sea coast",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:31.409Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/pfsvqWXjMjU/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8M3x8c2ljaWx5JTIwc2VhJTIwY29hc3R8ZW58MXx8fHwxNzk0NDIyODUxfDA",
     "file": "u-pfsvqWXjMjU.jpg",
     "width": 2160,
     "height": 1543,
-    "sha256": "4bf629b7c63289207c670eb2f50bf2beb4e4541d94aaae9677d19c4c6bdb656f"
+    "sha256": "4bf629b7c63289207c670eb2f50bf2beb4e4541d94aaae9677d19c4c6bdb656f",
+    "review": {
+      "ok": false,
+      "people": "none",
+      "category": "landscape",
+      "subject": "Winding coastal road above blue sea with hillside buildings",
+      "reasons": [
+        "Heavy editing, unnatural blue and green",
+        "Road, cars and apartment blocks dominate",
+        "Tourist-snapshot framing"
+      ]
+    }
   },
   "u-spC0l5B5068": {
     "id": "u-spC0l5B5068",
@@ -1239,14 +1316,25 @@
     "artist": "Petr Slováček",
     "credit": "Petr Slováček, Unsplash",
     "query": "sicily sea coast",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:31.410Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/spC0l5B5068/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8NHx8c2ljaWx5JTIwc2VhJTIwY29hc3R8ZW58MXx8fHwxNzk0NDIyODUxfDA",
     "file": "u-spC0l5B5068.jpg",
     "width": 2160,
     "height": 1440,
-    "sha256": "12bdc48e65be364aa85ea4e1db8e0d9334619572792a77a2db597b06d7105d66"
+    "sha256": "12bdc48e65be364aa85ea4e1db8e0d9334619572792a77a2db597b06d7105d66",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "sea",
+      "subject": "Cefalù town and cathedral at dusk behind sea rocks, long exposure",
+      "reasons": [
+        "Cathedral and town are the focal point",
+        "Tiny beachgoers visible along the shore",
+        "Long-exposure pastel grading reads as edited"
+      ]
+    }
   },
   "u-VyJkmbn17PY": {
     "id": "u-VyJkmbn17PY",
@@ -1260,14 +1348,25 @@
     "artist": "Marco Grosso",
     "credit": "Marco Grosso, Unsplash",
     "query": "sicily sea coast",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:31.411Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/VyJkmbn17PY/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8NXx8c2ljaWx5JTIwc2VhJTIwY29hc3R8ZW58MXx8fHwxNzk0NDIyODUxfDA",
     "file": "u-VyJkmbn17PY.jpg",
     "width": 2160,
     "height": 1620,
-    "sha256": "12d38f0c772a2054fd22d0631ab49d5e0afd491bcc4ccbfde72641ab8d9a8e90"
+    "sha256": "12d38f0c772a2054fd22d0631ab49d5e0afd491bcc4ccbfde72641ab8d9a8e90",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "landscape",
+      "subject": "Aerial view of Cefalù old town, cathedral, harbour and cliff at sunset",
+      "reasons": [
+        "Dense town overview with cathedral as a landmark, not a clean single subject",
+        "Tiny people visible on the pier and beach",
+        "Busy, crowded frame"
+      ]
+    }
   },
   "u-V0308qEHIdk": {
     "id": "u-V0308qEHIdk",
@@ -1281,14 +1380,25 @@
     "artist": "Nicola Fittipaldi",
     "credit": "Nicola Fittipaldi, Unsplash",
     "query": "sicily sea coast",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:31.411Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/V0308qEHIdk/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8Nnx8c2ljaWx5JTIwc2VhJTIwY29hc3R8ZW58MXx8fHwxNzk0NDIyODUxfDA",
     "file": "u-V0308qEHIdk.jpg",
     "width": 2160,
     "height": 3240,
-    "sha256": "c4a85dde9f6af62a635409b7af63507ee4b6feb47202fd573966155c01f42a30"
+    "sha256": "c4a85dde9f6af62a635409b7af63507ee4b6feb47202fd573966155c01f42a30",
+    "review": {
+      "ok": false,
+      "people": "none",
+      "category": "sea",
+      "subject": "Turquoise cove with rocks, wooded cliff and a stair railing",
+      "reasons": [
+        "Harsh midday light and oversaturated colours",
+        "Railing and stairs clutter the foreground",
+        "Reads as a tourist snapshot"
+      ]
+    }
   },
   "u-QzuXwSP8kPA": {
     "id": "u-QzuXwSP8kPA",
@@ -1302,14 +1412,25 @@
     "artist": "Jade Bezzina",
     "credit": "Jade Bezzina, Unsplash",
     "query": "sicily sea coast",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:31.411Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/QzuXwSP8kPA/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8N3x8c2ljaWx5JTIwc2VhJTIwY29hc3R8ZW58MXx8fHwxNzk0NDIyODUxfDA",
     "file": "u-QzuXwSP8kPA.jpg",
     "width": 2160,
     "height": 1432,
-    "sha256": "871d71a4337215051001b9eb9d26ee2e6d32baa3df8ab0a9cae107baa4f3133a"
+    "sha256": "871d71a4337215051001b9eb9d26ee2e6d32baa3df8ab0a9cae107baa4f3133a",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "landscape",
+      "subject": "Sea view over rooftops to a café terrace with diners, Taormina coast",
+      "reasons": [
+        "Café with a readable sign and people at tables",
+        "Hazy film look with heavy grain and a blurred foreground",
+        "Cluttered, tourist framing"
+      ]
+    }
   },
   "u-XuToY715_r8": {
     "id": "u-XuToY715_r8",
@@ -1323,14 +1444,25 @@
     "artist": "Narbeh",
     "credit": "Narbeh, Unsplash",
     "query": "sicily sea coast",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:31.411Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/XuToY715_r8/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8OHx8c2ljaWx5JTIwc2VhJTIwY29hc3R8ZW58MXx8fHwxNzk0NDIyODUxfDA",
     "file": "u-XuToY715_r8.jpg",
     "width": 2160,
     "height": 1215,
-    "sha256": "5a1310501eb93dd7f73ef6d27b346735ca50ccc6222ec6e904d1dda5e81028a7"
+    "sha256": "5a1310501eb93dd7f73ef6d27b346735ca50ccc6222ec6e904d1dda5e81028a7",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "landscape",
+      "subject": "Taormina coastline with a grand hotel, road, and Etna behind",
+      "reasons": [
+        "Hotel building and restaurant terrace are a main subject",
+        "Small figures visible on the road",
+        "Grey, heavy sky with mixed colour cast"
+      ]
+    }
   },
   "u-a8b2zLZS_FY": {
     "id": "u-a8b2zLZS_FY",
@@ -1344,14 +1476,25 @@
     "artist": "Giuseppe Gallo",
     "credit": "Giuseppe Gallo, Unsplash",
     "query": "sicily sea coast",
-    "status": "fetched",
+    "status": "reviewed",
     "foundAt": "2026-11-11T18:47:31.411Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/a8b2zLZS_FY/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8OXx8c2ljaWx5JTIwc2VhJTIwY29hc3R8ZW58MXx8fHwxNzk0NDIyODUxfDA",
     "file": "u-a8b2zLZS_FY.jpg",
     "width": 2160,
     "height": 2160,
-    "sha256": "71b811551bb72b4b2fd56940c3af4038916718786f0abade934e60a6315e984a"
+    "sha256": "71b811551bb72b4b2fd56940c3af4038916718786f0abade934e60a6315e984a",
+    "review": {
+      "ok": true,
+      "people": "none",
+      "category": "sea",
+      "subject": "Clear turquoise water between two pale limestone rock walls",
+      "reasons": [
+        "Single calm subject with a restrained palette of teal and stone",
+        "Soft natural light and true colours",
+        "No people, signs or clutter"
+      ]
+    }
   },
   "u-wysMaAr38uE": {
     "id": "u-wysMaAr38uE",
@@ -1365,14 +1508,25 @@
     "artist": "KATI WEB",
     "credit": "KATI WEB, Unsplash",
     "query": "sicily sea coast",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:31.411Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/wysMaAr38uE/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MTB8fHNpY2lseSUyMHNlYSUyMGNvYXN0fGVufDF8fHx8MTc5NDQyMjg1MXww",
     "file": "u-wysMaAr38uE.jpg",
     "width": 2160,
     "height": 3835,
-    "sha256": "2034a6ae3e08612db7484884e65001393a6186eac30bd582d12e22ea56d5fe1c"
+    "sha256": "2034a6ae3e08612db7484884e65001393a6186eac30bd582d12e22ea56d5fe1c",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "landscape",
+      "subject": "Aerial view of Isola Bella bay with beach, road, railway and cars",
+      "reasons": [
+        "Small figures on the beach",
+        "Road, railway, cars and buildings clutter the frame",
+        "Oversaturated, heavily processed look"
+      ]
+    }
   },
   "u-lk-TBaunil8": {
     "id": "u-lk-TBaunil8",
@@ -1386,14 +1540,25 @@
     "artist": "Giulia Bertelli",
     "credit": "Giulia Bertelli, Unsplash",
     "query": "sicily sea coast",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:31.411Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/lk-TBaunil8/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MTF8fHNpY2lseSUyMHNlYSUyMGNvYXN0fGVufDF8fHx8MTc5NDQyMjg1MXww",
     "file": "u-lk-TBaunil8.jpg",
     "width": 2160,
     "height": 2877,
-    "sha256": "8b36ada821612ff9d11d9c6808f416519e80e0aedbbeb9bccdc8424af7832f33"
+    "sha256": "8b36ada821612ff9d11d9c6808f416519e80e0aedbbeb9bccdc8424af7832f33",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "sea",
+      "subject": "Sicilian coast with white fence, scaffold walkway and bathers",
+      "reasons": [
+        "People visible by the water",
+        "Fences, scaffolding, a lifebuoy and solar lamps clutter the frame",
+        "Flat grey sky and a tourist-snapshot look"
+      ]
+    }
   },
   "u-PZIkmCPBQn8": {
     "id": "u-PZIkmCPBQn8",
@@ -1407,14 +1572,25 @@
     "artist": "Embla Munk Rynkebjerg",
     "credit": "Embla Munk Rynkebjerg, Unsplash",
     "query": "sicily sea coast",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:31.411Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/PZIkmCPBQn8/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MTJ8fHNpY2lseSUyMHNlYSUyMGNvYXN0fGVufDF8fHx8MTc5NDQyMjg1MXww",
     "file": "u-PZIkmCPBQn8.jpg",
     "width": 2160,
     "height": 3240,
-    "sha256": "49fa5cb28225b34940ea3de11e157251fd3ab3a6e5de98124398ef4fead62db1"
+    "sha256": "49fa5cb28225b34940ea3de11e157251fd3ab3a6e5de98124398ef4fead62db1",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "sea",
+      "subject": "Aerial view of Isola Bella islet, pebble beach and dark blue sea",
+      "reasons": [
+        "Tiny people and a beach umbrella on the shore",
+        "Isola Bella is a tourist landmark",
+        "Dark, heavily graded look"
+      ]
+    }
   },
   "u-fNOnlZux1pQ": {
     "id": "u-fNOnlZux1pQ",
@@ -1428,14 +1604,25 @@
     "artist": "Olha Tatdot",
     "credit": "Olha Tatdot, Unsplash",
     "query": "olive oil olives branch",
-    "status": "fetched",
+    "status": "reviewed",
     "foundAt": "2026-11-11T18:47:32.420Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/fNOnlZux1pQ/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MXx8b2xpdmUlMjBvaWwlMjBvbGl2ZXMlMjBicmFuY2h8ZW58MXx8fHwxNzk0NDIyODUyfDA",
     "file": "u-fNOnlZux1pQ.jpg",
     "width": 2160,
     "height": 3227,
-    "sha256": "0ce436bb43d0468e974a5b26100c8b6395e0000096e0f1d4e0e8eac2c9fb3a2d"
+    "sha256": "0ce436bb43d0468e974a5b26100c8b6395e0000096e0f1d4e0e8eac2c9fb3a2d",
+    "review": {
+      "ok": true,
+      "people": "none",
+      "category": "produce",
+      "subject": "Green olives on a branch among silvery leaves, soft blurred foreground",
+      "reasons": [
+        "one clear subject with air around it",
+        "few muted colours, natural light",
+        "Mediterranean olive grove, no text or people"
+      ]
+    }
   },
   "u-sgj62wdIsgQ": {
     "id": "u-sgj62wdIsgQ",
@@ -1449,14 +1636,25 @@
     "artist": "Kelis",
     "credit": "Kelis, Unsplash",
     "query": "olive oil olives branch",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:32.422Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/sgj62wdIsgQ/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8Mnx8b2xpdmUlMjBvaWwlMjBvbGl2ZXMlMjBicmFuY2h8ZW58MXx8fHwxNzk0NDIyODUyfDA",
     "file": "u-sgj62wdIsgQ.jpg",
     "width": 2160,
     "height": 3240,
-    "sha256": "2207ed49076ece61792d4cde2bcbe068ab6fc309d398e914cb3112d0bda11ed5"
+    "sha256": "2207ed49076ece61792d4cde2bcbe068ab6fc309d398e914cb3112d0bda11ed5",
+    "review": {
+      "ok": false,
+      "people": "none",
+      "category": "produce",
+      "subject": "Olive sprig with small green olives, teal and orange blurred background",
+      "reasons": [
+        "heavy colour grading with a teal and orange cast",
+        "not true colours",
+        "background is cluttered and muddy"
+      ]
+    }
   },
   "u-FYFYncWO1wE": {
     "id": "u-FYFYncWO1wE",
@@ -1470,14 +1668,25 @@
     "artist": "Sixteen Miles Out",
     "credit": "Sixteen Miles Out, Unsplash",
     "query": "olive oil olives branch",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:32.422Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/FYFYncWO1wE/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8M3x8b2xpdmUlMjBvaWwlMjBvbGl2ZXMlMjBicmFuY2h8ZW58MXx8fHwxNzk0NDIyODUyfDA",
     "file": "u-FYFYncWO1wE.jpg",
     "width": 2160,
     "height": 2700,
-    "sha256": "7cd1e228740edb223120dc08d75a0c8d077120ef205ec626f400ddc0289e3933"
+    "sha256": "7cd1e228740edb223120dc08d75a0c8d077120ef205ec626f400ddc0289e3933",
+    "review": {
+      "ok": false,
+      "people": "none",
+      "category": "craft",
+      "subject": "Olive branch with buds lying on a white panelled surface, tight crop",
+      "reasons": [
+        "soft focus on the main subject",
+        "studio-styled, not Sicilian",
+        "weaker duplicate of the wider frame"
+      ]
+    }
   },
   "u-IVCI2rmcJE8": {
     "id": "u-IVCI2rmcJE8",
@@ -1491,14 +1700,25 @@
     "artist": "Sixteen Miles Out",
     "credit": "Sixteen Miles Out, Unsplash",
     "query": "olive oil olives branch",
-    "status": "fetched",
+    "status": "reviewed",
     "foundAt": "2026-11-11T18:47:32.422Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/IVCI2rmcJE8/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8NHx8b2xpdmUlMjBvaWwlMjBvbGl2ZXMlMjBicmFuY2h8ZW58MXx8fHwxNzk0NDIyODUyfDA",
     "file": "u-IVCI2rmcJE8.jpg",
     "width": 2160,
     "height": 1728,
-    "sha256": "676a535aa0d48d6a4aa5a77219bb2a637f21b4d5ecf031f5526764003c558d95"
+    "sha256": "676a535aa0d48d6a4aa5a77219bb2a637f21b4d5ecf031f5526764003c558d95",
+    "review": {
+      "ok": true,
+      "people": "none",
+      "category": "produce",
+      "subject": "Olive branch with buds resting on a white wooden surface",
+      "reasons": [
+        "single subject with plenty of air",
+        "pale, near-monochrome palette",
+        "clean surface, soft natural light"
+      ]
+    }
   },
   "u-G_Qjc2siYzQ": {
     "id": "u-G_Qjc2siYzQ",
@@ -1512,14 +1732,25 @@
     "artist": "Benyamin Bohlouli",
     "credit": "Benyamin Bohlouli, Unsplash",
     "query": "olive oil olives branch",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:32.422Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/G_Qjc2siYzQ/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8NXx8b2xpdmUlMjBvaWwlMjBvbGl2ZXMlMjBicmFuY2h8ZW58MXx8fHwxNzk0NDIyODUyfDA",
     "file": "u-G_Qjc2siYzQ.jpg",
     "width": 2160,
     "height": 1441,
-    "sha256": "cbd7918ed403698f9b43a0480dfc60565dfa13385b4e1a6f94aa3d64896d5b94"
+    "sha256": "cbd7918ed403698f9b43a0480dfc60565dfa13385b4e1a6f94aa3d64896d5b94",
+    "review": {
+      "ok": false,
+      "people": "none",
+      "category": "produce",
+      "subject": "Olive jar with visible brand, plastic cocktail glass and bowl of olives",
+      "reasons": [
+        "visible brand, logo and website",
+        "drink and bar-style styling",
+        "plastic glass, dark colour-cast lighting"
+      ]
+    }
   },
   "u-pkR93y169zU": {
     "id": "u-pkR93y169zU",
@@ -1533,14 +1764,25 @@
     "artist": "John Cameron",
     "credit": "John Cameron, Unsplash",
     "query": "olive oil olives branch",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:32.422Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/pkR93y169zU/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8Nnx8b2xpdmUlMjBvaWwlMjBvbGl2ZXMlMjBicmFuY2h8ZW58MXx8fHwxNzk0NDIyODUyfDA",
     "file": "u-pkR93y169zU.jpg",
     "width": 2160,
     "height": 2880,
-    "sha256": "cc9b7e53714ea527d39631cdb9f42e9e6521aab8d89570c82255d7af228218cf"
+    "sha256": "cc9b7e53714ea527d39631cdb9f42e9e6521aab8d89570c82255d7af228218cf",
+    "review": {
+      "ok": false,
+      "people": "none",
+      "category": "produce",
+      "subject": "Young green olive fruit clusters on a branch against blue sky",
+      "reasons": [
+        "harsh sun and a phone-snapshot look",
+        "cluttered framing with a blurred leaf in the foreground",
+        "unripe fruit, not an appealing product"
+      ]
+    }
   },
   "u-DFObHutW4FI": {
     "id": "u-DFObHutW4FI",
@@ -1554,14 +1796,25 @@
     "artist": "Alfredo De Angelis",
     "credit": "Alfredo De Angelis, Unsplash",
     "query": "olive oil olives branch",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:32.423Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/DFObHutW4FI/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8N3x8b2xpdmUlMjBvaWwlMjBvbGl2ZXMlMjBicmFuY2h8ZW58MXx8fHwxNzk0NDIyODUyfDA",
     "file": "u-DFObHutW4FI.jpg",
     "width": 2160,
     "height": 1440,
-    "sha256": "cf80022cf052dffc0916518a016b2fad1f7ce56d50d3cbcdb7d5b112cef11644"
+    "sha256": "cf80022cf052dffc0916518a016b2fad1f7ce56d50d3cbcdb7d5b112cef11644",
+    "review": {
+      "ok": false,
+      "people": "none",
+      "category": "landscape",
+      "subject": "Olive branch with dark olives above a hazy valley with houses",
+      "reasons": [
+        "overcast, flat light",
+        "looks like mainland Italy, not Sicily",
+        "tourist-snapshot framing with buildings and clutter"
+      ]
+    }
   },
   "u-ExJmw0xxlss": {
     "id": "u-ExJmw0xxlss",
@@ -1575,14 +1828,25 @@
     "artist": "Adelina Popova",
     "credit": "Adelina Popova, Unsplash",
     "query": "olive oil olives branch",
-    "status": "fetched",
+    "status": "reviewed",
     "foundAt": "2026-11-11T18:47:32.423Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/ExJmw0xxlss/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8OHx8b2xpdmUlMjBvaWwlMjBvbGl2ZXMlMjBicmFuY2h8ZW58MXx8fHwxNzk0NDIyODUyfDA",
     "file": "u-ExJmw0xxlss.jpg",
     "width": 2160,
     "height": 3240,
-    "sha256": "fdad08b0b1d540f378d9e9513330a27a1bb1f55477123c06ad46dde77a9f0cb4"
+    "sha256": "fdad08b0b1d540f378d9e9513330a27a1bb1f55477123c06ad46dde77a9f0cb4",
+    "review": {
+      "ok": true,
+      "people": "none",
+      "category": "produce",
+      "subject": "Black and green olives hanging on a branch in warm light",
+      "reasons": [
+        "sharp single cluster with soft blurred surroundings",
+        "warm natural light, true colours",
+        "few colours, no text, people or clutter"
+      ]
+    }
   },
   "u-M89fxBB1UCk": {
     "id": "u-M89fxBB1UCk",
@@ -1596,14 +1860,25 @@
     "artist": "Adelina Popova",
     "credit": "Adelina Popova, Unsplash",
     "query": "olive oil olives branch",
-    "status": "fetched",
+    "status": "reviewed",
     "foundAt": "2026-11-11T18:47:32.423Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/M89fxBB1UCk/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8OXx8b2xpdmUlMjBvaWwlMjBvbGl2ZXMlMjBicmFuY2h8ZW58MXx8fHwxNzk0NDIyODUyfDA",
     "file": "u-M89fxBB1UCk.jpg",
     "width": 2160,
     "height": 3240,
-    "sha256": "6add0fe722e6013f2b47d1da6d228a8472e1875c2b42a103af30d0e93f864e9d"
+    "sha256": "6add0fe722e6013f2b47d1da6d228a8472e1875c2b42a103af30d0e93f864e9d",
+    "review": {
+      "ok": true,
+      "people": "none",
+      "category": "produce",
+      "subject": "Green olives on the branch among leaves, soft natural light, shallow focus",
+      "reasons": [
+        "Raw produce, single subject with air",
+        "True colours, natural light, no clutter",
+        "Plausibly Mediterranean, no brand or text"
+      ]
+    }
   },
   "u-fQHQp75Ap3E": {
     "id": "u-fQHQp75Ap3E",
@@ -1617,14 +1892,25 @@
     "artist": "Anya Chernykh",
     "credit": "Anya Chernykh, Unsplash",
     "query": "olive oil olives branch",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:32.423Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/fQHQp75Ap3E/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MTB8fG9saXZlJTIwb2lsJTIwb2xpdmVzJTIwYnJhbmNofGVufDF8fHx8MTc5NDQyMjg1Mnww",
     "file": "u-fQHQp75Ap3E.jpg",
     "width": 2160,
     "height": 3245,
-    "sha256": "2cebd790ff69c88cc74f4ebc4770ac1359888b084dad0ad241c98e09313f43b0"
+    "sha256": "2cebd790ff69c88cc74f4ebc4770ac1359888b084dad0ad241c98e09313f43b0",
+    "review": {
+      "ok": false,
+      "people": "none",
+      "category": "produce",
+      "subject": "Flat lay of olive oil dish, olive bowls and olive sprigs on linen",
+      "reasons": [
+        "Styled table scene reads as a laid table, which only the house can show",
+        "Heavy colour grading, stock-photo look",
+        "Too many elements, not one subject"
+      ]
+    }
   },
   "u-5M3V2HKGdns": {
     "id": "u-5M3V2HKGdns",
@@ -1638,14 +1924,25 @@
     "artist": "Nataliya Melnychuk",
     "credit": "Nataliya Melnychuk, Unsplash",
     "query": "olive oil olives branch",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T18:47:32.423Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/5M3V2HKGdns/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MTF8fG9saXZlJTIwb2lsJTIwb2xpdmVzJTIwYnJhbmNofGVufDF8fHx8MTc5NDQyMjg1Mnww",
     "file": "u-5M3V2HKGdns.jpg",
     "width": 2160,
     "height": 3240,
-    "sha256": "71c72c376aa1b28bf6aa98106e65166ca1b0a5905e2d5d9fd3c79be2dc583bff"
+    "sha256": "71c72c376aa1b28bf6aa98106e65166ca1b0a5905e2d5d9fd3c79be2dc583bff",
+    "review": {
+      "ok": false,
+      "people": "none",
+      "category": "produce",
+      "subject": "Amber dropper bottle on a marble tray with olive sprigs",
+      "reasons": [
+        "Cosmetic or product shot, not food",
+        "Staged stock styling, not a starred-table picture",
+        "Bottle and tray are clutter around the olives"
+      ]
+    }
   },
   "u-ZXSDMEGipNY": {
     "id": "u-ZXSDMEGipNY",
@@ -1659,14 +1956,25 @@
     "artist": "Who’s Denilo",
     "credit": "Who’s Denilo, Unsplash",
     "query": "Palermo Sicily",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T19:56:42.398Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/ZXSDMEGipNY/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MXx8UGFsZXJtbyUyMFNpY2lseXxlbnwxfHx8fDE3OTQ0MjcwMDJ8MA",
     "file": "u-ZXSDMEGipNY.jpg",
     "width": 2160,
     "height": 1440,
-    "sha256": "41773f24a8c3e72ff9355090269c9df92e5b1580d86bf5f1d13afbebd1e36f83"
+    "sha256": "41773f24a8c3e72ff9355090269c9df92e5b1580d86bf5f1d13afbebd1e36f83",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "market",
+      "subject": "Palermo alley with diners, a passer-by and a souvenir cart",
+      "reasons": [
+        "Recognisable people and faces",
+        "Shop signs, café tables, tourist-snapshot framing",
+        "Busy and cluttered"
+      ]
+    }
   },
   "u-hQWe_xXHnbg": {
     "id": "u-hQWe_xXHnbg",
@@ -1680,14 +1988,25 @@
     "artist": "Flo P",
     "credit": "Flo P, Unsplash",
     "query": "Palermo Sicily",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T19:56:42.400Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/hQWe_xXHnbg/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8Mnx8UGFsZXJtbyUyMFNpY2lseXxlbnwxfHx8fDE3OTQ0MjcwMDJ8MA",
     "file": "u-hQWe_xXHnbg.jpg",
     "width": 2160,
     "height": 2880,
-    "sha256": "993abdd3cea8e6ad189192d803ea1069e0696cc5cb6e3e6aa2d43149f75e9a1a"
+    "sha256": "993abdd3cea8e6ad189192d803ea1069e0696cc5cb6e3e6aa2d43149f75e9a1a",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "landscape",
+      "subject": "Palermo cathedral with dome, bell tower, palms and passers-by",
+      "reasons": [
+        "Monument is the main subject",
+        "People walking in the frame",
+        "Tourist-snapshot framing"
+      ]
+    }
   },
   "u-Er4gxPJpRe8": {
     "id": "u-Er4gxPJpRe8",
@@ -1701,14 +2020,25 @@
     "artist": "Henrique Ferreira",
     "credit": "Henrique Ferreira, Unsplash",
     "query": "Palermo Sicily",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T19:56:42.400Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/Er4gxPJpRe8/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8M3x8UGFsZXJtbyUyMFNpY2lseXxlbnwxfHx8fDE3OTQ0MjcwMDJ8MA",
     "file": "u-Er4gxPJpRe8.jpg",
     "width": 2160,
     "height": 1439,
-    "sha256": "b439c8efad5fcf226cf79179b4929f89b8a3fa9c6434f0b34a4a897605857362"
+    "sha256": "b439c8efad5fcf226cf79179b4929f89b8a3fa9c6434f0b34a4a897605857362",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "landscape",
+      "subject": "Aerial view of Cefalù town, rock, harbour and a crowded beach",
+      "reasons": [
+        "Bathers and beachgoers visible, however small",
+        "Cathedral and restaurant buildings in the frame",
+        "Busy, tourist-postcard composition"
+      ]
+    }
   },
   "u-lRhPb2ZibhU": {
     "id": "u-lRhPb2ZibhU",
@@ -1722,14 +2052,25 @@
     "artist": "Shana Van Roosbroek",
     "credit": "Shana Van Roosbroek, Unsplash",
     "query": "Palermo Sicily",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T19:56:42.400Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/lRhPb2ZibhU/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8NHx8UGFsZXJtbyUyMFNpY2lseXxlbnwxfHx8fDE3OTQ0MjcwMDJ8MA",
     "file": "u-lRhPb2ZibhU.jpg",
     "width": 2160,
     "height": 3240,
-    "sha256": "ec711858fadf9c6bf26c131e2f9aac65c3b235533c49bb1853fba9ee93008b6d"
+    "sha256": "ec711858fadf9c6bf26c131e2f9aac65c3b235533c49bb1853fba9ee93008b6d",
+    "review": {
+      "ok": false,
+      "people": "none",
+      "category": "landscape",
+      "subject": "Palermo cathedral bell tower and spires behind palm fronds",
+      "reasons": [
+        "Church is the main subject",
+        "Flat grey sky and muted heavy grade",
+        "Monument, not a context scene"
+      ]
+    }
   },
   "u-OOtlY6Z7PW0": {
     "id": "u-OOtlY6Z7PW0",
@@ -1743,14 +2084,25 @@
     "artist": "Henrique Ferreira",
     "credit": "Henrique Ferreira, Unsplash",
     "query": "Palermo Sicily",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T19:56:42.400Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/OOtlY6Z7PW0/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8NXx8UGFsZXJtbyUyMFNpY2lseXxlbnwxfHx8fDE3OTQ0MjcwMDJ8MA",
     "file": "u-OOtlY6Z7PW0.jpg",
     "width": 2160,
     "height": 1350,
-    "sha256": "d9fbbefeecf3909a8317504208e689ed1a3eecdb16416fc11c137ce1d3e61ead"
+    "sha256": "d9fbbefeecf3909a8317504208e689ed1a3eecdb16416fc11c137ce1d3e61ead",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "landscape",
+      "subject": "Aerial view of Cefalù old town, cliff and a crowded beach",
+      "reasons": [
+        "Many beachgoers and swimmers visible",
+        "Oversaturated, heavily edited colours",
+        "Dense town and cathedral, no single subject"
+      ]
+    }
   },
   "u-hdy75rbpuk0": {
     "id": "u-hdy75rbpuk0",
@@ -1764,14 +2116,25 @@
     "artist": "Eric",
     "credit": "Eric, Unsplash",
     "query": "Palermo Sicily",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T19:56:42.400Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/hdy75rbpuk0/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8Nnx8UGFsZXJtbyUyMFNpY2lseXxlbnwxfHx8fDE3OTQ0MjcwMDJ8MA",
     "file": "u-hdy75rbpuk0.jpg",
     "width": 2160,
     "height": 2880,
-    "sha256": "ee8e08d3360470a2f4dd5b0bd043367574e97aec4f89d379fc323ea49ee633b5"
+    "sha256": "ee8e08d3360470a2f4dd5b0bd043367574e97aec4f89d379fc323ea49ee633b5",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "landscape",
+      "subject": "Narrow Palermo street with café tables, signs, bins and a bell tower",
+      "reasons": [
+        "Shop signs and café/bar tables, with a bell tower as the focal point",
+        "Cluttered bins, rubbish bag, scooters, cables",
+        "Tourist-snapshot framing, with a tiny figure in the distance"
+      ]
+    }
   },
   "u-rDQhm-8WV5g": {
     "id": "u-rDQhm-8WV5g",
@@ -1785,14 +2148,25 @@
     "artist": "Roaming Pictures",
     "credit": "Roaming Pictures, Unsplash",
     "query": "Palermo Sicily",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T19:56:42.401Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/rDQhm-8WV5g/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8N3x8UGFsZXJtbyUyMFNpY2lseXxlbnwxfHx8fDE3OTQ0MjcwMDJ8MA",
     "file": "u-rDQhm-8WV5g.jpg",
     "width": 2160,
     "height": 1306,
-    "sha256": "b97d3b4920b8c9c23f9330ead8aa4e174778220d3cbaebfc8ce78aed28c78009"
+    "sha256": "b97d3b4920b8c9c23f9330ead8aa4e174778220d3cbaebfc8ce78aed28c78009",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "landscape",
+      "subject": "Palermo rooftops and domes with mountains behind under a clear sky",
+      "reasons": [
+        "Church domes and dense buildings, a typical tourist view",
+        "Shop signs visible at the bottom, with tiny figures",
+        "Cluttered, with no single subject and little air around it"
+      ]
+    }
   },
   "u-kiJXLKrqe_U": {
     "id": "u-kiJXLKrqe_U",
@@ -1806,14 +2180,25 @@
     "artist": "Nicolò Salinetti",
     "credit": "Nicolò Salinetti, Unsplash",
     "query": "Palermo Sicily",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T19:56:42.401Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/kiJXLKrqe_U/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8OHx8UGFsZXJtbyUyMFNpY2lseXxlbnwxfHx8fDE3OTQ0MjcwMDJ8MA",
     "file": "u-kiJXLKrqe_U.jpg",
     "width": 2160,
     "height": 2880,
-    "sha256": "605939ec801f80542614314f40b1b0b08e64d21d6f3c51b97ba4d2085649b4b8"
+    "sha256": "605939ec801f80542614314f40b1b0b08e64d21d6f3c51b97ba4d2085649b4b8",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "sea",
+      "subject": "Clear harbour water with fishing boats and a seafront town",
+      "reasons": [
+        "People on the quay and a woman at the left edge",
+        "Signs, cars and a busy seafront tourist snapshot",
+        "Clutter and no single subject"
+      ]
+    }
   },
   "u-ERPwTqJ_LDs": {
     "id": "u-ERPwTqJ_LDs",
@@ -1827,14 +2212,25 @@
     "artist": "David Salamanca",
     "credit": "David Salamanca, Unsplash",
     "query": "Palermo Sicily",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T19:56:42.401Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/ERPwTqJ_LDs/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8OXx8UGFsZXJtbyUyMFNpY2lseXxlbnwxfHx8fDE3OTQ0MjcwMDJ8MA",
     "file": "u-ERPwTqJ_LDs.jpg",
     "width": 2160,
     "height": 3240,
-    "sha256": "f859414d3bba1874c2dc429123a540d7269c3b8d4a188f474387c5fda061f17a"
+    "sha256": "f859414d3bba1874c2dc429123a540d7269c3b8d4a188f474387c5fda061f17a",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "market",
+      "subject": "Crowded Palermo street with café terraces, pedestrians and shop signs",
+      "reasons": [
+        "Recognisable people, a waiter and diners at café tables",
+        "Shop signs and a bag with a logo",
+        "Street snapshot, with a dull graded grey light"
+      ]
+    }
   },
   "u-SeyoNMq_dCU": {
     "id": "u-SeyoNMq_dCU",
@@ -1848,14 +2244,25 @@
     "artist": "SnapSaga",
     "credit": "SnapSaga, Unsplash",
     "query": "Palermo Sicily",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T19:56:42.401Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/SeyoNMq_dCU/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MTB8fFBhbGVybW8lMjBTaWNpbHl8ZW58MXx8fHwxNzk0NDI3MDAyfDA",
     "file": "u-SeyoNMq_dCU.jpg",
     "width": 2160,
     "height": 1440,
-    "sha256": "b60e3643c9ef4568f6c0581288f92a3f267abdb2647e83cb533a097ba0b6a4ad"
+    "sha256": "b60e3643c9ef4568f6c0581288f92a3f267abdb2647e83cb533a097ba0b6a4ad",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "landscape",
+      "subject": "Palermo cathedral with a statue column and a garden",
+      "reasons": [
+        "Monument and cathedral as the main subject",
+        "Crowd of tourists at the bottom",
+        "Overcast, flat light tourist-snapshot framing"
+      ]
+    }
   },
   "u-895zNRkXD6A": {
     "id": "u-895zNRkXD6A",
@@ -1869,14 +2276,25 @@
     "artist": "Ricardo Gomez Angel",
     "credit": "Ricardo Gomez Angel, Unsplash",
     "query": "Palermo Sicily",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T19:56:42.401Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/895zNRkXD6A/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MTF8fFBhbGVybW8lMjBTaWNpbHl8ZW58MXx8fHwxNzk0NDI3MDAyfDA",
     "file": "u-895zNRkXD6A.jpg",
     "width": 2160,
     "height": 1696,
-    "sha256": "73ecbd1e5f43316a10b210ce9c817eadfd4026517cd8e4ec688dddb78bb39161"
+    "sha256": "73ecbd1e5f43316a10b210ce9c817eadfd4026517cd8e4ec688dddb78bb39161",
+    "review": {
+      "ok": false,
+      "people": "none",
+      "category": "landscape",
+      "subject": "Palermo rooftops with a cathedral dome and hills behind",
+      "reasons": [
+        "Church dome and cathedral towers as the main subject",
+        "Cluttered with rooftops, chimneys and decayed walls",
+        "Heavy, moody grading under a dull sky"
+      ]
+    }
   },
   "u-nUElVMPAfmo": {
     "id": "u-nUElVMPAfmo",
@@ -1890,14 +2308,25 @@
     "artist": "SnapSaga",
     "credit": "SnapSaga, Unsplash",
     "query": "Palermo Sicily",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T19:56:42.401Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/nUElVMPAfmo/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MTJ8fFBhbGVybW8lMjBTaWNpbHl8ZW58MXx8fHwxNzk0NDI3MDAyfDA",
     "file": "u-nUElVMPAfmo.jpg",
     "width": 2160,
     "height": 1440,
-    "sha256": "f7e29237803e35754c5a0d2f2f0be2c7c9b7fa12479572b30141bc74c50ad52f"
+    "sha256": "f7e29237803e35754c5a0d2f2f0be2c7c9b7fa12479572b30141bc74c50ad52f",
+    "review": {
+      "ok": false,
+      "people": "present",
+      "category": "landscape",
+      "subject": "Wet cobbled Palermo alley with decayed façades and graffiti",
+      "reasons": [
+        "People in the street and a person at the left edge",
+        "Graffiti on the shutter scruffy, cluttered street",
+        "Tourist-snapshot framing under an overcast sky"
+      ]
+    }
   },
   "u-_C57PwLfWCs": {
     "id": "u-_C57PwLfWCs",
@@ -1911,14 +2340,25 @@
     "artist": "Alessio Rinella",
     "credit": "Alessio Rinella, Unsplash",
     "query": "Palermo Sicily",
-    "status": "fetched",
+    "status": "reviewed",
     "foundAt": "2026-11-11T19:56:42.401Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/_C57PwLfWCs/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MTN8fFBhbGVybW8lMjBTaWNpbHl8ZW58MXx8fHwxNzk0NDI3MDAyfDA",
     "file": "u-_C57PwLfWCs.jpg",
     "width": 2160,
     "height": 2880,
-    "sha256": "22a5228e0383d434c201545a71bc5c54759ac304a10394faf2ab467d4a817cf5"
+    "sha256": "22a5228e0383d434c201545a71bc5c54759ac304a10394faf2ab467d4a817cf5",
+    "review": {
+      "ok": true,
+      "people": "none",
+      "category": "landscape",
+      "subject": "White limestone cliff over a calm deep-blue Mediterranean sea",
+      "reasons": [
+        "Clean, uncluttered, with a single subject and air around it",
+        "Warm low light and true colours, no signs or people",
+        "Plausibly Sicilian coast, in keeping with the house"
+      ]
+    }
   },
   "u-CmqqZ-j5dxw": {
     "id": "u-CmqqZ-j5dxw",
@@ -1932,14 +2372,25 @@
     "artist": "Jordan Durzi",
     "credit": "Jordan Durzi, Unsplash",
     "query": "Palermo Sicily",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T19:56:42.401Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/CmqqZ-j5dxw/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MTR8fFBhbGVybW8lMjBTaWNpbHl8ZW58MXx8fHwxNzk0NDI3MDAyfDA",
     "file": "u-CmqqZ-j5dxw.jpg",
     "width": 2160,
     "height": 3240,
-    "sha256": "a8695129aa59ddc1a17f546bcd710184208e45ffc6a2fe70baebf51037cad06d"
+    "sha256": "a8695129aa59ddc1a17f546bcd710184208e45ffc6a2fe70baebf51037cad06d",
+    "review": {
+      "ok": false,
+      "people": "none",
+      "category": "landscape",
+      "subject": "Cathedral dome and lantern with cross against a clear sky",
+      "reasons": [
+        "Monument/church is the main subject",
+        "Religious architecture, not a scene-setting detail",
+        "Cool flat sky, not warm low light"
+      ]
+    }
   },
   "u-sLuuQeNLv54": {
     "id": "u-sLuuQeNLv54",
@@ -1953,14 +2404,25 @@
     "artist": "Serena Repice Lentini",
     "credit": "Serena Repice Lentini, Unsplash",
     "query": "Sicily sea",
-    "status": "fetched",
+    "status": "rejected",
     "foundAt": "2026-11-11T19:56:44.964Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/sLuuQeNLv54/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MXx8U2ljaWx5JTIwc2VhfGVufDF8fHx8MTc5NDQyNzAwM3ww",
     "file": "u-sLuuQeNLv54.jpg",
     "width": 2160,
     "height": 2880,
-    "sha256": "16c2e810eb59c9d8f65f9c31845874dc2397e3c5b521337fc3b1861b76d1b25a"
+    "sha256": "16c2e810eb59c9d8f65f9c31845874dc2397e3c5b521337fc3b1861b76d1b25a",
+    "review": {
+      "ok": false,
+      "people": "none",
+      "category": "sea",
+      "subject": "Clear turquoise bay with a sunlit seaside town beneath a cliff",
+      "reasons": [
+        "Looks like a phone shot with heavy saturated editing",
+        "Busy town frontage clutters the frame, tourist-postcard framing",
+        "Warm cast mixes with turquoise water, so colours are not true"
+      ]
+    }
   },
   "u-a42M7a6T1jw": {
     "id": "u-a42M7a6T1jw",

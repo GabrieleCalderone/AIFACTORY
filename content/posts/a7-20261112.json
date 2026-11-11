@@ -1,0 +1,71 @@
+{
+  "slug": "a7-20261112",
+  "lang": "en",
+  "title": "The island in November: sea cave, lemons, the table at your villa, one pasta",
+  "brief": {
+    "archetype": "A7-the-island",
+    "audience": "American travellers dreaming of and planning a stay in Sicily; guests of villas and boats around Palermo",
+    "objective": "Saves, sends and profile visits from people planning a stay",
+    "hook": "The island first: one calm sea cave, the place and the month, before any plate appears.",
+    "sequence": [
+      "Cover: Sicily in November, a sea cave on deep blue water (licensed)",
+      "Lemons in low evening light, the season once more (licensed)",
+      "The laid table, at home where the guests stay (house photo)",
+      "One pasta, served (house photo)",
+      "What the experience is: the chef at your home in Palermo and province",
+      "The invitation: ask for a quote on risthome.it"
+    ],
+    "cta": "Ask for a quote on risthome.it",
+    "hypothesis": "A piece that opens on the place earns more saves and sends than one that opens on a plate. Success: saves plus shares >= 3% of reach.",
+    "experimentId": "EXP-009",
+    "variantId": "A"
+  },
+  "caption": "A private chef in Palermo, Sicily, at the table where you stay.\nChef Giacomo Napolitano cooks at your villa, apartment or boat: shopping, cooking, service and kitchen cleanup included.\nAsk for a quote on risthome.it (link in bio)",
+  "hashtags": [
+    "#palermo",
+    "#risthome",
+    "#sicily",
+    "#privatechef"
+  ],
+  "carousel": {
+    "slides": [
+      {
+        "type": "cover",
+        "image": "assets/context/173461171.jpg",
+        "title": "Sicily, in November.",
+        "kicker": "Private chef in Palermo"
+      },
+      {
+        "type": "photo",
+        "image": "assets/context/u-FaMBWkmvPyY.jpg",
+        "body": "Sicily, in November."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/93-IMG_0117.jpg",
+        "title": "",
+        "body": "The table, laid where you stay."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/30-IMG_0035.jpg",
+        "title": "Primo",
+        "body": ""
+      },
+      {
+        "type": "text",
+        "title": "A private chef, where you stay",
+        "body": "Chef Giacomo Napolitano cooks at your villa, apartment or boat in Palermo and province: shopping, cooking, service and kitchen cleanup included. The menu is built around the guests. 5.0 on Google with 101 reviews."
+      },
+      {
+        "type": "cta",
+        "title": "Ask for a quote on risthome.it",
+        "body": "Link in bio"
+      }
+    ]
+  },
+  "credits": [
+    "Bernard Gagnon, CC BY 4.0, via Wikimedia Commons",
+    "Steve Doig, Unsplash"
+  ]
+}
