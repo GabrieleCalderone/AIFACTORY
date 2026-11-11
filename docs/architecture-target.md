@@ -7,6 +7,39 @@ delle piattaforme. Vincoli invariati: EUR 0, strumenti locali o già pagati, one
 
 Legenda delle fonti in fondo. V = pagina letta, R = fonte secondaria.
 
+## Aggiornamento dell'11 novembre 2026 (notte): nessuna ripresa possibile
+
+Gabriele ha confermato che non ci sono riprese e non c'è modo di farne. Gli stadi 1 e 2
+(lista di riprese, ripresa) restano descritti qui sotto come riferimento ma **non sono
+praticabili**. L'architettura lavora quindi su un archivio fisso di fotografie, più il
+contesto con licenza. Conseguenze:
+
+- il **carosello** è il formato principale; il reel è solo una seconda veste delle stesse
+  fotografie incorniciate, due giorni dopo, su Instagram;
+- l'archivio è finito: 46 foto adatte allo chef a domicilio, 20 alla lezione. Una foto
+  riposa per un numero di post che dipende da quante ce ne sono (6 post per lo chef, 2 per
+  la lezione) e la cadenza è scesa a un post ogni due giorni;
+- la leva che resta per moltiplicare il materiale senza inventare nulla sono i **ritagli di
+  dettaglio** dalle foto grandi e il **contesto** (mare, prodotti, e la sua animazione).
+
+Stato di costruzione rispetto alla sezione 4:
+
+| # | Cosa | Stato |
+|---|---|---|
+| 1 | Lista di riprese | non praticabile |
+| 2 | Formato dal materiale, carosello principale | fatto, con ridisegno editoriale del carosello |
+| 3 | Insieme di casi noti e versione delle regole | fatto (24 casi) |
+| 4 | Decisioni come etichette | fatto; i giudici per criterio aspettano almeno 60 etichette |
+| 5 | Classifica a coppie | fatto; prima classifica per lo chef a domicilio |
+| 6 | Classi di operazione e divieto del soggetto generato | fatto |
+| 7 | Audio a −14 LUFS | fatto; suoni di cucina no |
+| 8 | Lettura per serie | fatto; niente più varianti B per singolo post |
+| 9 | Animazione del contesto con Higgsfield | da fare: servono le immagini di contesto approvate |
+| 10 | Pexels e Unsplash | da fare: servono due chiavi gratuite |
+
+Prossimi passi possibili senza nessuno: ritagli di dettaglio dalle foto grandi (dittici),
+classifica a coppie anche per la lezione, vocabolario dei piatti dalle schede della casa.
+
 ## 1. Cosa cambia: cinque conclusioni
 
 1. **La fabbrica oggi parte dal punto sbagliato.** Parte dall'archivio e arriva al post. I
