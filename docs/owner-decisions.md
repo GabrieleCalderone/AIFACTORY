@@ -8,8 +8,8 @@ sblocca. Le risposte vanno bene anche a voce, in una riga.
 | Pezzo | A mano | Revisore automatico (tre letture) | Soglia |
 |---|---|---|---|
 | `a7-20261113` Sicily, in November (quattro slide) | 71 | 55 | 85 |
-| `a10-20261115` You came to Sicily to eat. Stay to cook. (lezione) | 73 | 63 | 85 |
-| `a9-20261114` You came to Sicily for the food (in sospeso) | 65 | 55 | 85 |
+| `a10-20261115` You came to Sicily to eat. Stay to cook. (lezione) | 75 | 63 | 85 |
+| `a9-20261114` You came to Sicily for the food (tre portate) | 69 | 59 | 85 |
 
 Sono giudizi editoriali, non previsioni. Il revisore automatico è più severo della valutazione a mano di 10-16 punti; le sue tre letture ora concordano tra loro. L'approvazione resta tua nella console, anche
 sotto soglia.
