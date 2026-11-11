@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { budgetPolicy, createHiggsfieldAdapter, estimateUrl } from "../src/adapters/genai.ts";
+import { budgetPolicy, createHiggsfieldAdapter, credentialPair, estimateUrl } from "../src/adapters/genai.ts";
 
 const fakeFetch = (status: number, body: unknown) => {
   const calls: { url: string; auth: string; body: string }[] = [];
@@ -39,4 +39,10 @@ test("model ids cannot steer the request away from the estimate endpoint", () =>
   for (const bad of ["../requests", "a/../../requests", "a//b", "a/./b", "a/b?x=1", "a/b#c", "/a/b", "a/b/", "%2e%2e/a", "single"]) {
     assert.throws(() => estimateUrl("https://api.higgsfield.ai", bad), new RegExp("model id looks wrong|only the estimate endpoint"), bad);
   }
+});
+
+test("a secret saved together with its id is not joined to the id a second time", () => {
+  assert.equal(credentialPair("abc", "s3cret"), "abc:s3cret");
+  assert.equal(credentialPair("abc", "abc:s3cret"), "abc:s3cret");
+  assert.equal(credentialPair("abc", "xyz:s3cret"), "abc:xyz:s3cret", "another id in front is not guessed at");
 });

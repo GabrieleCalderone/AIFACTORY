@@ -330,8 +330,8 @@
   },
   "prova-dettaglio-a4": {
     "slug": "prova-dettaglio-a4",
-    "state": "RENDERED",
-    "updatedAt": "2026-11-11T12:42:14.755Z",
+    "state": "APPROVED",
+    "updatedAt": "2026-11-11T12:56:16.391Z",
     "history": [
       {
         "at": "2026-11-11T12:41:43.005Z",
@@ -350,6 +350,12 @@
         "from": "QUALITY_CHECKED",
         "to": "RENDERED",
         "note": "reel no, slides 8"
+      },
+      {
+        "at": "2026-11-11T12:56:16.391Z",
+        "from": "RENDERED",
+        "to": "APPROVED",
+        "note": "approved in the console"
       }
     ]
   }

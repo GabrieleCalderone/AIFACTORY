@@ -10,7 +10,7 @@
  * Budget: data/genai-spend.json ledger; nothing is submitted when the month's spend plus the
  * estimate would exceed GENAI_MONTHLY_CAP_EUR (default 0 = nothing approved; ceiling 20).
  */
-import { estimateUrl } from "./genai.ts";
+import { credentialPair, estimateUrl } from "./genai.ts";
 
 export type FetchLike = (
   url: string,
@@ -137,7 +137,7 @@ export const createHiggsfieldClient = (opts: {
   if (!opts.keyId || !opts.keySecret)
     throw new Error("Higgsfield key id and secret are required");
   const headers = {
-    Authorization: `Key ${opts.keyId}:${opts.keySecret}`,
+    Authorization: `Key ${credentialPair(opts.keyId, opts.keySecret)}`,
     "Content-Type": "application/json",
   };
   const call = async (

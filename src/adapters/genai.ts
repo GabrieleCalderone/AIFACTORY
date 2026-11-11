@@ -3,6 +3,12 @@
  * approved (EUR 0). A `generate` method is deliberately absent: adding it is the
  * decision point documented in docs/higgsfield.md and docs/roadmap.md.
  */
+/**
+ * The "key-id:key-secret" pair the API expects. The console shows the secret already joined
+ * to its id, and it is easy to save it that way: a secret that starts with its own id is used as it is.
+ */
+export const credentialPair = (keyId: string, keySecret: string): string => (keySecret.startsWith(`${keyId}:`) ? keySecret : `${keyId}:${keySecret}`);
+
 export type EstimateRequest = { model: string; input: Record<string, unknown> };
 
 export type GenAiAdapter = {
@@ -38,7 +44,7 @@ export const createHiggsfieldAdapter = (opts: { keyId: string; keySecret: string
       const url = estimateUrl(baseUrl, model);
       const res = await fetchImpl(url, {
         method: "POST",
-        headers: { Authorization: `Key ${opts.keyId}:${opts.keySecret}`, "Content-Type": "application/json" },
+        headers: { Authorization: `Key ${credentialPair(opts.keyId, opts.keySecret)}`, "Content-Type": "application/json" },
         body: JSON.stringify(input),
       });
       if (!res.ok) throw new Error(`estimate failed: HTTP ${res.status}`);
