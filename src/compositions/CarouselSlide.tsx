@@ -74,7 +74,7 @@ const Cover: React.FC<{ slide: Extract<SlideSpec, { type: "cover" }>; lang: Post
   return (
     <AbsoluteFill style={{ backgroundColor: theme.colors.ink }}>
       <Img src={staticFile(slide.image)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: look.grade }} />
-      <Scrim bottom={0.8} />
+      <Scrim bottom={0.8} top={0.55} />
       <div style={{ position: "absolute", left: mat.left, right: mat.left, bottom: 190, display: "flex", flexDirection: "column", gap: 22 }}>
         <div style={{ ...type.mark, color: theme.colors.cream }}>{kicker}</div>
         <div style={{ ...type.title, fontSize: 76, color: theme.colors.white, textShadow: "0 2px 24px rgba(0,0,0,0.45)" }}>{slide.title}</div>
@@ -92,7 +92,7 @@ const FullPhoto: React.FC<{ slide: Extract<SlideSpec, { type: "photo" }>; page: 
       <Img src={staticFile(slide.image)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: look.grade }} />
       {/* a soft shade at the top keeps the wordmark and the page number readable on any photograph */}
       <Scrim bottom={words ? 0.7 : 0} top={0.38} />
-      <Img src={staticFile("brand/logo-white.png")} style={{ position: "absolute", left: mat.left, top: 150, width: 170 }} />
+      <Img src={staticFile("brand/logo-white.png")} style={{ position: "absolute", left: mat.left, top: 150, width: 200 }} />
       <div style={{ position: "absolute", left: mat.left, right: mat.left, bottom: 150, display: "flex", flexDirection: "column", gap: 12 }}>
         {slide.title ? <div style={{ ...type.line, color: theme.colors.white, textShadow: "0 2px 24px rgba(0,0,0,0.45)" }}>{slide.title}</div> : null}
         {slide.body ? <div style={{ ...type.body, color: theme.colors.white, textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}>{slide.body}</div> : null}

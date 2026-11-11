@@ -16,10 +16,10 @@ import path from "node:path";
 import { parseArgs } from "node:util";
 import { nextId, readExperiments, writeExperiments } from "../src/lib/data.ts";
 import { applyDetails, applyReelFrames, coverFrameFor, detailRegion, MAX_DETAILS } from "../src/lib/formats.ts";
-import { contextCredits, contextRows, gateSpec, generatedRows, loadStandard } from "../src/lib/gate-io.ts";
+import { contextCredits, contextRows, gateSpec, generatedRows, loadStandard, premiumFitOf } from "../src/lib/gate-io.ts";
 import { CONTEXT_PREFIX, GENERATED_PREFIX, isContext, isGenerated, limitsFor, prepareContext } from "../src/lib/context.ts";
 import { lintStandard, silence } from "../src/lib/house-standard.ts";
-import { mediaOf, repeatedImages } from "../src/lib/gate.ts";
+import { LEAD_MIN_FIT, mediaOf, repeatedImages } from "../src/lib/gate.ts";
 import { parsePostSpec, PostSpec, type PostSpecInput } from "../src/schemas/post.ts";
 import { rankForService, type Format, type Service, type TechnicalRow, type Verdict } from "../src/lib/visual-score.ts";
 import { onePerSubject } from "../src/lib/subjects.ts";
@@ -149,11 +149,13 @@ for (const r of candidates) {
   // Closer looks are not offered for now: they sit on the mat, and the owner wants every photograph to fill the page (2026-11-11).
   if (OFFER_DETAILS && p && !p.dropped && detailRegion(r.width, r.height, p.x, p.y)) detailPoints[r.file] = { x: p.x, y: p.y };
 }
+// A weak photograph never opens or closes a piece (src/lib/gate.ts, weakLeads): the author is told which ones.
+const leadFit = premiumFitOf();
 const candidateList = candidates
   .map((r) => {
     const v = verdictOf.get(r.file)!;
     const dish = dishOf(r.file);
-    return `- assets/${values.pool}/${r.file} | ${placeOf.has(r.file) ? `place ${placeOf.get(r.file)} by comparison` : `score ${v.Q}`} | ${r.orientation} ${r.width}x${r.height} | ${r.people === "chef" ? "chef visible" : "no people"} | CHEF'S NAME FOR THE DISH: ${dish ? `"${dish}"` : "none"} | what an automatic cataloguer saw (may be wrong, never quote it): ${r.subject} | tags: ${(r.tags ?? []).join(", ")}${detailPoints[r.file] ? " | CLOSER LOOK AVAILABLE" : ""}`;
+    return `- assets/${values.pool}/${r.file} | ${placeOf.has(r.file) ? `place ${placeOf.get(r.file)} by comparison` : `score ${v.Q}`} | ${r.orientation} ${r.width}x${r.height} | ${r.people === "chef" ? "chef visible" : "no people"} | CHEF'S NAME FOR THE DISH: ${dish ? `"${dish}"` : "none"} | what an automatic cataloguer saw (may be wrong, never quote it): ${r.subject} | tags: ${(r.tags ?? []).join(", ")}${detailPoints[r.file] ? " | CLOSER LOOK AVAILABLE" : ""}${(leadFit(`assets/${values.pool}/${r.file}`) ?? 100) < LEAD_MIN_FIT ? " | NOT STRONG ENOUGH TO OPEN OR CLOSE THE PIECE (use it in the middle only, or not at all)" : ""}`;
   })
   .join("\n");
 
