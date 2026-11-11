@@ -15,6 +15,13 @@ test("only CC0, public domain and CC BY are accepted", () => {
   assert.equal(classifyLicence("CC BY-SA 4.0").why, "share-alike");
 });
 
+test("the Unsplash and Pexels licences are accepted and credited by library name", () => {
+  assert.deepEqual(classifyLicence("Unsplash License"), { ok: true, kind: "library", needsCredit: true });
+  assert.equal(classifyLicence("Pexels License").ok, true);
+  assert.equal(classifyLicence("Unsplash+ License").ok, false);
+  assert.equal(creditLine("Mario Rossi", "Unsplash License", "Unsplash"), "Mario Rossi, Unsplash");
+});
+
 test("author names are reduced to plain text and the credit names author, licence and library", () => {
   assert.equal(plainName('<a href="//commons.wikimedia.org/wiki/User:X" title="User:X">Mario Rossi</a> &amp; <script>x</script>'), "Mario Rossi x");
   assert.equal(creditLine("<b>Mario Rossi</b>", "CC BY 4.0", "Wikimedia Commons"), "Mario Rossi, CC BY 4.0, via Wikimedia Commons");

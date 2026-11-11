@@ -47,6 +47,16 @@ const Matted: React.FC<{ image: string; look: Look; height: number }> = ({ image
   </div>
 );
 
+/** A part of the photograph filling the mat: the picture is scaled so that the region is exactly the box. */
+const Detail: React.FC<{ image: string; look: Look; region: { x: number; y: number; w: number; h: number } }> = ({ image, look, region }) => (
+  <div style={{ position: "absolute", left: mat.left, top: mat.top, width: mat.width, height: mat.height, overflow: "hidden" }}>
+    <Img
+      src={staticFile(image)}
+      style={{ position: "absolute", width: `${100 / region.w}%`, height: `${100 / region.h}%`, left: `${(-region.x / region.w) * 100}%`, top: `${(-region.y / region.h) * 100}%`, maxWidth: "none", filter: look.grade }}
+    />
+  </div>
+);
+
 const Cover: React.FC<{ slide: Extract<SlideSpec, { type: "cover" }>; lang: PostSpec["lang"]; look: Look }> = ({ slide, lang, look }) => {
   const kicker = slide.kicker ?? look.eyebrow[lang] ?? copy[lang].eyebrow;
   if (slide.frame === "plate") {
@@ -76,7 +86,7 @@ const Cover: React.FC<{ slide: Extract<SlideSpec, { type: "cover" }>; lang: Post
 
 const Photo: React.FC<{ slide: Extract<SlideSpec, { type: "photo" }>; page: string; look: Look }> = ({ slide, page, look }) => (
   <AbsoluteFill style={{ backgroundColor: ground }}>
-    <Matted image={slide.image} look={look} height={mat.height} />
+    {slide.detail ? <Detail image={slide.image} look={look} region={slide.detail} /> : <Matted image={slide.image} look={look} height={mat.height} />}
     <div style={{ position: "absolute", left: mat.left, right: mat.left, top: textTop(mat.height), display: "flex", flexDirection: "column", gap: 12 }}>
       {slide.title ? <div style={type.line}>{slide.title}</div> : null}
       {slide.body ? <div style={type.body}>{slide.body}</div> : null}

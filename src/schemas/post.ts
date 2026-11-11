@@ -107,6 +107,8 @@ export const CarouselSlide = z.discriminatedUnion("type", [
     image: imagePath,
     title: z.string().max(70).optional(),
     body: z.string().max(220).optional(),
+    /** A closer look at the picture shown whole on the slide before: the part to show, as fractions of the photograph. */
+    detail: z.object({ x: z.number().min(0).max(1), y: z.number().min(0).max(1), w: z.number().min(0.05).max(1), h: z.number().min(0.05).max(1) }).optional(),
   }),
   z.object({
     type: z.literal("text"),

@@ -619,7 +619,7 @@
         const ready = s.posts.filter((p) => ["READY", "RENDERED"].includes(p.state)).length;
         const measured = s.experiments.filter((e) => e.status === "measured").length;
         $("#kpis").innerHTML = [
-          [s.setup.pool - s.setup.poolBlocked, "asset utilizzabili", `${s.setup.poolBlocked} bloccati (ospiti, loghi, qualità)`],
+          [`${s.setup.archive.chef.dishes} · ${s.setup.archive.class.dishes}`, "piatti e scene: chef · lezione", `circa ${Math.floor(s.setup.archive.chef.dishes / 5)} e ${Math.floor(s.setup.archive.class.dishes / 5)} post senza ripetere una foto`],
           [ready, "pronti da approvare", s.setup.autopublish ? "pubblicazione automatica attiva" : "approvazione manuale"],
           [s.pipeline.SCHEDULED + s.pipeline.PUBLISHED + s.pipeline.MEASURED, "programmati o pubblicati", ch.length ? `${ch.length} canali Buffer` : "Buffer da collegare"],
           [`${measured}/${s.experiments.length}`, "esperimenti misurati", measured ? "" : "metriche dopo la prima pubblicazione"],

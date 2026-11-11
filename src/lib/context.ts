@@ -21,10 +21,11 @@ export const isContext = (image: string | undefined): boolean => Boolean(image?.
 export type Operation = "real" | "context" | "generated";
 export const operationOf = (media: string): Operation => (isGenerated(media) ? "generated" : media.startsWith(CONTEXT_PREFIX) ? "context" : "real");
 
-export type Licence = { ok: boolean; kind: "cc0" | "public-domain" | "by" | "refused"; needsCredit: boolean; why?: string };
+export type Licence = { ok: boolean; kind: "cc0" | "public-domain" | "by" | "library" | "refused"; needsCredit: boolean; why?: string };
 
 /**
- * Accepted: CC0, public domain, CC BY. Refused: ShareAlike (a reel made from the picture
+ * Accepted: CC0, public domain, CC BY, and the Unsplash and Pexels library licences (free
+ * commercial use and modification; the photographer is credited as the libraries ask). Refused: ShareAlike (a reel made from the picture
  * would have to carry the same licence), NonCommercial, NoDerivatives, and anything unknown.
  */
 export const classifyLicence = (shortName: string): Licence => {
@@ -37,6 +38,7 @@ export const classifyLicence = (shortName: string): Licence => {
   if (/^CC0\b/.test(name) || name === "CC ZERO") return { ok: true, kind: "cc0", needsCredit: false };
   if (name === "PUBLIC DOMAIN" || /^PD\b/.test(name) || name === "PDM") return { ok: true, kind: "public-domain", needsCredit: false };
   if (/^CC BY \d(\.\d)?( [A-Z]{2})?$/.test(name)) return { ok: true, kind: "by", needsCredit: true };
+  if (name === "UNSPLASH LICENSE" || name === "PEXELS LICENSE") return { ok: true, kind: "library", needsCredit: true };
   return refuse(`unrecognised licence "${shortName.trim().slice(0, 40)}"`);
 };
 
@@ -56,6 +58,8 @@ export const plainName = (html: string, max = 80): string =>
 
 export const creditLine = (artist: string, licenceShortName: string, library: string): string => {
   const who = plainName(artist) || "unknown author";
+  // A library's own licence is named by the library: "Mario Rossi, Unsplash".
+  if (classifyLicence(licenceShortName).kind === "library") return `${who}, ${library}`;
   return `${who}, ${licenceShortName.trim()}, via ${library}`;
 };
 

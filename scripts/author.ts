@@ -15,13 +15,14 @@ import { existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { nextId, readExperiments, writeExperiments } from "../src/lib/data.ts";
-import { applyReelFrames, coverFrameFor } from "../src/lib/formats.ts";
+import { applyDetails, applyReelFrames, coverFrameFor, detailRegion, MAX_DETAILS } from "../src/lib/formats.ts";
 import { contextCredits, contextRows, gateSpec, loadStandard } from "../src/lib/gate-io.ts";
 import { CONTEXT_PREFIX, defaultContextLimits, isContext, prepareContext } from "../src/lib/context.ts";
 import { lintStandard, silence } from "../src/lib/house-standard.ts";
-import { mediaOf } from "../src/lib/gate.ts";
+import { mediaOf, repeatedImages } from "../src/lib/gate.ts";
 import { parsePostSpec, PostSpec, type PostSpecInput } from "../src/schemas/post.ts";
 import { rankForService, type Format, type Service, type TechnicalRow, type Verdict } from "../src/lib/visual-score.ts";
+import { onePerSubject } from "../src/lib/subjects.ts";
 import { applyReview, dishKey, factsOf, isHeldBack, MAX_EXCLUSIONS_PER_REVIEW, mergeExclusions, sanitizeText, type AssetOverride, type ReviewItem, type ReviewPair } from "../src/lib/review.ts";
 import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
 import { cooldownPosts, LIVE_STATES, recentLiveSlugs } from "../src/lib/pipeline.ts";
@@ -97,25 +98,38 @@ const dishOf = (file: string): string => sanitizeText(dishes[dishKey(file)]?.[la
 // rejected or abandoned do not. The series episode counts the same posts.
 const pipelineNow = loadPipeline();
 const photosPerPost = Math.max(1 + (archetype.formats.reel?.sceneCount ?? 0), (archetype.formats.carousel?.slides ?? []).filter((t) => t === "cover" || t === "photo").length);
-const usableForService = Object.values(scoresFile.verdicts).filter((byKey) => {
-  const v = byKey[`${service}:${format}`];
-  return v && !v.blocked && v.tier !== "excluded" && !isHeldBack(overrides[v.file]);
-}).length;
+// Different shots of the same dish (scripts/group-subjects.ts) count as one photograph: for the
+// size of the archive, for the rest between posts, and for what is offered to the author.
+const subjects = existsSync("data/asset-subjects.json") ? ((JSON.parse(readFileSync("data/asset-subjects.json", "utf8")) as { groups?: Record<string, string> }).groups ?? {}) : {};
+const subjectOf = (file: string) => subjects[file] ?? file;
+const usableForService = new Set(
+  Object.values(scoresFile.verdicts)
+    .map((byKey) => byKey[`${service}:${format}`])
+    .filter((v) => v && !v.blocked && v.tier !== "excluded" && !isHeldBack(overrides[v.file]))
+    .map((v) => subjectOf(v.file)),
+).size;
 const cooldown = cooldownPosts(usableForService, photosPerPost);
-console.log(`[author] ${usableForService} photos fit for ${service}; a photo rests for ${cooldown} post(s) before it can return`);
+console.log(`[author] ${usableForService} dishes and scenes fit for ${service}; a photo rests for ${cooldown} post(s) before it can return`);
 const lastEight = new Set(recentLiveSlugs(pipelineNow, cooldown));
 const episode = Object.values(pipelineNow).filter((r) => LIVE_STATES.includes(r.state) && r.slug.startsWith(archetype.id.slice(0, 2).toLowerCase() + "-")).length + 1;
 const seriesLine = archetype.seriesName ? `SERIES: this is episode ${episode} of "${archetype.seriesName[lang]}": the hook title must start with "${archetype.seriesName[lang]}, ep. ${episode}" and the caption must open with the same line.` : "";
+const restingSubjects = new Set(Object.entries(usage).filter(([, slugs]) => slugs.some((sl) => lastEight.has(sl))).map(([file]) => subjectOf(file)));
 const verdicts = Object.values(scoresFile.verdicts)
   .map((byKey) => byKey[`${service}:${format}`])
   .filter((v): v is Verdict => Boolean(v))
   .filter((v) => !isHeldBack(overrides[v.file]))
-  .filter((v) => !(usage[v.file] ?? []).some((sl) => lastEight.has(sl)));
+  .filter((v) => !restingSubjects.has(subjectOf(v.file)));
 // Order: the comparison ranking where it exists (scripts/rank-assets.ts), then the score. A model
 // compares two photos far more reliably than it marks one out of 100.
 const board = existsSync("data/asset-rank.json") ? (JSON.parse(readFileSync("data/asset-rank.json", "utf8")) as Record<string, { order?: { file: string; rating: number; rank: number }[] }>)[`${service}:${format}`] : undefined;
 const placeOf = new Map((board?.order ?? []).map((o) => [o.file, o.rank]));
-const ranked = rankForService(verdicts, technical, Number(values.candidates)).sort((a, b) => (placeOf.get(a.file) ?? Infinity) - (placeOf.get(b.file) ?? Infinity) || b.Q - a.Q);
+// Every fit photo is placed first and the list is cut afterwards: cutting by score first would
+// drop photos the comparison placed high. Then one photo per dish (scripts/group-subjects.ts):
+// two shots of the same course read as a repeat.
+const ranked = onePerSubject(
+  rankForService(verdicts, technical, Infinity).sort((a, b) => (placeOf.get(a.file) ?? Infinity) - (placeOf.get(b.file) ?? Infinity) || b.Q - a.Q),
+  subjects,
+).slice(0, Number(values.candidates) || 16);
 const byFile = new Map(poolRows.map((r) => [r.file, r]));
 const candidates = ranked.map((v) => byFile.get(v.file)).filter((r): r is PoolRow => Boolean(r));
 const verdictOf = new Map(ranked.map((v) => [v.file, v]));
@@ -123,11 +137,18 @@ if (candidates.length < 6) {
   console.error(`[author] insufficient media: ${candidates.length} photo(s) rated usable or premium for ${service}/${format} that were not used in the last 8 posts (need 6). Add photos or clips, raise quality with the studio, or review data/asset-overrides.json.`);
   process.exit(3);
 }
+// Closer looks: a point per photograph (scripts/detail-points.ts), only where the photograph is large enough and a person has not dropped it.
+const detailStore = existsSync("data/asset-details.json") ? (JSON.parse(readFileSync("data/asset-details.json", "utf8")) as Record<string, { x: number; y: number; dropped?: boolean } | null>) : {};
+const detailPoints: Record<string, { x: number; y: number }> = {};
+for (const r of candidates) {
+  const p = detailStore[r.file];
+  if (p && !p.dropped && detailRegion(r.width, r.height, p.x, p.y)) detailPoints[r.file] = { x: p.x, y: p.y };
+}
 const candidateList = candidates
   .map((r) => {
     const v = verdictOf.get(r.file)!;
     const dish = dishOf(r.file);
-    return `- assets/${values.pool}/${r.file} | ${placeOf.has(r.file) ? `place ${placeOf.get(r.file)} by comparison` : `score ${v.Q}`} | ${r.orientation} ${r.width}x${r.height} | ${r.people === "chef" ? "chef visible" : "no people"} | CHEF'S NAME FOR THE DISH: ${dish ? `"${dish}"` : "none"} | what an automatic cataloguer saw (may be wrong, never quote it): ${r.subject} | tags: ${(r.tags ?? []).join(", ")}`;
+    return `- assets/${values.pool}/${r.file} | ${placeOf.has(r.file) ? `place ${placeOf.get(r.file)} by comparison` : `score ${v.Q}`} | ${r.orientation} ${r.width}x${r.height} | ${r.people === "chef" ? "chef visible" : "no people"} | CHEF'S NAME FOR THE DISH: ${dish ? `"${dish}"` : "none"} | what an automatic cataloguer saw (may be wrong, never quote it): ${r.subject} | tags: ${(r.tags ?? []).join(", ")}${detailPoints[r.file] ? " | CLOSER LOOK AVAILABLE" : ""}`;
   })
   .join("\n");
 
@@ -144,7 +165,7 @@ const reelSpec = fmt.reel
   ? `"reel": { "hook": { "image": <file>, "title": <max 80 chars>, "subtitle": <max 80 chars>, "durationSec": ${fmt.reel.hookDurationSec}, "motion": "${fmt.reel.motions[0]}" }, "scenes": [ exactly ${fmt.reel.sceneCount} objects { "image": <file>, "label": <max 30 chars${fmt.reel.labels ? `, e.g. ${fmt.reel.labels.filter(Boolean).join(" / ")}` : ""}>, "text": <max 45 chars and 6 words, or "" to let the photo speak alone>, "durationSec": ${fmt.reel.sceneDurationSec}, "motion": one of ${JSON.stringify(fmt.reel.motions)} } ], "cta": { "title": <max 60 chars>, "line": <max 80 chars>, "durationSec": 3.2 }, "transitionSec": 0.4 }`
   : "";
 const carouselSpec = fmt.carousel
-  ? `"carousel": { "slides": [ in this exact order of types ${JSON.stringify(fmt.carousel.slides)}: cover = { "type": "cover", "image": <file>, "kicker": <max 40>, "title": <max 90> }, photo = { "type": "photo", "image": <file>, "title": <max 40, the chef's name for the dish if given, else a short editorial title or "">, "body": <max 110, one short sentence, or ""> }, text = { "type": "text", "title": <max 90>, "body": <max 320, only brand facts> }, cta = { "type": "cta", "title": <max 70>, "body": "Link in bio" } ] }`
+  ? `"carousel": { "slides": [ in this exact order of types ${JSON.stringify(fmt.carousel.slides)}: cover = { "type": "cover", "image": <file>, "kicker": <max 40>, "title": <max 90> }, photo = { "type": "photo", "image": <file>, "title": <max 40, the chef's name for the dish if given, else a short editorial title or "">, "body": <max 110, one short sentence, or ""> }, detail (optional, at most ${MAX_DETAILS} per carousel, only for a photo listed with CLOSER LOOK AVAILABLE, only on the photo slide right after the slide that shows that same photo whole, ${usableForService < 25 ? "and here do use one if a listed photo offers it, in place of one of the photo slides: the archive for this service is small" : "where a closer look says more than another dish would"}) = { "type": "photo", "image": <the same file as the slide before>, "detail": true, "title": "", "body": <max 60, or ""> }, text = { "type": "text", "title": <max 90>, "body": <max 320, only brand facts> }, cta = { "type": "cta", "title": <max 70>, "body": "Link in bio" } ] }`
   : "";
 const prompt = `You write Instagram content for RistHome. Answer with ONE JSON object only (no prose, no code fence).
 
@@ -218,6 +239,8 @@ for (let attempt = 1; attempt <= 3 && !raw; attempt++) {
       const track = audio[Math.abs([...slug].reduce((h, c) => h * 31 + c.charCodeAt(0), 7)) % audio.length];
       candidate.reel = { ...(candidate.reel as object), audio: { src: track.src, volume: 0.8, fadeOutSec: 1, attribution: track.attribution } } as PostSpecInput["reel"];
     }
+    const rawSlides = (candidate.carousel as { slides?: unknown } | undefined)?.slides;
+    if (Array.isArray(rawSlides)) applyDetails(rawSlides as Parameters<typeof applyDetails>[0], (image) => detailPoints[path.basename(image)] ?? null, (image) => byFile.get(path.basename(image)) ?? null);
     const parsed = PostSpec.safeParse(candidate);
     if (!parsed.success) {
       feedback = parsed.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join("\n");
@@ -227,9 +250,9 @@ for (let attempt = 1; attempt <= 3 && !raw; attempt++) {
     const allowed = new Set([...candidates.map((r) => `assets/${values.pool}/${r.file}`), ...context.map((r) => `${CONTEXT_PREFIX}${r.file}`)]);
     const used = mediaOf(parsed.data).images;
     const foreign = used.filter((u) => !allowed.has(u));
-    const dup = used.length !== new Set(used).size;
-    if (foreign.length || dup) {
-      feedback = `${foreign.length ? `these files are not in the allowed list: ${foreign.join(", ")}. ` : ""}${dup ? "a photo was used more than once." : ""}`;
+    const repeats = repeatedImages(parsed.data);
+    if (foreign.length || repeats.length) {
+      feedback = `${foreign.length ? `these files are not in the allowed list: ${foreign.join(", ")}. ` : ""}${repeats.length ? `a photo may appear once in the reel and once in the carousel (a "detail" only right after its own whole photo, and only where a closer look is listed): ${repeats.join(", ")}.` : ""}`;
       console.log(`[author] ${feedback}`);
       continue;
     }

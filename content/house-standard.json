@@ -162,6 +162,7 @@
     "The first slide sets the ratio of all the others; what matters stays inside the centre square the profile grid shows.",
     "The second slide must work as a second cover: people who did not swipe are shown the post again from there.",
     "Each photograph has a role of its own in the sequence; none is there only to fill a place.",
+    "A closer look may follow the photograph it is cut from, once in a carousel at most: the photograph's own pixels, about half the picture across, never enlarged more than 1.25 times. It never stands in for the whole photograph.",
     "The last slide closes the piece: the wordmark, one invitation, a thin rule."
   ],
   "editing": [

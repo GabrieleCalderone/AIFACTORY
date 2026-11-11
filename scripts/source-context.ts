@@ -1,8 +1,10 @@
 /**
- * Context pictures from Wikimedia Commons "Quality images": Sicily, the sea, raw produce.
+ * Context pictures from Wikimedia Commons "Quality images" and from Unsplash: Sicily, the sea, raw produce.
  * Never dishes, tables, kitchens, chefs or guests: those can only be the house's own.
  *
  *   node scripts/source-context.ts search "Sicily coast" [--limit 30]   find candidates (no download)
+ *   node --env-file-if-exists=.env scripts/source-context.ts search "lemons" --library unsplash
+ *                                                                       same, on Unsplash (UNSPLASH_ACCESS_KEY in .env; fetch needs it too)
  *   node scripts/source-context.ts fetch [--max 12]                     download candidates (2160 px wide copies)
  *   node scripts/source-context.ts review [--model sonnet]              a model looks at each picture against the house standard
  *   node scripts/source-context.ts sheet                                contact sheet of the reviewed pictures -> out/context-sheet.jpg
@@ -10,7 +12,7 @@
  *   node scripts/source-context.ts reject <id...>
  *   node scripts/source-context.ts list
  *
- * Accepted licences: CC0, public domain, CC BY (credited in the caption). Registry with
+ * Accepted licences: CC0, public domain, CC BY, Unsplash licence (credited in the caption). Registry with
  * provenance: data/context-registry.json. Files: public/assets/context/ (not committed).
  */
 import { execFileSync } from "node:child_process";
@@ -24,7 +26,7 @@ import { loadStandard } from "../src/lib/gate-io.ts";
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
-  options: { limit: { type: "string", default: "30" }, max: { type: "string", default: "12" }, model: { type: "string", default: "sonnet" }, "all-reviewed": { type: "boolean", default: false } },
+  options: { limit: { type: "string", default: "30" }, max: { type: "string", default: "12" }, model: { type: "string", default: "sonnet" }, "all-reviewed": { type: "boolean", default: false }, library: { type: "string", default: "commons" } },
 });
 const [command, ...rest] = positionals;
 
@@ -33,6 +35,17 @@ const DIR = "public/assets/context";
 const LIBRARY = "Wikimedia Commons";
 const API = "https://commons.wikimedia.org/w/api.php";
 const DOWNLOAD_HOST = "upload.wikimedia.org";
+// Unsplash: search and download tracking on the API host, files from the image host. The key is sent to the API host only.
+const UNSPLASH = { library: "Unsplash", api: "api.unsplash.com", images: "images.unsplash.com", licence: "Unsplash License", licenceUrl: "https://unsplash.com/license" };
+const DOWNLOAD_HOSTS = new Set([DOWNLOAD_HOST, UNSPLASH.images]);
+const unsplashKey = () => {
+  const key = process.env.UNSPLASH_ACCESS_KEY?.trim();
+  if (!key) {
+    console.error("[context] UNSPLASH_ACCESS_KEY is not set: put it in .env and run with node --env-file-if-exists=.env");
+    process.exit(2);
+  }
+  return key;
+};
 const USER_AGENT = "RistHomeContentFactory/1.0 (https://risthome.it)";
 const MAX_BYTES = 15 * 1024 * 1024;
 const CATEGORIES = ["produce", "sea", "landscape", "market", "craft"] as const;
@@ -41,6 +54,10 @@ type Status = "candidate" | "fetched" | "reviewed" | "rejected" | "approved";
 type Entry = {
   id: string; title: string; pageUrl: string; downloadUrl: string; originalWidth: number; originalHeight: number;
   licence: string; licenceUrl: string; artist: string; credit: string | null; query: string; status: Status; foundAt: string;
+  /** Absent on the first entries, which all came from Wikimedia Commons. */
+  library?: string;
+  /** Unsplash asks to be told when a photo is downloaded for use. */
+  trackUrl?: string;
   file?: string; width?: number; height?: number; sha256?: string;
   review?: { ok: boolean; people?: "none" | "present"; category?: string; subject?: string; reasons?: string[] }; approvedAt?: string;
 };
@@ -91,14 +108,68 @@ const search = async (query: string) => {
   console.log(`[context] "${query}": ${added} new candidate(s); refused: ${Object.entries(refused).map(([k, n]) => `${n} ${k}`).join(", ") || "none"}`);
 };
 
+const searchUnsplash = async (query: string) => {
+  const key = unsplashKey();
+  const url = new URL(`https://${UNSPLASH.api}/search/photos`);
+  for (const [k, v] of Object.entries({ query, per_page: String(Math.min(30, Number(values.limit) || 30)), content_filter: "high" })) url.searchParams.set(k, v);
+  const res = await fetch(url, { headers: { Authorization: `Client-ID ${key}`, "Accept-Version": "v1" }, redirect: "error" });
+  if (!res.ok) throw new Error(`Unsplash API HTTP ${res.status}`);
+  const body = (await res.json()) as { results?: { id: string; width: number; height: number; description?: string | null; alt_description?: string | null; urls?: { raw?: string }; links?: { html?: string; download_location?: string }; user?: { name?: string } }[] };
+  let added = 0;
+  const refused: Record<string, number> = {};
+  const host = (link: string | undefined) => {
+    try {
+      const u = new URL(link ?? "");
+      return u.protocol === "https:" ? u.hostname : "";
+    } catch {
+      return "";
+    }
+  };
+  for (const photo of body.results ?? []) {
+    if (!/^[A-Za-z0-9_-]{5,20}$/.test(String(photo.id))) continue;
+    const id = `u-${photo.id}`;
+    if (registry[id]) continue;
+    // Paid "Unsplash+" pictures live on another host and carry another licence: only the free library is taken.
+    const why = host(photo.urls?.raw) !== UNSPLASH.images ? "not from the free library" : host(photo.links?.download_location) !== UNSPLASH.api ? "no download record link" : Math.min(photo.width, photo.height) < 1500 ? "smaller than 1500 px" : "";
+    if (why) {
+      refused[why] = (refused[why] ?? 0) + 1;
+      continue;
+    }
+    const raw = new URL(photo.urls!.raw!);
+    for (const [k, v] of Object.entries({ w: "2160", fm: "jpg", q: "90", fit: "max" })) raw.searchParams.set(k, v);
+    const artist = plain(photo.user?.name ?? "", 80);
+    registry[id] = {
+      id, title: plain(photo.description ?? photo.alt_description ?? "", 120) || id, pageUrl: host(photo.links?.html) === "unsplash.com" ? photo.links!.html! : "https://unsplash.com", downloadUrl: raw.toString(),
+      originalWidth: photo.width, originalHeight: photo.height, licence: UNSPLASH.licence, licenceUrl: UNSPLASH.licenceUrl,
+      artist, credit: creditLine(artist, UNSPLASH.licence, UNSPLASH.library), query, status: "candidate", foundAt: new Date().toISOString(), library: UNSPLASH.library, trackUrl: photo.links!.download_location!,
+    };
+    added++;
+  }
+  save();
+  console.log(`[context] Unsplash "${query}": ${added} new candidate(s); refused: ${Object.entries(refused).map(([k, n]) => `${n} ${k}`).join(", ") || "none"}`);
+};
+
 const fetchAll = async () => {
   mkdirSync(DIR, { recursive: true });
   const todo = Object.values(registry).filter((e) => e.status === "candidate").slice(0, Number(values.max) || 12);
   for (const e of todo) {
     const url = new URL(e.downloadUrl);
-    if (url.protocol !== "https:" || url.hostname !== DOWNLOAD_HOST) {
+    // A picture is fetched from the image host of the library it was found in, and from nowhere else.
+    if (url.protocol !== "https:" || !DOWNLOAD_HOSTS.has(url.hostname) || (url.hostname === UNSPLASH.images) !== (e.library === UNSPLASH.library)) {
       console.error(`[context] ${e.id}: refused download host ${url.hostname}`);
       continue;
+    }
+    if (e.library === UNSPLASH.library) {
+      const track = new URL(e.trackUrl ?? "https://invalid.invalid");
+      if (track.protocol !== "https:" || track.hostname !== UNSPLASH.api) {
+        console.error(`[context] ${e.id}: no valid download record link`);
+        continue;
+      }
+      const told = await fetch(track, { headers: { Authorization: `Client-ID ${unsplashKey()}`, "Accept-Version": "v1" }, redirect: "error" });
+      if (!told.ok) {
+        console.error(`[context] ${e.id}: Unsplash did not record the download (HTTP ${told.status}); not fetched`);
+        continue;
+      }
     }
     const res = await fetch(url, { headers: { "User-Agent": USER_AGENT }, redirect: "error" });
     const type = res.headers.get("content-type") ?? "";
@@ -190,7 +261,11 @@ const sheet = () => {
   for (const e of shown) console.log(`  ${e.id} [${e.status}] ${e.review?.category} | ${e.review?.subject} | ${e.credit ?? e.licence}`);
 };
 
-if (command === "search" && rest[0]) await search(rest.join(" "));
+if (command === "search" && rest[0] && values.library === "unsplash") await searchUnsplash(rest.join(" "));
+else if (command === "search" && rest[0] && values.library !== "commons") {
+  console.error('[context] --library is "commons" or "unsplash"');
+  process.exit(2);
+} else if (command === "search" && rest[0]) await search(rest.join(" "));
 else if (command === "fetch") await fetchAll();
 else if (command === "review") review();
 else if (command === "sheet") sheet();

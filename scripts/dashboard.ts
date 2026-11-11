@@ -37,7 +37,8 @@ import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
 import { appendLabel, buildLabel, type Decision } from "../src/lib/labels.ts";
 import { loadStandard } from "../src/lib/gate-io.ts";
 import { PostSpec } from "../src/schemas/post.ts";
-import { summarize, type State } from "../src/lib/pipeline.ts";
+import { recentLiveSlugs, summarize, type State } from "../src/lib/pipeline.ts";
+import { isHeldBack, type AssetOverride } from "../src/lib/review.ts";
 import { summarizeRegistry, type Registry } from "../src/lib/registry.ts";
 import type { Override, Verdict } from "../src/lib/visual-score.ts";
 
@@ -271,9 +272,15 @@ const status = () => {
     }[]
   >("public/assets/pool/manifest.json", []);
   const usage = readJson<Record<string, string[]>>("data/asset-usage.json", {});
-  const lastEight = new Set(
-    [...new Set(Object.values(usage).flat())].sort().slice(-8),
-  );
+  // Same rule as the author: only posts that reached the audience, or wait to, use up their photos.
+  const lastEight = new Set(recentLiveSlugs(loadPipeline(), 8));
+  // The archive as the author sees it: fit photos that are not held back, different shots of one dish counted once.
+  const heldBack = readJson<Record<string, AssetOverride>>("data/asset-overrides.json", {});
+  const subjects = readJson<{ groups?: Record<string, string> }>("data/asset-subjects.json", {}).groups ?? {};
+  const archive = (service: string) => {
+    const fit = pool.filter((r) => ["usable", "premium"].includes(r.scores?.[`${service}:carousel`]?.tier ?? "") && !isHeldBack(heldBack[r.file]));
+    return { photos: fit.length, dishes: new Set(fit.map((r) => subjects[r.file] ?? r.file)).size };
+  };
   const freshUsable = (service: string, format: string) =>
     pool.filter(
       (r) =>
@@ -320,6 +327,7 @@ const status = () => {
       genaiCapEur: Number(env.GENAI_MONTHLY_CAP_EUR ?? 0),
       genaiSpentEur: Number(monthSpendEur(ledger, now).toFixed(2)),
       pool: pool.length,
+      archive: { chef: archive("chef"), class: archive("class") },
       poolBlocked: pool.filter((r) => r.blocked).length,
       fresh: {
         "class:reel": freshUsable("class", "reel"),

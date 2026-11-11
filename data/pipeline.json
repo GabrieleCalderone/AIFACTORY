@@ -327,5 +327,30 @@
         "note": "reel no, slides 6"
       }
     ]
+  },
+  "prova-dettaglio-a4": {
+    "slug": "prova-dettaglio-a4",
+    "state": "RENDERED",
+    "updatedAt": "2026-11-11T12:42:14.755Z",
+    "history": [
+      {
+        "at": "2026-11-11T12:41:43.005Z",
+        "from": null,
+        "to": "DISCOVERED",
+        "note": "authored by sonnet from 16 ranked photos (standard 2026-11-11b, rules 7219ff0c)"
+      },
+      {
+        "at": "2026-11-11T12:41:43.006Z",
+        "from": "DISCOVERED",
+        "to": "QUALITY_CHECKED",
+        "note": "gate passed with 1 warning(s)"
+      },
+      {
+        "at": "2026-11-11T12:42:14.755Z",
+        "from": "QUALITY_CHECKED",
+        "to": "RENDERED",
+        "note": "reel no, slides 8"
+      }
+    ]
   }
 }

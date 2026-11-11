@@ -1,4 +1,4 @@
-import { CAROUSEL, CAROUSEL_MAT, REEL, REEL_PLATE, fillFactor, fitFactor } from "./formats.ts";
+import { CAROUSEL, CAROUSEL_MAT, REEL, REEL_PLATE, detailProblem, fillFactor, fitFactor } from "./formats.ts";
 import { reelTimeline } from "./timeline.ts";
 import type { PostSpec } from "../schemas/post.ts";
 
@@ -34,6 +34,22 @@ export const mediaOf = (spec: PostSpec): { images: string[]; videos: string[] } 
     if ("image" in s && s.image) images.add(s.image);
   });
   return { images: [...images], videos: [...videos] };
+};
+
+/** Photographs shown more than once within the reel or within the carousel. A detail of the slide before is not a repeat. */
+export const repeatedImages = (spec: PostSpec): string[] => {
+  const repeats = new Set<string>();
+  const scan = (images: (string | undefined)[]) => {
+    const seen = new Set<string>();
+    for (const image of images) {
+      if (!image) continue;
+      if (seen.has(image)) repeats.add(image);
+      seen.add(image);
+    }
+  };
+  if (spec.reel) scan([spec.reel.hook.image, ...spec.reel.scenes.map((s) => s.image)]);
+  if (spec.carousel) scan(spec.carousel.slides.map((s) => ("image" in s && !(s.type === "photo" && s.detail) ? s.image : undefined)));
+  return [...repeats];
 };
 
 const findTodos = (value: unknown, path: string, out: string[]) => {
@@ -157,7 +173,15 @@ export const runGate = ({ spec, exists, info, archetypeIds, experimentRows }: Ga
     if (s.type === "cover" && s.frame === "plate") checkFit(s.image, CAROUSEL_MAT.width, CAROUSEL_MAT.coverHeight, `carousel slide ${i + 1}`, true);
     else if (s.type === "cover" || (s.type === "cta" && s.image)) checkFit(s.image as string, CAROUSEL.width, CAROUSEL.height, `carousel slide ${i + 1}`);
     // Photo slides are always matted: the picture is fitted whole inside the mat.
-    if (s.type === "photo") checkFit(s.image, CAROUSEL_MAT.width, CAROUSEL_MAT.height, `carousel slide ${i + 1}`, true);
+    if (s.type === "photo") checkFit(s.image, CAROUSEL_MAT.width, CAROUSEL_MAT.height, `carousel slide ${i + 1}`, true);    // A detail is a closer look at the picture the reader has just seen whole; it never stands alone.
+    if (s.type === "photo" && s.detail) {
+      const before = spec.carousel!.slides[i - 1];
+      const whole = before && (before.type === "cover" || (before.type === "photo" && !before.detail)) && before.image === s.image;
+      if (!whole) errors.push(`carousel slide ${i + 1}: a detail must follow the slide that shows the same photograph whole`);
+      const d = info(s.image);
+      const problem = d ? detailProblem(d.width, d.height, s.detail) : null;
+      if (problem) errors.push(`carousel slide ${i + 1}: ${problem}`);
+    }
   });
 
   if (spec.brief.experimentId) {

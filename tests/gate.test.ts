@@ -1,8 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mediaOf, runGate, scanTexts } from "../src/lib/gate.ts";
+import { mediaOf, repeatedImages, runGate, scanTexts } from "../src/lib/gate.ts";
 import { parsePostSpec } from "../src/schemas/post.ts";
 import { demoSpec } from "./fixtures/demo-spec.ts";
+import { detailRegion } from "../src/lib/formats.ts";
 
 const spec = parsePostSpec(demoSpec);
 const okInfo = () => ({ width: 1600, height: 2400, people: "none" });
@@ -83,4 +84,26 @@ test("photo credits are scanned like every other published text", () => {
   assert.equal(runGate({ ...base, spec: withCredit }).errors.some((e) => /published text/.test(e)), false);
   const withLink = parsePostSpec({ ...demoSpec, credits: ["Mario Rossi, see https://example.org/offer"] });
   assert.ok(runGate({ ...base, spec: withLink }).errors.some((e) => /published text must not contain/.test(e)));
+});
+
+test("a detail follows the same photograph shown whole and stays within the enlargement limit", () => {
+  const info = () => ({ width: 2160, height: 1328, people: "none" });
+  const region = detailRegion(2160, 1328, 0.5, 0.5)!;
+  const slides = (second: object) => [demoSpec.carousel!.slides[0], { type: "photo", image: "assets/demo/02.jpg", title: "Busiate" }, second, demoSpec.carousel!.slides[3]];
+  const good = parsePostSpec({ ...demoSpec, carousel: { slides: slides({ type: "photo", image: "assets/demo/02.jpg", detail: region }) } });
+  assert.equal(runGate({ ...base, spec: good, info }).errors.some((e) => /detail/.test(e)), false);
+  const alone = parsePostSpec({ ...demoSpec, carousel: { slides: slides({ type: "photo", image: "assets/demo/03.jpg", detail: region }) } });
+  assert.ok(runGate({ ...base, spec: alone, info }).errors.some((e) => /a detail must follow/.test(e)));
+  const tooClose = parsePostSpec({ ...demoSpec, carousel: { slides: slides({ type: "photo", image: "assets/demo/02.jpg", detail: { x: 0.4, y: 0.4, w: 0.2, h: 0.2782 } }) } });
+  assert.ok(runGate({ ...base, spec: tooClose, info }).errors.some((e) => /enlarged/.test(e)));
+});
+
+test("a photograph repeated within the reel or the carousel is found; a detail is not a repeat", () => {
+  assert.deepEqual(repeatedImages(spec), []);
+  const region = detailRegion(2160, 1328, 0.5, 0.5)!;
+  const two = { type: "photo", image: "assets/demo/02.jpg" };
+  const withDetail = parsePostSpec({ ...demoSpec, carousel: { slides: [demoSpec.carousel!.slides[0], two, { ...two, detail: region }, demoSpec.carousel!.slides[3]] } });
+  assert.deepEqual(repeatedImages(withDetail), []);
+  const repeated = parsePostSpec({ ...demoSpec, carousel: { slides: [demoSpec.carousel!.slides[0], two, two, demoSpec.carousel!.slides[3]] } });
+  assert.deepEqual(repeatedImages(repeated), ["assets/demo/02.jpg"]);
 });
