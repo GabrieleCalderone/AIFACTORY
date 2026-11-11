@@ -78,11 +78,15 @@ const ENV_KEYS = [
   "HF_API_KEY_ID",
   "HF_API_KEY_SECRET",
   "AUTOPUBLISH",
+  "UNSPLASH_ACCESS_KEY",
+  "ELEVENLABS_API_KEY",
 ] as const;
 const SECRET_KEYS = new Set([
   "BUFFER_API_KEY",
   "HF_API_KEY_ID",
   "HF_API_KEY_SECRET",
+  "UNSPLASH_ACCESS_KEY",
+  "ELEVENLABS_API_KEY",
 ]);
 const JOBS: Record<string, string[]> = {
   "autopilot-dry": ["scripts/autopilot.ts", "--force", "--dry-run"],
@@ -100,6 +104,8 @@ const JOBS: Record<string, string[]> = {
   "studio-estimate": ["scripts/genai-studio.ts"],
   "studio-run": ["scripts/genai-studio.ts"],
   check: ["--run", "check"],
+  "beds-make": ["scripts/sound-beds.ts", "make"],
+  "beds-use": ["scripts/sound-beds.ts", "use"],
 };
 
 type Job = {
@@ -112,12 +118,16 @@ type Job = {
 };
 const jobs: Job[] = [];
 let nextJobId = 1;
+/** .env, then .env.local over it (where the ElevenLabs onboarding saves its key). Values never leave this process. */
 const readEnvFile = (): Record<string, string> => {
-  if (!existsSync(".env")) return {};
   const out: Record<string, string> = {};
-  for (const line of readFileSync(".env", "utf8").split("\n")) {
-    const m = line.match(/^([A-Z_]+)=(.*)$/);
-    if (m) out[m[1]] = m[2];
+  for (const file of [".env", ".env.local"]) {
+    if (!existsSync(file)) continue;
+    for (const line of readFileSync(file, "utf8").split("\n")) {
+      const m = line.match(/^([A-Z_]+)=(.*)$/);
+      if (m && m[2].trim()) out[m[1]] = m[2].trim().replace(/^(["'])(.*)\1$/, "$2");
+      else if (m && !(m[1] in out)) out[m[1]] = "";
+    }
   }
   return out;
 };

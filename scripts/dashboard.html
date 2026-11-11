@@ -669,6 +669,20 @@
             <div id="hfStatus"></div>
           </div>
           <div class="card">
+            <h2>Unsplash ed ElevenLabs</h2>
+            <div id="extraStatus"></div>
+            <label>Unsplash, "Access Key" (foto di contesto)</label
+            ><input type="password" id="unsplashKey" placeholder="incolla e Salva" autocomplete="off" />
+            <label>ElevenLabs, chiave API (basi sonore dei reel)</label
+            ><input type="password" id="elevenKey" placeholder="incolla e Salva" autocomplete="off" />
+            <div class="actions">
+              <button id="saveExtra">Salva chiavi</button
+              ><button class="secondary" id="bedsMake">Genera le basi sonore</button
+              ><button class="secondary" id="bedsUse">Usa le basi nei reel</button>
+            </div>
+            <small>Le chiavi restano nel file .env di questo computer: non passano dalla chat e non vengono mai mostrate.</small>
+          </div>
+          <div class="card">
             <h2>Infrastruttura</h2>
             <div id="infra"></div>
             <div class="actions">
@@ -764,6 +778,8 @@
         $("#toggleAuto").textContent = s.setup.autopublish ? "Disattiva pubblicazione automatica" : "Attiva pubblicazione automatica";
         $("#hfStatus").innerHTML = `<div class="row"><span>Chiavi Higgsfield</span>${yesno(s.setup.higgsfieldKey, "presenti", "assenti")}</div><div class="row"><span>Budget</span><span>€ ${esc(s.setup.genaiSpentEur)} / € ${esc(s.setup.genaiCapEur)}</span></div>`;
         $("#studioStatus").innerHTML = $("#hfStatus").innerHTML;
+        const toolOf = (name) => s.workflow.flatMap((st) => st.tools).find((t) => t.name === name);
+        $("#extraStatus").innerHTML = ["Unsplash", "ElevenLabs"].map((n) => `<div class="row"><span>${n}</span>${yesno(toolOf(n)?.status === "ok", "chiave presente", "chiave mancante")}</div>`).join("");
         $("#infra").innerHTML = `<div class="row"><span>Repo GitHub</span>${yesno(s.setup.gitRemote, "collegato", "no")}</div><div class="row"><span>Host media</span>${yesno(s.setup.mediaRepo, "pronto", "manca")}</div><div class="row"><span>Agente 10:30</span>${yesno(s.setup.launchd, "installato", "manca")}</div><div class="row"><span>Registro media</span><span>${s.setup.registry ? `${esc(s.setup.registry.total)} asset · ${esc(s.setup.registry.synthetic)} sintetici` : "non sincronizzato"}</span></div>`;
       }
       async function loadMedia() {
@@ -814,6 +830,9 @@
       $("#verify").onclick = async () => { const r = await api("/api/buffer/verify", {}); $("#channels").innerHTML = r.ok ? pill("ok", `accesso valido · ${r.organizations.length} organizzazione/i`) : `<small style="color:var(--bad)">${esc(r.error)}</small>`; };
       $("#detect").onclick = async () => { $("#channels").textContent = "rilevo…"; const r = await api("/api/buffer/detect", {}); $("#channels").innerHTML = r.error ? `<small style="color:var(--bad)">${esc(r.error)}</small>` : (r.found.length ? r.found.map((f) => `<div class="row"><span>${esc(f.platform)}</span><small>${esc(f.name)} · ${esc(f.id)}</small></div>`).join("") : "<small>nessun canale collegato su Buffer</small>"); refresh(); };
       $("#toggleAuto").onclick = async () => { if (!S) return; if (!S.setup.autopublish && !confirm("Attivare la pubblicazione automatica? Da ora i post approvati dal gate vengono programmati senza passaggi manuali.")) return; await api("/api/env", { AUTOPUBLISH: S.setup.autopublish ? "false" : "true" }); refresh(); };
+      $("#saveExtra").onclick = async () => { const u = {}; if ($("#unsplashKey").value.trim()) u.UNSPLASH_ACCESS_KEY = $("#unsplashKey").value.trim(); if ($("#elevenKey").value.trim()) u.ELEVENLABS_API_KEY = $("#elevenKey").value.trim(); if (!Object.keys(u).length) return; await api("/api/env", u); $("#unsplashKey").value = ""; $("#elevenKey").value = ""; refresh(); };
+      $("#bedsMake").onclick = async () => { await api("/api/run", { job: "beds-make" }); refresh(); };
+      $("#bedsUse").onclick = async () => { await api("/api/run", { job: "beds-use" }); refresh(); };
       $("#saveHf").onclick = async () => { const u = {}; if ($("#hfId").value.trim()) u.HF_API_KEY_ID = $("#hfId").value.trim(); if ($("#hfSecret").value.trim()) u.HF_API_KEY_SECRET = $("#hfSecret").value.trim(); if ($("#hfCap").value !== "") u.GENAI_MONTHLY_CAP_EUR = String(Math.min(20, Math.max(0, Number($("#hfCap").value)))); await api("/api/env", u); $("#hfId").value = ""; $("#hfSecret").value = ""; refresh(); };
       $("#sEstimate").onclick = () => run("studio-estimate", { model: $("#sModel").value.trim(), prompt: $("#sPrompt").value.trim(), imageUrl: $("#sImage").value.trim() || undefined });
       $("#sRun").onclick = () => { if (confirm("Generare con Higgsfield? Il costo stimato viene addebitato al credito API entro il tetto mensile.")) run("studio-run", { model: $("#sModel").value.trim(), prompt: $("#sPrompt").value.trim(), imageUrl: $("#sImage").value.trim() || undefined }); };

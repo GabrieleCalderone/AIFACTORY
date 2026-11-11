@@ -44,7 +44,7 @@ export const workflowSteps = (f: WorkflowFacts): Step[] => [
   },
   {
     n: 2, title: "Contesto", what: "Foto con licenza libera di Sicilia, mare e materia prima. Entrano solo dopo la tua approvazione.",
-    tools: [{ name: "Wikimedia Commons", status: "ok", note: "senza chiave" }, tool("Unsplash", f.unsplashKey, "chiave presente", "chiave mancante (UNSPLASH_ACCESS_KEY in .env)")],
+    tools: [{ name: "Wikimedia Commons", status: "ok", note: "senza chiave" }, tool("Unsplash", f.unsplashKey, "chiave presente", "chiave mancante: inseriscila in Collegamenti")],
     count: `${f.contextApproved} approvate`,
   },
   {
@@ -54,7 +54,7 @@ export const workflowSteps = (f: WorkflowFacts): Step[] => [
   },
   {
     n: 4, title: "Suono", what: "Basi sonore della casa per i reel; senza, restano i brani con credito in didascalia.",
-    tools: [tool("ElevenLabs", f.elevenLabsKey, "chiave presente", "chiave mancante (ELEVENLABS_API_KEY in .env)")],
+    tools: [tool("ElevenLabs", f.elevenLabsKey, "chiave presente", "chiave mancante: inseriscila in Collegamenti")],
     count: f.soundBeds ? `${f.soundBeds} basi` : `${f.stockTracks} brani con credito`,
   },
   {
