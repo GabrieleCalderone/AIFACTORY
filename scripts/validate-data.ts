@@ -1,8 +1,9 @@
-/** Validate data/experiments.csv and data/references.csv against their schemas, and the rotation against the editorial calendar of the house standard. Exit 1 on any issue. */
+/** Validate data/experiments.csv and data/references.csv against their schemas, the rotation against the editorial calendar of the house standard, and the scorecard against its own arithmetic. Exit 1 on any issue. */
 import { existsSync, readFileSync } from "node:fs";
 import { calendarIssues, defaultState, type ArchetypeLite, type AutopilotState } from "../src/lib/autopilot.ts";
 import { readExperiments, readReferences } from "../src/lib/data.ts";
 import { loadStandard } from "../src/lib/gate-io.ts";
+import { scorecardIssues } from "../src/lib/scorecard.ts";
 
 const e = readExperiments();
 const r = readReferences();
@@ -18,4 +19,8 @@ if (calendar) {
   console.log(`calendar: ${state.rotation.length} slots, ${calendarProblems.length} issue(s)`);
   for (const c of calendarProblems) console.error(`editorial calendar: ${c}`);
 }
-process.exit(issues.length + calendarProblems.length === 0 ? 0 : 1);
+const scorecard = loadStandard()?.scorecard;
+const scorecardProblems = scorecard ? scorecardIssues(scorecard) : [];
+if (scorecard) console.log(`scorecard: ${scorecard.criteria.length} criteria, threshold ${scorecard.threshold}, ${scorecardProblems.length} issue(s)`);
+for (const c of scorecardProblems) console.error(`scorecard: ${c}`);
+process.exit(issues.length + calendarProblems.length + scorecardProblems.length === 0 ? 0 : 1);

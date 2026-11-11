@@ -29,7 +29,7 @@ if (!existsSync(manifestPath)) {
 }
 const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as { reel?: { file: string; cover?: string; durationSec: number }; carousel?: { file: string }[] };
 const gate = gateSpec(spec);
-const utm = `https://risthome.it/?utm_source=instagram&utm_medium=social&utm_campaign=${spec.brief.experimentId ?? "organic"}&utm_content=${spec.slug}`;
+const utm = `https://risthome.it/request-availability?utm_source=instagram&utm_medium=social&utm_campaign=${spec.brief.experimentId ?? "organic"}&utm_content=${spec.slug}`;
 const pack = {
   slug: spec.slug,
   title: spec.title,
@@ -46,7 +46,7 @@ const pack = {
   gate,
   checklist: [
     "automated: texts reviewed against the photos, gate passed, CC BY audio attached",
-    "bio link: keep risthome.it in the Instagram bio (UTM link above is optional)",
+    "bio link: the request page of risthome.it (the UTM link above), the only page of the site that takes a request",
     "publishing: npm run publish -- <spec> or the console button; metrics sync daily",
   ],
 };

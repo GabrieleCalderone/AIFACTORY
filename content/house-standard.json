@@ -327,5 +327,71 @@
     "secondi",
     "antipasti",
     "dolci"
-  ]
+  ],
+  "scorecard": {
+    "threshold": 85,
+    "note": "An editorial judgement on a finished piece, not a forecast of reach. Below the threshold the piece is revised or the slot stays empty. The hard gates stand apart from the score.",
+    "criteria": [
+      {
+        "id": "hook",
+        "label": "Hook and stopping power",
+        "weight": 20,
+        "asks": "Would a traveller planning Sicily stop on the first picture and its line within a second, without knowing the house?"
+      },
+      {
+        "id": "visual",
+        "label": "Visual and editorial quality",
+        "weight": 15,
+        "asks": "Does every picture look chosen and composed: one subject, air, true colour, the house's own system?"
+      },
+      {
+        "id": "narrative",
+        "label": "Narrative strength",
+        "weight": 15,
+        "asks": "Does the sequence follow the real experience and end on its peak, each picture with a role of its own?"
+      },
+      {
+        "id": "audience",
+        "label": "Relevance to the American traveller",
+        "weight": 15,
+        "asks": "Does it answer what someone planning a stay in Sicily wants to feel and to know, in American English?"
+      },
+      {
+        "id": "sharing",
+        "label": "Sending and discovery",
+        "weight": 15,
+        "asks": "Is there a reason to send it to the person one is travelling with, earned by the piece and never asked for? Is it findable by place and service?"
+      },
+      {
+        "id": "brand",
+        "label": "Coherence with the house",
+        "weight": 10,
+        "asks": "Wordmark, type, tone and restraint as in every other piece?"
+      },
+      {
+        "id": "conversion",
+        "label": "Clarity of the invitation",
+        "weight": 10,
+        "asks": "Is it plain what the experience is, where it happens and how to ask for availability, with one invitation only?"
+      }
+    ],
+    "hardGates": [
+      {
+        "id": "standard",
+        "asks": "The deterministic gate passes: limits, vocabulary, place, calendar."
+      },
+      {
+        "id": "facts",
+        "asks": "Every claim is in content/brand-facts.json or visible in the photograph."
+      },
+      {
+        "id": "authenticity",
+        "asks": "Nothing generated or borrowed is shown as the house's own table, dish, kitchen, chef or guests."
+      },
+      {
+        "id": "permissions",
+        "asks": "No recognisable guest without recorded consent; every licensed picture is credited."
+      }
+    ]
+  }
 }
