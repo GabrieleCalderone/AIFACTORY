@@ -1,1 +1,46 @@
-[]
+[
+  {
+    "slug": "a4-20261111",
+    "kind": "reel",
+    "platform": "instagram",
+    "bufferPostId": "6af4b7a180cc5d8ca320d9d4",
+    "dueAt": "2026-11-13T18:55:20.101Z",
+    "draft": false,
+    "experimentId": "EXP-008",
+    "variantId": "A",
+    "createdAt": "2026-11-11T18:44:49.963Z"
+  },
+  {
+    "slug": "a4-20261111",
+    "kind": "carousel",
+    "platform": "instagram",
+    "bufferPostId": "6af4b80480cc5d8ca320fa8c",
+    "dueAt": "2026-11-11T18:56:26.566Z",
+    "draft": false,
+    "experimentId": "EXP-008",
+    "variantId": "A",
+    "createdAt": "2026-11-11T18:46:28.294Z"
+  },
+  {
+    "slug": "a4-20261111",
+    "kind": "carousel",
+    "platform": "tiktok",
+    "bufferPostId": "6af4b804f0d62ba60e2aee04",
+    "dueAt": "2026-11-11T19:56:26.566Z",
+    "draft": false,
+    "experimentId": "EXP-008",
+    "variantId": "A",
+    "createdAt": "2026-11-11T18:46:28.780Z"
+  },
+  {
+    "slug": "a4-20261111",
+    "kind": "carousel",
+    "platform": "facebook",
+    "bufferPostId": "6af4b81b592a3bb919a67865",
+    "dueAt": "2026-11-11T20:56:50.281Z",
+    "draft": false,
+    "experimentId": "EXP-008",
+    "variantId": "A",
+    "createdAt": "2026-11-11T18:46:51.227Z"
+  }
+]

@@ -409,8 +409,8 @@
   },
   "a4-20261111": {
     "slug": "a4-20261111",
-    "state": "RENDERED",
-    "updatedAt": "2026-11-11T13:05:28.554Z",
+    "state": "SCHEDULED",
+    "updatedAt": "2026-11-11T18:44:49.967Z",
     "history": [
       {
         "at": "2026-11-11T13:05:06.698Z",
@@ -429,7 +429,30 @@
         "from": "QUALITY_CHECKED",
         "to": "RENDERED",
         "note": "reel yes, slides 7"
+      },
+      {
+        "at": "2026-11-11T18:42:11.057Z",
+        "from": "RENDERED",
+        "to": "READY",
+        "note": "media public at https://gabrielecalderone.github.io/AIFACTORY/media/a4-20261111/3de702e2/"
+      },
+      {
+        "at": "2026-11-11T18:43:20.070Z",
+        "from": "READY",
+        "to": "APPROVED",
+        "note": "approved by the owner in chat on 2026-11-11: publish the first one now"
+      },
+      {
+        "at": "2026-11-11T18:44:49.967Z",
+        "from": "APPROVED",
+        "to": "SCHEDULED",
+        "note": "1 Buffer post(s)"
       }
-    ]
+    ],
+    "evidence": {
+      "bufferPostIds": [
+        "6af4b81b592a3bb919a67865"
+      ]
+    }
   }
 }

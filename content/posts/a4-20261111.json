@@ -16,7 +16,8 @@
     ],
     "cta": "Ask for a quote on risthome.it (link in bio)",
     "hypothesis": "Showing the setting before the plates raises quote requests. Success: >= 2 qualified requests per 1,000 plays.",
-    "variantId": "A"
+    "variantId": "A",
+    "experimentId": "EXP-008"
   },
   "caption": "A chef cooks at your table in Palermo.\nChef Giacomo Napolitano comes to your villa, apartment or boat in Palermo and province. Shopping, cooking, service and kitchen cleanup are included, with a menu built around your guests.\n\nAsk for a quote on risthome.it (link in bio)",
   "hashtags": [
@@ -59,7 +60,7 @@
         "trimSec": 0,
         "frame": "plate",
         "text": "",
-        "label": "Primo",
+        "label": "",
         "durationSec": 2.7,
         "motion": "dolly-in"
       },
@@ -89,10 +90,9 @@
     },
     "transitionSec": 0.4,
     "audio": {
-      "src": "audio/fretless.mp3",
+      "src": "audio/beds/table-laid.mp3",
       "volume": 0.8,
-      "fadeOutSec": 1,
-      "attribution": "\"Fretless\" Kevin MacLeod (incompetech.com), CC BY 4.0"
+      "fadeOutSec": 1
     }
   },
   "carousel": {

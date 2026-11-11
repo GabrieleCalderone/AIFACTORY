@@ -20,7 +20,7 @@ import { bundle } from "@remotion/bundler";
 import { openBrowser, renderMedia, renderStill, selectComposition } from "@remotion/renderer";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdirSync, readdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { CAROUSEL, REEL } from "../src/lib/formats.ts";
@@ -215,8 +215,14 @@ const main = async () => {
 
       const captionFile = path.join(outDir, "caption.txt");
       writeFileSync(captionFile, buildCaption(spec) + "\n");
+      // A format skipped in this run keeps what an earlier run rendered, as long as its files are still there:
+      // otherwise hosting and publishing would silently drop it.
+      const manifestPath = path.join(outDir, "manifest.json");
+      const earlier = existsSync(manifestPath) ? (JSON.parse(readFileSync(manifestPath, "utf8")) as { reel?: unknown; carousel?: { file: string }[] }) : {};
+      if (values["skip-reel"] && earlier.reel && existsSync(path.join(outDir, "reel.mp4"))) manifest.reel = earlier.reel;
+      if (values["skip-carousel"] && earlier.carousel?.length && earlier.carousel.every((sl) => existsSync(path.join(outDir, path.basename(sl.file))))) manifest.carousel = earlier.carousel;
       manifest.caption = captionFile;
-      writeFileSync(path.join(outDir, "manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
+      writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + "\n");
       const st = loadPipeline()[spec.slug]?.state;
       if (st && ["QUALITY_CHECKED", "APPROVED", "RENDERED", "FAILED", "BLOCKED"].includes(st)) setState(spec.slug, "RENDERED", `reel ${manifest.reel ? "yes" : "no"}, slides ${(manifest.carousel as unknown[] | undefined)?.length ?? 0}`);
       log(`${spec.slug}: done -> ${outDir}/manifest.json`);

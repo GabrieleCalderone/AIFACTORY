@@ -42,7 +42,8 @@ test("post options carry the AI disclosure wherever the platform has one, and th
   assert.deepEqual(postMetadata("instagram", "reel", ai), { instagram: { type: "reel", shouldShareToFeed: true, isAiGenerated: true } });
   assert.deepEqual(postMetadata("tiktok", "reel", ai), { tiktok: { isAiGenerated: true } });
   assert.deepEqual(postMetadata("tiktok", "carousel", plain), { tiktok: { title: "Il vostro tavolo" } });
-  assert.equal(postMetadata("facebook", "carousel", plain), undefined);
+  assert.deepEqual(postMetadata("facebook", "carousel", plain), { facebook: { type: "post" } }, "Buffer requires the type on Facebook");
+  assert.deepEqual(postMetadata("facebook", "reel", plain), { facebook: { type: "reel" } });
   for (const [platform, kind] of [["tiktok", "carousel"], ["facebook", "carousel"], ["facebook", "reel"], ["youtube", "reel"]] as const) {
     assert.equal(postMetadata(platform, kind, ai), null, `${platform} ${kind} cannot be disclosed, so it is not sent`);
   }

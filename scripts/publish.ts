@@ -18,10 +18,10 @@ import { buildCaption } from "../src/lib/timeline.ts";
 import { parsePostSpec } from "../src/schemas/post.ts";
 import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
 
-const { values, positionals } = parseArgs({ allowPositionals: true, options: { when: { type: "string" }, "dry-run": { type: "boolean", default: false }, draft: { type: "boolean", default: false }, out: { type: "string", default: "out" } } });
+const { values, positionals } = parseArgs({ allowPositionals: true, options: { when: { type: "string" }, "dry-run": { type: "boolean", default: false }, draft: { type: "boolean", default: false }, out: { type: "string", default: "out" }, missing: { type: "boolean", default: false } } });
 const file = positionals[0];
 if (!file) {
-  console.error("usage: node scripts/publish.ts content/posts/<slug>.json [--when ISO] [--dry-run]");
+  console.error("usage: node scripts/publish.ts content/posts/<slug>.json [--when ISO] [--dry-run] [--missing]");
   process.exit(2);
 }
 const spec = parsePostSpec(JSON.parse(readFileSync(file, "utf8")));
@@ -41,7 +41,9 @@ if (!values["dry-run"] && !values.draft && pipelineState !== "APPROVED" && !auto
   console.log(`[publish] ${spec.slug} is ${pipelineState ?? "not in the pipeline"}: approve it in the console (or set AUTOPUBLISH=true) before scheduling; use --draft to save Buffer drafts instead`);
   process.exit(0);
 }
-if (pipelineState === "SCHEDULED" || pipelineState === "PUBLISHED" || pipelineState === "MEASURED") {
+// --missing completes a post that was scheduled only in part (a format was not rendered at the time):
+// publications already in Buffer are skipped one by one further down, so nothing is sent twice.
+if ((pipelineState === "SCHEDULED" && !values.missing) || pipelineState === "PUBLISHED" || pipelineState === "MEASURED") {
   console.log(`[publish] ${spec.slug} already ${pipelineState}: not scheduling twice`);
   process.exit(0);
 }

@@ -69,6 +69,9 @@ export const postMetadata = (platform: Platform, kind: "reel" | "carousel", opts
       return { instagram: { type: kind === "reel" ? "reel" : "post", shouldShareToFeed: true, ...ai } };
     case "tiktok":
       return kind === "carousel" ? { tiktok: { title: opts.title.slice(0, 90) } } : opts.aiGenerated ? { tiktok: ai } : undefined;
+    case "facebook":
+      // Buffer refuses a Facebook post without its type ("Facebook posts require a type").
+      return { facebook: { type: kind === "reel" ? "reel" : "post" } };
     case "youtube":
       return kind === "reel" ? { youtube: { title: opts.title.slice(0, 100) } } : undefined;
     default:
