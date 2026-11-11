@@ -33,7 +33,7 @@ traffico. 6. Riconoscibilità. 7. Produzione sostenibile.
 |---|---|---|
 | Invito | Uno solo, con le parole del sito: "Request availability on risthome.it (link in bio)" per entrambe le esperienze | "Book" prometteva una prenotazione che il sito non fa; le case di riferimento usano una richiesta |
 | Link in bio | `risthome.it/request-availability` con UTM | È l'unica pagina che raccoglie una richiesta |
-| Ritmo | Resta quattro pezzi a settimana, carosello come formato principale | Deciso dal titolare l'11 novembre; l'archivio è fatto di fotografie. "Due reel e un carosello" torna quando esistono riprese vere |
+| Ritmo | Quattro pezzi a settimana (lunedì, mercoledì, venerdì, domenica), carosello come formato principale, solo pezzi alla maniera di A7 | Deciso dal titolare l'11 novembre; l'archivio è fatto di fotografie e non ci saranno riprese |
 | Giudizio | Scheda su 100 punti, soglia 85, più quattro cancelli (standard, fatti, autenticità, permessi) | Un pezzo bello ma debole non esce; il punteggio è un giudizio editoriale, non una previsione |
 | Condivisione | Il motivo per inviare un pezzo si guadagna, non si chiede | Lo standard vieta di chiedere invii, commenti, salvataggi |
 
@@ -45,6 +45,8 @@ invio e scoperta 15, coerenza con la casa 10, chiarezza dell'invito 10. Sotto 85
 rivede o lo slot resta vuoto. Un cancello fallito o non controllato rifiuta il pezzo
 qualunque sia il punteggio. `npm run validate:data` verifica che la scheda sommi a 100.
 
+Prima applicazione a mano: `docs/reviews/a7-20261113.md` (64 su 100, da rivedere).
+
 Non ancora fatto: il revisore automatico non assegna ancora i punteggi. Finché non lo fa, la
 scheda si usa a mano sull'anteprima nella console.
 
@@ -53,10 +55,10 @@ scheda si usa a mano sull'anteprima nella console.
 1. **Sito coerente con la casa** (titolare, sul sito): togliere "Groups & Events", allineare
    titolo e testi allo standard, decidere se i prezzi restano. Effetto atteso (ipotesi): più
    richieste per visita al profilo. Misura: richieste da `/request-availability` con UTM.
-2. **Materiale nuovo**: una mezza giornata di fotografie e clip verticali di 5-8 secondi
-   (mani dello chef, un piatto alla volta, tavola apparecchiata, luce naturale), e dopo ogni
-   lezione la richiesta di due foto con permesso scritto. Senza questo i pilastri "ospiti" e
-   "prova" restano vuoti e i reel restano foto incorniciate.
+2. **Materiale nuovo senza riprese**: il titolare ha escluso riprese e servizi fotografici
+   (docs/coordination.md). Restano due fonti: le foto che gli ospiti scattano a ogni lezione,
+   chieste dopo l'esperienza con permesso scritto, e le fotografie dell'isola con licenza
+   libera. Senza le prime i pilastri "ospiti" e "prova" restano vuoti.
 3. **Revisore con la scheda**: far assegnare i punteggi al modello che già guarda foto e
    testi, salvarli accanto al post, mostrarli nella console.
 4. **Prima misura**: sui primi quattro pezzi pubblicati, invii e salvataggi per account

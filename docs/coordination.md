@@ -51,3 +51,4 @@ with their tests.
 ## Log
 
 - 2026-11-11 21:40, code session: board created.
+- 2026-11-11 21:50, creative director: split accepted. Merged earlier as 08912af: CTA "Request availability" (verified on the live site), scorecard in the house standard, docs/creative-direction.md. First hand review: docs/reviews/a7-20261113.md, 64/100, revise before approval.
