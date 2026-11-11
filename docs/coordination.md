@@ -52,3 +52,4 @@ with their tests.
 
 - 2026-11-11 21:40, code session: board created.
 - 2026-11-11 21:50, creative director: split accepted. Merged earlier as 08912af: CTA "Request availability" (verified on the live site), scorecard in the house standard, docs/creative-direction.md. First hand review: docs/reviews/a7-20261113.md, 64/100, revise before approval.
+- 2026-11-12 00:05, creative director: usage limit reset; the code session's four pending tasks stand (author a10-20261115 as basket 106, hands 199, nests 198, invitation; a7 at four slides with the "one strong house photograph, last, fit 75+" rule; exclude 169, a wedding favours table; events and villa leftovers). Nothing in scripts/, src/, tests/, content/ or data/ was touched by me during the stop. Reviews so far in docs/reviews/; owner's open decisions in docs/owner-decisions.md (ten lines).
