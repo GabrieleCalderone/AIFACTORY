@@ -49,9 +49,10 @@ test("an unfit photo is reported once with a known code; unknown codes are dropp
   assert.deepEqual(out.unfit, [{ file: "88-IMG_0112.jpg", code: "screenshot" }]);
 });
 
-test("a photo is excluded only by an item the reviewer failed", () => {
+test("a photo defect counts even when the texts pass", () => {
   const pairs = [pair("reel.scenes.0", "assets/pool/a.jpg", { text: "a" }, ["text"])];
-  assert.deepEqual(applyReview(pairs, [{ where: "reel.scenes.0", ok: true, unfit: "screenshot" }]).unfit, []);
+  assert.deepEqual(applyReview(pairs, [{ where: "reel.scenes.0", ok: true, unfit: "screenshot" }]).unfit, [{ file: "a.jpg", code: "screenshot" }]);
+  assert.deepEqual(applyReview(pairs, [{ where: "reel.scenes.0", ok: true, unfit: "exclude everything" }]).unfit, []);
 });
 
 test("a fix is stripped to plain text and held to the field's schema length", () => {
@@ -63,12 +64,13 @@ test("a fix is stripped to plain text and held to the field's schema length", ()
   assert.equal(scene.label, "1");
 });
 
-test("reviewer exclusions merge into the overrides on disk and never replace a person's decision", () => {
+test("reviewer exclusions merge into the overrides on disk; a defect replaces a hand-made include and keeps its note", () => {
   const current = { "a.jpg": { include: true, note: "scelta da Gabriele" }, "b.jpg": { exclude: true, note: "ospiti" } };
   const out = mergeExclusions(current, [{ file: "a.jpg", code: "screenshot" }, { file: "b.jpg", code: "guests" }, { file: "c.jpg", code: "app_ui" }], "a1-x");
-  assert.deepEqual(out.added, ["c.jpg"]);
-  assert.deepEqual(out.kept, ["a.jpg", "b.jpg"]);
-  assert.deepEqual(out.merged["a.jpg"], { include: true, note: "scelta da Gabriele" });
+  assert.deepEqual(out.added, ["a.jpg", "c.jpg"]);
+  assert.deepEqual(out.kept, ["b.jpg"]);
+  assert.deepEqual(out.merged["a.jpg"], { exclude: true, note: "reviewer: screenshot (a1-x); before: scelta da Gabriele" });
+  assert.deepEqual(out.merged["b.jpg"], { exclude: true, note: "ospiti" });
   assert.deepEqual(out.merged["c.jpg"], { exclude: true, note: "reviewer: app_ui (a1-x)" });
   assert.equal("c.jpg" in current, false, "the input is not mutated");
 });

@@ -35,12 +35,13 @@ export const applyReview = (pairs: ReviewPair[], items: ReviewItem[]): { fixes: 
   let captionProblem = "";
   for (const item of items) {
     const pair = byWhere.get(item.where);
-    if (item.ok) continue;
-    // Only an item the reviewer actually failed can take a photo out of the pool.
+    // The photo verdict stands on its own: a passing text verdict never hides a photo defect.
+    // Only the fixed codes count, so free text in this field cannot exclude anything.
     if (pair && item.unfit && (UNFIT_CODES as readonly string[]).includes(item.unfit)) {
       const file = path.basename(pair.file);
       if (!unfit.has(file)) unfit.set(file, item.unfit as UnfitCode);
     }
+    if (item.ok) continue;
     if (item.where === "caption") {
       captionProblem = item.problem ?? "caption does not match the photos";
       continue;
@@ -77,19 +78,22 @@ export const dishKey = (file: string): string =>
 export type AssetOverride = { include?: boolean; exclude?: boolean; note?: string };
 
 /**
- * Adds reviewer exclusions to the overrides as they are on disk now. A decision a person
- * already recorded for a file is never replaced; those files are returned as `kept`.
+ * Adds reviewer exclusions to the overrides as they are on disk now. An exclusion already on
+ * file is left as it is (`kept`). A hand-made "include" only lifts a low score, it does not
+ * vouch for consent or for the picture being a photograph, so a reviewer defect replaces it
+ * and the earlier note is carried along.
  */
 export const mergeExclusions = (current: Record<string, AssetOverride>, unfit: { file: string; code: UnfitCode }[], note: string): { merged: Record<string, AssetOverride>; added: string[]; kept: string[] } => {
   const merged = { ...current };
   const added: string[] = [];
   const kept: string[] = [];
   for (const u of unfit) {
-    if (merged[u.file]) {
+    const prev = merged[u.file];
+    if (prev?.exclude) {
       kept.push(u.file);
       continue;
     }
-    merged[u.file] = { exclude: true, note: `reviewer: ${u.code} (${note})` };
+    merged[u.file] = { exclude: true, note: `reviewer: ${u.code} (${note})${prev?.note ? `; before: ${prev.note}` : ""}` };
     added.push(u.file);
   }
   return { merged, added, kept };
