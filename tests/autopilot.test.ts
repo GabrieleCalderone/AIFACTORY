@@ -38,3 +38,24 @@ test("the next slot is today's posting hour when far enough away, else tomorrow"
   const evening = new Date(2026, 10, 10, 17, 0, 0);
   assert.equal(nextSlot(defaultState, evening).getDate(), 11);
 });
+
+test("the editorial calendar refuses retired formats, repeats, missing or dominant services and too much selling", async () => {
+  const { calendarIssues } = await import("../src/lib/autopilot.ts");
+  const std = { services: ["class", "chef"], maxServiceShare: 0.6, maxOfferShare: 0.15, offerArchetypes: ["A5-proof-and-offer"] };
+  const archetypes = [
+    { id: "A1-process-reveal", service: "class" },
+    { id: "A3-menu-list", service: "events", active: false },
+    { id: "A4-private-table", service: "chef" },
+    { id: "A5-proof-and-offer", service: "chef" },
+    { id: "A6-chef-series", service: "class" },
+  ];
+  assert.deepEqual(calendarIssues(defaultState.rotation, [...archetypes, { id: "A2-chef-at-work", service: "class" }], std), [], "the shipped rotation meets the standard");
+  const bad = calendarIssues(["A3-menu-list", "A1-process-reveal", "A1-process-reveal", "A9-unknown"], archetypes, std).join(" | ");
+  assert.match(bad, /slot 1: A3-menu-list is retired/);
+  assert.match(bad, /slot 2: A1-process-reveal is followed by itself/);
+  assert.match(bad, /slot 4: unknown archetype A9-unknown/);
+  assert.match(bad, /no slot for the service "chef"/);
+  assert.match(calendarIssues(["A6-chef-series", "A1-process-reveal"], archetypes, std).join(" | "), /"class" takes 100% of the slots/);
+  assert.match(calendarIssues(["A5-proof-and-offer", "A1-process-reveal"], archetypes, std).join(" | "), /selling posts take 50%/);
+  assert.match(calendarIssues(["A4-private-table", "A1-process-reveal", "A4-private-table"], archetypes, std).join(" | "), /slot 3: A4-private-table is followed by itself/, "the rotation wraps around");
+});

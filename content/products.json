@@ -41,7 +41,9 @@
         "WhatsApp"
       ],
       "avgTicketEur": 2500,
-      "marginAssumption": 0.6
+      "marginAssumption": 0.6,
+      "active": false,
+      "retired": "2026-11-11"
     }
   }
 }

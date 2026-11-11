@@ -89,6 +89,15 @@ export const createBufferClient = (opts: { apiKey: string; fetchImpl?: FetchLike
       if (!d.createPost.post) throw new Error(`Buffer createPost failed: ${d.createPost.message ?? d.createPost.__typename}`);
       return d.createPost.post;
     },
+    /** Removes a post that has not gone out yet from the Buffer queue. Verified against the live schema on 2026-11-11. */
+    async deletePost(postId: string): Promise<{ id: string }> {
+      const d = await graphql<{ deletePost: { __typename: string; id?: string; message?: string } }>(
+        `mutation DeletePost($input: DeletePostInput!) { deletePost(input: $input) { __typename ... on DeletePostSuccess { id } ... on VoidMutationError { message } } }`,
+        { input: { id: postId } },
+      );
+      if (!d.deletePost.id) throw new Error(`Buffer deletePost failed: ${d.deletePost.message ?? d.deletePost.__typename}`);
+      return { id: d.deletePost.id };
+    },
     async postMetrics(postId: string): Promise<{ metrics: BufferMetric[]; metricsUpdatedAt?: string; status?: string; externalLink?: string }> {
       const d = await graphql<{ post: { id: string; status?: string; externalLink?: string; metricsUpdatedAt?: string; metrics?: BufferMetric[] } }>(
         `query Post($input: PostInput!) { post(input: $input) { id status externalLink metricsUpdatedAt metrics { type name value unit } } }`,

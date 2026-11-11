@@ -1,0 +1,4 @@
+{
+  "note": "Nomi dei piatti confermati dallo chef. Chiave: nome originale della foto senza estensione (es. IMG_0112). Solo questi nomi possono comparire nei testi; senza nome il sistema non descrive il piatto.",
+  "names": {}
+}

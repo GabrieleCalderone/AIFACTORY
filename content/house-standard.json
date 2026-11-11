@@ -1,0 +1,257 @@
+{
+  "version": "2026-11-11",
+  "audience": "Travellers and locals who pay 100 to 200 EUR per person for a private experience with a chef in Palermo: a hands-on class in his kitchen or a dinner cooked and served at their home or villa. They compare RistHome with starred restaurants and five-star hotels, not with caterers.",
+  "limits": {
+    "hookTitleWords": 7,
+    "sceneTextWords": 6,
+    "slideTitleWords": 6,
+    "slideBodyWords": 16,
+    "captionChars": 480,
+    "hashtagsMax": 5
+  },
+  "banned": {
+    "en": [
+      "amazing",
+      "awesome",
+      "delicious",
+      "yummy",
+      "tasty",
+      "mouthwatering",
+      "mouth-watering",
+      "best",
+      "unforgettable",
+      "incredible",
+      "unique",
+      "exclusive",
+      "luxury",
+      "luxurious",
+      "gourmet",
+      "must",
+      "must-try",
+      "don't miss",
+      "hurry",
+      "wow",
+      "foodie",
+      "foodies",
+      "cheap",
+      "deal",
+      "bites",
+      "nibbles",
+      "goodies",
+      "tag a friend",
+      "comment below",
+      "follow us",
+      "share this",
+      "save this post",
+      "double tap",
+      "link in comments"
+    ],
+    "it": [
+      "incredibile",
+      "imperdibile",
+      "indimenticabile",
+      "unico",
+      "unica",
+      "esclusivo",
+      "esclusiva",
+      "lusso",
+      "lussuoso",
+      "gourmet",
+      "squisito",
+      "squisita",
+      "buonissimo",
+      "buonissima",
+      "golosità",
+      "goloso",
+      "golosa",
+      "delizia",
+      "delizie",
+      "top",
+      "wow",
+      "affrettati",
+      "non perdere",
+      "da non perdere",
+      "stuzzichini",
+      "bontà",
+      "tagga",
+      "commenta",
+      "seguici",
+      "condividi",
+      "salva il post",
+      "doppio tap"
+    ]
+  },
+  "clinical": [
+    "fried balls",
+    "golden balls",
+    "fried bites",
+    "red topping",
+    "white topping",
+    "red cream",
+    "red sauce",
+    "wooden cones",
+    "paper cones",
+    "small cups",
+    "little cups",
+    "plastic cups",
+    "shot glasses",
+    "small picks",
+    "bread slices",
+    "on a spoon",
+    "palline fritte",
+    "palline dorate",
+    "coni di legno",
+    "coni di carta",
+    "bicchierini",
+    "crema rossa",
+    "salsa rossa",
+    "fette di pane",
+    "stecchini"
+  ],
+  "voice": [
+    "Write as the house, in the first person plural or with no subject at all. Calm, exact, warm. Never as a salesman.",
+    "Say less. One idea per post, one thought per text. An empty text is better than a filler line: the photo speaks alone.",
+    "Name things the way these houses do: the dish by the chef's own name, then at most two elements, ingredient and method or origin (\"red prawn, simply grilled\"). No adjectives of taste, no praise.",
+    "Name a dish only with the CHEF'S NAME given next to its photo. Without one, never describe the food by shape, colour, container or material: leave the text empty, or write a short line about the moment of the experience that the brand facts support (the chef's kitchen, cooking side by side, the table being laid, service at your home).",
+    "Concrete nouns over adjectives: place (Palermo, the chef's kitchen), people (Chef Giacomo Napolitano), gesture (rolled by hand, plated at your table) when the photo shows it.",
+    "The hook promises the experience and the guest's place in it, not a list of items and not a question.",
+    "Never claim luxury: no hype words, no superlatives, no exclamation marks, no emojis, no urgency, no prices, no discounts.",
+    "One invitation at the end, phrased as a host would: the exact CTA line given, once. Nothing else asks for anything.",
+    "Never ask for engagement: no \"comment\", \"tag a friend\", \"share\", \"follow us\", \"save this post\", no questions to the reader. The house keeps a courteous distance.",
+    "Proof is stated once, flat, as a fact (the Google rating or the chef's background), never as a boast."
+  ],
+  "visual": [
+    "One subject per frame, with air around it, and few colours. Crowded trays, buffet overviews and repeated identical items read as catering, not as a private table.",
+    "Prefer, in this order: the chef's hands touching the food (kneading, plating, pouring), a single plated dish, raw produce, the laid table and its setting, the chef. Finished buffets come last.",
+    "Natural or warm low light, true colours. No flash glare, no blown highlights, no mixed colour casts.",
+    "Clean surfaces: no plastic, no disposable containers, no packaging, no clutter, no phone-screen artefacts.",
+    "The first frame is the strongest picture of the post; the last picture before the invitation is the served dish or the laid table."
+  ],
+  "structure": [
+    "Open on the single most beautiful image (people decide in the first second and judge the whole by its opening).",
+    "Follow the order of the real experience: produce, gesture, plate, table. A sequence the viewer can predict feels effortless.",
+    "End on the peak: the served dish or the table, then one quiet invitation.",
+    "Slow, even pacing. Fewer, longer scenes rather than many fast cuts.",
+    "Repeat the same few signature elements in every post (wordmark, type, tone) so the house is recognised without reading."
+  ],
+  "calendar": {
+    "services": [
+      "class",
+      "chef"
+    ],
+    "maxServiceShare": 0.6,
+    "maxOfferShare": 0.15,
+    "offerArchetypes": [
+      "A5-proof-and-offer"
+    ],
+    "rules": [
+      "The house sells two private experiences only: the cooking class and the chef at home. Nothing else enters the calendar.",
+      "A week reads like a tasting menu: no format twice in a row, the two experiences alternate, each post stands on its own.",
+      "A day without a post is better than a post below the standard: when the material is not good enough the slot stays empty.",
+      "At most one post in seven asks for a booking outright; the others show the craft and let the single closing line invite.",
+      "Same hour every time, so the house is expected and never intrudes.",
+      "Seasons and produce set the themes. No trends, no memes, no borrowed holidays, no reactions to other accounts.",
+      "Italian and English alternate; a post is written in one language only."
+    ]
+  },
+  "principles": [
+    {
+      "id": "restraint",
+      "rule": "Few words, one booking verb, no selling language.",
+      "why": "The twelve reference houses use very short copy and a single request-style booking line; three take requests only or no bookings.",
+      "source": "observed on their websites, 2026-11-11"
+    },
+    {
+      "id": "distance",
+      "rule": "Never ask for likes, comments, tags or follows.",
+      "why": "High brand-to-consumer engagement on social media lowers the perceived value of a luxury brand; psychological distance carries the effect.",
+      "source": "Park, Im & Kim 2020, Journal of Business Research"
+    },
+    {
+      "id": "simplicity",
+      "rule": "One subject, few colours, air around it.",
+      "why": "Visual and colour complexity lower perceived brand status; simple images read as curated.",
+      "source": "Adam & Wen 2026, JAMS; J. Brand Management 2018"
+    },
+    {
+      "id": "menu-language",
+      "rule": "Ingredient and method or origin; no praise words.",
+      "why": "Expensive menus name provenance far more often; vague praise words track lower prices.",
+      "source": "Jurafsky, The Language of Food (press coverage)"
+    },
+    {
+      "id": "hand",
+      "rule": "Show the chef's hand touching the food.",
+      "why": "A hand touching the product raises the viewer's sense of ownership and valuation; the hand must touch, not merely appear.",
+      "source": "Luangrath et al. 2022, Journal of Marketing Research"
+    },
+    {
+      "id": "motion",
+      "rule": "Prefer pictures with implied motion: pouring, steam, a gesture in progress.",
+      "why": "Implied motion raises the perceived freshness and appeal of food.",
+      "source": "Gvili et al. 2015, Food Quality and Preference"
+    },
+    {
+      "id": "plate-first",
+      "rule": "The food and the craft carry the post, not the decor or the claims.",
+      "why": "Michelin stars judge ingredient quality, harmony of flavours, mastery of technique, the chef's personality in the cuisine and consistency: the food on the plate, nothing more.",
+      "source": "MICHELIN Guide, What is a Michelin Star"
+    },
+    {
+      "id": "consistency",
+      "rule": "Same wordmark, type, tone and pacing in every post; never one weak post between two good ones.",
+      "why": "Consistency across the menu and over time is a star criterion; inspectors return several times.",
+      "source": "MICHELIN Guide"
+    },
+    {
+      "id": "welcome",
+      "rule": "Speak as a host receiving friends: warm, never intrusive, never pushing.",
+      "why": "Hospitality as an ethic: guests are greeted as friends and wishes anticipated without intrusion; service weighs most in how a visit is remembered.",
+      "source": "Relais & Châteaux values; Forbes Travel Guide"
+    },
+    {
+      "id": "primacy-and-end",
+      "rule": "Open on the best image; end on the served dish or the laid table.",
+      "why": "First impressions anchor judgement and experiences are remembered by their peak and their end.",
+      "source": "established findings in cognitive psychology (primacy effect, peak-end rule); not re-verified in this research"
+    },
+    {
+      "id": "honesty",
+      "rule": "Nothing is shown or named that the guest will not find.",
+      "why": "Guides visit anonymously and pay in full: the promise is checked against the real table.",
+      "source": "MICHELIN Guide; house rule"
+    }
+  ],
+  "references": {
+    "checked": "2026-11-11",
+    "lists": {
+      "World's 50 Best Restaurants 2026": [
+        "Asador Etxebarri",
+        "Gaggan",
+        "Alchemist"
+      ],
+      "World's 101 Best Steak Restaurants 2026": [
+        "La Cúpula de El Capricho",
+        "Margaret",
+        "Laia Erretegia"
+      ],
+      "World's 50 Best Bars 2026": [
+        "Bar Leone",
+        "Moebius Milano",
+        "Alquímico"
+      ],
+      "World's 50 Best Hotels 2026": [
+        "Rosewood Hong Kong",
+        "Capella Bangkok",
+        "Four Seasons Bangkok at Chao Phraya River"
+      ]
+    },
+    "guides": [
+      "MICHELIN Guide star criteria",
+      "Gambero Rosso Ristoranti d'Italia",
+      "Forbes Travel Guide",
+      "Relais & Châteaux values"
+    ],
+    "detail": "docs/house-standard.md"
+  }
+}

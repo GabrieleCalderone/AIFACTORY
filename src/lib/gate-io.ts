@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { readExperiments } from "./data.ts";
 import { runGate, type GateResult, type MediaInfo } from "./gate.ts";
+import { lintStandard, type HouseStandard } from "./house-standard.ts";
 import type { PostSpec } from "../schemas/post.ts";
 
 const PUBLIC_ROOT = path.resolve("public");
@@ -41,11 +42,18 @@ export const gateSpec = (spec: PostSpec): GateResult => {
   const experimentRows = existsSync("data/experiments.csv")
     ? readExperiments().raw.map((r) => ({ experiment_id: r.experiment_id, variant_id: r.variant_id }))
     : [];
-  return runGate({
+  const result = runGate({
     spec,
     exists: (p) => existsSync(publicFile(p)),
     info: mediaInfo,
     archetypeIds,
     experimentRows,
   });
+  const standard = loadStandard();
+  if (standard) lintStandard(spec, standard).forEach((v) => result.errors.push(`house standard, ${v.where}: ${v.message}`));
+  return result;
 };
+
+/** The house standard every published text must meet; absent file = no standard to enforce. */
+export const loadStandard = (): HouseStandard | null =>
+  existsSync("content/house-standard.json") ? (JSON.parse(readFileSync("content/house-standard.json", "utf8")) as HouseStandard) : null;

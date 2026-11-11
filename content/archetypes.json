@@ -248,12 +248,14 @@
         "dessert",
         "seafood"
       ],
-      "service": "events"
+      "service": "events",
+      "active": false,
+      "retiredNote": "events offer removed on 2026-11-11"
     },
     {
       "id": "A4-private-table",
       "name": "Private table (place, mise en place, courses)",
-      "useFor": "Private chef at home, villa dinners, boats, events: sell the setting before the food.",
+      "useFor": "Private chef at home, villa dinners, boats: sell the setting before the food.",
       "hookType": "The setting first (garden, terrace, laid table) + 'a chef cooks at your place'.",
       "narrative": [
         "hook: chef in the setting",

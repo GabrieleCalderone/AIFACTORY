@@ -73,3 +73,12 @@ test("organizations are read from the account, as the live schema requires", asy
   assert.deepEqual(await c.organizations(), [{ id: "o1", name: "RistHome" }]);
   assert.match(sent, /account\s*\{\s*organizations/);
 });
+
+test("deletePost sends the post id and surfaces a refusal", async () => {
+  const f = fake(200, { data: { deletePost: { __typename: "DeletePostSuccess", id: "p1" } } });
+  const c = createBufferClient({ apiKey: "k", fetchImpl: f.impl });
+  assert.deepEqual(await c.deletePost("p1"), { id: "p1" });
+  assert.deepEqual((f.calls[0].body.variables as { input: unknown }).input, { id: "p1" });
+  const refused = createBufferClient({ apiKey: "k", fetchImpl: fake(200, { data: { deletePost: { __typename: "VoidMutationError", message: "post already sent" } } }).impl });
+  await assert.rejects(() => refused.deletePost("p1"), /post already sent/);
+});
