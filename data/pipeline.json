@@ -669,36 +669,41 @@
     ],
     "evidence": {
       "scorecard": {
-        "sha": "52ea0d999b4f75eab29c9d75c38aa017887c75b4af506677606c6b4964497602",
-        "at": "2026-11-11T21:02:22.789Z",
+        "sha": "771a158d4b201f36988df7e66752713efb0302c6b517a83c78e567a440a684a9",
+        "at": "2026-11-11T23:21:21.709Z",
         "by": "sonnet",
-        "total": 55,
+        "runs": 3,
+        "spread": [
+          56,
+          60
+        ],
+        "total": 59,
         "passed": false,
         "scores": {
-          "hook": 15,
-          "visual": 7,
-          "narrative": 6,
-          "audience": 8,
+          "hook": 14,
+          "visual": 6,
+          "narrative": 8,
+          "audience": 9,
           "sharing": 7,
-          "brand": 4,
-          "conversion": 8
+          "brand": 6,
+          "conversion": 9
         },
         "reasons": {
-          "hook": "Slide 1 is a warm, legible pasta with burrata and a second-person line that says place and service, but the grey bowl rim and dim lower half keep it from full marks, and the strawberry on slide 2 is the more striking picture.",
-          "visual": "Slide 2 shows a heavily saturated, artificially fanned strawberry on a black plate with powdered sugar scattered unevenly across it, and slide 1 is a tight, slightly flat phone crop, while slide 3 is clean.",
-          "narrative": "With only two photographs the piece is capped at the middle band, and it moves from a pasta to a dessert with no produce, gesture or table to show the real evening before the closing card.",
-          "audience": "Place and service are clear and the caption says what is included (shopping, cooking, service, kitchen cleanup) in plain American English, but nothing speaks to the season or to what the evening is like.",
-          "sharing": "The slide 1 line addressed to the traveller and the place and service hashtags put it in the middle band, but there is no concrete moment or fact worth sending to a travel companion.",
-          "brand": "The wordmark appears with its tagline on slides 1 and 3 but without it on slide 2, where it also sits over busy red sauce and shares the slide with a '2 / 3' counter that the other slides lack.",
-          "conversion": "There is one invitation, 'Request availability on risthome.it (link in bio)', matching the brand facts on slide 3 and in the caption, and the caption makes the service and place plain, but the slides alone never say what the experience is."
+          "hook": "Slide 1 is the strongest picture and opens warm and legible, with the second-person line You came to Sicily for the food. Make it personal. and place and service in the kicker, but the grey bowl rim and dim lower third keep it short of full",
+          "visual": "Slide 2 is an oversaturated, crowded seafood platter with a pool behind it, and slide 3 has heavy saturation, a fanned strawberry and scattered powdered sugar on a black plate, so the set is not clean or consistent.",
+          "narrative": "The sequence runs pasta, seafood, dessert and then the invitation, and it follows a dinner, but only three photographs carry it, there is no island, gesture or table, and slide 3 is not the peak.",
+          "audience": "Place, service and what is included (shopping, cooking, serving, cleanup) are clear in American English, but nothing answers a planning question such as season, what the evening looks like or group size.",
+          "sharing": "The second-person cover line and the palermo sicily privatechef hashtags make it findable and give it a middle-band reason to send, but there is no concrete moment or fact worth passing on.",
+          "brand": "The wordmark is shown with its tagline on slides 1 and 2 and without it on slide 3, which is a brand fault, though the serif type and the cream closing slide are otherwise coherent and restrained.",
+          "conversion": "One invitation, Request availability on risthome.it (link in bio) , matches the brand facts on slide 4 and in the caption, and the caption states what the service is and where, though the slides themselves say little about the experience."
         },
         "weakest": [
-          "narrative",
-          "brand",
-          "visual"
+          "visual",
+          "sharing",
+          "narrative"
         ],
         "problems": [
-          "55 out of 100, the house asks for 85"
+          "59 out of 100, the house asks for 85"
         ]
       }
     }
@@ -772,33 +777,33 @@
     ],
     "evidence": {
       "scorecard": {
-        "sha": "8afb07c175c324d030492172530e9335e70624e1ff82bbf6ce08619f10820226",
-        "at": "2026-11-11T23:12:35.074Z",
+        "sha": "bbdec53c949b2ff4e5ef0ac8c8c88129c62b6fddb3a8c8800ca66bee286f28f5",
+        "at": "2026-11-11T23:20:10.615Z",
         "by": "sonnet",
         "runs": 3,
         "spread": [
-          61,
-          63
+          63,
+          66
         ],
         "total": 63,
         "passed": false,
         "scores": {
-          "hook": 14,
+          "hook": 13,
           "visual": 9,
-          "narrative": 7,
+          "narrative": 8,
           "audience": 9,
           "sharing": 8,
           "brand": 7,
           "conversion": 9
         },
         "reasons": {
-          "hook": "Slide 1's second-person line 'You came to Sicily to eat. Stay to cook.' is legible and says place and service, but the washed-out glare at top left and the tilted basket make the picture merely good, and the flour-dusted pasta on slide 2 is",
-          "visual": "The photos are natural-light and uncluttered, but slide 1 has a blown highlight and a crooked frame, slide 2 is dark with a busy background, and slide 3 has a stray strip along the bottom edge and a wordmark sitting on pasta.",
-          "narrative": "The sequence runs produce, gesture, pasta, invitation, but the line 'Then you sit down and eat what you cooked' sits over raw uncooked nests on slate, so the piece never reaches a plated dish or a table and its peak is its weakest moment.",
-          "audience": "Place, service and the cook-then-eat format are clear in plain American English, but nothing answers a planner's question such as the season, the length of the class or what is included.",
-          "sharing": "The second-person cover line gives a reason to send it to a travel companion and the hashtags palermo sicily cookingclass make it findable, but there is no concrete moment or fact worth passing on.",
-          "brand": "The wordmark, serif type, margins and cream closing card match the house system, but on slide 2 the wordmark sits next to the chef's embroidered shirt logo, and on slide 3 its tagline is lost against the pasta.",
-          "conversion": "The single invitation 'Request availability on risthome.it' matches the brand facts and the caption states what the class is and where, but the closing slide itself doesn't say what or where."
+          "hook": "The cover line You came to Sicily to eat. Stay to cook. is addressed to the traveller and the aubergine, tomato and basil basket is warm and legible, but the tilted, washed-out top-left corner is only a modest picture and the pasta on slide",
+          "visual": "The basket and the slate pasta are clean and true in colour, but slide 2 is a dim, grainy phone frame with a cropped, clipped wordmark on the chef's shirt and a plastic cutting board, and the cover's white haze behind the logo looks washed ",
+          "narrative": "The piece runs from produce to the chef's hands to the finished fresh pasta and then the invitation, but with only three photographs it cannot pass the middle band, and the pasta on slide 3 is raw and uncooked rather than a plated peak or a",
+          "audience": "Slide 1 puts place and service in clear American English and the caption says small groups and English spoken, but nothing answers a planner's question such as how long it lasts, the season or what is included beyond you eat what you cooked",
+          "sharing": "The second-person cover line gives a middle-band reason to send and the caption has palermo, sicily and cookingclass, but there is no concrete moment or fact (a season, a dish, a time) to pass on to a travel companion.",
+          "brand": "The wordmark, serif type and cream closing slide are consistent, but the wordmark is missing from slide 2 (the only mark is a cropped one on the shirt) and the cover wordmark sits on a hazy bright area.",
+          "conversion": "Slide 4 and the caption both carry the single invitation Request availability on risthome.it with link in bio, and the caption says what and where, but the slide itself does not repeat what the experience is or where it happens."
         },
         "weakest": [
           "narrative",

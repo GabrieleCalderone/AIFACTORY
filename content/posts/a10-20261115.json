@@ -39,14 +39,15 @@
         "type": "photo",
         "image": "assets/pool/199-crop-194-hands-pasta.jpg",
         "title": "",
-        "body": "Cooking side by side in the chef's kitchen.",
-        "frame": "full"
+        "body": "Side by side with the chef.",
+        "frame": "full",
+        "wordmark": false
       },
       {
         "type": "photo",
         "image": "assets/pool/198-crop-119-nests-slate.jpg",
         "title": "",
-        "body": "Then you sit down and eat what you cooked.",
+        "body": "Fresh pasta, made by your own hands.",
         "frame": "full"
       },
       {
