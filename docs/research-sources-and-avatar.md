@@ -156,3 +156,58 @@ italia.it/it/termini-e-condizioni, regione.sicilia.it/note-legali.
 - La pagina prezzi di Higgsfield dal vivo; i costi in crediti di lipsync e upscaling.
 - Velocità e qualità reali di qualunque modello avatar o upscaler su questo Mac.
 - Qualunque test di fedeltà da foto a video su cibo.
+
+## Inventario dei contenuti RistHome già pubblici (2026-11-11)
+
+Copertura parziale: GetYourGuide, TripAdvisor e Viator bloccano la lettura automatica
+(dati da copie e anteprime, R); Instagram e Facebook non letti. Sito, Airbnb, Take a Chef e
+la scheda Google via Wanderlog letti direttamente (V).
+
+| Canale | Recensioni | Voto | Contenuti |
+|---|---|---|---|
+| Google | 101 | 5.0 | testo delle recensioni non letto; 3 foto di origine incerta |
+| GetYourGuide (6 prodotti, anche t592715 cannolo e cassatella) | circa 100 | circa 4.85 | gallerie caricate da noi, non viste |
+| TripAdvisor (2 schede) | 1 | 5.0 | non viste |
+| Airbnb Servizi (3 schede) | 0 | – | 8 foto viste |
+| Take a Chef | 0 | – | 4 foto viste su 11 |
+| risthome.it | – | – | 2 fotografie in tutto |
+| Viator | non trovato | – | – |
+
+**Foto viste (Airbnb e Take a Chef), giudizio a occhio:**
+
+- nostre e utilizzabili: un piatto impiattato tenuto in mano all'aperto, lo chef al lavoro in
+  cucina, la bancarella di limoni sul mare;
+- nostre ma da catering o già in archivio: coni di arancinette (è la foto vera di cui
+  avevamo solo lo screenshot), parmigiana in teglia, pizzette, tavolo buffet;
+- probabilmente non nostre (aspetto da stock o generato): tavola con salumi davanti a colline
+  di vigneti che non sembrano siciliane, pasta fresca vista dall'alto, mercato con
+  peperoncini. Da verificare con Giacomo: se non sono nostre vanno tolte dalle schede, per
+  la stessa regola che vale per i post.
+- risoluzione bassa (576-1200 px): non migliori dell'archivio.
+
+Conclusione: online non c'è un archivio migliore di quello che abbiamo. Il materiale di
+qualità va prodotto.
+
+**Nomi di piatti scritti da RistHome nelle proprie schede** (utilizzabili come vocabolario
+della casa, ma vanno ancora associati alle foto): tagliatelle, ravioli, busiate, cannoli,
+cassata, cassatella, pasticcini di mandorla, caponata, arancini, panelle, pasta alla Norma,
+pane palermitano, pane di Monreale, brioscine, "Il Pezzo" di rosticceria, antipasto
+siciliano.
+
+**Cosa lodano gli ospiti** (conteggi sugli estratti visti, non sull'insieme): Giacomo
+caloroso e alla mano (6), quantità di cibo oltre le attese (4), spiegazioni chiare passo per
+passo (4), attenzione a intolleranze e diete (3), vino incluso (2), sentirsi a casa (2).
+Nessuna critica ricorrente.
+
+**Incoerenze da sistemare con Giacomo:**
+
+- "former Gambero Rosso awarded chef" sul sito, "Trained at the Gambero Rosso Academy" su
+  Airbnb; 30+ anni sul sito, 28 su Airbnb. I nostri fatti del marchio dicono "former Gambero
+  Rosso chef": serve la formula esatta.
+- tre indirizzi diversi (Via Di Stefano 6, Piazza Vigliena, Via Vittorio Emanuele 230).
+- il sito ha ancora la pagina "groups & events" e l'intestazione "Signed in as:
+  filler@godaddy.com".
+- Take a Chef: la pagina dello chef ha l'indirizzo `gabriele-gabriele`.
+
+**Per avere il resto:** dagli account della casa (portale fornitori GetYourGuide con
+esportazione recensioni e galleria, profilo Google Business, centro gestione TripAdvisor).
