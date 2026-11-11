@@ -69,3 +69,11 @@ test("offer and domain denylist covers inflections, symbols and any TLD", () => 
     assert.deepEqual(kinds(ok), [], ok);
   }
 });
+
+test("a plate is judged against its box, not against the full frame", () => {
+  const info = () => ({ width: 1024, height: 768, people: "none" });
+  const full = runGate({ ...base, info });
+  assert.ok(full.warnings.some((w) => /reel hook.*upscaled 2\.5x to fill/.test(w)));
+  const plated = parsePostSpec({ ...demoSpec, reel: { ...demoSpec.reel!, hook: { ...demoSpec.reel!.hook, frame: "plate" }, scenes: demoSpec.reel!.scenes.map((s) => ({ ...s, frame: "plate" })) } });
+  assert.equal(runGate({ ...base, spec: plated, info }).warnings.some((w) => /reel (hook|scene)/.test(w)), false);
+});

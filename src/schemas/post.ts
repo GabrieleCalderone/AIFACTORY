@@ -26,6 +26,8 @@ const media = {
   video: videoPath.optional(),
   /** seconds to skip at the start of the clip */
   trimSec: z.number().min(0).max(600).default(0),
+  /** "plate": the photo is shown whole on the dark ground instead of filling the frame (small photos stay sharp). */
+  frame: z.enum(["full", "plate"]).optional(),
 };
 const oneMedia = { message: "exactly one of image or video is required" };
 const hasOneMedia = (m: { image?: string; video?: string }) => (m.image ? 1 : 0) + (m.video ? 1 : 0) === 1;

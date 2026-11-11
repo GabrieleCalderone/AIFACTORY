@@ -15,7 +15,7 @@ import { Scrim } from "../components/Scrim";
 import { reelTimeline } from "../lib/timeline";
 import { parsePostSpec, type PostSpec, type PostSpecInput, type Reel as ReelSpec } from "../schemas/post";
 
-import { REEL } from "../lib/formats";
+import { REEL, REEL_PLATE } from "../lib/formats";
 
 export { REEL };
 
@@ -38,21 +38,42 @@ const textBlock = {
 
 const shadow = "0 2px 24px rgba(0,0,0,0.55)";
 
-type Media = { image?: string; video?: string; trimSec: number; motion: ReelSpec["hook"]["motion"] };
+type Media = { image?: string; video?: string; trimSec: number; motion: ReelSpec["hook"]["motion"]; frame?: "full" | "plate" };
 
-const SceneMedia: React.FC<{ media: Media; durationInFrames: number; look: Look }> = ({ media, durationInFrames, look }) =>
-  media.video ? (
+const isPlate = (media: Media): boolean => media.frame === "plate" && Boolean(media.image);
+/** Under a plate the words sit right below the picture, like the line under a dish on a menu. */
+const plateText = (boxHeight: number) => ({ ...textBlock, left: REEL_PLATE.left, bottom: undefined, top: REEL_PLATE.top + boxHeight + 48 }) as const;
+const plateGround = { backgroundColor: theme.colors.ink, backgroundImage: "radial-gradient(ellipse at 50% 38%, #1d1715 0%, rgba(11,11,11,0) 68%)" } as const;
+
+/**
+ * A photo too small to fill the frame, shown whole on the dark ground like a plate on the
+ * pass: nothing is cropped or blown up, and the only movement is a slow approach.
+ */
+const PlateMedia: React.FC<{ src: string; durationInFrames: number; look: Look; height: number }> = ({ src, durationInFrames, look, height }) => {
+  const frame = useCurrentFrame();
+  const scale = interpolate(frame, [0, durationInFrames], [1, 1.035], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  return (
+    <div style={{ position: "absolute", left: REEL_PLATE.left, top: REEL_PLATE.top, width: REEL_PLATE.width, height, transform: `scale(${scale})`, transformOrigin: "50% 50%" }}>
+      <Img src={staticFile(src)} style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "50% 100%", filter: look.grade }} />
+    </div>
+  );
+};
+
+const SceneMedia: React.FC<{ media: Media; durationInFrames: number; look: Look; plateHeight?: number }> = ({ media, durationInFrames, look, plateHeight = REEL_PLATE.height }) =>
+  isPlate(media) ? (
+    <PlateMedia src={media.image ?? ""} durationInFrames={durationInFrames} look={look} height={plateHeight} />
+  ) : media.video ? (
     <MotionVideo src={media.video} trimSec={media.trimSec} />
   ) : (
     <MotionImage src={media.image ?? ""} motion={media.motion} durationInFrames={durationInFrames} grade={look.grade} vignette={look.vignette} />
   );
 
 const HookScene: React.FC<{ reel: ReelSpec; lang: PostSpec["lang"]; durationInFrames: number; look: Look }> = ({ reel, lang, durationInFrames, look }) => (
-  <AbsoluteFill style={{ backgroundColor: theme.colors.ink }}>
-    <SceneMedia media={reel.hook} durationInFrames={durationInFrames} look={look} />
-    <Scrim />
+  <AbsoluteFill style={isPlate(reel.hook) ? plateGround : { backgroundColor: theme.colors.ink }}>
+    <SceneMedia media={reel.hook} durationInFrames={durationInFrames} look={look} plateHeight={REEL_PLATE.hookHeight} />
+    {isPlate(reel.hook) ? null : <Scrim />}
     <Brandmark />
-    <div style={textBlock}>
+    <div style={isPlate(reel.hook) ? plateText(REEL_PLATE.hookHeight) : textBlock}>
       <Reveal delay={4}>
         <Chip tone={look.chipTone}>{look.eyebrow[lang] ?? copy[lang].eyebrow}</Chip>
       </Reveal>
@@ -61,7 +82,7 @@ const HookScene: React.FC<{ reel: ReelSpec; lang: PostSpec["lang"]; durationInFr
           style={{
             fontFamily: theme.fonts.display,
             fontWeight: look.titleWeight,
-            fontSize: 92,
+            fontSize: isPlate(reel.hook) ? 78 : 92,
             lineHeight: 1.04,
             letterSpacing: look.titleTracking,
             color: theme.colors.white,
@@ -84,11 +105,11 @@ const HookScene: React.FC<{ reel: ReelSpec; lang: PostSpec["lang"]; durationInFr
 );
 
 const ContentScene: React.FC<{ scene: ReelSpec["scenes"][number]; durationInFrames: number; look: Look }> = ({ scene, durationInFrames, look }) => (
-  <AbsoluteFill style={{ backgroundColor: theme.colors.ink }}>
+  <AbsoluteFill style={isPlate(scene) ? plateGround : { backgroundColor: theme.colors.ink }}>
     <SceneMedia media={scene} durationInFrames={durationInFrames} look={look} />
-    <Scrim bottom={0.72} />
+    {isPlate(scene) ? null : <Scrim bottom={0.72} />}
     <Brandmark />
-    <div style={textBlock}>
+    <div style={isPlate(scene) ? plateText(REEL_PLATE.height) : textBlock}>
       {scene.label ? (
         <Reveal delay={2}>
           <Chip tone="light">{scene.label}</Chip>
@@ -96,7 +117,7 @@ const ContentScene: React.FC<{ scene: ReelSpec["scenes"][number]; durationInFram
       ) : null}
       {scene.text ? (
         <Reveal delay={5}>
-          <div style={{ fontFamily: theme.fonts.body, fontWeight: 700, fontSize: 60, lineHeight: 1.15, color: theme.colors.white, textShadow: shadow, textWrap: "balance" }}>
+          <div style={isPlate(scene) ? { fontFamily: theme.fonts.display, fontWeight: 500, fontSize: 58, lineHeight: 1.15, color: theme.colors.cream, textWrap: "balance" } : { fontFamily: theme.fonts.body, fontWeight: 700, fontSize: 60, lineHeight: 1.15, color: theme.colors.white, textShadow: shadow, textWrap: "balance" }}>
             {scene.text}
           </div>
         </Reveal>

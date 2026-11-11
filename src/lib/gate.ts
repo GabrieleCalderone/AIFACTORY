@@ -1,4 +1,4 @@
-import { CAROUSEL, CAROUSEL_PHOTO_HEIGHT, REEL } from "./formats.ts";
+import { CAROUSEL, CAROUSEL_PHOTO_HEIGHT, REEL, REEL_PLATE, fillFactor, fitFactor } from "./formats.ts";
 import { reelTimeline } from "./timeline.ts";
 import type { PostSpec } from "../schemas/post.ts";
 
@@ -130,21 +130,27 @@ export const runGate = ({ spec, exists, info, archetypeIds, experimentRows }: Ga
     }
   }
 
-  const checkFit = (media: string, w: number, h: number, where: string) => {
+  const checkFit = (media: string, w: number, h: number, where: string, contain = false) => {
     const d = info(media);
     if (!d) {
       errors.push(`${where}: no manifest entry for ${media}; prepare it with prepare_assets/prepare_clips so size and consent are recorded`);
       return;
     }
-    const factor = Math.max(w / d.width, h / d.height);
-    if (factor > 2) warnings.push(`${where}: ${media} is ${d.width}x${d.height}, upscaled ${factor.toFixed(1)}x to fill ${w}x${h}`);
+    // A plate is fitted whole inside its box; everything else is cropped to cover its area.
+    const factor = contain ? fitFactor(d.width, d.height, w, h) : fillFactor(d.width, d.height, w, h);
+    if (factor > 2) warnings.push(`${where}: ${media} is ${d.width}x${d.height}, upscaled ${factor.toFixed(1)}x to ${contain ? "fit" : "fill"} ${w}x${h}`);
     if (d.people === undefined) errors.push(`${where}: consent not recorded for ${media} (re-run prepare_assets --people none|chef|guests-consented)`);
     else if (!["none", "chef", "guests-consented"].includes(d.people)) errors.push(`${where}: ${media} shows people without recorded consent (${d.people})`);
   };
   if (spec.reel) {
     const hookMedia = spec.reel.hook.video ?? spec.reel.hook.image ?? "";
-    checkFit(hookMedia, REEL.width, REEL.height, "reel hook");
-    spec.reel.scenes.forEach((s, i) => checkFit(s.video ?? s.image ?? "", REEL.width, REEL.height, `reel scene ${i + 1}`));
+    const plate = (m: { frame?: string; image?: string }) => m.frame === "plate" && Boolean(m.image);
+    if (plate(spec.reel.hook)) checkFit(hookMedia, REEL_PLATE.width, REEL_PLATE.hookHeight, "reel hook", true);
+    else checkFit(hookMedia, REEL.width, REEL.height, "reel hook");
+    spec.reel.scenes.forEach((s, i) => {
+      if (plate(s)) checkFit(s.image ?? "", REEL_PLATE.width, REEL_PLATE.height, `reel scene ${i + 1}`, true);
+      else checkFit(s.video ?? s.image ?? "", REEL.width, REEL.height, `reel scene ${i + 1}`);
+    });
   }
   spec.carousel?.slides.forEach((s, i) => {
     if (s.type === "cover" || (s.type === "cta" && s.image)) checkFit(s.image as string, CAROUSEL.width, CAROUSEL.height, `carousel slide ${i + 1}`);

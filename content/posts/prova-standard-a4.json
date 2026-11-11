@@ -31,7 +31,8 @@
       "title": "Il vostro tavolo, cucinato a casa vostra",
       "subtitle": "Chef Giacomo Napolitano, Palermo",
       "durationSec": 3.4,
-      "motion": "dolly-in"
+      "motion": "dolly-in",
+      "frame": "plate"
     },
     "scenes": [
       {
@@ -40,7 +41,8 @@
         "text": "",
         "label": "Antipasto",
         "durationSec": 2.7,
-        "motion": "dolly-in"
+        "motion": "dolly-in",
+        "frame": "plate"
       },
       {
         "image": "assets/pool/22-IMG_0027.jpg",
@@ -48,7 +50,8 @@
         "text": "",
         "label": "Primo",
         "durationSec": 2.7,
-        "motion": "arc-right"
+        "motion": "arc-right",
+        "frame": "plate"
       },
       {
         "image": "assets/pool/110-20210108_154412.jpg",
@@ -56,7 +59,8 @@
         "text": "Cucinato nella vostra cucina",
         "label": "Primo",
         "durationSec": 2.7,
-        "motion": "dolly-in"
+        "motion": "dolly-in",
+        "frame": "plate"
       },
       {
         "image": "assets/pool/154-IMG-20230928-WA0060.jpg",
@@ -64,7 +68,8 @@
         "text": "",
         "label": "Secondo",
         "durationSec": 2.7,
-        "motion": "pan-left"
+        "motion": "pan-left",
+        "frame": "plate"
       },
       {
         "image": "assets/pool/125-20240521_125348.jpg",
@@ -72,7 +77,8 @@
         "text": "Servito al vostro tavolo",
         "label": "Dolce",
         "durationSec": 2.7,
-        "motion": "dolly-in"
+        "motion": "dolly-in",
+        "frame": "plate"
       }
     ],
     "cta": {
