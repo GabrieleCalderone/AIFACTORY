@@ -9,12 +9,19 @@ export type Purpose = "server" | "ticket";
 const NONCE = /^[a-f0-9]{32,64}$/;
 export const isNonce = (n: unknown): n is string => typeof n === "string" && NONCE.test(n);
 
-/** HMAC of a nonce under the token; the purpose keeps a proof made for one use from serving another. */
-export const proofOf = (token: string, purpose: Purpose, nonce: string): string => createHmac("sha256", token).update(`${purpose}:${nonce}`).digest("hex");
+/** A proof is good for this long around the moment it was made; used nonces are remembered for longer than that. */
+export const PROOF_WINDOW_MS = 60_000;
 
-export const proofOk = (token: string, purpose: Purpose, nonce: unknown, proof: unknown): boolean => {
-  if (!isNonce(nonce) || typeof proof !== "string") return false;
-  const expected = Buffer.from(proofOf(token, purpose, nonce));
+/**
+ * HMAC of a nonce and the moment it was made, under the token. The purpose keeps a proof made
+ * for one use from serving another; the moment makes an old proof worthless even after its
+ * nonce has been forgotten.
+ */
+export const proofOf = (token: string, purpose: Purpose, nonce: string, at: number): string => createHmac("sha256", token).update(`${purpose}:${nonce}:${at}`).digest("hex");
+
+export const proofOk = (token: string, purpose: Purpose, nonce: unknown, at: unknown, proof: unknown, now: number = Date.now()): boolean => {
+  if (!isNonce(nonce) || typeof proof !== "string" || typeof at !== "number" || !Number.isSafeInteger(at) || Math.abs(now - at) > PROOF_WINDOW_MS) return false;
+  const expected = Buffer.from(proofOf(token, purpose, nonce, at));
   const given = Buffer.from(proof);
   return given.length === expected.length && timingSafeEqual(given, expected);
 };
@@ -32,7 +39,8 @@ export const createTickets = (ttlMs = 30_000, now: () => number = Date.now) => {
     issue: (nonce: string): string | null => {
       sweep();
       if (seen.has(nonce)) return null;
-      seen.set(nonce, now() + 10 * ttlMs);
+      // remembered well past the time its proof could still be accepted
+      seen.set(nonce, now() + Math.max(10 * ttlMs, 4 * PROOF_WINDOW_MS));
       const ticket = randomBytes(24).toString("hex");
       tickets.set(ticket, now() + ttlMs);
       return ticket;

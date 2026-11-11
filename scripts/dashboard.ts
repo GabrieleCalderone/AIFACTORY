@@ -37,7 +37,7 @@ import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
 import { appendLabel, buildLabel, type Decision } from "../src/lib/labels.ts";
 import { contextRows, generatedRows, loadStandard } from "../src/lib/gate-io.ts";
 import { madeWith, workflowSteps } from "../src/lib/workflow.ts";
-import { createTickets, isNonce, proofOf, proofOk } from "../src/lib/console-auth.ts";
+import { createTickets, proofOf, proofOk } from "../src/lib/console-auth.ts";
 import { PostSpec } from "../src/schemas/post.ts";
 import { recentLiveSlugs, summarize, type State } from "../src/lib/pipeline.ts";
 import { isHeldBack, type AssetOverride } from "../src/lib/review.ts";
@@ -525,18 +525,17 @@ const server = http.createServer(async (req, res) => {
   const url = new URL(req.url ?? "/", "http://localhost");
   try {
     if (!sameOrigin(req)) return json(res, 403, { error: "forbidden origin" });
-    // The launcher (scripts/open-console.ts) never sends the token: the console proves itself, the
-    // launcher proves itself, and the browser gets a ticket that works once for a few seconds.
-    if (req.method === "GET" && url.pathname === "/api/proof") {
-      const n = url.searchParams.get("n");
-      return isNonce(n) ? json(res, 200, { proof: proofOf(TOKEN, "server", n) }) : json(res, 400, { error: "bad nonce" });
-    }
+    // The launcher (scripts/open-console.ts) never sends the token: it proves it knows it, the console
+    // proves the same in its answer, and the browser gets a ticket that works once for a few seconds.
     if (req.method === "POST" && url.pathname === "/api/ticket") {
       if (!(req.headers["content-type"] ?? "").startsWith("application/json")) return json(res, 415, { error: "JSON only" });
-      const body = await readBody(req);
-      if (!proofOk(TOKEN, "ticket", body.nonce, body.proof)) return json(res, 401, { error: "bad proof" });
-      const ticket = tickets.issue(body.nonce);
-      return ticket ? json(res, 200, { ticket }) : json(res, 409, { error: "nonce already used" });
+      const body = (await readBody(req)) as Record<string, unknown>;
+      // Nothing derived from the token is given to a caller that has not proved it knows the token.
+      if (!proofOk(TOKEN, "ticket", body.nonce, body.at, body.proof)) return json(res, 401, { error: "bad proof" });
+      const ticket = tickets.issue(body.nonce as string);
+      if (!ticket) return json(res, 409, { error: "nonce already used" });
+      const at = Date.now();
+      return json(res, 200, { ticket, at, proof: proofOf(TOKEN, "server", body.nonce as string, at) });
     }
     if (req.method === "GET" && url.pathname === "/" && tickets.redeem(url.searchParams.get("k"))) {
       res.writeHead(200, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" });
