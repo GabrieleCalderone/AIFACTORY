@@ -22,3 +22,6 @@ public/assets/
 
 # autopilot logs
 logs/
+
+# Console access token of the always-on agent (local only)
+.console-token

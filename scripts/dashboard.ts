@@ -51,7 +51,20 @@ const onPath = (program: "claude" | "ffmpeg"): boolean => {
   if (!found.has(program)) found.set(program, spawnSync("/usr/bin/which", [program], { encoding: "utf8" }).status === 0);
   return found.get(program)!;
 };
-const TOKEN = randomBytes(24).toString("hex");
+/**
+ * A new token at every launch by default. With --stable-token (the always-on agent) the token
+ * is kept in .console-token, readable by this user only and never committed, so the bookmarked
+ * link keeps working after a restart. Delete the file to change it.
+ */
+const TOKEN_FILE = ".console-token";
+const TOKEN = ((): string => {
+  if (!process.argv.includes("--stable-token")) return randomBytes(24).toString("hex");
+  const kept = existsSync(TOKEN_FILE) ? readFileSync(TOKEN_FILE, "utf8").trim() : "";
+  if (/^[a-f0-9]{48}$/.test(kept)) return kept;
+  const fresh = randomBytes(24).toString("hex");
+  writeFileSync(TOKEN_FILE, fresh + "\n", { mode: 0o600 });
+  return fresh;
+})();
 const tokenOk = (c: string | null | undefined) =>
   Boolean(
     c &&
