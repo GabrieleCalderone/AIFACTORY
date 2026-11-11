@@ -26,6 +26,7 @@ import { onePerSubject } from "../src/lib/subjects.ts";
 import { applyReview, dishKey, factsOf, isHeldBack, MAX_EXCLUSIONS_PER_REVIEW, mergeExclusions, sanitizeText, type AssetOverride, type ReviewItem, type ReviewPair } from "../src/lib/review.ts";
 import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
 import { cooldownPosts, LIVE_STATES, recentLiveSlugs } from "../src/lib/pipeline.ts";
+import { formatCode } from "../src/lib/autopilot.ts";
 import { runClaudeCli } from "../src/lib/claude-cli.ts";
 
 const { values } = parseArgs({
@@ -67,7 +68,7 @@ if ((archetype as Archetype & { active?: boolean }).active === false) {
 const brand = JSON.parse(readFileSync("content/brand-facts.json", "utf8")) as { cta: Record<string, Record<string, string>> } & Record<string, unknown>;
 const standard = loadStandard();
 const audio = JSON.parse(readFileSync("content/audio.json", "utf8")) as { src: string; attribution: string; mood: string }[];
-const slug = values.slug ?? `${archetype.id.slice(0, 2).toLowerCase()}-${new Date().toISOString().slice(0, 10).replace(/-/g, "")}${values.variant === "A" ? "" : `-${values.variant.toLowerCase()}`}`;
+const slug = values.slug ?? `${formatCode(archetype.id)}-${new Date().toISOString().slice(0, 10).replace(/-/g, "")}${values.variant === "A" ? "" : `-${values.variant.toLowerCase()}`}`;
 const target = path.join("content/posts", `${slug}.json`);
 if (existsSync(target)) {
   console.error(`${target} already exists`);
@@ -113,7 +114,7 @@ const usableForService = new Set(
 const cooldown = cooldownPosts(usableForService, photosPerPost);
 console.log(`[author] ${usableForService} dishes and scenes fit for ${service}; a photo rests for ${cooldown} post(s) before it can return`);
 const lastEight = new Set(recentLiveSlugs(pipelineNow, cooldown));
-const episode = Object.values(pipelineNow).filter((r) => LIVE_STATES.includes(r.state) && r.slug.startsWith(archetype.id.slice(0, 2).toLowerCase() + "-")).length + 1;
+const episode = Object.values(pipelineNow).filter((r) => LIVE_STATES.includes(r.state) && r.slug.startsWith(formatCode(archetype.id) + "-")).length + 1;
 const seriesLine = archetype.seriesName ? `SERIES: this is episode ${episode} of "${archetype.seriesName[lang]}": the hook title must start with "${archetype.seriesName[lang]}, ep. ${episode}" and the caption must open with the same line.` : "";
 const restingSubjects = new Set(Object.entries(usage).filter(([, slugs]) => slugs.some((sl) => lastEight.has(sl))).map(([file]) => subjectOf(file)));
 const verdicts = Object.values(scoresFile.verdicts)

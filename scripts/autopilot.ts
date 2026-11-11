@@ -10,7 +10,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { readExperiments } from "../src/lib/data.ts";
-import { advance, defaultState, isDue, nextSlot, planNext, type AutopilotState } from "../src/lib/autopilot.ts";
+import { advance, defaultState, formatCode, isDue, nextSlot, planNext, type AutopilotState } from "../src/lib/autopilot.ts";
 import { loadPipeline } from "../src/lib/pipeline-io.ts";
 
 const { values } = parseArgs({ options: { force: { type: "boolean", default: false }, "dry-run": { type: "boolean", default: false }, model: { type: "string", default: "sonnet" } } });
@@ -67,7 +67,7 @@ if (!values.force && !isDue(state, now)) {
 
 const experiments = readExperiments().records.map((r) => ({ experiment_id: r.experiment_id, variant_id: r.variant_id, archetype: r.archetype, status: r.status }));
 const plan = planNext(state, experiments);
-const slug = `${plan.archetype.slice(0, 2).toLowerCase()}-${now.toISOString().slice(0, 10).replace(/-/g, "")}${plan.variantId === "A" ? "" : `-${plan.variantId.toLowerCase()}`}`;
+const slug = `${formatCode(plan.archetype)}-${now.toISOString().slice(0, 10).replace(/-/g, "")}${plan.variantId === "A" ? "" : `-${plan.variantId.toLowerCase()}`}`;
 const specFile = path.join("content/posts", `${slug}.json`);
 log(`plan: ${plan.archetype} ${plan.lang} ${plan.experimentId}/${plan.variantId} (${plan.reason}) -> ${slug}`);
 

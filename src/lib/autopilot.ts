@@ -43,6 +43,9 @@ export const isDue = (state: AutopilotState, now: Date): boolean => {
   return localDay(now) - localDay(new Date(state.lastPostAt)) >= state.cadenceDays;
 };
 
+/** The short code of a format, whole: "a1" and "a10" are different formats and must give different post names. */
+export const formatCode = (archetypeId: string): string => archetypeId.split("-")[0].toLowerCase();
+
 export type Plan = { archetype: string; lang: "it" | "en"; experimentId: string; variantId: string; reason: string };
 
 export const planNext = (state: AutopilotState, experiments: ExperimentLite[]): Plan => {

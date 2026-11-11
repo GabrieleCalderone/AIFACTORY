@@ -66,3 +66,10 @@ test("with weekdays set, a post is due on those days only and once a day", () =>
   assert.equal(isDue({ ...state, lastPostAt: new Date(2026, 10, 11, 0, 43).toISOString() }, wednesday), false, "already produced today");
   assert.equal(isDue({ ...state, lastPostAt: new Date(2026, 10, 11, 0, 43).toISOString() }, new Date(2026, 10, 13, 10, 30)), true);
 });
+
+test("the short code of a format is whole: A1 and A10 never share a post name", async () => {
+  const { formatCode } = await import("../src/lib/autopilot.ts");
+  assert.equal(formatCode("A1-process-reveal"), "a1");
+  assert.equal(formatCode("A10-the-craft"), "a10");
+  assert.notEqual(formatCode("A1-process-reveal"), formatCode("A10-the-craft"));
+});
