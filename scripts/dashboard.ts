@@ -37,6 +37,7 @@ import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
 import { appendLabel, buildLabel, type Decision } from "../src/lib/labels.ts";
 import { contextRows, generatedRows, loadStandard } from "../src/lib/gate-io.ts";
 import { madeWith, workflowSteps } from "../src/lib/workflow.ts";
+import { createTickets, isNonce, proofOf, proofOk } from "../src/lib/console-auth.ts";
 import { PostSpec } from "../src/schemas/post.ts";
 import { recentLiveSlugs, summarize, type State } from "../src/lib/pipeline.ts";
 import { isHeldBack, type AssetOverride } from "../src/lib/review.ts";
@@ -65,6 +66,7 @@ const TOKEN = ((): string => {
   writeFileSync(TOKEN_FILE, fresh + "\n", { mode: 0o600 });
   return fresh;
 })();
+const tickets = createTickets();
 const tokenOk = (c: string | null | undefined) =>
   Boolean(
     c &&
@@ -523,12 +525,29 @@ const server = http.createServer(async (req, res) => {
   const url = new URL(req.url ?? "/", "http://localhost");
   try {
     if (!sameOrigin(req)) return json(res, 403, { error: "forbidden origin" });
+    // The launcher (scripts/open-console.ts) never sends the token: the console proves itself, the
+    // launcher proves itself, and the browser gets a ticket that works once for a few seconds.
+    if (req.method === "GET" && url.pathname === "/api/proof") {
+      const n = url.searchParams.get("n");
+      return isNonce(n) ? json(res, 200, { proof: proofOf(TOKEN, "server", n) }) : json(res, 400, { error: "bad nonce" });
+    }
+    if (req.method === "POST" && url.pathname === "/api/ticket") {
+      if (!(req.headers["content-type"] ?? "").startsWith("application/json")) return json(res, 415, { error: "JSON only" });
+      const body = await readBody(req);
+      if (!proofOk(TOKEN, "ticket", body.nonce, body.proof)) return json(res, 401, { error: "bad proof" });
+      const ticket = tickets.issue(body.nonce);
+      return ticket ? json(res, 200, { ticket }) : json(res, 409, { error: "nonce already used" });
+    }
+    if (req.method === "GET" && url.pathname === "/" && tickets.redeem(url.searchParams.get("k"))) {
+      res.writeHead(200, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" });
+      return res.end(html.replace("__TOKEN__", TOKEN));
+    }
     const token =
       req.headers["x-console-token"]?.toString() ?? url.searchParams.get("t");
     if (!tokenOk(token)) {
       res.writeHead(401, { "Content-Type": "text/html; charset=utf-8" });
       return res.end(
-        "<p>Sessione non valida: apri la console dal link stampato da <code>npm run dashboard</code>.</p>",
+        "<p>Sessione non valida o scaduta: apri la console con <code>npm run console</code> (o <code>npm run dashboard</code>).</p>",
       );
     }
     if (

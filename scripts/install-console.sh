@@ -8,7 +8,7 @@ PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 if [ "${1:-}" = "--uninstall" ]; then
   launchctl bootout "gui/$(id -u)" "$PLIST" 2>/dev/null || true
-  rm -f "$PLIST"
+  rm -f "$PLIST" "$HOME/Desktop/RistHome Console.command"
   echo "removed $LABEL"
   exit 0
 fi
@@ -38,4 +38,8 @@ cat > "$PLIST" <<PL
 PL
 launchctl bootout "gui/$(id -u)" "$PLIST" 2>/dev/null || true
 launchctl bootstrap "gui/$(id -u)" "$PLIST"
-echo "installed $LABEL: the console starts at login and restarts by itself. Open it with: npm run console"
+# a double-click launcher on the Desktop
+LAUNCHER="$HOME/Desktop/RistHome Console.command"
+printf '#!/bin/bash\ncd "%s" && npm run --silent console\n' "$REPO" > "$LAUNCHER"
+chmod +x "$LAUNCHER"
+echo "installed $LABEL: the console starts at login and restarts by itself. Open it with a double click on \"RistHome Console\" on the Desktop, or with: npm run console"

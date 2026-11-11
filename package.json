@@ -62,7 +62,7 @@
     "autopilot": "node --env-file-if-exists=.env scripts/autopilot.ts",
     "buffer:channels": "node --env-file-if-exists=.env scripts/buffer-channels.ts",
     "dashboard": "node --env-file-if-exists=.env scripts/dashboard.ts --open",
-    "console": "node scripts/open-console.ts",
+    "console": "node --env-file-if-exists=.env scripts/open-console.ts",
     "publish-post": "node --env-file-if-exists=.env scripts/publish-post.ts",
     "analyze-assets": "uv run python -I tools/py/analyze_assets.py public/assets/pool --out data/asset-technical.json",
     "score-assets": "node scripts/score-assets.ts",
