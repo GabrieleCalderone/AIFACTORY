@@ -22,28 +22,6 @@
     "createdAt": "2026-11-11T18:46:28.780Z"
   },
   {
-    "slug": "a4-20261111",
-    "kind": "carousel",
-    "platform": "facebook",
-    "bufferPostId": "6af4b81b592a3bb919a67865",
-    "dueAt": "2026-11-11T20:56:50.281Z",
-    "draft": false,
-    "experimentId": "EXP-008",
-    "variantId": "A",
-    "createdAt": "2026-11-11T18:46:51.227Z"
-  },
-  {
-    "slug": "a4-20261111",
-    "kind": "reel",
-    "platform": "instagram",
-    "bufferPostId": "6af4c47f8259a45014de579b",
-    "dueAt": "2026-11-13T18:55:20.101Z",
-    "draft": false,
-    "experimentId": "EXP-008",
-    "variantId": "A",
-    "createdAt": "2026-11-11T19:39:43.389Z"
-  },
-  {
     "slug": "a2-20261111",
     "kind": "reel",
     "platform": "instagram",

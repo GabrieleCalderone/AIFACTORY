@@ -173,7 +173,9 @@ export const runGate = ({ spec, exists, info, archetypeIds, experimentRows }: Ga
     if (s.type === "cover" && s.frame === "plate") checkFit(s.image, CAROUSEL_MAT.width, CAROUSEL_MAT.coverHeight, `carousel slide ${i + 1}`, true);
     else if (s.type === "cover" || (s.type === "cta" && s.image)) checkFit(s.image as string, CAROUSEL.width, CAROUSEL.height, `carousel slide ${i + 1}`);
     // Photo slides are always matted: the picture is fitted whole inside the mat.
-    if (s.type === "photo") checkFit(s.image, CAROUSEL_MAT.width, CAROUSEL_MAT.height, `carousel slide ${i + 1}`, true);    // A detail is a closer look at the picture the reader has just seen whole; it never stands alone.
+    // A photo slide is matted (fitted whole) unless it was set to fill the slide like the cover.
+    if (s.type === "photo" && s.frame === "full" && !s.detail) checkFit(s.image, CAROUSEL.width, CAROUSEL.height, `carousel slide ${i + 1}`);
+    else if (s.type === "photo") checkFit(s.image, CAROUSEL_MAT.width, CAROUSEL_MAT.height, `carousel slide ${i + 1}`, true);    // A detail is a closer look at the picture the reader has just seen whole; it never stands alone.
     if (s.type === "photo" && s.detail) {
       const before = spec.carousel!.slides[i - 1];
       const whole = before && (before.type === "cover" || (before.type === "photo" && !before.detail)) && before.image === s.image;

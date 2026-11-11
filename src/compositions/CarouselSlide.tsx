@@ -84,6 +84,22 @@ const Cover: React.FC<{ slide: Extract<SlideSpec, { type: "cover" }>; lang: Post
   );
 };
 
+/** A photograph large enough to fill the slide: the picture is the page, the words sit low on it, small. */
+const FullPhoto: React.FC<{ slide: Extract<SlideSpec, { type: "photo" }>; page: string; look: Look }> = ({ slide, page, look }) => {
+  const words = Boolean(slide.title || slide.body);
+  return (
+    <AbsoluteFill style={{ backgroundColor: theme.colors.ink }}>
+      <Img src={staticFile(slide.image)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: look.grade }} />
+      {words ? <Scrim bottom={0.7} top={0} /> : null}
+      <div style={{ position: "absolute", left: mat.left, right: mat.left, bottom: 150, display: "flex", flexDirection: "column", gap: 12 }}>
+        {slide.title ? <div style={{ ...type.line, color: theme.colors.white, textShadow: "0 2px 24px rgba(0,0,0,0.45)" }}>{slide.title}</div> : null}
+        {slide.body ? <div style={{ ...type.body, color: theme.colors.white, textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}>{slide.body}</div> : null}
+      </div>
+      <div style={{ position: "absolute", right: mat.left, top: 150, ...type.mark, color: theme.colors.white, textShadow: "0 1px 12px rgba(0,0,0,0.5)" }}>{page}</div>
+    </AbsoluteFill>
+  );
+};
+
 const Photo: React.FC<{ slide: Extract<SlideSpec, { type: "photo" }>; page: string; look: Look }> = ({ slide, page, look }) => (
   <AbsoluteFill style={{ backgroundColor: ground }}>
     {slide.detail ? <Detail image={slide.image} look={look} region={slide.detail} /> : <Matted image={slide.image} look={look} height={mat.height} />}
@@ -139,7 +155,7 @@ export const CarouselSlide: React.FC<CarouselSlideProps> = ({ spec: rawSpec, sli
     case "cover":
       return <Cover slide={slide} lang={spec.lang} look={look} />;
     case "photo":
-      return <Photo slide={slide} page={page} look={look} />;
+      return slide.frame === "full" && !slide.detail ? <FullPhoto slide={slide} page={page} look={look} /> : <Photo slide={slide} page={page} look={look} />;
     case "text":
       return <Text slide={slide} page={page} />;
     case "cta":

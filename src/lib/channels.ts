@@ -92,3 +92,11 @@ export const captionFor = (platform: Platform, full: string, hashtags: string[],
       return full;
   }
 };
+
+/**
+ * The opening line of a post as the audience sees it: the reel's hook, else the carousel's
+ * cover title. The working title of the post file is a note for the people who make it and
+ * is used only when the post has neither.
+ */
+export const publicTitle = (spec: { title: string; reel?: { hook: { title: string } }; carousel?: { slides: { type: string; title?: string }[] } }): string =>
+  spec.reel?.hook.title ?? spec.carousel?.slides.find((s) => s.type === "cover")?.title ?? spec.title;

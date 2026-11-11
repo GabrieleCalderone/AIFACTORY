@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { captionFor, distribution, distributionFor, materialOf, parseChannels, postMetadata } from "../src/lib/channels.ts";
+import { publicTitle, captionFor, distribution, distributionFor, materialOf, parseChannels, postMetadata } from "../src/lib/channels.ts";
 
 test("parseChannels reads the platform map and falls back to BUFFER_CHANNEL_ID", () => {
   assert.deepEqual(parseChannels({ BUFFER_CHANNELS: "instagram:a, tiktok:b,youtube:c" }), { instagram: "a", tiktok: "b", youtube: "c" });
@@ -47,4 +47,10 @@ test("post options carry the AI disclosure wherever the platform has one, and th
   for (const [platform, kind] of [["tiktok", "carousel"], ["facebook", "carousel"], ["facebook", "reel"], ["youtube", "reel"]] as const) {
     assert.equal(postMetadata(platform, kind, ai), null, `${platform} ${kind} cannot be disclosed, so it is not sent`);
   }
+});
+
+test("the opening line of a short caption is one the audience was shown, never the working title", () => {
+  assert.equal(publicTitle({ title: "internal note", reel: { hook: { title: "A chef at your table" } } }), "A chef at your table");
+  assert.equal(publicTitle({ title: "The island in November: sea cave, lemons", carousel: { slides: [{ type: "cover", title: "Sicily, in November." }] } }), "Sicily, in November.");
+  assert.equal(publicTitle({ title: "only this" }), "only this");
 });

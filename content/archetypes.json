@@ -170,7 +170,9 @@
         "kitchen",
         "lifting"
       ],
-      "service": "class"
+      "service": "class",
+      "active": false,
+      "retired": "2026-11-11: the owner discarded this style; replaced by the pieces in the manner of A7"
     },
     {
       "id": "A3-menu-list",
@@ -344,7 +346,9 @@
         "seafood",
         "chef"
       ],
-      "service": "chef"
+      "service": "chef",
+      "active": false,
+      "retired": "2026-11-11: the owner discarded this style; replaced by the pieces in the manner of A7"
     },
     {
       "id": "A5-proof-and-offer",
@@ -626,6 +630,128 @@
         "hands",
         "chef",
         "prep"
+      ],
+      "service": "class"
+    },
+    {
+      "platformAdaptations": {
+        "instagram_carousel": "4:5; photographs fill the slide wherever they are large enough.",
+        "tiktok": "photo post, short caption.",
+        "facebook": "album, full caption."
+      },
+      "examples": [],
+      "id": "A9-the-evening",
+      "name": "The evening (the table first, then the island)",
+      "useFor": "A private dinner told as an evening: the house's best dish or table fills the cover, two more moments of the dinner follow, one picture of Sicily sets the place, then what the experience is.",
+      "hookType": "The house's strongest photograph, full page, with a line that gives a feeling the traveller wants.",
+      "narrative": [
+        "cover: the dish or the table, one feeling",
+        "a second moment of the dinner",
+        "Sicily, once",
+        "the last course",
+        "what the experience is",
+        "the invitation"
+      ],
+      "formats": {
+        "carousel": {
+          "slides": [
+            "cover",
+            "photo",
+            "photo",
+            "photo",
+            "text",
+            "cta"
+          ]
+        }
+      },
+      "context": {
+        "maxPerCarousel": 1
+      },
+      "qualityGates": [
+        "cover and last photograph are the house's own",
+        "no sentence twice",
+        "no bare course names"
+      ],
+      "kpis": [
+        "sends per reach",
+        "saves per reach",
+        "qualified requests"
+      ],
+      "briefDefaults": {
+        "audience": "American couples, families and small groups planning Sicily, and guests of villas around Palermo",
+        "objective": "Sends to travel companions, then qualified quote requests",
+        "hook": "A feeling, not a service: for example \"You came to Sicily for the food. Make it personal.\"",
+        "cta": "Ask for a quote on risthome.it",
+        "hypothesisTemplate": "A cover that gives a feeling earns more sends than one that names the service. Success: sends >= 1% of reach."
+      },
+      "assetKeywords": [
+        "plated",
+        "table",
+        "setting",
+        "seafood",
+        "pasta",
+        "dessert",
+        "outdoor"
+      ],
+      "service": "chef"
+    },
+    {
+      "platformAdaptations": {
+        "instagram_carousel": "4:5; photographs fill the slide wherever they are large enough.",
+        "tiktok": "photo post, short caption.",
+        "facebook": "album, full caption."
+      },
+      "examples": [],
+      "id": "A10-the-craft",
+      "name": "The craft (the hands first, then the season)",
+      "useFor": "The cooking class told as something the traveller takes home: the hands or the fresh pasta fill the cover, the season's produce sets the place, the finished dish closes.",
+      "hookType": "The house's strongest photograph of the making, full page, with a line about learning it oneself.",
+      "narrative": [
+        "cover: the making, one feeling",
+        "the produce of the season",
+        "another moment of the making",
+        "the finished dish",
+        "the invitation"
+      ],
+      "formats": {
+        "carousel": {
+          "slides": [
+            "cover",
+            "photo",
+            "photo",
+            "photo",
+            "cta"
+          ]
+        }
+      },
+      "context": {
+        "maxPerCarousel": 1
+      },
+      "qualityGates": [
+        "cover and last photograph are the house's own",
+        "no sentence twice",
+        "no bare course names"
+      ],
+      "kpis": [
+        "sends per reach",
+        "saves per reach",
+        "class bookings"
+      ],
+      "briefDefaults": {
+        "audience": "American travellers who want to do something with their hands in Sicily, not only see it",
+        "objective": "Sends to travel companions, then class bookings",
+        "hook": "A feeling, not a service: for example \"Don't just visit Sicily. Learn to make it.\"",
+        "cta": "Book the class on risthome.it",
+        "hypothesisTemplate": "A cover about learning earns more sends than one about a dish. Success: sends >= 1% of reach."
+      },
+      "assetKeywords": [
+        "pasta",
+        "hands",
+        "prep",
+        "ingredients",
+        "technique",
+        "baking",
+        "dessert"
       ],
       "service": "class"
     }

@@ -107,6 +107,8 @@ export const CarouselSlide = z.discriminatedUnion("type", [
     image: imagePath,
     title: z.string().max(70).optional(),
     body: z.string().max(220).optional(),
+    /** "full": the photograph fills the slide like the cover (only when it is large enough to stay sharp); otherwise it sits whole on the mat. */
+    frame: z.enum(["full", "plate"]).optional(),
     /** A closer look at the picture shown whole on the slide before: the part to show, as fractions of the photograph. */
     detail: z.object({ x: z.number().min(0).max(1), y: z.number().min(0).max(1), w: z.number().min(0.05).max(1), h: z.number().min(0.05).max(1) }).optional(),
   }),

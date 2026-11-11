@@ -24,7 +24,7 @@ import http from "node:http";
 import path from "node:path";
 import { createBufferClient } from "../src/adapters/buffer.ts";
 import { monthSpendEur, type SpendEntry } from "../src/adapters/higgsfield.ts";
-import { captionFor, parseChannels } from "../src/lib/channels.ts";
+import { captionFor, parseChannels, publicTitle } from "../src/lib/channels.ts";
 import { buildCaption } from "../src/lib/timeline.ts";
 import { readExperiments } from "../src/lib/data.ts";
 import {
@@ -250,7 +250,7 @@ const status = () => {
     if (!parsed.success) return {};
     const spec = parsed.data;
     const full = buildCaption(spec);
-    const hook = spec.reel?.hook.title ?? spec.title;
+    const hook = publicTitle(spec);
     return Object.fromEntries((["instagram", "tiktok", "facebook"] as const).map((pf) => [pf, captionFor(pf, full, spec.hashtags, hook)]));
   };
   const posts = existsSync("out")

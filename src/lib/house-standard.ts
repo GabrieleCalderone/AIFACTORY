@@ -8,7 +8,9 @@ import type { PostSpec } from "../schemas/post.ts";
 export type HouseStandard = {
   version: string;
   audience: string;
-  limits: { hookTitleWords: number; sceneTextWords: number; slideTitleWords: number; slideBodyWords: number; captionChars: number; hashtagsMax: number };
+  limits: { hookTitleWords: number; sceneTextWords: number; slideTitleWords: number; slideBodyWords: number; captionChars: number; hashtagsMax: number; captionEmojiMax?: number; captionParagraphsMin?: number };
+  /** Italian course names that say nothing to a traveller when they stand alone as a title. */
+  courseWords?: string[];
   /** hype and sales vocabulary, per language; matched as whole words, case-insensitive */
   banned: Record<"it" | "en", string[]>;
   /** inventory-style descriptions of food by shape, colour or container; matched as phrases */
@@ -74,11 +76,29 @@ export const lintStandard = (spec: PostSpec, std: HouseStandard): Violation[] =>
     const inventory = clinical?.exec(text);
     if (inventory) out.push({ where, optional, message: `describes food like an inventory ("${inventory[0]}"): name the dish with the chef's name or say nothing` });
     if (text.includes("!")) out.push({ where, optional, message: "exclamation mark" });
-    if (EMOJI.test(text)) out.push({ where, optional, message: "emoji" });
+    if (EMOJI.test(text) && !(where === "caption" && std.limits.captionEmojiMax)) out.push({ where, optional, message: "emoji" });
     if (maxWords !== undefined && words(text) > maxWords) out.push({ where, optional, message: `${words(text)} words, the house limit is ${maxWords}` });
   };
   for (const f of fields(spec, std.limits)) check(f.where, f.text, f.optional, f.maxWords);
   check("caption", spec.caption, false);
+  // The caption is a short page: paragraphs with air between them, and a few symbols at most.
+  const symbols = spec.caption.match(new RegExp(EMOJI.source, "gu"))?.length ?? 0;
+  if (std.limits.captionEmojiMax && symbols > std.limits.captionEmojiMax) out.push({ where: "caption", optional: false, message: `${symbols} symbols, at most ${std.limits.captionEmojiMax}` });
+  const paragraphs = spec.caption.split(/\n\s*\n/).filter((p) => p.trim()).length;
+  if (std.limits.captionParagraphsMin && paragraphs < std.limits.captionParagraphsMin) out.push({ where: "caption", optional: false, message: `${paragraphs} paragraph(s): set the caption in at least ${std.limits.captionParagraphsMin} short paragraphs with a blank line between them` });
+  // No sentence twice, and no bare course name as a title.
+  const said = new Map<string, string>();
+  const courses = new Set((std.courseWords ?? []).map((w) => w.toLowerCase()));
+  for (const f of fields(spec, std.limits)) {
+    const key = f.text.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+    if (!key) continue;
+    const format = f.where.split(".")[0];
+    // the reel and the carousel are two pieces: a line may live once in each
+    const first = said.get(`${format}:${key}`);
+    if (first && key.split(" ").length > 1) out.push({ where: f.where, optional: f.optional, message: `the same words as ${first} ("${f.text.trim().slice(0, 40)}")` });
+    else said.set(`${format}:${key}`, f.where);
+    if (/\.(title|label)$/.test(f.where) && courses.has(key)) out.push({ where: f.where, optional: f.optional, message: `a bare course name ("${f.text.trim()}") is not a title: name the dish in the chef's words or leave it empty` });
+  }
   if (std.seo && spec.lang === "en" && spec.carousel) {
     // A traveller who does not know the house must read where this is within the first two slides.
     const opening = spec.carousel.slides.slice(0, 2).map((sl) => [("kicker" in sl && sl.kicker) || "", ("title" in sl && sl.title) || "", ("body" in sl && sl.body) || ""].join(" ")).join(" ").toLowerCase();

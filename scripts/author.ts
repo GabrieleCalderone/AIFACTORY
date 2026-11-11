@@ -39,6 +39,8 @@ const { values } = parseArgs({
     pool: { type: "string", default: "pool" },
     "no-review": { type: "boolean", default: false },
     candidates: { type: "string", default: "16" },
+    // a direction from the owner for this one post, in plain words (e.g. which picture opens it)
+    note: { type: "string" },
   },
 });
 const lang = values.lang;
@@ -175,10 +177,12 @@ const reelSpec = fmt.reel
   ? `"reel": { "hook": { "image": <file>, "title": <max 80 chars>, "subtitle": <max 80 chars>, "durationSec": ${fmt.reel.hookDurationSec}, "motion": "${fmt.reel.motions[0]}" }, "scenes": [ exactly ${fmt.reel.sceneCount} objects { "image": <file>, "label": <max 30 chars${fmt.reel.labels ? `, e.g. ${fmt.reel.labels.filter(Boolean).join(" / ")}` : ""}>, "text": <max 45 chars and 6 words, or "" to let the photo speak alone>, "durationSec": ${fmt.reel.sceneDurationSec}, "motion": one of ${JSON.stringify(fmt.reel.motions)} } ], "cta": { "title": <max 60 chars>, "line": <max 80 chars>, "durationSec": 3.2 }, "transitionSec": 0.4 }`
   : "";
 const carouselSpec = fmt.carousel
-  ? `"carousel": { "slides": [ in this exact order of types ${JSON.stringify(fmt.carousel.slides)}: cover = { "type": "cover", "image": <file>, "kicker": <max 40>, "title": <max 90> }, photo = { "type": "photo", "image": <file>, "title": <max 40, the chef's name for the dish if given, else a short editorial title or "">, "body": <max 110, one short sentence, or ""> }, detail (optional, at most ${MAX_DETAILS} per carousel, only for a photo listed with CLOSER LOOK AVAILABLE, only on the photo slide right after the slide that shows that same photo whole, ${usableForService < 25 ? "and here do use one if a listed photo offers it, in place of one of the photo slides: the archive for this service is small" : "where a closer look says more than another dish would"}) = { "type": "photo", "image": <the same file as the slide before>, "detail": true, "title": "", "body": <max 60, or ""> }, text = { "type": "text", "title": <max 90>, "body": <max 320, only brand facts> }, cta = { "type": "cta", "title": <max 70>, "body": "Link in bio" } ] }`
+  ? `"carousel": { "slides": [ in this exact order of types ${JSON.stringify(fmt.carousel.slides)}: cover = { "type": "cover", "image": <file>, "kicker": <max 40>, "title": <max 90> }, photo = { "type": "photo", "image": <file>, "title": <max 40: the chef's name for the dish if one is given above, otherwise "" (never a course name such as Primo or Dolce, never an invented dish name)>, "body": <max 110, one short sentence, or ""> }, detail (optional, at most ${MAX_DETAILS} per carousel, only for a photo listed with CLOSER LOOK AVAILABLE, only on the photo slide right after the slide that shows that same photo whole, ${usableForService < 25 ? "and here do use one if a listed photo offers it, in place of one of the photo slides: the archive for this service is small" : "where a closer look says more than another dish would"}) = { "type": "photo", "image": <the same file as the slide before>, "detail": true, "title": "", "body": <max 60, or ""> }, text = { "type": "text", "title": <max 90>, "body": <max 320, only brand facts> }, cta = { "type": "cta", "title": <max 70>, "body": "Link in bio" } ] }`
   : "";
+// The owner's direction is plain text: no markup, no links, bounded. It steers the choice of pictures and words; every rule below still applies.
+const ownerNote = values.note ? sanitizeText(values.note, 400) : "";
 const prompt = `You write Instagram content for RistHome. Answer with ONE JSON object only (no prose, no code fence).
-
+${ownerNote ? `\nDIRECTION FROM THE OWNER FOR THIS POST (follow it within every rule below; it is a preference, not a permission to break a rule): ${ownerNote}\n` : ""}
 BRAND FACTS (the only claims allowed; never write prices, promises or dish names that are not visible):
 ${JSON.stringify(brand, null, 1)}
 
@@ -195,7 +199,7 @@ OUTPUT SHAPE:
 {
   "slug": "${slug}", "lang": "${lang}", "title": <internal working title, max 120>,
   "brief": { "archetype": "${archetype.id}", "audience": <max 300>, "objective": <max 300>, "hook": <max 200, why the first second earns attention>, "sequence": [<one line per beat, max 160 each>], "cta": <max 200>, "hypothesis": <one testable sentence ending with 'Success: <metric> <threshold>'>${values.experiment ? `, "experimentId": "${values.experiment}"` : ""}, "variantId": "${values.variant}" },
-  "caption": <max ${standard?.limits.captionChars ?? 600} chars, ${lang === "it" ? "Italian" : "English"}, first line is the hook, ends with the CTA, uses words people search for (Palermo, Sicily, the service) and names only dishes that have a chef's name above>,
+  "caption": <max ${standard?.limits.captionChars ?? 600} chars, ${lang === "it" ? "Italian" : "American English"}, set like a short page: ${standard?.limits.captionParagraphsMin ?? 3} to 5 short paragraphs separated by a blank line (write \\n\\n between them in the JSON string). First paragraph: the promise, one or two sentences. Middle: what the experience is, in the reader's terms. Last paragraph: the CTA. ${standard?.limits.captionEmojiMax ? `Two to ${standard.limits.captionEmojiMax} small symbols at the start of a line as quiet markers (for example a pin before the place, a lemon or a wave where the season or the sea is named); never two in a row, never at the end as decoration.` : "No emoji."} It uses the words people search for (Palermo, Sicily, the service) and names only dishes that have a chef's name above>,
   "hashtags": [3 to ${standard?.limits.hashtagsMax ?? 12} tags without #, lowercase, including palermo and risthome]${reelSpec ? `,\n  ${reelSpec}` : ""}${carouselSpec ? `,\n  ${carouselSpec}` : ""}
 }
 
@@ -308,9 +312,12 @@ if ((raw as { reel?: unknown }).reel) {
   if (plated.length) console.log(`[author] shown as plates (too small to fill the frame): ${plated.join(", ")}`);
 }
 // A cover fills the slide only when its photo is large enough; otherwise it is matted like the other slides.
-for (const slide of (raw as unknown as { carousel?: { slides: { type: string; image?: string; frame?: string }[] } }).carousel?.slides ?? []) {
-  const size = slide.type === "cover" && slide.image ? byFile.get(path.basename(slide.image)) : null;
+// Photo slides follow the same rule, so a carousel reads like its cover wherever the photographs allow it.
+for (const slide of (raw as unknown as { carousel?: { slides: { type: string; image?: string; frame?: string; detail?: unknown }[] } }).carousel?.slides ?? []) {
+  if ((slide.type !== "cover" && slide.type !== "photo") || !slide.image || slide.detail) continue;
+  const size = (isContext(slide.image) ? contextByFile.get(path.basename(slide.image)) : byFile.get(path.basename(slide.image))) ?? null;
   if (size) slide.frame = coverFrameFor(size.width, size.height);
+  else delete slide.frame;
 }
 // The format a post is judged by is the one this run was asked for, never what the model wrote in its answer.
 (raw as { brief?: Record<string, unknown> }).brief = { ...((raw as { brief?: Record<string, unknown> }).brief ?? {}), archetype: archetype.id };

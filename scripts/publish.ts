@@ -12,7 +12,7 @@ import path from "node:path";
 import { createHash } from "node:crypto";
 import { parseArgs } from "node:util";
 import { createBufferClient, type BufferAsset } from "../src/adapters/buffer.ts";
-import { captionFor, distributionFor, materialOf, parseChannels, postMetadata, type Platform } from "../src/lib/channels.ts";
+import { captionFor, distributionFor, materialOf, parseChannels, postMetadata, publicTitle, type Platform } from "../src/lib/channels.ts";
 import { readExperiments, writeExperiments } from "../src/lib/data.ts";
 import { generatedIn, isContext, isGenerated } from "../src/lib/context.ts";
 import { contextRows, gateSpec } from "../src/lib/gate-io.ts";
@@ -86,7 +86,8 @@ if (Number.isNaN(when.getTime())) {
   process.exit(2);
 }
 const full = buildCaption(spec);
-const hookTitle = spec.reel?.hook.title ?? spec.title;
+// The line a short caption opens with is one the audience was shown: the reel's hook or the carousel's cover, never the internal working title.
+const hookTitle = publicTitle(spec);
 type Job = { kind: "reel" | "carousel"; platform: Platform; channelId: string; text: string; assets: BufferAsset[]; dueAt: string; metadata?: Record<string, unknown> };
 const jobs: Job[] = [];
 const material = materialOf(spec.reel);

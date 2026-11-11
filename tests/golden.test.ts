@@ -17,7 +17,8 @@ const { cases } = JSON.parse(readFileSync("tests/golden/cases.json", "utf8")) as
 const standard = JSON.parse(readFileSync("content/house-standard.json", "utf8")) as HouseStandard;
 const archetypes = (JSON.parse(readFileSync("content/archetypes.json", "utf8")) as { archetypes: ArchetypeLite[] }).archetypes;
 
-const quiet = { caption: "Una tavola a Palermo.", hook: "A casa vostra", scene: "", slideBody: "" };
+// three short paragraphs: the house sets a caption like a page
+const quiet = { caption: "Una tavola a Palermo.\n\nLo chef cucina a casa vostra.\n\nScriveteci su risthome.it", hook: "A casa vostra", scene: "", slideBody: "" };
 const specWith = (c: Case) =>
   parsePostSpec({
     slug: "golden", lang: c.lang ?? "it", title: "golden",

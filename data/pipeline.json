@@ -511,8 +511,8 @@
   },
   "a7-20261112": {
     "slug": "a7-20261112",
-    "state": "RENDERED",
-    "updatedAt": "2026-11-11T20:07:23.400Z",
+    "state": "REJECTED",
+    "updatedAt": "2026-11-11T20:19:53.101Z",
     "history": [
       {
         "at": "2026-11-11T20:02:03.756Z",
@@ -540,6 +540,57 @@
       },
       {
         "at": "2026-11-11T20:07:23.400Z",
+        "from": "QUALITY_CHECKED",
+        "to": "RENDERED",
+        "note": "reel no, slides 6"
+      },
+      {
+        "at": "2026-11-11T20:13:23.919Z",
+        "from": "RENDERED",
+        "to": "APPROVED",
+        "note": "approved in the console"
+      },
+      {
+        "at": "2026-11-11T20:14:25.227Z",
+        "from": "APPROVED",
+        "to": "SCHEDULED",
+        "note": "3 Buffer post(s)"
+      },
+      {
+        "at": "2026-11-11T20:19:53.101Z",
+        "from": "SCHEDULED",
+        "to": "REJECTED",
+        "note": "taken back from Buffer (instagram carousel, tiktok carousel, facebook carousel): owner: right direction, to be redone with full-frame slides, no repeated lines, a caption in paragraphs"
+      }
+    ],
+    "evidence": {
+      "approvedSha": "d55ea4e9d7965bbcbe6b5296c3ee691aa616574fe96f2be07b22d39572a2f7c4",
+      "bufferPostIds": [
+        "6af4cca0ee6fced9f5496881",
+        "6af4cca0b933477d282007a9",
+        "6af4cca1ee6fced9f5496fb6"
+      ]
+    }
+  },
+  "a7-20261113": {
+    "slug": "a7-20261113",
+    "state": "RENDERED",
+    "updatedAt": "2026-11-11T20:23:09.528Z",
+    "history": [
+      {
+        "at": "2026-11-11T20:22:58.213Z",
+        "from": null,
+        "to": "DISCOVERED",
+        "note": "authored by sonnet from 16 ranked photos (standard 2026-11-12b, rules debaf573)"
+      },
+      {
+        "at": "2026-11-11T20:22:58.214Z",
+        "from": "DISCOVERED",
+        "to": "QUALITY_CHECKED",
+        "note": "gate passed with 0 warning(s)"
+      },
+      {
+        "at": "2026-11-11T20:23:09.528Z",
         "from": "QUALITY_CHECKED",
         "to": "RENDERED",
         "note": "reel no, slides 6"
