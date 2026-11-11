@@ -5,8 +5,8 @@ Scritta l'11 novembre 2026. Parte da numeri misurati; dove un dato manca è dett
 ## La situazione, in numeri
 
 - **Vendite**: GetYourGuide è l'unico canale che vende (32 lezioni da gennaio a ottobre 2026, 6.878 EUR lordi, commissione 30%). Sito, Bókun e Viator: zero prenotazioni. Verificato il 5 novembre.
-- **Archivio**: nessuna ripresa possibile. Le foto adatte sono 46 per lo chef a domicilio e 20 per la lezione; tolti gli scatti doppi dello stesso piatto restano **39 piatti e scene per lo chef e 19 per la lezione**.
-- **Consumo**: un post usa circa 5 foto. Senza ripetizioni l'archivio regge circa 8 post per lo chef e 4 per la lezione. Al ritmo attuale (un post ogni due giorni) la lezione, che è ciò che vende, si esaurisce in due o tre settimane.
+- **Archivio**: nessuna ripresa possibile. Le foto adatte sono 46 per lo chef a domicilio e 20 per la lezione; tolti gli scatti doppi dello stesso piatto restano **36 piatti e scene per lo chef e 19 per la lezione**.
+- **Consumo**: un post usa circa 5 foto. Senza ripetizioni l'archivio regge circa 7 post per lo chef e 3 o 4 per la lezione. Al ritmo attuale (un post ogni due giorni) la lezione, che è ciò che vende, si esaurisce in due o tre settimane.
 - **Prova sociale**: Google Business 5,0 con 101 recensioni. Oggi non entra in nessun contenuto.
 - **Percorso di acquisto**: il sito non ha un percorso di prenotazione. Il "link in bio" porta a una pagina che non vende.
 
