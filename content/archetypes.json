@@ -123,6 +123,16 @@
             "",
             "Servito"
           ]
+        },
+        "carousel": {
+          "slides": [
+            "cover",
+            "photo",
+            "photo",
+            "photo",
+            "photo",
+            "cta"
+          ]
         }
       },
       "platformAdaptations": {
@@ -437,6 +447,16 @@
             "2",
             "3",
             "Servito"
+          ]
+        },
+        "carousel": {
+          "slides": [
+            "cover",
+            "photo",
+            "photo",
+            "photo",
+            "photo",
+            "cta"
           ]
         }
       },

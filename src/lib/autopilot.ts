@@ -1,8 +1,9 @@
 /**
  * Pure planning rules for the autopilot (unit-tested; no IO).
  * - posts every `cadenceDays`, alternating language, rotating archetypes;
- * - the second post of an archetype becomes variant B of its first experiment when
- *   variant A has been measured, otherwise a new experiment starts.
+ * - every post is its own tracked entry. Single-post A/B variants were dropped: with a few
+ *   posts a week they cannot separate a real difference from chance, so results are read
+ *   per series (archetype) over a month instead.
  */
 export type AutopilotState = {
   cadenceDays: number;
@@ -40,18 +41,8 @@ export type Plan = { archetype: string; lang: "it" | "en"; experimentId: string;
 export const planNext = (state: AutopilotState, experiments: ExperimentLite[]): Plan => {
   const archetype = state.rotation[state.nextIndex % state.rotation.length];
   const lang = state.langs[state.nextLang % state.langs.length];
-  const ofArchetype = experiments.filter((e) => e.archetype === archetype);
-  const byExp = new Map<string, ExperimentLite[]>();
-  for (const e of ofArchetype) byExp.set(e.experiment_id, [...(byExp.get(e.experiment_id) ?? []), e]);
-  for (const [id, rows] of byExp) {
-    const a = rows.find((r) => r.variant_id === "A");
-    const hasB = rows.some((r) => r.variant_id === "B");
-    if (a && a.status === "measured" && !hasB) {
-      return { archetype, lang, experimentId: id, variantId: "B", reason: `variant A of ${id} is measured; testing a second hook` };
-    }
-  }
   const max = experiments.reduce((m, e) => Math.max(m, Number(e.experiment_id.replace("EXP-", "")) || 0), 0);
-  return { archetype, lang, experimentId: `EXP-${String(max + 1).padStart(3, "0")}`, variantId: "A", reason: "new experiment for this archetype" };
+  return { archetype, lang, experimentId: `EXP-${String(max + 1).padStart(3, "0")}`, variantId: "A", reason: "next post of the series" };
 };
 
 export const advance = (state: AutopilotState, now: Date): AutopilotState => ({

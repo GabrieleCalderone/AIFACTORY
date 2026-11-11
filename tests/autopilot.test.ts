@@ -12,17 +12,12 @@ test("a post is due on the first run and once a calendar day has passed (daily b
   assert.equal(isDue({ ...defaultState, cadenceDays: 3, lastPostAt: new Date(2026, 10, 7, 9, 0).toISOString() }, morning), true);
 });
 
-test("planning starts a new experiment, then tests variant B once A is measured", () => {
+test("every post is its own tracked entry: no single-post variants", () => {
   const state = { ...defaultState, rotation: ["A2-chef-at-work"], langs: ["it" as const] };
   const fresh = planNext(state, [{ experiment_id: "EXP-004", variant_id: "A", archetype: "A2-chef-at-work", status: "published" }]);
   assert.deepEqual([fresh.experimentId, fresh.variantId], ["EXP-005", "A"]);
   const measured = planNext(state, [{ experiment_id: "EXP-004", variant_id: "A", archetype: "A2-chef-at-work", status: "measured" }]);
-  assert.deepEqual([measured.experimentId, measured.variantId], ["EXP-004", "B"]);
-  const both = planNext(state, [
-    { experiment_id: "EXP-004", variant_id: "A", archetype: "A2-chef-at-work", status: "measured" },
-    { experiment_id: "EXP-004", variant_id: "B", archetype: "A2-chef-at-work", status: "measured" },
-  ]);
-  assert.deepEqual([both.experimentId, both.variantId], ["EXP-005", "A"]);
+  assert.deepEqual([measured.experimentId, measured.variantId], ["EXP-005", "A"], "a measured post does not spawn a variant B");
 });
 
 test("advance rotates archetype and language and records the post time", () => {

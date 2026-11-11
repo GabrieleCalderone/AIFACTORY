@@ -20,7 +20,7 @@ import { bundle } from "@remotion/bundler";
 import { openBrowser, renderMedia, renderStill, selectComposition } from "@remotion/renderer";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { CAROUSEL, REEL } from "../src/lib/formats.ts";
@@ -86,6 +86,23 @@ const loadSpec = (file: string) => {
 
 const log = (msg: string) => console.log(`[render] ${msg}`);
 
+/**
+ * Brings the reel's sound to -14 LUFS with peaks under -1 dBTP, the level editors deliver for
+ * Instagram and TikTok, so a post is neither quieter nor louder than the ones around it.
+ * The picture is copied untouched. On any failure the original file is kept.
+ */
+const normaliseLoudness = (file: string, slug: string) => {
+  const tmp = file.replace(/\.mp4$/, ".loud.mp4");
+  try {
+    execFileSync("ffmpeg", ["-v", "error", "-y", "-i", file, "-c:v", "copy", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", "48000", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", tmp], { stdio: ["ignore", "ignore", "pipe"] });
+    renameSync(tmp, file);
+    log(`${slug}: sound levelled to -14 LUFS`);
+  } catch (e) {
+    rmSync(tmp, { force: true });
+    log(`${slug}: sound left as rendered (${e instanceof Error ? e.message.split("\n")[0] : e})`);
+  }
+};
+
 const main = async () => {
   const posts = specFiles.map(loadSpec);
   const warningsBySlug = new Map<string, string[]>();
@@ -148,6 +165,7 @@ const main = async () => {
             }
           },
         });
+        if (spec.reel.audio) normaliseLoudness(output, spec.slug);
         const timeline = reelTimeline(spec.reel, composition.fps);
         const coverFrame = Math.round(timeline.sequences[0].durationInFrames / 2);
         const cover = path.join(outDir, "reel-cover.jpg");

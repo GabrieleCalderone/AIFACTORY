@@ -30,6 +30,30 @@ export const distribution: Record<"reel" | "carousel", { platform: Platform; off
   ],
 };
 
+/** What a post is made of: real footage, or photographs only. */
+export type Material = "video" | "stills";
+/** A reel counts as video when at least this many of its pictures are real clips. */
+export const MIN_CLIPS_FOR_VIDEO = 3;
+export const materialOf = (reel: { hook: { video?: string; image?: string }; scenes: { video?: string; image?: string }[] } | undefined): Material =>
+  reel && [reel.hook, ...reel.scenes].filter((m) => m.video).length >= MIN_CLIPS_FOR_VIDEO ? "video" : "stills";
+
+/**
+ * The format follows the material. Real footage leads with the reel everywhere. Photographs
+ * lead with the carousel (Instagram, TikTok photo post, Facebook); the reel made of framed
+ * photographs follows two days later on Instagram only, as a second look at the same work.
+ */
+export const distributionFor = (material: Material): typeof distribution =>
+  material === "video"
+    ? distribution
+    : {
+        carousel: [
+          { platform: "instagram", offsetHours: 0 },
+          { platform: "tiktok", offsetHours: 1 },
+          { platform: "facebook", offsetHours: 2 },
+        ],
+        reel: [{ platform: "instagram", offsetHours: 48 }],
+      };
+
 /** Platform-specific caption: TikTok and Shorts favour a short caption with the tags; Facebook gets the full text without tags. */
 export const captionFor = (platform: Platform, full: string, hashtags: string[], hookTitle: string): string => {
   const body = full.split("\n\n").filter((p) => !p.startsWith("#")).join("\n\n");

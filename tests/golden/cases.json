@@ -1,0 +1,29 @@
+{
+  "note": "Real failures of this factory, kept so they can never pass again. Add a case every time a person rejects a post for a new reason. kind: text = house-standard lint on a published text; licence = context licence; calendar = rotation check; context = placement of a context picture; frame = presentation by photo size.",
+  "cases": [
+    { "id": "a3-20261110-scene-1", "seen": "2026-11-10", "kind": "text", "lang": "en", "where": "scene", "text": "Golden fried balls in wooden cones with small picks", "expect": ["inventory"] },
+    { "id": "a3-20261110-scene-4", "seen": "2026-11-10", "kind": "text", "lang": "en", "where": "scene", "text": "Toasted bread slices with a red topping on slate", "expect": ["inventory"] },
+    { "id": "a3-20261110-scene-6", "seen": "2026-11-10", "kind": "text", "lang": "en", "where": "scene", "text": "A fried ball with herbs on a spoon over tomato sauce", "expect": ["inventory"] },
+    { "id": "a3-20261110-slide-1", "seen": "2026-11-10", "kind": "text", "lang": "en", "where": "slideBody", "text": "Rows of small cups with red cream and a white topping, set beside white flowers on the buffet.", "expect": ["inventory"] },
+    { "id": "a3-20261110-hashtags", "seen": "2026-11-10", "kind": "text", "lang": "en", "where": "hashtags", "count": 10, "expect": ["hashtags"] },
+    { "id": "a3-20261110-caption-length", "seen": "2026-11-10", "kind": "text", "lang": "en", "where": "caption", "text": "Finger food for your event in Sicily.\n\nGolden arancini in wooden cones, mini pizzas with tomato, cheese and basil, salmon and tomato bruschetta, croquette bites, sesame buns, mini burger sliders and little cups for the buffet.\n\nMade and served by the RistHome team, from 25 guests, for private and corporate events in Palermo and all over Sicily. 5.0 on Google with 101 reviews.\n\nAsk for an event proposal on risthome.it (link in bio)", "expect": ["inventory"] },
+    { "id": "site-luxury-claim", "seen": "2026-11-11", "kind": "text", "lang": "en", "where": "hook", "text": "Luxury private chef in Sicily", "expect": ["hype word"] },
+    { "id": "engagement-bait-en", "seen": "2026-11-11", "kind": "text", "lang": "en", "where": "caption", "text": "Tag a friend who would love this table.", "expect": ["hype word"] },
+    { "id": "engagement-bait-it", "seen": "2026-11-11", "kind": "text", "lang": "it", "where": "caption", "text": "Seguici per altre ricette e commenta qui sotto.", "expect": ["hype word"] },
+    { "id": "hype-it", "seen": "2026-11-11", "kind": "text", "lang": "it", "where": "scene", "text": "Un piatto imperdibile", "expect": ["hype word"] },
+    { "id": "exclamation", "seen": "2026-11-11", "kind": "text", "lang": "it", "where": "hook", "text": "Prenota ora!", "expect": ["exclamation"] },
+    { "id": "long-scene-text", "seen": "2026-11-11", "kind": "text", "lang": "it", "where": "scene", "text": "La pasta fresca viene tirata a mano dallo chef ogni mattina", "expect": ["words"] },
+    { "id": "quiet-line-passes", "seen": "2026-11-11", "kind": "text", "lang": "it", "where": "scene", "text": "Servito al vostro tavolo", "expect": [] },
+    { "id": "quiet-hook-passes", "seen": "2026-11-11", "kind": "text", "lang": "it", "where": "hook", "text": "Il vostro tavolo, cucinato a casa vostra", "expect": [] },
+    { "id": "share-alike-photo", "seen": "2026-11-11", "kind": "licence", "licence": "CC BY-SA 4.0", "ok": false },
+    { "id": "non-commercial-photo", "seen": "2026-11-11", "kind": "licence", "licence": "CC BY-NC 2.0", "ok": false },
+    { "id": "attribution-photo", "seen": "2026-11-11", "kind": "licence", "licence": "CC BY 4.0", "ok": true },
+    { "id": "events-format-in-rotation", "seen": "2026-11-11", "kind": "calendar", "rotation": ["A6-chef-series", "A1-process-reveal", "A3-menu-list", "A2-chef-at-work", "A4-private-table"], "expect": ["A3-menu-list is retired"] },
+    { "id": "same-format-twice", "seen": "2026-11-11", "kind": "calendar", "rotation": ["A1-process-reveal", "A1-process-reveal", "A4-private-table"], "expect": ["followed by itself"] },
+    { "id": "context-as-opening", "seen": "2026-11-11", "kind": "context", "hook": "assets/context/1.jpg", "scenes": ["assets/pool/a.jpg", "assets/pool/b.jpg"], "expect": ["opening picture must be the house's own"] },
+    { "id": "context-as-closing", "seen": "2026-11-11", "kind": "context", "hook": "assets/pool/a.jpg", "scenes": ["assets/pool/b.jpg", "assets/context/1.jpg"], "expect": ["last picture must be the house's own"] },
+    { "id": "unapproved-context", "seen": "2026-11-11", "kind": "context", "hook": "assets/pool/a.jpg", "scenes": ["assets/context/999.jpg", "assets/pool/b.jpg"], "expect": ["not an approved context picture"] },
+    { "id": "small-photo-blown-up", "seen": "2026-11-11", "kind": "frame", "width": 720, "height": 523, "frame": "plate" },
+    { "id": "phone-photo-fills", "seen": "2026-11-11", "kind": "frame", "width": 3024, "height": 4032, "frame": "full" }
+  ]
+}

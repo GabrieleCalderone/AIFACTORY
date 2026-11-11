@@ -9,6 +9,9 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { parseArgs } from "node:util";
 import { createBufferClient } from "../src/adapters/buffer.ts";
 import { setState } from "../src/lib/pipeline-io.ts";
+import { appendLabel, buildLabel } from "../src/lib/labels.ts";
+import { loadStandard } from "../src/lib/gate-io.ts";
+import { PostSpec } from "../src/schemas/post.ts";
 
 const { values, positionals } = parseArgs({ allowPositionals: true, options: { reason: { type: "string" }, "dry-run": { type: "boolean", default: false } } });
 const slug = positionals[0];
@@ -45,6 +48,11 @@ for (const pub of mine) {
 }
 if (removed.length) {
   writeFileSync(file, JSON.stringify(pubs.filter((p) => !removed.includes(p)), null, 2) + "\n");
+  if (!kept.length) {
+    const specFile = `content/posts/${slug}.json`;
+    const parsed = existsSync(specFile) ? PostSpec.safeParse(JSON.parse(readFileSync(specFile, "utf8"))) : null;
+    appendLabel(buildLabel({ slug, decision: "rejected", note: values.reason, source: "cli", at: new Date(), standard: loadStandard()?.version, spec: parsed?.success ? parsed.data : null }));
+  }
   if (!kept.length) setState(slug, "REJECTED", `taken back from Buffer (${removed.map((p) => `${p.platform ?? "instagram"} ${p.kind}`).join(", ")}): ${values.reason}`);
 }
 if (kept.length) process.exit(1);

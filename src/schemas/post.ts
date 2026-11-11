@@ -160,6 +160,8 @@ export const PostSpec = z
       .transform((tags) => Array.from(new Set(tags))),
     reel: Reel.optional(),
     carousel: Carousel.optional(),
+    /** True when any picture or clip of the post was made or animated by a generative model; passed to the platforms as their AI disclosure. */
+    aiGenerated: z.boolean().optional(),
     /** Photo credits owed for licensed context pictures; appended to the caption. */
     credits: z.array(z.string().min(3).max(200)).max(6).optional(),
   })

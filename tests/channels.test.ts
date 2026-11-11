@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { captionFor, distribution, parseChannels } from "../src/lib/channels.ts";
+import { captionFor, distribution, distributionFor, materialOf, parseChannels } from "../src/lib/channels.ts";
 
 test("parseChannels reads the platform map and falls back to BUFFER_CHANNEL_ID", () => {
   assert.deepEqual(parseChannels({ BUFFER_CHANNELS: "instagram:a, tiktok:b,youtube:c" }), { instagram: "a", tiktok: "b", youtube: "c" });
@@ -20,4 +20,16 @@ test("captions adapt per platform", () => {
   assert.equal(captionFor("instagram", full, ["#palermo", "#risthome"], "Hook line."), full);
   assert.equal(captionFor("tiktok", full, ["#palermo", "#risthome"], "Hook line."), "Hook line.\n#palermo #risthome");
   assert.equal(captionFor("facebook", full, ["#palermo"], "Hook line."), "Hook line.\n\nBody text.");
+});
+
+test("the format follows the material: photographs lead with the carousel, real footage with the reel", () => {
+  const stills = { hook: { image: "a.jpg" }, scenes: [{ image: "b.jpg" }, { video: "c.mp4" }, { video: "d.mp4" }] };
+  const footage = { hook: { video: "a.mp4" }, scenes: [{ video: "b.mp4" }, { video: "c.mp4" }, { image: "d.jpg" }] };
+  assert.equal(materialOf(stills), "stills");
+  assert.equal(materialOf(footage), "video");
+  assert.equal(materialOf(undefined), "stills");
+  assert.deepEqual(distributionFor("video"), distribution);
+  const d = distributionFor("stills");
+  assert.deepEqual(d.carousel.map((x) => `${x.platform}+${x.offsetHours}`), ["instagram+0", "tiktok+1", "facebook+2"]);
+  assert.deepEqual(d.reel.map((x) => `${x.platform}+${x.offsetHours}`), ["instagram+48"]);
 });

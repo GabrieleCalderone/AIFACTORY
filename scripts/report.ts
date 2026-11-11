@@ -52,6 +52,17 @@ for (const a of archetypes) {
   const perK = inq === null || plays === null || plays === 0 ? dash : (1000 * inq / plays).toFixed(2);
   lines.push(`| ${a.id} ${a.name} | ${rows.length} | ${measured.length} | ${ci(saves, reach)} | ${perK} | ${n(sum(measured, "bookings"))} | ${n(sum(measured, "revenue_eur"))} |`);
 }
+// The three signals Instagram names for ranking, read per series; a series with few measured posts says nothing yet.
+const MIN_MEASURED = 5;
+const mean = (rows: ExperimentRow[], key: keyof ExperimentRow): string => {
+  const values = rows.map((r) => r[key]).filter((v): v is number => typeof v === "number");
+  return values.length ? (values.reduce((a, b) => a + b, 0) / values.length).toFixed(1) : dash;
+};
+lines.push("", "## Series signals (average watch time, likes per reach, sends per reach)", "", `A series is read only from ${MIN_MEASURED} measured posts on; below that the figures are shown but no conclusion is drawn.`, "", "| Series | Measured | Avg watch s | Likes / reach | Sends / reach | Reading |", "|---|---|---|---|---|---|");
+for (const a of archetypes) {
+  const measured = records.filter((r) => r.archetype === a.id && r.status === "measured");
+  lines.push(`| ${a.id} | ${measured.length} | ${mean(measured, "avg_watch_time_sec")} | ${ratio(sum(measured, "likes"), sum(measured, "reach"))} | ${ratio(sum(measured, "shares"), sum(measured, "reach"))} | ${measured.length >= MIN_MEASURED ? "readable" : `wait (${measured.length}/${MIN_MEASURED})`} |`);
+}
 lines.push("", "## Revenue view per product", "", "| Product | Posts | Qualified inquiries | Bookings | Revenue EUR | Est. margin EUR (assumption) | AI cost EUR | Cost per booking |", "|---|---|---|---|---|---|---|---|");
 for (const [key, p] of Object.entries(products)) {
   const archIds = archetypes.filter((a) => a.service === key).map((a) => a.id);

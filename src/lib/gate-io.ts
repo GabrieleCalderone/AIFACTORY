@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { readExperiments } from "./data.ts";
 import { runGate, type GateResult, type MediaInfo } from "./gate.ts";
-import { CONTEXT_PREFIX, contextIssues } from "./context.ts";
+import { CONTEXT_PREFIX, contextIssues, isGenerated } from "./context.ts";
 import { lintStandard, type HouseStandard } from "./house-standard.ts";
 import type { PostSpec } from "../schemas/post.ts";
 
@@ -65,7 +65,8 @@ export const contextRows = (): ContextRow[] => {
 /** Credit owed for a context picture: a string, null when none is owed, undefined when the picture is not approved. */
 export const contextCredits = (): ((image: string) => string | null | undefined) => {
   const rows = new Map(contextRows().map((r) => [`${CONTEXT_PREFIX}${r.file}`, r.credit ?? null]));
-  return (image) => rows.get(image);
+  // Generated material owes no credit, but must have its provenance record next to it.
+  return (image) => (isGenerated(image) ? (existsSync(`${publicFile(image)}.provenance.json`) ? null : undefined) : rows.get(image));
 };
 
 /** The house standard every published text must meet; absent file = no standard to enforce. */

@@ -34,6 +34,9 @@ import {
   type AutopilotState,
 } from "../src/lib/autopilot.ts";
 import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
+import { appendLabel, buildLabel, type Decision } from "../src/lib/labels.ts";
+import { loadStandard } from "../src/lib/gate-io.ts";
+import { PostSpec } from "../src/schemas/post.ts";
 import { summarize, type State } from "../src/lib/pipeline.ts";
 import { summarizeRegistry, type Registry } from "../src/lib/registry.ts";
 import type { Override, Verdict } from "../src/lib/visual-score.ts";
@@ -438,6 +441,16 @@ const serveStatic = (
   return createReadStream(file).pipe(res);
 };
 const slugOk = (s: string | undefined) => Boolean(s && /^[a-z0-9-]+$/.test(s));
+/** Each decision taken in the console is kept as a label the reviewers are later measured against. */
+const recordLabel = (slug: string, decision: Decision, note?: string) => {
+  try {
+    const file = path.join(ROOT, "content/posts", `${slug}.json`);
+    const parsed = existsSync(file) ? PostSpec.safeParse(JSON.parse(readFileSync(file, "utf8"))) : null;
+    appendLabel(buildLabel({ slug, decision, note, source: "console", at: new Date(), standard: loadStandard()?.version, spec: parsed?.success ? parsed.data : null }));
+  } catch (e) {
+    console.error(`label not recorded for ${slug}: ${e instanceof Error ? e.message : e}`);
+  }
+};
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url ?? "/", "http://localhost");
@@ -527,6 +540,7 @@ const server = http.createServer(async (req, res) => {
       const body = await readBody(req);
       if (!slugOk(body.slug)) return json(res, 400, { error: "bad slug" });
       const rec = setState(body.slug, "APPROVED", "approved in the console");
+      recordLabel(body.slug, "approved");
       return json(res, 200, { state: rec.state });
     }
     if (req.method === "POST" && url.pathname === "/api/reject") {
@@ -537,6 +551,7 @@ const server = http.createServer(async (req, res) => {
         "REJECTED",
         (body.note ?? "rejected in the console").slice(0, 200),
       );
+      recordLabel(body.slug, "rejected", typeof body.note === "string" ? body.note : undefined);
       return json(res, 200, { state: rec.state });
     }
     if (req.method === "POST" && url.pathname === "/api/override") {

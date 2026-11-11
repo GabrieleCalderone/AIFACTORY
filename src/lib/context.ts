@@ -7,7 +7,19 @@
 import type { PostSpec } from "../schemas/post.ts";
 
 export const CONTEXT_PREFIX = "assets/context/";
-export const isContext = (image: string | undefined): boolean => Boolean(image?.startsWith(CONTEXT_PREFIX));
+/** Pictures made or animated by a generative model. Only ever context, never the house's food, table, kitchen or people. */
+export const GENERATED_PREFIX = "assets/generated/";
+export const isGenerated = (media: string | undefined): boolean => Boolean(media?.startsWith(GENERATED_PREFIX));
+/** True for every picture that is not the house's own: licensed context and generated context alike. */
+export const isContext = (image: string | undefined): boolean => Boolean(image?.startsWith(CONTEXT_PREFIX) || image?.startsWith(GENERATED_PREFIX));
+
+/**
+ * What was done to a picture, read from where it lives:
+ * real = the house's own photograph or clip (cropping, colour and non-inventing enlargement included);
+ * context = someone else's licensed photograph; generated = made or animated by a model.
+ */
+export type Operation = "real" | "context" | "generated";
+export const operationOf = (media: string): Operation => (isGenerated(media) ? "generated" : media.startsWith(CONTEXT_PREFIX) ? "context" : "real");
 
 export type Licence = { ok: boolean; kind: "cc0" | "public-domain" | "by" | "refused"; needsCredit: boolean; why?: string };
 
@@ -66,12 +78,12 @@ export const contextIssues = (spec: PostSpec, creditOf: (image: string) => strin
   if (spec.reel) {
     const { hook, scenes } = spec.reel;
     if (isContext(hook.image)) issues.push("reel hook: the opening picture must be the house's own, not a context picture");
-    const used = scenes.map((s, i) => ({ s, i })).filter(({ s }) => isContext(s.image));
+    const used = scenes.map((s, i) => ({ s, i })).filter(({ s }) => isContext(s.image ?? s.video));
     if (used.length > limits.maxPerReel) issues.push(`reel: ${used.length} context pictures, at most ${limits.maxPerReel}`);
     for (const { s, i } of used) {
       if (i === scenes.length - 1) issues.push(`reel scene ${i + 1}: the last picture must be the house's own, not a context picture`);
       if (s.label?.trim()) issues.push(`reel scene ${i + 1}: a context picture carries no label ("${s.label.trim()}")`);
-      owe(s.image!);
+      owe((s.image ?? s.video)!);
     }
   }
   if (spec.carousel) {
@@ -84,6 +96,11 @@ export const contextIssues = (spec: PostSpec, creditOf: (image: string) => strin
       owe((s as { image: string }).image);
     }
   }
+  // Generated material is disclosed: the post is flagged so the platforms show their AI label.
+  const media = [...(spec.reel ? [spec.reel.hook, ...spec.reel.scenes].flatMap((m) => [m.image, m.video]) : []), ...(spec.carousel?.slides ?? []).map((s) => ("image" in s ? s.image : undefined))];
+  const generated = media.filter((m): m is string => isGenerated(m));
+  if (generated.length && spec.aiGenerated !== true) issues.push(`generated material (${generated[0]}) in a post that is not marked aiGenerated`);
+  if (spec.reel && isGenerated(spec.reel.hook.video)) issues.push("reel hook: the opening picture must be the house's own, not generated material");
   const given = new Set(spec.credits ?? []);
   for (const credit of owed) if (!given.has(credit)) issues.push(`missing photo credit in the caption: ${credit}`);
   // Credits are printed in the caption: only the ones owed for the pictures used may be there.
@@ -99,9 +116,10 @@ export const prepareContext = (raw: { reel?: { scenes: Record<string, unknown>[]
     if (credit && !credits.includes(credit)) credits.push(credit);
   };
   for (const s of raw.reel?.scenes ?? []) {
-    if (typeof s.image === "string" && isContext(s.image)) {
+    const media = typeof s.image === "string" ? s.image : typeof s.video === "string" ? s.video : undefined;
+    if (isContext(media)) {
       delete s.label;
-      note(s.image);
+      note(media);
     }
   }
   for (const s of raw.carousel?.slides ?? []) {

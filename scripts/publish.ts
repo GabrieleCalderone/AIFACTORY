@@ -11,7 +11,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { createBufferClient, type BufferAsset } from "../src/adapters/buffer.ts";
-import { captionFor, distribution, parseChannels, type Platform } from "../src/lib/channels.ts";
+import { captionFor, distributionFor, materialOf, parseChannels, type Platform } from "../src/lib/channels.ts";
 import { readExperiments, writeExperiments } from "../src/lib/data.ts";
 import { gateSpec } from "../src/lib/gate-io.ts";
 import { buildCaption } from "../src/lib/timeline.ts";
@@ -64,13 +64,18 @@ const full = buildCaption(spec);
 const hookTitle = spec.reel?.hook.title ?? spec.title;
 type Job = { kind: "reel" | "carousel"; platform: Platform; channelId: string; text: string; assets: BufferAsset[]; dueAt: string; metadata?: Record<string, unknown> };
 const jobs: Job[] = [];
+const material = materialOf(spec.reel);
+const distribution = distributionFor(material);
+console.log(`[publish] ${spec.slug}: ${material === "video" ? "real footage, the reel leads" : "photographs only, the carousel leads"}`);
+// AI disclosure travels with the post (Buffer passes it to Instagram and TikTok).
+const ai = spec.aiGenerated ? { isAiGenerated: true } : {};
 const target = (platform: Platform) => (dryRun ? channels[platform] ?? `<${platform} channel>` : channels[platform]);
 if (spec.reel && hosted.reel) {
   for (const d of distribution.reel) {
     const channelId = target(d.platform);
     if (!channelId) continue;
     const dueAt = new Date(when.getTime() + d.offsetHours * 3600 * 1000).toISOString();
-    const metadata = d.platform === "instagram" ? { instagram: { type: "reel", shouldShareToFeed: true } } : d.platform === "youtube" ? { youtube: { title: hookTitle.slice(0, 100) } } : undefined;
+    const metadata = d.platform === "instagram" ? { instagram: { type: "reel", shouldShareToFeed: true, ...ai } } : d.platform === "tiktok" && spec.aiGenerated ? { tiktok: ai } : d.platform === "youtube" ? { youtube: { title: hookTitle.slice(0, 100) } } : undefined;
     jobs.push({ kind: "reel", platform: d.platform, channelId, text: captionFor(d.platform, full, spec.hashtags, hookTitle), assets: [{ video: { url: hosted.reel, metadata: { thumbnailOffset: 1500 } } }], dueAt, metadata });
   }
 }
@@ -79,7 +84,7 @@ if (spec.carousel && hosted.carousel?.length) {
     const channelId = target(d.platform);
     if (!channelId) continue;
     const dueAt = new Date(when.getTime() + d.offsetHours * 3600 * 1000).toISOString();
-    jobs.push({ kind: "carousel", platform: d.platform, channelId, text: captionFor(d.platform, full, spec.hashtags, hookTitle), assets: hosted.carousel.map((url) => ({ image: { url } })), dueAt, metadata: d.platform === "instagram" ? { instagram: { type: "post", shouldShareToFeed: true } } : undefined });
+    jobs.push({ kind: "carousel", platform: d.platform, channelId, text: captionFor(d.platform, full, spec.hashtags, hookTitle), assets: hosted.carousel.map((url) => ({ image: { url } })), dueAt, metadata: d.platform === "instagram" ? { instagram: { type: "post", shouldShareToFeed: true, ...ai } } : d.platform === "tiktok" ? { tiktok: { title: hookTitle.slice(0, 90) } } : undefined });
   }
 }
 if (jobs.length === 0) {

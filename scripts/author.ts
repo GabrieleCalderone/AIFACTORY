@@ -10,6 +10,7 @@
  * Uses the `claude` CLI (subscription); no API key. Exit 1 if the gate reports errors.
  */
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
@@ -79,7 +80,8 @@ if (!existsSync("data/asset-scores.json") || !existsSync("data/asset-technical.j
 }
 const scoresFile = JSON.parse(readFileSync("data/asset-scores.json", "utf8")) as { verdicts: Record<string, Record<string, Verdict>> };
 const technical = JSON.parse(readFileSync("data/asset-technical.json", "utf8")) as Record<string, TechnicalRow>;
-const format: Format = archetype.formats.reel ? "reel" : "carousel";
+// The archive is photographs: they are ranked for the carousel, which leads a stills post.
+const format: Format = archetype.formats.carousel ? "carousel" : "reel";
 const service = archetype.service as Service;
 const usagePath = "data/asset-usage.json";
 const usage = existsSync(usagePath) ? (JSON.parse(readFileSync(usagePath, "utf8")) as Record<string, string[]>) : {};
@@ -362,7 +364,9 @@ if (spec.brief.experimentId) {
 }
 const gate = gateSpec(spec);
 gate.warnings.forEach((w) => console.warn(`[gate] ${slug}: warning ${w}`));
-setState(slug, "DISCOVERED", `authored by ${values.model} from ${candidates.length} ranked photos`);
+// The rules a post was written under are part of its record: prompts and standard change over time.
+const rules = createHash("sha256").update(readFileSync(new URL(import.meta.url), "utf8")).update(JSON.stringify(standard ?? {})).digest("hex").slice(0, 8);
+setState(slug, "DISCOVERED", `authored by ${values.model} from ${candidates.length} ranked photos (standard ${standard?.version ?? "none"}, rules ${rules})`);
 if (gate.errors.length) {
   gate.errors.forEach((e) => console.error(`[gate] ${slug}: ERROR ${e}`));
   setState(slug, "REJECTED", gate.errors.join("; "));

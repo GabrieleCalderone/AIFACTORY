@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { classifyLicence, contextIssues, creditLine, isContext, plainName, prepareContext } from "../src/lib/context.ts";
+import { classifyLicence, contextIssues, creditLine, isContext, operationOf, plainName, prepareContext } from "../src/lib/context.ts";
 import { buildCaption } from "../src/lib/timeline.ts";
 import { parsePostSpec } from "../src/schemas/post.ts";
 
@@ -91,4 +91,30 @@ test("prepareContext strips labels and titles from context pictures and returns 
 test("photo credits are printed in the caption after the music credit", () => {
   const caption = buildCaption({ caption: "Testo.", hashtags: ["#palermo"], credits: ["Mario Rossi, CC BY 4.0, via Wikimedia Commons"], reel: { audio: { attribution: "Song, CC BY 4.0" } } });
   assert.equal(caption, "Testo.\n\nMusic: Song, CC BY 4.0\nPhoto: Mario Rossi, CC BY 4.0, via Wikimedia Commons\n\n#palermo");
+});
+
+test("generated material is context only, never opens a post, and must be disclosed", () => {
+  assert.equal(operationOf("assets/pool/a.jpg"), "real");
+  assert.equal(operationOf("assets/context/1.jpg"), "context");
+  assert.equal(operationOf("assets/generated/sea.mp4"), "generated");
+  const known = (image: string) => (image.startsWith("assets/generated/") ? null : creditOf(image));
+  const hidden = base();
+  hidden.credits = [];
+  hidden.reel.scenes[0] = { image: "assets/generated/sea.jpg" };
+  assert.match(contextIssues(parsePostSpec(hidden), known).join(" | "), /generated material .* not marked aiGenerated/);
+  assert.deepEqual(contextIssues(parsePostSpec({ ...hidden, aiGenerated: true }), known), []);
+  const opening = base();
+  opening.credits = [];
+  opening.reel.scenes[0] = { image: "assets/pool/z.jpg" };
+  (opening.reel.hook as Record<string, unknown>) = { video: "assets/generated/sea.mp4", title: "A casa vostra" };
+  assert.match(contextIssues(parsePostSpec({ ...opening, aiGenerated: true }), known).join(" | "), /opening picture must be the house's own, not generated/);
+  const clipLast = base();
+  clipLast.credits = [];
+  clipLast.reel.scenes[0] = { image: "assets/pool/z.jpg" };
+  clipLast.reel.scenes[2] = { video: "assets/generated/sea.mp4" } as never;
+  assert.match(contextIssues(parsePostSpec({ ...clipLast, aiGenerated: true }), known).join(" | "), /reel scene 3: the last picture must be the house's own/);
+  const labelled = base();
+  labelled.credits = [];
+  labelled.reel.scenes[0] = { image: "assets/generated/sea.jpg", label: "Primo" } as never;
+  assert.match(contextIssues(parsePostSpec({ ...labelled, aiGenerated: true }), known).join(" | "), /carries no label/);
 });
