@@ -251,16 +251,51 @@
         object-fit: cover;
         max-height: 560px;
       }
+      .post .formats {
+        display: grid;
+        grid-template-columns: minmax(150px, 210px) 1fr;
+        gap: 16px;
+        margin-top: 12px;
+        align-items: start;
+      }
+      .post .formats.single {
+        grid-template-columns: 1fr;
+      }
+      .post .formats > div {
+        min-width: 0;
+      }
+      .post .formats.single video {
+        max-width: 240px;
+      }
+      .kind {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .kind span {
+        font-weight: 500;
+        letter-spacing: 0;
+        text-transform: none;
+        opacity: 0.7;
+      }
       .slides {
         display: flex;
         gap: 8px;
         overflow-x: auto;
-        margin-top: 10px;
         padding-bottom: 4px;
       }
       .slides img {
-        height: 130px;
+        height: 260px;
         border-radius: 6px;
+        display: block;
+      }
+      @media (max-width: 700px) {
+        .post .formats {
+          grid-template-columns: 1fr;
+        }
       }
       .caption {
         font-size: 13px;
@@ -571,7 +606,9 @@
       const run = async (job, extra) => { await api("/api/run", { job, ...(extra || {}) }); setTimeout(refresh, 800); };
       const fmt = (iso) => (iso ? new Date(iso).toLocaleString("it-IT", { dateStyle: "short", timeStyle: "short" }) : "–");
       const stateCls = (s) => ({ MEASURED: "ok", PUBLISHED: "ok", SCHEDULED: "ok", APPROVED: "ink", READY: "warn", RENDERED: "warn", QUALITY_CHECKED: "muted", DISCOVERED: "muted", REJECTED: "bad", BLOCKED: "bad", FAILED: "bad", UNTRACKED: "muted" })[s] || "muted";
-      document.querySelectorAll("nav button").forEach((b) => (b.onclick = () => { document.querySelectorAll("nav button").forEach((x) => x.classList.toggle("active", x === b)); document.querySelectorAll("section.view").forEach((v) => v.classList.toggle("active", v.id === b.dataset.view)); if (b.dataset.view === "media") loadMedia(); }));
+      document.querySelectorAll("nav button").forEach((b) => (b.onclick = () => { document.querySelectorAll("nav button").forEach((x) => x.classList.toggle("active", x === b)); document.querySelectorAll("section.view").forEach((v) => v.classList.toggle("active", v.id === b.dataset.view)); if (b.dataset.view === "media") loadMedia(); history.replaceState(null, "", location.search + "#" + b.dataset.view); }));
+      // The address remembers the open section, so a reload or a shared link lands on the same view.
+      addEventListener("DOMContentLoaded", () => document.querySelector(`nav button[data-view="${CSS.escape(location.hash.slice(1))}"]`)?.click());
 
       let S = null;
       async function refresh() {
@@ -612,8 +649,10 @@
           <div class="card post">
             <div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><b>${esc(p.slug)}</b>${pill(stateCls(p.state), p.state)}</div>
             <small>${esc(p.title)} · ${esc(p.lang.toUpperCase())} · ${esc(p.experiment.archetype)} · ${esc(p.experiment.id ?? "–")}/${esc(p.experiment.variant ?? "–")} · ${esc(fmt(p.renderedAt))}</small>
-            ${!compact && media(p.reel) ? `<video controls preload="metadata" poster="${esc(media(p.cover))}" src="${esc(media(p.reel))}" style="margin-top:10px"></video>` : ""}
-            ${p.slides.length ? `<div class="slides">${p.slides.map((u) => (media(u) ? `<a href="${esc(media(u))}" target="_blank"><img src="${esc(media(u))}" alt=""></a>` : "")).join("")}</div>` : ""}
+            <div class="formats${media(p.reel) && p.slides.length ? "" : " single"}">
+              ${media(p.reel) ? `<div><span class="kind">Reel <span>· video con musica, premi play</span></span><video controls playsinline preload="metadata" poster="${esc(media(p.cover))}" src="${esc(media(p.reel))}"></video></div>` : ""}
+              ${p.slides.length ? `<div><span class="kind">Carosello <span>· ${p.slides.length} immagini, scorri</span></span><div class="slides">${p.slides.map((u, i) => (media(u) ? `<a href="${esc(media(u))}" target="_blank" title="Immagine ${i + 1} di ${p.slides.length}"><img src="${esc(media(u))}" alt="Immagine ${i + 1} del carosello" loading="lazy"></a>` : "")).join("")}</div></div>` : ""}
+            </div>
             ${!compact ? `<div class="caption">${esc(p.caption)}</div>` : ""}
             ${p.publications.length ? `<small>Buffer: ${p.publications.map((x) => `${esc(x.platform)} ${esc(x.kind)} ${esc(fmt(x.dueAt))}${x.draft ? " (bozza)" : ""}`).join(" · ")}</small>` : ""}
             <div class="actions">
