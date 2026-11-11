@@ -54,6 +54,28 @@ export const distributionFor = (material: Material): typeof distribution =>
         reel: [{ platform: "instagram", offsetHours: 48 }],
       };
 
+/**
+ * Per-platform post options, built in one place so the AI disclosure can never be left off a
+ * branch. Returns null when a post made with generated material would go to a platform and
+ * format that has no disclosure field in Buffer: that publication is skipped, not sent
+ * undisclosed. (Buffer: Instagram posts and reels, and TikTok videos, carry the flag.)
+ */
+export const postMetadata = (platform: Platform, kind: "reel" | "carousel", opts: { aiGenerated: boolean; title: string }): Record<string, unknown> | undefined | null => {
+  const ai = opts.aiGenerated ? { isAiGenerated: true } : {};
+  const canDisclose = platform === "instagram" || (platform === "tiktok" && kind === "reel");
+  if (opts.aiGenerated && !canDisclose) return null;
+  switch (platform) {
+    case "instagram":
+      return { instagram: { type: kind === "reel" ? "reel" : "post", shouldShareToFeed: true, ...ai } };
+    case "tiktok":
+      return kind === "carousel" ? { tiktok: { title: opts.title.slice(0, 90) } } : opts.aiGenerated ? { tiktok: ai } : undefined;
+    case "youtube":
+      return kind === "reel" ? { youtube: { title: opts.title.slice(0, 100) } } : undefined;
+    default:
+      return undefined;
+  }
+};
+
 /** Platform-specific caption: TikTok and Shorts favour a short caption with the tags; Facebook gets the full text without tags. */
 export const captionFor = (platform: Platform, full: string, hashtags: string[], hookTitle: string): string => {
   const body = full.split("\n\n").filter((p) => !p.startsWith("#")).join("\n\n");

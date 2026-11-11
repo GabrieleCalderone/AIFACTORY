@@ -107,7 +107,7 @@ test("generated material is context only, never opens a post, and must be disclo
   opening.credits = [];
   opening.reel.scenes[0] = { image: "assets/pool/z.jpg" };
   (opening.reel.hook as Record<string, unknown>) = { video: "assets/generated/sea.mp4", title: "A casa vostra" };
-  assert.match(contextIssues(parsePostSpec({ ...opening, aiGenerated: true }), known).join(" | "), /opening picture must be the house's own, not generated/);
+  assert.match(contextIssues(parsePostSpec({ ...opening, aiGenerated: true }), known).join(" | "), /opening picture must be the house's own, not a context or generated picture/);
   const clipLast = base();
   clipLast.credits = [];
   clipLast.reel.scenes[0] = { image: "assets/pool/z.jpg" };

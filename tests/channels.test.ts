@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { captionFor, distribution, distributionFor, materialOf, parseChannels } from "../src/lib/channels.ts";
+import { captionFor, distribution, distributionFor, materialOf, parseChannels, postMetadata } from "../src/lib/channels.ts";
 
 test("parseChannels reads the platform map and falls back to BUFFER_CHANNEL_ID", () => {
   assert.deepEqual(parseChannels({ BUFFER_CHANNELS: "instagram:a, tiktok:b,youtube:c" }), { instagram: "a", tiktok: "b", youtube: "c" });
@@ -32,4 +32,18 @@ test("the format follows the material: photographs lead with the carousel, real 
   const d = distributionFor("stills");
   assert.deepEqual(d.carousel.map((x) => `${x.platform}+${x.offsetHours}`), ["instagram+0", "tiktok+1", "facebook+2"]);
   assert.deepEqual(d.reel.map((x) => `${x.platform}+${x.offsetHours}`), ["instagram+48"]);
+});
+
+test("post options carry the AI disclosure wherever the platform has one, and the publication is skipped where it has none", () => {
+  const plain = { aiGenerated: false, title: "Il vostro tavolo" };
+  const ai = { aiGenerated: true, title: "Il vostro tavolo" };
+  assert.deepEqual(postMetadata("instagram", "carousel", plain), { instagram: { type: "post", shouldShareToFeed: true } });
+  assert.deepEqual(postMetadata("instagram", "carousel", ai), { instagram: { type: "post", shouldShareToFeed: true, isAiGenerated: true } });
+  assert.deepEqual(postMetadata("instagram", "reel", ai), { instagram: { type: "reel", shouldShareToFeed: true, isAiGenerated: true } });
+  assert.deepEqual(postMetadata("tiktok", "reel", ai), { tiktok: { isAiGenerated: true } });
+  assert.deepEqual(postMetadata("tiktok", "carousel", plain), { tiktok: { title: "Il vostro tavolo" } });
+  assert.equal(postMetadata("facebook", "carousel", plain), undefined);
+  for (const [platform, kind] of [["tiktok", "carousel"], ["facebook", "carousel"], ["facebook", "reel"], ["youtube", "reel"]] as const) {
+    assert.equal(postMetadata(platform, kind, ai), null, `${platform} ${kind} cannot be disclosed, so it is not sent`);
+  }
 });
