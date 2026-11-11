@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { classifyLicence, contextIssues, creditLine, isContext, operationOf, plainName, prepareContext } from "../src/lib/context.ts";
+import { classifyLicence, contextIssues, creditLine, generatedIn, isContext, operationOf, plainName, prepareContext } from "../src/lib/context.ts";
 import { buildCaption } from "../src/lib/timeline.ts";
 import { parsePostSpec } from "../src/schemas/post.ts";
 
@@ -133,4 +133,14 @@ test("a moving context clip carries no words: removed when the post is prepared,
   assert.equal(raw.reel.scenes[1].text, "kept");
   const spec = parsePostSpec({ ...base(), aiGenerated: true, reel: { ...base().reel, scenes: [{ video: "assets/generated/sea.mp4", text: "Our kitchen by the sea" }, ...base().reel.scenes] } });
   assert.ok(contextIssues(spec, () => null).some((i) => /moving context clip carries no text/.test(i)));
+});
+
+test("a generated sound bed is generated material of the reel, not of the carousel, and must be declared", () => {
+  const spec = parsePostSpec({ ...base(), reel: { ...base().reel, audio: { src: "audio/beds/table-laid.mp3" } } });
+  assert.deepEqual(generatedIn(spec), { reel: ["audio/beds/table-laid.mp3"], carousel: [] });
+  assert.ok(contextIssues(spec, () => null).some((i) => /not marked aiGenerated/.test(i)));
+  const declared = parsePostSpec({ ...base(), aiGenerated: true, reel: { ...base().reel, audio: { src: "audio/beds/table-laid.mp3" } } });
+  assert.equal(contextIssues(declared, () => null).some((i) => /aiGenerated/.test(i)), false);
+  const stock = parsePostSpec({ ...base(), reel: { ...base().reel, audio: { src: "audio/fretless.mp3" } } });
+  assert.deepEqual(generatedIn(stock), { reel: [], carousel: [] });
 });

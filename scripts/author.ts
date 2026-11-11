@@ -294,7 +294,8 @@ const owed = prepareContext(raw as unknown as Parameters<typeof prepareContext>[
 if (owed.length) (raw as Record<string, unknown>).credits = owed;
 else delete (raw as Record<string, unknown>).credits;
 // Generated material is disclosed: the flag is computed here, never taken from the model's answer.
-const usesGenerated = ((raw as { reel?: { scenes?: { video?: unknown }[] } }).reel?.scenes ?? []).some((sc) => typeof sc.video === "string" && isGenerated(sc.video));
+const rawReel = (raw as { reel?: { scenes?: { video?: unknown }[]; audio?: { src?: unknown } } }).reel;
+const usesGenerated = (rawReel?.scenes ?? []).some((sc) => typeof sc.video === "string" && isGenerated(sc.video)) || (typeof rawReel?.audio?.src === "string" && isGenerated(rawReel.audio.src));
 if (usesGenerated) (raw as Record<string, unknown>).aiGenerated = true;
 else delete (raw as Record<string, unknown>).aiGenerated;
 const contextByFile = new Map(context.map((r) => [r.file, r]));

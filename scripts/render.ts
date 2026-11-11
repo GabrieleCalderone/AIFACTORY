@@ -218,9 +218,18 @@ const main = async () => {
       // A format skipped in this run keeps what an earlier run rendered, as long as its files are still there:
       // otherwise hosting and publishing would silently drop it.
       const manifestPath = path.join(outDir, "manifest.json");
-      const earlier = existsSync(manifestPath) ? (JSON.parse(readFileSync(manifestPath, "utf8")) as { reel?: unknown; carousel?: { file: string }[] }) : {};
-      if (values["skip-reel"] && earlier.reel && existsSync(path.join(outDir, "reel.mp4"))) manifest.reel = earlier.reel;
-      if (values["skip-carousel"] && earlier.carousel?.length && earlier.carousel.every((sl) => existsSync(path.join(outDir, path.basename(sl.file))))) manifest.carousel = earlier.carousel;
+      // Only from a render of this very post (same content hash), and only files that are inside its own folder.
+      const earlier = existsSync(manifestPath) ? (JSON.parse(readFileSync(manifestPath, "utf8")) as { spec?: { sha256?: string }; reel?: unknown; carousel?: { file: string }[] }) : {};
+      const same = earlier.spec?.sha256 === sha256;
+      const inside = (f: string) => path.resolve(f).startsWith(path.resolve(outDir) + path.sep) && existsSync(f);
+      if (values["skip-reel"] && earlier.reel) {
+        if (same && inside(path.join(outDir, "reel.mp4"))) manifest.reel = earlier.reel;
+        else log(`${spec.slug}: the reel was NOT carried over (the post changed since it was rendered): render again without --skip-reel`);
+      }
+      if (values["skip-carousel"] && earlier.carousel?.length) {
+        if (same && earlier.carousel.every((sl) => typeof sl.file === "string" && inside(sl.file))) manifest.carousel = earlier.carousel;
+        else log(`${spec.slug}: the carousel was NOT carried over (the post changed since it was rendered): render again without --skip-carousel`);
+      }
       manifest.caption = captionFile;
       writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + "\n");
       const st = loadPipeline()[spec.slug]?.state;

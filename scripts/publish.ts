@@ -9,10 +9,12 @@
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { createHash } from "node:crypto";
 import { parseArgs } from "node:util";
 import { createBufferClient, type BufferAsset } from "../src/adapters/buffer.ts";
 import { captionFor, distributionFor, materialOf, parseChannels, postMetadata, type Platform } from "../src/lib/channels.ts";
 import { readExperiments, writeExperiments } from "../src/lib/data.ts";
+import { generatedIn } from "../src/lib/context.ts";
 import { gateSpec } from "../src/lib/gate-io.ts";
 import { buildCaption } from "../src/lib/timeline.ts";
 import { parsePostSpec } from "../src/schemas/post.ts";
@@ -48,12 +50,21 @@ if ((pipelineState === "SCHEDULED" && !values.missing) || pipelineState === "PUB
   process.exit(0);
 }
 const outDir = path.join(values.out, spec.slug);
+const dryRunRequested = values["dry-run"];
 const hostedPath = path.join(outDir, "hosted.json");
 if (!existsSync(hostedPath)) {
   console.error(`host the media first: ${hostedPath} missing (node scripts/host-media.ts ${file})`);
   process.exit(1);
 }
-const hosted = JSON.parse(readFileSync(hostedPath, "utf8")) as { reel?: string; cover?: string; carousel?: string[]; dryRun?: boolean };
+const hosted = JSON.parse(readFileSync(hostedPath, "utf8")) as { reel?: string; cover?: string; carousel?: string[]; dryRun?: boolean; version?: string };
+// Completing a scheduled post sends what was approved, not something edited since: the hosted files must be those of the post as it is now.
+if (values.missing && !dryRunRequested) {
+  const now = createHash("sha256").update(readFileSync(file)).digest("hex");
+  if (!hosted.version || !now.startsWith(hosted.version)) {
+    console.error(`[publish] ${spec.slug}: the post changed after its files were hosted; render and host it again before --missing`);
+    process.exit(1);
+  }
+}
 const apiKey = process.env.BUFFER_API_KEY;
 const channels = parseChannels(process.env);
 const dryRun = values["dry-run"] || !apiKey || Object.keys(channels).length === 0 || hosted.dryRun === true;
@@ -76,13 +87,15 @@ const altTextFor = (i: number): string => {
   const what = said || (spec.lang === "it" ? "Un piatto dello chef Giacomo Napolitano" : "A dish by Chef Giacomo Napolitano");
   return `${what}. RistHome, ${spec.lang === "it" ? "chef a domicilio e lezioni di cucina a Palermo" : "private chef and cooking classes in Palermo, Sicily"}.`.slice(0, 1000);
 };
+// The AI disclosure follows the format that carries generated material, read from the spec itself.
+const made = generatedIn(spec);
 const target = (platform: Platform) => (dryRun ? channels[platform] ?? `<${platform} channel>` : channels[platform]);
 if (spec.reel && hosted.reel) {
   for (const d of distribution.reel) {
     const channelId = target(d.platform);
     if (!channelId) continue;
     const dueAt = new Date(when.getTime() + d.offsetHours * 3600 * 1000).toISOString();
-    const metadata = postMetadata(d.platform, "reel", { aiGenerated: spec.aiGenerated === true, title: hookTitle });
+    const metadata = postMetadata(d.platform, "reel", { aiGenerated: made.reel.length > 0, title: hookTitle });
     if (metadata === null) {
       console.log(`[publish] ${spec.slug} reel -> ${d.platform}: skipped, this post contains generated material and ${d.platform} has no AI disclosure through Buffer`);
       continue;
@@ -95,7 +108,7 @@ if (spec.carousel && hosted.carousel?.length) {
     const channelId = target(d.platform);
     if (!channelId) continue;
     const dueAt = new Date(when.getTime() + d.offsetHours * 3600 * 1000).toISOString();
-    const metadata = postMetadata(d.platform, "carousel", { aiGenerated: spec.aiGenerated === true, title: hookTitle });
+    const metadata = postMetadata(d.platform, "carousel", { aiGenerated: made.carousel.length > 0, title: hookTitle });
     if (metadata === null) {
       console.log(`[publish] ${spec.slug} carousel -> ${d.platform}: skipped, this post contains generated material and ${d.platform} has no AI disclosure for this format through Buffer`);
       continue;
@@ -126,6 +139,8 @@ for (const j of jobs) {
     const post = await buffer.createPost({ channelId: j.channelId, text: j.text, assets: j.assets, mode: "customScheduled", dueAt: j.dueAt, metadata: j.metadata, draft: values.draft });
     console.log(`[publish] ${spec.slug} ${j.kind} -> ${j.platform}: Buffer post ${post.id} due ${post.dueAt ?? j.dueAt}`);
     results.push({ slug: spec.slug, kind: j.kind, platform: j.platform, bufferPostId: post.id, dueAt: post.dueAt ?? j.dueAt, draft: values.draft, experimentId: spec.brief.experimentId ?? null, variantId: spec.brief.variantId ?? null, createdAt: new Date().toISOString() });
+    // Recorded at once: a run that stops half way must not leave a Buffer post this file does not know, or the next run would send it again.
+    writeFileSync("data/publications.json", JSON.stringify([...publications, ...results], null, 2) + "\n");
   } catch (e) {
     failures++;
     console.error(`[publish] ${spec.slug} ${j.kind} -> ${j.platform} FAILED: ${e instanceof Error ? e.message : e}`);
@@ -142,7 +157,9 @@ if (results.length) {
       writeExperiments(data.raw);
     }
   }
-  if (!values.draft) setState(spec.slug, "SCHEDULED", `${results.length} Buffer post(s)`, { bufferPostIds: results.map((r) => String(r.bufferPostId)) });
+  // every Buffer post of this slug, earlier runs included
+  const allIds = [...publications.filter((p) => p.slug === spec.slug && !p.draft), ...results].map((r) => String(r.bufferPostId));
+  if (!values.draft) setState(spec.slug, "SCHEDULED", `${results.length} Buffer post(s)`, { bufferPostIds: [...new Set(allIds)] });
   else console.log(`[publish] ${results.length} Buffer draft(s) saved; schedule them in Buffer or approve here`);
 }
 process.exit(failures > 0 && results.length === 0 ? 1 : 0);

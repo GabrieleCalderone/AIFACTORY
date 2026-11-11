@@ -9,7 +9,9 @@ import type { PostSpec } from "../schemas/post.ts";
 export const CONTEXT_PREFIX = "assets/context/";
 /** Pictures made or animated by a generative model. Only ever context, never the house's food, table, kitchen or people. */
 export const GENERATED_PREFIX = "assets/generated/";
-export const isGenerated = (media: string | undefined): boolean => Boolean(media?.startsWith(GENERATED_PREFIX));
+/** Sound made by a generative model (scripts/sound-beds.ts): realistic ambience is disclosed like generated pictures. */
+export const GENERATED_AUDIO_PREFIX = "audio/beds/";
+export const isGenerated = (media: string | undefined): boolean => Boolean(media?.startsWith(GENERATED_PREFIX) || media?.startsWith(GENERATED_AUDIO_PREFIX));
 /** True for every picture that is not the house's own: licensed context and generated context alike. */
 export const isContext = (image: string | undefined): boolean => Boolean(image?.startsWith(CONTEXT_PREFIX) || image?.startsWith(GENERATED_PREFIX));
 
@@ -104,8 +106,8 @@ export const contextIssues = (spec: PostSpec, creditOf: (image: string) => strin
     }
   }
   // Generated material is disclosed: the post is flagged so the platforms show their AI label.
-  const media = [...(spec.reel ? [spec.reel.hook, ...spec.reel.scenes].flatMap((m) => [m.image, m.video]) : []), ...(spec.carousel?.slides ?? []).map((s) => ("image" in s ? s.image : undefined))];
-  const generated = media.filter((m): m is string => isGenerated(m));
+  const made = generatedIn(spec);
+  const generated = [...made.reel, ...made.carousel];
   if (generated.length && spec.aiGenerated !== true) issues.push(`generated material (${generated[0]}) in a post that is not marked aiGenerated`);
   const given = new Set(spec.credits ?? []);
   for (const credit of owed) if (!given.has(credit)) issues.push(`missing photo credit in the caption: ${credit}`);
@@ -113,6 +115,16 @@ export const contextIssues = (spec: PostSpec, creditOf: (image: string) => strin
   for (const credit of given) if (!owed.has(credit)) issues.push(`credit not owed by any picture of this post: "${credit.slice(0, 60)}"`);
   return issues;
 };
+
+/**
+ * Generated material per format: pictures, clips and sound. The disclosure follows the format
+ * that carries it, so a reel with a generated sound bed is labelled while the carousel of the
+ * same post, which has none, still goes to every channel.
+ */
+export const generatedIn = (spec: PostSpec): { reel: string[]; carousel: string[] } => ({
+  reel: spec.reel ? [...[spec.reel.hook, ...spec.reel.scenes].flatMap((m) => [m.image, m.video]), spec.reel.audio?.src].filter((m): m is string => isGenerated(m)) : [],
+  carousel: (spec.carousel?.slides ?? []).map((s) => ("image" in s ? s.image : undefined)).filter((m): m is string => isGenerated(m)),
+});
 
 /** Removes labels and titles from context scenes and slides on the raw spec; returns the credits owed, in order of use. */
 export const prepareContext = (raw: { reel?: { scenes: Record<string, unknown>[] }; carousel?: { slides: Record<string, unknown>[] } }, creditOf: (image: string) => string | null | undefined): string[] => {

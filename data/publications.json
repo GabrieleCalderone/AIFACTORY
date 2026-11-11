@@ -1,17 +1,6 @@
 [
   {
     "slug": "a4-20261111",
-    "kind": "reel",
-    "platform": "instagram",
-    "bufferPostId": "6af4b7a180cc5d8ca320d9d4",
-    "dueAt": "2026-11-13T18:55:20.101Z",
-    "draft": false,
-    "experimentId": "EXP-008",
-    "variantId": "A",
-    "createdAt": "2026-11-11T18:44:49.963Z"
-  },
-  {
-    "slug": "a4-20261111",
     "kind": "carousel",
     "platform": "instagram",
     "bufferPostId": "6af4b80480cc5d8ca320fa8c",
@@ -42,5 +31,16 @@
     "experimentId": "EXP-008",
     "variantId": "A",
     "createdAt": "2026-11-11T18:46:51.227Z"
+  },
+  {
+    "slug": "a4-20261111",
+    "kind": "reel",
+    "platform": "instagram",
+    "bufferPostId": "6af4b9f2592a3bb919a6ff8d",
+    "dueAt": "2026-11-13T18:55:20.101Z",
+    "draft": false,
+    "experimentId": "EXP-008",
+    "variantId": "A",
+    "createdAt": "2026-11-11T18:54:42.247Z"
   }
 ]
