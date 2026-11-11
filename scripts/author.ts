@@ -15,7 +15,7 @@ import { existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { nextId, readExperiments, writeExperiments } from "../src/lib/data.ts";
-import { applyReelFrames } from "../src/lib/formats.ts";
+import { applyReelFrames, coverFrameFor } from "../src/lib/formats.ts";
 import { contextCredits, contextRows, gateSpec, loadStandard } from "../src/lib/gate-io.ts";
 import { CONTEXT_PREFIX, defaultContextLimits, isContext, prepareContext } from "../src/lib/context.ts";
 import { lintStandard, silence } from "../src/lib/house-standard.ts";
@@ -101,7 +101,11 @@ const verdicts = Object.values(scoresFile.verdicts)
   .filter((v): v is Verdict => Boolean(v))
   .filter((v) => !isHeldBack(overrides[v.file]))
   .filter((v) => !(usage[v.file] ?? []).some((sl) => lastEight.has(sl)));
-const ranked = rankForService(verdicts, technical, Number(values.candidates));
+// Order: the comparison ranking where it exists (scripts/rank-assets.ts), then the score. A model
+// compares two photos far more reliably than it marks one out of 100.
+const board = existsSync("data/asset-rank.json") ? (JSON.parse(readFileSync("data/asset-rank.json", "utf8")) as Record<string, { order?: { file: string; rating: number; rank: number }[] }>)[`${service}:${format}`] : undefined;
+const placeOf = new Map((board?.order ?? []).map((o) => [o.file, o.rank]));
+const ranked = rankForService(verdicts, technical, Number(values.candidates)).sort((a, b) => (placeOf.get(a.file) ?? Infinity) - (placeOf.get(b.file) ?? Infinity) || b.Q - a.Q);
 const byFile = new Map(poolRows.map((r) => [r.file, r]));
 const candidates = ranked.map((v) => byFile.get(v.file)).filter((r): r is PoolRow => Boolean(r));
 const verdictOf = new Map(ranked.map((v) => [v.file, v]));
@@ -113,7 +117,7 @@ const candidateList = candidates
   .map((r) => {
     const v = verdictOf.get(r.file)!;
     const dish = dishOf(r.file);
-    return `- assets/${values.pool}/${r.file} | Q ${v.Q} (${v.tier}) | ${r.orientation} ${r.width}x${r.height} | ${r.people === "chef" ? "chef visible" : "no people"} | CHEF'S NAME FOR THE DISH: ${dish ? `"${dish}"` : "none"} | what an automatic cataloguer saw (may be wrong, never quote it): ${r.subject} | tags: ${(r.tags ?? []).join(", ")}`;
+    return `- assets/${values.pool}/${r.file} | ${placeOf.has(r.file) ? `place ${placeOf.get(r.file)} by comparison` : `score ${v.Q}`} | ${r.orientation} ${r.width}x${r.height} | ${r.people === "chef" ? "chef visible" : "no people"} | CHEF'S NAME FOR THE DISH: ${dish ? `"${dish}"` : "none"} | what an automatic cataloguer saw (may be wrong, never quote it): ${r.subject} | tags: ${(r.tags ?? []).join(", ")}`;
   })
   .join("\n");
 
@@ -143,7 +147,7 @@ ${JSON.stringify({ id: archetype.id, name: archetype.name, useFor: archetype.use
 LANGUAGE: ${lang === "it" ? "Italian" : "English"}. Service to sell: ${archetype.service}. CTA to use: "${brand.cta[lang][archetype.service]}".
 ${seriesLine}
 
-PHOTOS YOU MAY USE (ranked by the visual quality engine: higher Q first; use only these exact file paths; each photo at most once; prefer the highest-Q photos and put the best one in the hook):
+PHOTOS YOU MAY USE (listed best first; use only these exact file paths; each photo at most once; prefer the ones at the top and open with the best one):
 ${candidateList}
 ${contextBlock}
 OUTPUT SHAPE:
@@ -162,6 +166,8 @@ PICTURES (choose and order the photos by these):
 ${standard.visual.map((r) => `- ${r}`).join("\n")}
 STRUCTURE:
 ${standard.structure.map((r) => `- ${r}`).join("\n")}
+CAROUSEL (it is the leading format: the archive is photographs):
+${(standard.carousel ?? []).map((r) => `- ${r}`).join("\n")}
 LIMITS: hook and cover titles at most ${standard.limits.hookTitleWords} words; a scene "text" at most ${standard.limits.sceneTextWords} words; a photo slide title at most ${standard.limits.slideTitleWords} words and its body at most ${standard.limits.slideBodyWords} words; caption at most ${standard.limits.captionChars} characters; at most ${standard.limits.hashtagsMax} hashtags.
 NEVER USE THESE WORDS: ${standard.banned[lang as "it" | "en"].join(", ")}.` : ""}
 
@@ -250,6 +256,11 @@ const contextByFile = new Map(context.map((r) => [r.file, r]));
 if ((raw as { reel?: unknown }).reel) {
   const plated = applyReelFrames((raw as unknown as { reel: Parameters<typeof applyReelFrames>[0] }).reel, (image) => (isContext(image) ? contextByFile.get(path.basename(image)) : byFile.get(path.basename(image))) ?? null);
   if (plated.length) console.log(`[author] shown as plates (too small to fill the frame): ${plated.join(", ")}`);
+}
+// A cover fills the slide only when its photo is large enough; otherwise it is matted like the other slides.
+for (const slide of (raw as unknown as { carousel?: { slides: { type: string; image?: string; frame?: string }[] } }).carousel?.slides ?? []) {
+  const size = slide.type === "cover" && slide.image ? byFile.get(path.basename(slide.image)) : null;
+  if (size) slide.frame = coverFrameFor(size.width, size.height);
 }
 let spec = parsePostSpec(raw);
 if (!values["no-review"]) {

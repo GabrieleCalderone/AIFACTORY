@@ -3,95 +3,115 @@ import { AbsoluteFill, Img, staticFile } from "remotion";
 import { theme } from "../brand/theme";
 import { lookForArchetype, type Look } from "../brand/looks";
 import archetypes from "../../content/archetypes.json";
-import { Chip } from "../components/Chip";
 import { Scrim } from "../components/Scrim";
 import { parsePostSpec, type CarouselSlide as SlideSpec, type PostSpec, type PostSpecInput } from "../schemas/post";
 
-import { CAROUSEL, CAROUSEL_PHOTO_HEIGHT } from "../lib/formats";
+import { CAROUSEL, CAROUSEL_MAT } from "../lib/formats";
 
 export { CAROUSEL };
 
 export type CarouselSlideProps = { readonly spec: PostSpecInput; readonly slideIndex: number };
 
-const copy = {
-  en: { swipe: "Swipe", eyebrow: "RistHome · Palermo" },
-  it: { swipe: "Scorri", eyebrow: "RistHome · Palermo" },
+/**
+ * One editorial system for every slide (docs/house-standard.md, "Carosello"):
+ * a cream ground, the photograph whole inside the same mat, one serif for the words and one
+ * small sans for the marks, neutrals only so the photograph carries the colour, hierarchy
+ * from empty space rather than from size. Four type styles in all.
+ */
+const ground = theme.colors.cream;
+const grey = "#8a827a";
+const soft = "#3a3532";
+const type = {
+  title: { fontFamily: theme.fonts.display, fontWeight: 500, fontSize: 68, lineHeight: 1.1, color: theme.colors.ink, textWrap: "balance" },
+  line: { fontFamily: theme.fonts.display, fontWeight: 500, fontSize: 46, lineHeight: 1.15, color: theme.colors.ink, textWrap: "balance" },
+  body: { fontFamily: theme.fonts.display, fontWeight: 400, fontSize: 34, lineHeight: 1.42, color: soft },
+  // caps on one line only, tracked 10%
+  mark: { fontFamily: theme.fonts.body, fontWeight: 500, fontSize: 22, lineHeight: 1, letterSpacing: "0.1em", textTransform: "uppercase", color: grey },
 } as const;
 
-const pad = theme.carouselSafe;
+const copy = { en: { eyebrow: "RistHome · Palermo" }, it: { eyebrow: "RistHome · Palermo" } } as const;
+const mat = CAROUSEL_MAT;
+const textTop = (boxHeight: number) => mat.top + boxHeight + 44;
 
-const Cover: React.FC<{ slide: Extract<SlideSpec, { type: "cover" }>; lang: PostSpec["lang"]; look: Look }> = ({ slide, lang, look }) => (
-  <AbsoluteFill style={{ backgroundColor: theme.colors.ink }}>
-    <Img src={staticFile(slide.image)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: look.grade }} />
-    <Scrim bottom={0.86} />
-    <Img src={staticFile("brand/logo-white.png")} style={{ position: "absolute", top: pad.y, left: pad.x, width: 300 }} />
-    <div style={{ position: "absolute", left: pad.x, right: pad.x, bottom: pad.y + 40, display: "flex", flexDirection: "column", gap: 24 }}>
-      <div>
-        <Chip tone={look.chipTone}>{slide.kicker ?? look.eyebrow[lang] ?? copy[lang].eyebrow}</Chip>
-      </div>
-      <div style={{ fontFamily: theme.fonts.display, fontWeight: 800, fontSize: 88, lineHeight: 1.04, color: theme.colors.white, textShadow: "0 2px 24px rgba(0,0,0,0.5)", textWrap: "balance" }}>
-        {slide.title}
-      </div>
-    </div>
-    <div style={{ position: "absolute", right: pad.x, bottom: pad.y - 30, fontFamily: theme.fonts.body, fontWeight: 600, fontSize: 30, color: theme.colors.cream, letterSpacing: "0.08em" }}>
-      {copy[lang].swipe} →
-    </div>
-  </AbsoluteFill>
+/** The foot of every cream slide: the wordmark, small and always in the same place, and the page. */
+const Foot: React.FC<{ page?: string }> = ({ page }) => (
+  <>
+    <Img src={staticFile("brand/logo.png")} style={{ position: "absolute", left: mat.left, bottom: 150, width: 170 }} />
+    {page ? <div style={{ position: "absolute", right: mat.left, bottom: 156, ...type.mark }}>{page}</div> : null}
+  </>
 );
 
-const Photo: React.FC<{ slide: Extract<SlideSpec, { type: "photo" }>; page: string; look: Look }> = ({ slide, page, look }) => {
-  const hasText = Boolean(slide.title || slide.body);
-  const imageHeight = hasText ? CAROUSEL_PHOTO_HEIGHT : CAROUSEL.height;
-  return (
-    <AbsoluteFill style={{ backgroundColor: theme.colors.cream }}>
-      <Img src={staticFile(slide.image)} style={{ position: "absolute", top: 0, left: 0, width: "100%", height: imageHeight, objectFit: "cover", filter: look.grade }} />
-      {hasText ? (
-        <div style={{ position: "absolute", top: imageHeight, left: 0, right: 0, bottom: 0, padding: `56px ${pad.x}px ${pad.y}px`, display: "flex", flexDirection: "column", gap: 18 }}>
-          {slide.title ? (
-            <div style={{ fontFamily: theme.fonts.display, fontWeight: 700, fontSize: 64, lineHeight: 1.08, color: theme.colors.ink, textWrap: "balance" }}>{slide.title}</div>
-          ) : null}
-          {slide.body ? (
-            <div style={{ fontFamily: theme.fonts.body, fontWeight: 400, fontSize: 38, lineHeight: 1.35, color: "#3a3532" }}>{slide.body}</div>
-          ) : null}
+const Matted: React.FC<{ image: string; look: Look; height: number }> = ({ image, look, height }) => (
+  <div style={{ position: "absolute", left: mat.left, top: mat.top, width: mat.width, height }}>
+    <Img src={staticFile(image)} style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "50% 100%", filter: look.grade }} />
+  </div>
+);
+
+const Cover: React.FC<{ slide: Extract<SlideSpec, { type: "cover" }>; lang: PostSpec["lang"]; look: Look }> = ({ slide, lang, look }) => {
+  const kicker = slide.kicker ?? look.eyebrow[lang] ?? copy[lang].eyebrow;
+  if (slide.frame === "plate") {
+    return (
+      <AbsoluteFill style={{ backgroundColor: ground }}>
+        <Matted image={slide.image} look={look} height={mat.coverHeight} />
+        <div style={{ position: "absolute", left: mat.left, right: mat.left, top: textTop(mat.coverHeight), display: "flex", flexDirection: "column", gap: 20 }}>
+          <div style={type.mark}>{kicker}</div>
+          <div style={type.title}>{slide.title}</div>
         </div>
-      ) : null}
-      <div style={{ position: "absolute", right: pad.x, bottom: pad.y - 40, fontFamily: theme.fonts.body, fontWeight: 600, fontSize: 28, color: hasText ? theme.colors.accent : theme.colors.white, letterSpacing: "0.1em" }}>
-        {page}
+        <Foot />
+      </AbsoluteFill>
+    );
+  }
+  return (
+    <AbsoluteFill style={{ backgroundColor: theme.colors.ink }}>
+      <Img src={staticFile(slide.image)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: look.grade }} />
+      <Scrim bottom={0.8} />
+      <div style={{ position: "absolute", left: mat.left, right: mat.left, bottom: 190, display: "flex", flexDirection: "column", gap: 22 }}>
+        <div style={{ ...type.mark, color: theme.colors.cream }}>{kicker}</div>
+        <div style={{ ...type.title, fontSize: 76, color: theme.colors.white, textShadow: "0 2px 24px rgba(0,0,0,0.45)" }}>{slide.title}</div>
       </div>
+      <Img src={staticFile("brand/logo-white.png")} style={{ position: "absolute", left: mat.left, top: 150, width: 200 }} />
     </AbsoluteFill>
   );
 };
 
-const Text: React.FC<{ slide: Extract<SlideSpec, { type: "text" }>; page: string }> = ({ slide, page }) => (
-  <AbsoluteFill style={{ backgroundColor: theme.colors.cream, padding: `${pad.y + 60}px ${pad.x}px ${pad.y}px`, justifyContent: "center" }}>
-    <div style={{ width: 120, height: 10, backgroundColor: theme.colors.accent, marginBottom: 44 }} />
-    <div style={{ fontFamily: theme.fonts.display, fontWeight: 800, fontSize: 84, lineHeight: 1.06, color: theme.colors.ink, textWrap: "balance" }}>{slide.title}</div>
-    {slide.body ? (
-      <div style={{ marginTop: 40, fontFamily: theme.fonts.body, fontWeight: 400, fontSize: 42, lineHeight: 1.4, color: "#3a3532" }}>{slide.body}</div>
-    ) : null}
-    <Img src={staticFile("brand/logo.png")} style={{ position: "absolute", left: pad.x, bottom: pad.y, width: 280 }} />
-    <div style={{ position: "absolute", right: pad.x, bottom: pad.y - 40, fontFamily: theme.fonts.body, fontWeight: 600, fontSize: 28, color: theme.colors.accent, letterSpacing: "0.1em" }}>{page}</div>
+const Photo: React.FC<{ slide: Extract<SlideSpec, { type: "photo" }>; page: string; look: Look }> = ({ slide, page, look }) => (
+  <AbsoluteFill style={{ backgroundColor: ground }}>
+    <Matted image={slide.image} look={look} height={mat.height} />
+    <div style={{ position: "absolute", left: mat.left, right: mat.left, top: textTop(mat.height), display: "flex", flexDirection: "column", gap: 12 }}>
+      {slide.title ? <div style={type.line}>{slide.title}</div> : null}
+      {slide.body ? <div style={type.body}>{slide.body}</div> : null}
+    </div>
+    <Foot page={page} />
   </AbsoluteFill>
 );
 
-const Cta: React.FC<{ slide: Extract<SlideSpec, { type: "cta" }> }> = ({ slide }) => (
-  <AbsoluteFill style={{ backgroundColor: theme.colors.ink, justifyContent: "center", alignItems: "center" }}>
-    {slide.image ? (
-      <>
-        <Img src={staticFile(slide.image)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.35 }} />
-        <Scrim bottom={0.6} top={0.6} />
-      </>
-    ) : (
-      <AbsoluteFill style={{ backgroundImage: `radial-gradient(ellipse at 50% 40%, ${theme.colors.accentDeep} 0%, rgba(110,31,38,0) 60%)` }} />
-    )}
-    <div style={{ position: "absolute", left: pad.x, right: pad.x, top: 0, bottom: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", gap: 36 }}>
-      <Img src={staticFile("brand/logo-white.png")} style={{ width: 620 }} />
-      <div style={{ fontFamily: theme.fonts.display, fontWeight: 800, fontSize: 80, lineHeight: 1.06, color: theme.colors.white, textWrap: "balance" }}>{slide.title}</div>
-      {slide.body ? <div style={{ fontFamily: theme.fonts.body, fontWeight: 500, fontSize: 42, lineHeight: 1.3, color: theme.colors.cream }}>{slide.body}</div> : null}
-      <Chip size={34}>{theme.site}</Chip>
+const Text: React.FC<{ slide: Extract<SlideSpec, { type: "text" }>; page: string }> = ({ slide, page }) => (
+  <AbsoluteFill style={{ backgroundColor: ground }}>
+    <div style={{ position: "absolute", left: mat.left, right: mat.left + 60, top: mat.top, bottom: 260, display: "flex", flexDirection: "column", justifyContent: "center", gap: 36 }}>
+      <div style={{ width: 64, height: 1, backgroundColor: theme.colors.ink }} />
+      <div style={type.title}>{slide.title}</div>
+      {slide.body ? <div style={type.body}>{slide.body}</div> : null}
     </div>
+    <Foot page={page} />
   </AbsoluteFill>
 );
+
+/** The closing slide: the wordmark, one invitation, and a rule that ends the piece. Nothing else asks for anything. */
+const Cta: React.FC<{ slide: Extract<SlideSpec, { type: "cta" }> }> = ({ slide }) => {
+  // The invitation is said once: a body that only repeats "link in bio" is dropped.
+  const repeats = slide.body ? slide.title.toLowerCase().includes(slide.body.trim().toLowerCase()) : true;
+  return (
+    <AbsoluteFill style={{ backgroundColor: ground }}>
+      <div style={{ position: "absolute", left: mat.left, right: mat.left, top: mat.top, bottom: 260, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", gap: 44 }}>
+        <Img src={staticFile("brand/logo.png")} style={{ width: 380 }} />
+        <div style={{ width: 64, height: 1, backgroundColor: theme.colors.ink }} />
+        <div style={{ ...type.line, maxWidth: 760 }}>{slide.title}</div>
+        {slide.body && !repeats ? <div style={type.body}>{slide.body}</div> : null}
+      </div>
+      <div style={{ position: "absolute", left: 0, right: 0, bottom: 156, textAlign: "center", ...type.mark }}>{theme.site}</div>
+    </AbsoluteFill>
+  );
+};
 
 export const CarouselSlide: React.FC<CarouselSlideProps> = ({ spec: rawSpec, slideIndex }) => {
   const spec = useMemo(() => parsePostSpec(rawSpec), [rawSpec]);
@@ -103,7 +123,7 @@ export const CarouselSlide: React.FC<CarouselSlideProps> = ({ spec: rawSpec, sli
   if (!slide) {
     throw new Error(`slide ${slideIndex} does not exist (post has ${slides.length} slides)`);
   }
-  const page = `${slideIndex + 1}/${slides.length}`;
+  const page = `${slideIndex + 1} / ${slides.length}`;
   const look = lookForArchetype(spec.brief.archetype, archetypes.archetypes);
   switch (slide.type) {
     case "cover":

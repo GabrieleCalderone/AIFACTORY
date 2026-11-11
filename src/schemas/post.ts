@@ -99,6 +99,8 @@ export const CarouselSlide = z.discriminatedUnion("type", [
     image: imagePath,
     title: z.string().min(3).max(90),
     kicker: z.string().max(40).optional(),
+    /** "plate": the cover photo is matted like the other slides instead of filling the slide (small photos stay sharp). */
+    frame: z.enum(["full", "plate"]).optional(),
   }),
   z.object({
     type: z.literal("photo"),

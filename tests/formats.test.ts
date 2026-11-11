@@ -27,3 +27,10 @@ test("frames are set from real sizes; clips and unknown photos are left alone", 
   assert.deepEqual(applyReelFrames(large, (image) => sizes[image] ?? null), []);
   assert.equal(large.hook.frame, "full");
 });
+
+test("a cover fills the slide only when its photo is large enough", async () => {
+  const { coverFrameFor } = await import("../src/lib/formats.ts");
+  assert.equal(coverFrameFor(3024, 4032), "full");
+  assert.equal(coverFrameFor(1080, 1350), "full");
+  assert.equal(coverFrameFor(720, 523), "plate");
+});

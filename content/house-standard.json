@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-11",
+  "version": "2026-11-12",
   "audience": "Travellers and locals who pay 100 to 200 EUR per person for a private experience with a chef in Palermo: a hands-on class in his kitchen or a dinner cooked and served at their home or villa. They compare RistHome with starred restaurants and five-star hotels, not with caterers.",
   "limits": {
     "hookTitleWords": 7,
@@ -154,6 +154,22 @@
       "Italian and English alternate; a post is written in one language only."
     ]
   },
+  "carousel": [
+    "One system for every slide: cream ground, the photograph whole inside the same mat, the same margins, the wordmark small and always in the same place.",
+    "One serif for the words and one small sans for the marks; four type styles in all. Hierarchy comes from empty space, not from size.",
+    "Neutrals only: the photograph supplies the colour.",
+    "Capitals on one line at most, letterspaced; lowercase is never letterspaced; text is ragged, never justified.",
+    "The first slide sets the ratio of all the others; what matters stays inside the centre square the profile grid shows.",
+    "The second slide must work as a second cover: people who did not swipe are shown the post again from there.",
+    "Each photograph has a role of its own in the sequence; none is there only to fill a place.",
+    "The last slide closes the piece: the wordmark, one invitation, a thin rule."
+  ],
+  "editing": [
+    "Allowed on a photograph: crop, straighten, exposure, white balance, the single house colour grade, enlargement that does not invent detail, removal of sensor dust.",
+    "Never: adding, removing or rearranging anything in the frame, changing a colour so the dish looks different, generating or regenerating any part of the food, the table, the kitchen or a person.",
+    "A still is moved only when the move reveals something; otherwise it is held.",
+    "Generated material is context only (the sea, a leaf, the light), never opens or closes a post, and is always disclosed."
+  ],
   "principles": [
     {
       "id": "restraint",

@@ -16,6 +16,8 @@ export type HouseStandard = {
   voice: string[];
   visual: string[];
   structure: string[];
+  carousel?: string[];
+  editing?: string[];
   calendar?: { services: string[]; maxServiceShare: number; maxOfferShare: number; offerArchetypes: string[]; rules: string[] };
   principles: { id: string; rule: string; why: string }[];
 };

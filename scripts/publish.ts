@@ -67,6 +67,13 @@ const jobs: Job[] = [];
 const material = materialOf(spec.reel);
 const distribution = distributionFor(material);
 console.log(`[publish] ${spec.slug}: ${material === "video" ? "real footage, the reel leads" : "photographs only, the carousel leads"}`);
+// Alt text for each carousel image: what the slide says, or a plain description, always with the house and the place.
+const altTextFor = (i: number): string => {
+  const slide = spec.carousel?.slides[i];
+  const said = slide ? [("title" in slide && slide.title) || "", ("body" in slide && slide.body) || ""].filter(Boolean).join(". ") : "";
+  const what = said || (spec.lang === "it" ? "Un piatto dello chef Giacomo Napolitano" : "A dish by Chef Giacomo Napolitano");
+  return `${what}. RistHome, ${spec.lang === "it" ? "chef a domicilio e lezioni di cucina a Palermo" : "private chef and cooking classes in Palermo, Sicily"}.`.slice(0, 1000);
+};
 // AI disclosure travels with the post (Buffer passes it to Instagram and TikTok).
 const ai = spec.aiGenerated ? { isAiGenerated: true } : {};
 const target = (platform: Platform) => (dryRun ? channels[platform] ?? `<${platform} channel>` : channels[platform]);
@@ -84,7 +91,7 @@ if (spec.carousel && hosted.carousel?.length) {
     const channelId = target(d.platform);
     if (!channelId) continue;
     const dueAt = new Date(when.getTime() + d.offsetHours * 3600 * 1000).toISOString();
-    jobs.push({ kind: "carousel", platform: d.platform, channelId, text: captionFor(d.platform, full, spec.hashtags, hookTitle), assets: hosted.carousel.map((url) => ({ image: { url } })), dueAt, metadata: d.platform === "instagram" ? { instagram: { type: "post", shouldShareToFeed: true, ...ai } } : d.platform === "tiktok" ? { tiktok: { title: hookTitle.slice(0, 90) } } : undefined });
+    jobs.push({ kind: "carousel", platform: d.platform, channelId, text: captionFor(d.platform, full, spec.hashtags, hookTitle), assets: hosted.carousel.map((url, i) => ({ image: { url, ...(d.platform === "instagram" ? { metadata: { altText: altTextFor(i) } } : {}) } })), dueAt, metadata: d.platform === "instagram" ? { instagram: { type: "post", shouldShareToFeed: true, ...ai } } : d.platform === "tiktok" ? { tiktok: { title: hookTitle.slice(0, 90) } } : undefined });
   }
 }
 if (jobs.length === 0) {

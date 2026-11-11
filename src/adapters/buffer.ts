@@ -6,7 +6,7 @@
  */
 export type FetchLike = (url: string, init: { method: string; headers: Record<string, string>; body: string }) => Promise<{ ok: boolean; status: number; json(): Promise<unknown>; headers?: { get(name: string): string | null } }>;
 
-export type BufferAsset = { image: { url: string } } | { video: { url: string; metadata?: { thumbnailOffset?: number } } };
+export type BufferAsset = { image: { url: string; metadata?: { altText?: string } } } | { video: { url: string; metadata?: { thumbnailOffset?: number } } };
 export type BufferChannel = { id: string; name: string; service: string; displayName?: string; isDisconnected?: boolean };
 export type BufferMetric = { type: string; name: string; value: number; unit?: string };
 

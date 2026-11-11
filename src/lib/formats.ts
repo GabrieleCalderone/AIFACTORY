@@ -1,8 +1,15 @@
 /** Output formats, shared by the compositions and the CLI (pure TS, no JSX). */
 export const REEL = { id: "Reel", width: 1080, height: 1920, fps: 30 } as const;
 export const CAROUSEL = { id: "CarouselSlide", width: 1080, height: 1350 } as const;
-/** Photo area of a carousel "photo" slide when it carries text. */
+/** Photo area of a carousel "photo" slide when it carries text (layout before the mat; kept for old renders). */
 export const CAROUSEL_PHOTO_HEIGHT = 840;
+/**
+ * The mat: every carousel photograph sits whole inside this box on the cream ground, with
+ * the same margins on every slide, its words below and the house mark at the foot. Nothing
+ * is cropped or blown up, and all that matters stays inside the centre square that the
+ * profile grid shows. A cover that is too small to fill the slide uses the shorter box.
+ */
+export const CAROUSEL_MAT = { left: 84, top: 150, width: 912, height: 880, coverHeight: 740 } as const;
 
 /**
  * "Plate" presentation of a reel photo: the picture sits whole inside this box on the dark
@@ -20,6 +27,9 @@ export const fillFactor = (w: number, h: number, W: number, H: number): number =
 /** Enlargement needed for a w x h picture to fit inside a W x H box without cropping. */
 export const fitFactor = (w: number, h: number, W: number, H: number): number => Math.min(W / w, H / h);
 export const reelFrameFor = (w: number, h: number): ReelFrame => (fillFactor(w, h, REEL.width, REEL.height) > PLATE_ABOVE ? "plate" : "full");
+
+/** A cover fills the slide only when the photo is large enough; otherwise it is matted like the others. */
+export const coverFrameFor = (w: number, h: number): ReelFrame => (fillFactor(w, h, CAROUSEL.width, CAROUSEL.height) > PLATE_ABOVE ? "plate" : "full");
 
 type FramedMedia = { image?: string; frame?: ReelFrame };
 /**

@@ -113,6 +113,40 @@ un menu. Se una foto del reel è piccola, tutto il reel usa questa presentazione
 ha un solo modo di mostrare le immagini. La scelta è automatica (`applyReelFrames` in
 `src/lib/formats.ts`), dalle dimensioni reali della foto.
 
+## Carosello (formato principale)
+
+Non abbiamo riprese né la possibilità di farne: l'archivio è fatto di fotografie, e con le
+fotografie il formato giusto è il carosello. Su Instagram chi non scorre un carosello lo
+rivede una seconda volta (Mosseri, ottobre 2024), e negli account piccoli i caroselli fanno in
+media più visualizzazioni dei reel (Socialinsider, studio di un fornitore).
+
+Regole di disegno, in `content/house-standard.json` alla voce `carousel`, prese dalla
+direzione artistica di riviste e identità (Cereal, Ottolenghi) e dalla tipografia (Butterick):
+
+- un solo sistema per tutte le slide: fondo crema, fotografia intera nello stesso passe-partout,
+  stessi margini, marchio piccolo sempre nello stesso punto;
+- un serif per le parole e un sans piccolo per i segni; quattro stili in tutto; la gerarchia
+  viene dallo spazio vuoto, non dalla grandezza;
+- solo neutri: il colore lo porta la fotografia;
+- maiuscole su una riga al massimo, spaziate; testo a bandiera;
+- la seconda slide deve funzionare come seconda copertina;
+- l'ultima slide chiude: marchio, un solo invito, un filetto.
+
+Pubblicazione: carosello su Instagram, come post fotografico su TikTok e su Facebook; il reel
+di fotografie incorniciate segue due giorni dopo, solo su Instagram. Ogni immagine ha un
+testo alternativo. La musica su un carosello non si può aggiungere via Buffer né via API di
+Instagram (verificato sullo schema di Buffer e sulla documentazione Meta): si può solo a
+mano, dall'app, pubblicando con notifica.
+
+## Ritocco onesto
+
+Ammesso: taglio, raddrizzamento, esposizione, bilanciamento del bianco, l'unica correzione
+colore della casa, ingrandimento che non inventa dettaglio, polvere del sensore. Mai:
+aggiungere, togliere o spostare qualcosa nell'inquadratura, cambiare un colore così che il
+piatto sembri diverso, generare una parte del cibo, della tavola, della cucina o di una
+persona. Il metro è quello del fotogiornalismo (World Press Photo). Il materiale generato è
+solo contesto, non apre né chiude un post, ed è sempre dichiarato alle piattaforme.
+
 ## Immagini di contesto
 
 Fotografie non nostre, con licenza libera, che dicono il luogo e la stagione: Sicilia, mare,

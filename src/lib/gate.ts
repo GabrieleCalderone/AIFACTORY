@@ -1,4 +1,4 @@
-import { CAROUSEL, CAROUSEL_PHOTO_HEIGHT, REEL, REEL_PLATE, fillFactor, fitFactor } from "./formats.ts";
+import { CAROUSEL, CAROUSEL_MAT, REEL, REEL_PLATE, fillFactor, fitFactor } from "./formats.ts";
 import { reelTimeline } from "./timeline.ts";
 import type { PostSpec } from "../schemas/post.ts";
 
@@ -154,8 +154,10 @@ export const runGate = ({ spec, exists, info, archetypeIds, experimentRows }: Ga
     });
   }
   spec.carousel?.slides.forEach((s, i) => {
-    if (s.type === "cover" || (s.type === "cta" && s.image)) checkFit(s.image as string, CAROUSEL.width, CAROUSEL.height, `carousel slide ${i + 1}`);
-    if (s.type === "photo") checkFit(s.image, CAROUSEL.width, s.title || s.body ? CAROUSEL_PHOTO_HEIGHT : CAROUSEL.height, `carousel slide ${i + 1}`);
+    if (s.type === "cover" && s.frame === "plate") checkFit(s.image, CAROUSEL_MAT.width, CAROUSEL_MAT.coverHeight, `carousel slide ${i + 1}`, true);
+    else if (s.type === "cover" || (s.type === "cta" && s.image)) checkFit(s.image as string, CAROUSEL.width, CAROUSEL.height, `carousel slide ${i + 1}`);
+    // Photo slides are always matted: the picture is fitted whole inside the mat.
+    if (s.type === "photo") checkFit(s.image, CAROUSEL_MAT.width, CAROUSEL_MAT.height, `carousel slide ${i + 1}`, true);
   });
 
   if (spec.brief.experimentId) {

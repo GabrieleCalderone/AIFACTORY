@@ -100,7 +100,8 @@
         "type": "cover",
         "image": "assets/pool/143-IMG-20210523-WA0164.jpg",
         "title": "Il vostro tavolo, a casa vostra",
-        "kicker": "RistHome · Palermo"
+        "kicker": "RistHome · Palermo",
+        "frame": "full"
       },
       {
         "type": "photo",
