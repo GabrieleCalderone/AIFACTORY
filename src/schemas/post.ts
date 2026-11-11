@@ -160,6 +160,8 @@ export const PostSpec = z
       .transform((tags) => Array.from(new Set(tags))),
     reel: Reel.optional(),
     carousel: Carousel.optional(),
+    /** Photo credits owed for licensed context pictures; appended to the caption. */
+    credits: z.array(z.string().min(3).max(200)).max(6).optional(),
   })
   .refine((p) => p.reel !== undefined || p.carousel !== undefined, {
     message: "a post needs a reel, a carousel, or both",

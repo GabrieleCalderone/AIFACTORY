@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { applyReview, dishKey, factsOf, mergeExclusions, type ReviewPair } from "../src/lib/review.ts";
+import { applyReview, dishKey, factsOf, isHeldBack, mergeExclusions, type ReviewPair } from "../src/lib/review.ts";
 
 const pair = (where: string, file: string, node: Record<string, unknown>, allowed: string[], required: string[] = []): ReviewPair => ({ where, file, node, allowed, required });
 
@@ -64,15 +64,20 @@ test("a fix is stripped to plain text and held to the field's schema length", ()
   assert.equal(scene.label, "1");
 });
 
-test("reviewer exclusions merge into the overrides on disk; a defect replaces a hand-made include and keeps its note", () => {
+test("reviewer defects never rewrite a person's decision: the file is flagged and held back instead", () => {
   const current = { "a.jpg": { include: true, note: "scelta da Gabriele" }, "b.jpg": { exclude: true, note: "ospiti" } };
   const out = mergeExclusions(current, [{ file: "a.jpg", code: "screenshot" }, { file: "b.jpg", code: "guests" }, { file: "c.jpg", code: "app_ui" }], "a1-x");
-  assert.deepEqual(out.added, ["a.jpg", "c.jpg"]);
+  assert.deepEqual(out.added, ["c.jpg"]);
   assert.deepEqual(out.kept, ["b.jpg"]);
-  assert.deepEqual(out.merged["a.jpg"], { exclude: true, note: "reviewer: screenshot (a1-x); before: scelta da Gabriele" });
+  assert.deepEqual(out.flagged, ["a.jpg"]);
+  assert.deepEqual(out.merged["a.jpg"], { include: true, note: "scelta da Gabriele", reviewerFlag: "screenshot (a1-x)" });
   assert.deepEqual(out.merged["b.jpg"], { exclude: true, note: "ospiti" });
   assert.deepEqual(out.merged["c.jpg"], { exclude: true, note: "reviewer: app_ui (a1-x)" });
   assert.equal("c.jpg" in current, false, "the input is not mutated");
+  assert.equal(isHeldBack(out.merged["a.jpg"]), true, "a flagged file is not offered again until a person decides");
+  assert.equal(isHeldBack(out.merged["c.jpg"]), true);
+  assert.equal(isHeldBack({ include: true }), false);
+  assert.equal(isHeldBack(undefined), false);
 });
 
 test("the caption problem is carried, never a caption fix", () => {

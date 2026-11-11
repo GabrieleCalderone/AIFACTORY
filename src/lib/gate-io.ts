@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { readExperiments } from "./data.ts";
 import { runGate, type GateResult, type MediaInfo } from "./gate.ts";
+import { CONTEXT_PREFIX, contextIssues } from "./context.ts";
 import { lintStandard, type HouseStandard } from "./house-standard.ts";
 import type { PostSpec } from "../schemas/post.ts";
 
@@ -49,9 +50,22 @@ export const gateSpec = (spec: PostSpec): GateResult => {
     archetypeIds,
     experimentRows,
   });
+  contextIssues(spec, contextCredits()).forEach((issue) => result.errors.push(`context picture, ${issue}`));
   const standard = loadStandard();
   if (standard) lintStandard(spec, standard).forEach((v) => result.errors.push(`house standard, ${v.where}: ${v.message}`));
   return result;
+};
+
+export type ContextRow = { file: string; width: number; height: number; orientation?: string; people: string; subject?: string; category?: string; credit: string | null; licence?: string; source?: string };
+/** Context pictures a person approved (scripts/source-context.ts approve). */
+export const contextRows = (): ContextRow[] => {
+  const manifest = path.join(PUBLIC_ROOT, CONTEXT_PREFIX, "manifest.json");
+  return existsSync(manifest) ? (JSON.parse(readFileSync(manifest, "utf8")) as ContextRow[]) : [];
+};
+/** Credit owed for a context picture: a string, null when none is owed, undefined when the picture is not approved. */
+export const contextCredits = (): ((image: string) => string | null | undefined) => {
+  const rows = new Map(contextRows().map((r) => [`${CONTEXT_PREFIX}${r.file}`, r.credit ?? null]));
+  return (image) => rows.get(image);
 };
 
 /** The house standard every published text must meet; absent file = no standard to enforce. */

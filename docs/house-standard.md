@@ -105,6 +105,46 @@ lavoro, tavola privata, serie dello chef, prova e invito.
 Per ritirare un post già in coda:
 `node --env-file-if-exists=.env scripts/unschedule.ts <slug> --reason "motivo"`.
 
+## Presentazione "a piatto"
+
+Una foto che dovrebbe essere ingrandita più di 1,5 volte per riempire il reel non viene
+ingrandita: è mostrata intera sul fondo scuro, con le parole subito sotto, come un piatto su
+un menu. Se una foto del reel è piccola, tutto il reel usa questa presentazione, così il post
+ha un solo modo di mostrare le immagini. La scelta è automatica (`applyReelFrames` in
+`src/lib/formats.ts`), dalle dimensioni reali della foto.
+
+## Immagini di contesto
+
+Fotografie non nostre, con licenza libera, che dicono il luogo e la stagione: Sicilia, mare,
+prodotti crudi. Mai piatti, tavole, cucine, chef o ospiti: quelli possono essere solo nostri.
+
+Regole, verificate dal gate (`src/lib/context.ts`):
+
+- licenze accettate: CC0, pubblico dominio, CC BY. Rifiutate: share-alike (il reel dovrebbe
+  avere la stessa licenza), non commerciale, senza opere derivate, sconosciuta;
+- al massimo due per reel e una per carosello;
+- mai la prima immagine, mai l'ultima, mai la copertina: si apre e si chiude con il nostro;
+- nessuna etichetta e nessun titolo: non sono una portata né un passaggio della lezione;
+- il testo, se c'è, nomina solo il luogo o la stagione;
+- il credito dovuto compare nella didascalia ("Photo: autore, licenza, via Wikimedia Commons").
+
+Percorso (`scripts/source-context.ts`):
+
+1. `search "<tema>"` cerca tra le "Quality images" di Wikimedia Commons, senza scaricare;
+2. `fetch` scarica le candidate (solo da upload.wikimedia.org, JPEG, entro 15 MB);
+3. `review` un modello guarda ogni foto con le regole della casa e rifiuta persone, piatti,
+   interni, monumenti, marchi, luoghi non siciliani, foto mediocri;
+4. `sheet` produce `out/context-sheet.jpg` da guardare;
+5. `approve <id>` è il passo di una persona: solo le foto approvate entrano nei post.
+
+Provenienza, licenza e autore di ogni foto restano in `data/context-registry.json`.
+
+Primo giro dell'11 novembre 2026: 16 ricerche, 24 candidate con licenza valida, 3 superate
+dalla revisione (foglie di pistacchio, due scorci di mare delle Eolie), 0 approvate (in
+attesa di Gabriele). Su Commons la maggior parte delle foto di qualità è share-alike, quindi
+la resa è bassa. Pexels e Unsplash hanno licenze adatte e molta più scelta, ma richiedono una
+chiave gratuita legata a un account.
+
 ## Nomi dei piatti
 
 `content/dishes.json` contiene i nomi confermati dallo chef, per foto:

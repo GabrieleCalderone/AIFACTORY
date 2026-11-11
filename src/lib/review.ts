@@ -35,8 +35,9 @@ export const applyReview = (pairs: ReviewPair[], items: ReviewItem[]): { fixes: 
   let captionProblem = "";
   for (const item of items) {
     const pair = byWhere.get(item.where);
-    // The photo verdict stands on its own: a passing text verdict never hides a photo defect.
-    // Only the fixed codes count, so free text in this field cannot exclude anything.
+    // Two separate verdicts: `unfit` judges the photo, `ok` judges the texts. A passing text
+    // verdict never hides a photo defect. Only the fixed codes count, and the caller refuses a
+    // review that reports more than MAX_EXCLUSIONS_PER_REVIEW of them.
     if (pair && item.unfit && (UNFIT_CODES as readonly string[]).includes(item.unfit)) {
       const file = path.basename(pair.file);
       if (!unfit.has(file)) unfit.set(file, item.unfit as UnfitCode);
@@ -75,26 +76,38 @@ export const factsOf = (pairs: ReviewPair[]): string =>
 export const dishKey = (file: string): string =>
   path.basename(file).replace(/\.[^.]+$/, "").replace(/^\d{1,4}-(?=.)/, "").toLowerCase();
 
-export type AssetOverride = { include?: boolean; exclude?: boolean; note?: string };
+export type AssetOverride = { include?: boolean; exclude?: boolean; note?: string; reviewerFlag?: string };
+
+/** A file the author must not offer again: excluded by a person or by the reviewer, or flagged and waiting for a person. */
+export const isHeldBack = (o: AssetOverride | undefined): boolean => Boolean(o?.exclude || o?.reviewerFlag);
+
+/** More photo defects than this in one review is not a normal finding: stop and let a person look. */
+export const MAX_EXCLUSIONS_PER_REVIEW = 2;
 
 /**
- * Adds reviewer exclusions to the overrides as they are on disk now. An exclusion already on
- * file is left as it is (`kept`). A hand-made "include" only lifts a low score, it does not
- * vouch for consent or for the picture being a photograph, so a reviewer defect replaces it
- * and the earlier note is carried along.
+ * Records reviewer photo defects in the overrides as they are on disk now.
+ * - no entry yet: the file is excluded (`added`);
+ * - already excluded: nothing changes (`kept`);
+ * - a person's entry exists (an include, or any note): the decision is left exactly as it
+ *   is and the defect is attached as `reviewerFlag` (`flagged`). A flagged file is held back
+ *   from new posts until a person confirms or clears it, so nothing unreviewed is published
+ *   and nothing a person decided is lost.
  */
-export const mergeExclusions = (current: Record<string, AssetOverride>, unfit: { file: string; code: UnfitCode }[], note: string): { merged: Record<string, AssetOverride>; added: string[]; kept: string[] } => {
+export const mergeExclusions = (current: Record<string, AssetOverride>, unfit: { file: string; code: UnfitCode }[], note: string): { merged: Record<string, AssetOverride>; added: string[]; kept: string[]; flagged: string[] } => {
   const merged = { ...current };
   const added: string[] = [];
   const kept: string[] = [];
+  const flagged: string[] = [];
   for (const u of unfit) {
     const prev = merged[u.file];
-    if (prev?.exclude) {
-      kept.push(u.file);
-      continue;
+    if (prev?.exclude) kept.push(u.file);
+    else if (prev) {
+      merged[u.file] = { ...prev, reviewerFlag: `${u.code} (${note})` };
+      flagged.push(u.file);
+    } else {
+      merged[u.file] = { exclude: true, note: `reviewer: ${u.code} (${note})` };
+      added.push(u.file);
     }
-    merged[u.file] = { exclude: true, note: `reviewer: ${u.code} (${note})${prev?.note ? `; before: ${prev.note}` : ""}` };
-    added.push(u.file);
   }
-  return { merged, added, kept };
+  return { merged, added, kept, flagged };
 };

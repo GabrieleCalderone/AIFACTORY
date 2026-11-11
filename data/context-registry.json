@@ -1,0 +1,697 @@
+{
+  "1609305": {
+    "id": "1609305",
+    "title": "Cucurbita maxima 02 - Orange",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Cucurbita_maxima_02_-_Orange.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Cucurbita_maxima_02_-_Orange.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 3072,
+    "originalHeight": 2048,
+    "licence": "CC BY 2.5",
+    "licenceUrl": "https://creativecommons.org/licenses/by/2.5",
+    "artist": "User Nino Barbieri",
+    "credit": "User Nino Barbieri, CC BY 2.5, via Wikimedia Commons",
+    "query": "oranges fruit",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:40.241Z",
+    "file": "1609305.jpg",
+    "width": 3072,
+    "height": 2048,
+    "sha256": "0d1c3bbcc9b320d1cbb9be0f4126d328c5c64b5cb9a796a16345751de88385ac",
+    "review": {
+      "ok": false,
+      "category": "produce",
+      "subject": "Single orange pumpkin seen from above on grass and weeds",
+      "reasons": [
+        "Dull overcast light, tourist-snapshot framing on a lawn",
+        "Cluttered weedy green background",
+        "Not clearly Sicily looks northern-European garden"
+      ]
+    }
+  },
+  "8627200": {
+    "id": "8627200",
+    "title": "Citrus reticulata fruit 2009 G1",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Citrus_reticulata_fruit_2009_G1.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Citrus_reticulata_fruit_2009_G1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 3456,
+    "originalHeight": 2592,
+    "licence": "Public domain",
+    "licenceUrl": "",
+    "artist": "George Chernilevsky",
+    "credit": null,
+    "query": "oranges fruit",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:40.242Z",
+    "file": "8627200.jpg",
+    "width": 3456,
+    "height": 2592,
+    "sha256": "d7dca542c0b3b5d17caf8d1fb91cbea0814d58981b7fd4e7dc90b5a65703f9e2",
+    "review": {
+      "ok": false,
+      "category": "produce",
+      "subject": "Mandarins with leaves in a green-rimmed dish on a wooden table",
+      "reasons": [
+        "Flat flash-like light with glare on the fruit",
+        "Cheap melamine dish and laminate table read as amateur snapshot",
+        "Crowded pile, not a clean single subject"
+      ]
+    }
+  },
+  "10696061": {
+    "id": "10696061",
+    "title": "Feuilles de pistachier",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Feuilles_de_pistachier.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/6/67/Feuilles_de_pistachier.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 3270,
+    "originalHeight": 2177,
+    "licence": "CC BY 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/3.0",
+    "artist": "Eusebius",
+    "credit": "Eusebius, CC BY 3.0, via Wikimedia Commons",
+    "query": "pistachio",
+    "status": "reviewed",
+    "foundAt": "2026-11-11T00:36:58.232Z",
+    "file": "10696061.jpg",
+    "width": 3270,
+    "height": 2177,
+    "sha256": "a7cab4208684a92cd29439b38a6db0a8b695bcc7b0bf86eeb183fbb1c225c0ed",
+    "review": {
+      "ok": true,
+      "category": "produce",
+      "subject": "Young pistachio leaves on a branch against a soft blurred background",
+      "reasons": [
+        "Single subject with air around it and a soft warm bokeh",
+        "Natural light, true colours, few colours",
+        "Pistachio is a Sicilian ingredient (Bronte)"
+      ]
+    }
+  },
+  "11693016": {
+    "id": "11693016",
+    "title": "Jewish pomegranate",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Jewish_pomegranate.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Jewish_pomegranate.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 1938,
+    "originalHeight": 1839,
+    "licence": "Public domain",
+    "licenceUrl": "",
+    "artist": "Jebulon",
+    "credit": null,
+    "query": "artichoke",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:45.614Z",
+    "file": "11693016.jpg",
+    "width": 1938,
+    "height": 1839,
+    "sha256": "3933528e569b77ba0418bf079a0b5333f50f07b6973037024fb6ca5110382f20",
+    "review": {
+      "ok": false,
+      "category": "craft",
+      "subject": "Painted pomegranate and star symbol on a worn wooden window",
+      "reasons": [
+        "Shows a Star of David and a worn, flaking sign-like panel",
+        "Dull, grimy, heavy-handed detail rather than a refined craft",
+        "Location unclear, not clearly Sicily"
+      ]
+    }
+  },
+  "11742622": {
+    "id": "11742622",
+    "title": "Pistacia vera L.1702",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Pistacia_vera_L.1702.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/4/45/Pistacia_vera_L.1702.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 2472,
+    "originalHeight": 2648,
+    "licence": "Public domain",
+    "licenceUrl": "",
+    "artist": "Jebulon",
+    "credit": null,
+    "query": "pistachio",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:58.234Z",
+    "file": "11742622.jpg",
+    "width": 2472,
+    "height": 2648,
+    "sha256": "0f33a20aa289a065db454fdd9cc1879cb73e3345b3c0ab44ee9af03fe7b8459a",
+    "review": {
+      "ok": false,
+      "category": "produce",
+      "subject": "Pistachio tree foliage with small red buds, dense branches",
+      "reasons": [
+        "Dense, cluttered branches with no single subject",
+        "Flat dull light, snapshot framing",
+        "Nothing to anchor the eye or give air"
+      ]
+    }
+  },
+  "16069484": {
+    "id": "16069484",
+    "title": "Cherry-Tomatoes-in-Pack",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Cherry-Tomatoes-in-Pack.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/3/39/Cherry-Tomatoes-in-Pack.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 2860,
+    "originalHeight": 2460,
+    "licence": "CC0",
+    "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "artist": "Evan-Amos",
+    "credit": null,
+    "query": "tomatoes",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:34.914Z",
+    "file": "16069484.jpg",
+    "width": 2860,
+    "height": 2460,
+    "sha256": "cf5f09a506ae88f7039f46d1615545c1cf75ae3b3d9f4e03bcb6b34b32093d51",
+    "review": {
+      "ok": false,
+      "category": "market",
+      "subject": "Cherry tomatoes in a teal pulp punnet on a white background",
+      "reasons": [
+        "Packaging and disposable container are prohibited",
+        "Stock-photo white cut-out, not Sicily or a real market",
+        "Reads as supermarket, not private table"
+      ]
+    }
+  },
+  "21244835": {
+    "id": "21244835",
+    "title": "Fountain pomegranates Granada",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Fountain_pomegranates_Granada.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/7/73/Fountain_pomegranates_Granada.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 2964,
+    "originalHeight": 1981,
+    "licence": "CC0",
+    "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "artist": "Jebulon",
+    "credit": null,
+    "query": "artichoke",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:45.616Z",
+    "file": "21244835.jpg",
+    "width": 2964,
+    "height": 1981,
+    "sha256": "7934bb86b45135134e2a6953ee10d8ebe44ae60dd49fcfae0293ec930070530d",
+    "review": {
+      "ok": false,
+      "category": "landscape",
+      "subject": "Tiered fountain in a tree-lined city square with passers-by",
+      "reasons": [
+        "Monument-style fountain as main subject, with people and buildings",
+        "Spanish-looking city (Granada), clearly not Sicily",
+        "Tourist-snapshot framing in harsh midday light"
+      ]
+    }
+  },
+  "22374959": {
+    "id": "22374959",
+    "title": "Marble plaque pomegranate Granada Spain",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Marble_plaque_pomegranate_Granada_Spain.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Marble_plaque_pomegranate_Granada_Spain.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 2014,
+    "originalHeight": 3092,
+    "licence": "CC0",
+    "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "artist": "Jebulon",
+    "credit": null,
+    "query": "artichoke",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:45.616Z",
+    "file": "22374959.jpg",
+    "width": 2014,
+    "height": 3092,
+    "sha256": "dc2927c7ba5dc49935b2736accf00e8324a0090029201604e606c277fdf00990",
+    "review": {
+      "ok": false,
+      "category": "craft",
+      "subject": "Carved stone relief of a pomegranate branch on a wall",
+      "reasons": [
+        "Architectural wall plaque with mounting brackets, a monument detail",
+        "Flat grey-on-beige, cold and lifeless, not clearly Sicilian",
+        "Looks like a signed or dated public marker, not a craft in progress"
+      ]
+    }
+  },
+  "25152397": {
+    "id": "25152397",
+    "title": "Sad tomato seller",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Sad_tomato_seller.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Sad_tomato_seller.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 2767,
+    "originalHeight": 3956,
+    "licence": "CC0",
+    "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "artist": "Wilfredor",
+    "credit": null,
+    "query": "tomatoes",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:34.917Z",
+    "file": "25152397.jpg",
+    "width": 2767,
+    "height": 3956,
+    "sha256": "4ef7567b55e07966913ac1674b4fbff7ec207454526c29175149534e9dc70792",
+    "review": {
+      "ok": false,
+      "category": "market",
+      "subject": "Market vendor portrait with a net bag of tomatoes in front of shop signs",
+      "reasons": [
+        "Recognisable person's face is the main subject",
+        "Shop signs and brand lettering, plus a licence plate",
+        "Clearly not Sicily, and the framing is a tourist snapshot"
+      ]
+    }
+  },
+  "28077530": {
+    "id": "28077530",
+    "title": "13-09-01-kochtreffen-wien-RalfR-02",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:13-09-01-kochtreffen-wien-RalfR-02.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/3/36/13-09-01-kochtreffen-wien-RalfR-02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 3651,
+    "originalHeight": 2277,
+    "licence": "CC BY 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/3.0",
+    "artist": "Ralf Roletschek",
+    "credit": "Ralf Roletschek, CC BY 3.0, via Wikimedia Commons",
+    "query": "lemons",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:28.949Z",
+    "file": "28077530.jpg",
+    "width": 3651,
+    "height": 2277,
+    "sha256": "0cb7e14ddeee2a33ed5f65f45da86dcc2bf7231d7bf6ef96ad7e2d61aa99bf38",
+    "review": {
+      "ok": false,
+      "category": "produce",
+      "subject": "Three limes and a cut half on a white plate, grey backdrop",
+      "reasons": [
+        "Flat studio light on grey, so it reads as a catalogue shot",
+        "Blemished, scarred fruit that looks unappetising",
+        "Plate set-up with no Sicilian setting"
+      ]
+    }
+  },
+  "66538183": {
+    "id": "66538183",
+    "title": "Sanatorium du Basil front deck looking West during the evening civil twilight in Stoumont, Belgium (DSCF3605)",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Sanatorium_du_Basil_front_deck_looking_West_during_the_evening_civil_twilight_in_Stoumont,_Belgium_(DSCF3605).jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Sanatorium_du_Basil_front_deck_looking_West_during_the_evening_civil_twilight_in_Stoumont%2C_Belgium_%28DSCF3605%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 3824,
+    "originalHeight": 3275,
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+    "artist": "Trougnouf",
+    "credit": "Trougnouf, CC BY 4.0, via Wikimedia Commons",
+    "query": "basil",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:48.264Z",
+    "file": "66538183.jpg",
+    "width": 3824,
+    "height": 3275,
+    "sha256": "47eff1457ab2581dc92ea8e292d33d2c14915b1954a5bcaa0cc9eb6b9e3e0c08",
+    "review": {
+      "ok": false,
+      "category": "landscape",
+      "subject": "Derelict half-timbered building under a grey, overcast sky",
+      "reasons": [
+        "Abandoned building with graffiti, not Sicily or the Mediterranean",
+        "Dull, poor light and heavy architecture as the main subject",
+        "Nothing about produce, sea or craft"
+      ]
+    }
+  },
+  "76367592": {
+    "id": "76367592",
+    "title": "Blood orange (DSCF7480)",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Blood_orange_(DSCF7480).jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Blood_orange_%28DSCF7480%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 3249,
+    "originalHeight": 3039,
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+    "artist": "Trougnouf (Benoit Brummer)",
+    "credit": "Trougnouf (Benoit Brummer), CC BY 4.0, via Wikimedia Commons",
+    "query": "oranges fruit",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:40.242Z",
+    "file": "76367592.jpg",
+    "width": 3249,
+    "height": 3039,
+    "sha256": "f9f8b61ccbf6e2d0a7c68a8295ea0fee8bb191d681f34fa00d6de1f7e7b4289a",
+    "review": {
+      "ok": false,
+      "category": "produce",
+      "subject": "Peeled blood orange segments with peel on a pale surface",
+      "reasons": [
+        "Messy leftover peel and clutter on a plain surface",
+        "Flat, mixed-colour cast with no air or composition",
+        "Reads as a casual snapshot, not a restaurant-grade image"
+      ]
+    }
+  },
+  "81265851": {
+    "id": "81265851",
+    "title": "Carpaccio de bœuf, restaurant Danieli (Vienne, Autriche)",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Carpaccio_de_b%C5%93uf,_restaurant_Danieli_(Vienne,_Autriche).jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Carpaccio_de_b%C5%93uf%2C_restaurant_Danieli_%28Vienne%2C_Autriche%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 3718,
+    "originalHeight": 2954,
+    "licence": "CC0",
+    "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "artist": "Benoît Prieur",
+    "credit": null,
+    "query": "lemons",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:28.952Z",
+    "file": "81265851.jpg",
+    "width": 3718,
+    "height": 2954,
+    "sha256": "8f3f4a47000950022e7e8a8f9b86ab8591cca83e4d06432316c3417950c32455",
+    "review": {
+      "ok": false,
+      "category": "produce",
+      "subject": "Beef carpaccio with rocket, parmesan and a lemon half on a white plate",
+      "reasons": [
+        "Plated dish, which only the house's own pictures may show",
+        "Restaurant white tablecloth setting",
+        "Crowded plate with many elements, not a context picture"
+      ]
+    }
+  },
+  "146997807": {
+    "id": "146997807",
+    "title": "Saint Basil of Ostrog church in Sirig (2)",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Saint_Basil_of_Ostrog_church_in_Sirig_(2).jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Saint_Basil_of_Ostrog_church_in_Sirig_%282%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 2965,
+    "originalHeight": 5137,
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+    "artist": "Tournasol7",
+    "credit": "Tournasol7, CC BY 4.0, via Wikimedia Commons",
+    "query": "basil",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:48.266Z",
+    "file": "146997807.jpg",
+    "width": 2965,
+    "height": 5137,
+    "sha256": "bd04ba5a30daa80307ecbfe7cc21e35c3288f581e4a302df4cacf2c8bec5f9ec",
+    "review": {
+      "ok": false,
+      "category": "landscape",
+      "subject": "Church bell tower with a gold cross, seen from the front",
+      "reasons": [
+        "Church is the main subject",
+        "Not Sicily Orthodox church in a flat inland setting",
+        "Includes a religious icon over the door"
+      ]
+    }
+  },
+  "146997808": {
+    "id": "146997808",
+    "title": "Saint Basil of Ostrog church in Sirig (1)",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Saint_Basil_of_Ostrog_church_in_Sirig_(1).jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/2/20/Saint_Basil_of_Ostrog_church_in_Sirig_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 3233,
+    "originalHeight": 4657,
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+    "artist": "Tournasol7",
+    "credit": "Tournasol7, CC BY 4.0, via Wikimedia Commons",
+    "query": "basil",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:48.266Z",
+    "file": "146997808.jpg",
+    "width": 3233,
+    "height": 4657,
+    "sha256": "2de9a869191301fbf157d6d5292a02d894206f6ea618c2f1a5e11d5936171a8c",
+    "review": {
+      "ok": false,
+      "category": "landscape",
+      "subject": "Church bell tower with a statue and monument in the foreground",
+      "reasons": [
+        "Church and monument are the main subject",
+        "Not Sicily Orthodox church",
+        "Statue of a person and an inscription plaque"
+      ]
+    }
+  },
+  "146997809": {
+    "id": "146997809",
+    "title": "Saint Basil of Ostrog church in Sirig (3)",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Saint_Basil_of_Ostrog_church_in_Sirig_(3).jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/1/18/Saint_Basil_of_Ostrog_church_in_Sirig_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 2883,
+    "originalHeight": 5688,
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+    "artist": "Tournasol7",
+    "credit": "Tournasol7, CC BY 4.0, via Wikimedia Commons",
+    "query": "basil",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:48.266Z",
+    "file": "146997809.jpg",
+    "width": 2883,
+    "height": 5688,
+    "sha256": "9b38c193aa6860589a8964855254e309fb744799ecfdee195fab7d4ffb50bbdd",
+    "review": {
+      "ok": false,
+      "category": "landscape",
+      "subject": "Church bell tower seen from an angle, with trees in the foreground",
+      "reasons": [
+        "Church is the main subject",
+        "Not Sicily Orthodox church in a flat inland setting",
+        "Plain tourist snapshot framing"
+      ]
+    }
+  },
+  "153476324": {
+    "id": "153476324",
+    "title": "St. Basil Cathedral, Moscow (3)",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:St._Basil_Cathedral,_Moscow_(3).jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e9/St._Basil_Cathedral%2C_Moscow_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 2826,
+    "originalHeight": 4000,
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+    "artist": "Юрий Д.К.",
+    "credit": "Юрий Д.К., CC BY 4.0, via Wikimedia Commons",
+    "query": "basil",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:48.267Z",
+    "file": "153476324.jpg",
+    "width": 2826,
+    "height": 4000,
+    "sha256": "7f361bf7300c6e4bdf6c4b8982943cea74fc332129ea22ff1917fa932d55b56e",
+    "review": {
+      "ok": false,
+      "category": "landscape",
+      "subject": "Saint Basil's Cathedral with onion domes on Red Square, Moscow",
+      "reasons": [
+        "Church and monument as the main subject",
+        "Clearly not Sicily or the Mediterranean",
+        "Tourist framing with people, scaffolding and a tent"
+      ]
+    }
+  },
+  "157128481": {
+    "id": "157128481",
+    "title": "Statue of Roger II of Sicily, Royal Palace (Naples)",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Statue_of_Roger_II_of_Sicily,_Royal_Palace_(Naples).jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Statue_of_Roger_II_of_Sicily%2C_Royal_Palace_%28Naples%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 2936,
+    "originalHeight": 4110,
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+    "artist": "Bernard Gagnon",
+    "credit": "Bernard Gagnon, CC BY 4.0, via Wikimedia Commons",
+    "query": "Sicily sea",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:23.169Z",
+    "file": "157128481.jpg",
+    "width": 2936,
+    "height": 4110,
+    "sha256": "d449fbdce1a06579a5ab80eeee1c39dea6c4f155650f34c081ff7fc772b358d1",
+    "review": {
+      "ok": false,
+      "category": "craft",
+      "subject": "Marble statue of a Norman king in a brick niche",
+      "reasons": [
+        "Statue of a recognisable person and a monument as the subject",
+        "Plinth inscription is visible text",
+        "Looks like Naples, not Sicily"
+      ]
+    }
+  },
+  "173459368": {
+    "id": "173459368",
+    "title": "Coasts of Lipari 01",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Coasts_of_Lipari_01.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Coasts_of_Lipari_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 3209,
+    "originalHeight": 4492,
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+    "artist": "Bernard Gagnon",
+    "credit": "Bernard Gagnon, CC BY 4.0, via Wikimedia Commons",
+    "query": "Sicily coast",
+    "status": "reviewed",
+    "foundAt": "2026-11-11T00:36:20.248Z",
+    "file": "173459368.jpg",
+    "width": 3209,
+    "height": 4492,
+    "sha256": "5efb51e16fdaf8d9cf0b4588e7d24db7470fbaf619a6cafd7f3f11a71fee3978",
+    "review": {
+      "ok": true,
+      "category": "sea",
+      "subject": "Dark volcanic rock stack rising from turquoise water below pale cliffs",
+      "reasons": [
+        "One clear subject with few colours and natural light",
+        "Sicilian volcanic coast, no people, text or signs"
+      ]
+    }
+  },
+  "173461165": {
+    "id": "173461165",
+    "title": "Coasts of Vulcano Island 01",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Coasts_of_Vulcano_Island_01.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Coasts_of_Vulcano_Island_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 3507,
+    "originalHeight": 2338,
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+    "artist": "Bernard Gagnon",
+    "credit": "Bernard Gagnon, CC BY 4.0, via Wikimedia Commons",
+    "query": "Sicily coast",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:20.249Z",
+    "file": "173461165.jpg",
+    "width": 3507,
+    "height": 2338,
+    "sha256": "efb9c94aead0179832ac408d35cd5fde8d8ae575c720343aa367e90a0aa551f0",
+    "review": {
+      "ok": false,
+      "category": "sea",
+      "subject": "Turquoise volcanic cove with a rock in the foreground and scrub cliffs",
+      "reasons": [
+        "Phone wide-angle tourist snapshot",
+        "Busy frame with saturated, competing colours",
+        "No single subject with air around it"
+      ]
+    }
+  },
+  "173461171": {
+    "id": "173461171",
+    "title": "Coasts of Vulcano Island 02",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Coasts_of_Vulcano_Island_02.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Coasts_of_Vulcano_Island_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 3314,
+    "originalHeight": 2209,
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+    "artist": "Bernard Gagnon",
+    "credit": "Bernard Gagnon, CC BY 4.0, via Wikimedia Commons",
+    "query": "Sicily coast",
+    "status": "reviewed",
+    "foundAt": "2026-11-11T00:36:20.249Z",
+    "file": "173461171.jpg",
+    "width": 3314,
+    "height": 2209,
+    "sha256": "7c4e611b5a36300e6320186912378be1673f913ea9ee0a104f9421f3137c28a5",
+    "review": {
+      "ok": true,
+      "category": "sea",
+      "subject": "Sea cave opening onto deep blue water in a volcanic cliff",
+      "reasons": [
+        "Calm, minimal composition with a single subject and few colours",
+        "Soft natural light, no people or text",
+        "Slightly dark and flat but clean"
+      ]
+    }
+  },
+  "184530991": {
+    "id": "184530991",
+    "title": "Heinz Tomato Ketchup, Canada (front), 2026-02-19",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Heinz_Tomato_Ketchup,_Canada_(front),_2026-02-19.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Heinz_Tomato_Ketchup%2C_Canada_%28front%29%2C_2026-02-19.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 3536,
+    "originalHeight": 5242,
+    "licence": "Public domain",
+    "licenceUrl": "",
+    "artist": "Chris Woodrich",
+    "credit": null,
+    "query": "tomatoes",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:34.917Z",
+    "file": "184530991.jpg",
+    "width": 3536,
+    "height": 5242,
+    "sha256": "326692e932a151ed9e699d1926387c8b3b43820df84387a2eb6ac34b935950f1",
+    "review": {
+      "ok": false,
+      "category": "produce",
+      "subject": "Heinz tomato ketchup bottle, front, on white background",
+      "reasons": [
+        "Brand, logo and label text",
+        "Packaged plastic product, not Sicilian produce",
+        "Product-catalogue shot"
+      ]
+    }
+  },
+  "184530992": {
+    "id": "184530992",
+    "title": "Heinz Tomato Ketchup, Canada (rear), 2026-02-19",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Heinz_Tomato_Ketchup,_Canada_(rear),_2026-02-19.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Heinz_Tomato_Ketchup%2C_Canada_%28rear%29%2C_2026-02-19.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 3655,
+    "originalHeight": 5465,
+    "licence": "Public domain",
+    "licenceUrl": "",
+    "artist": "Chris Woodrich",
+    "credit": null,
+    "query": "tomatoes",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:34.917Z",
+    "file": "184530992.jpg",
+    "width": 3655,
+    "height": 5465,
+    "sha256": "89ee6be9465a87d197d3573caa342c0f58a263eee8e9304ffae86b4f29067f40",
+    "review": {
+      "ok": false,
+      "category": "produce",
+      "subject": "Back of a Heinz ketchup bottle with nutrition label and barcode",
+      "reasons": [
+        "Brand, label text and barcode",
+        "Plastic packaging",
+        "Canadian product, not Sicily"
+      ]
+    }
+  },
+  "194869892": {
+    "id": "194869892",
+    "title": "Pomodori ancora acerbi - San Marzano",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Pomodori_ancora_acerbi_-_San_Marzano.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/8/89/Pomodori_ancora_acerbi_-_San_Marzano.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "originalWidth": 2071,
+    "originalHeight": 2222,
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+    "artist": "Anna.Massini",
+    "credit": "Anna.Massini, CC BY 4.0, via Wikimedia Commons",
+    "query": "tomatoes",
+    "status": "rejected",
+    "foundAt": "2026-11-11T00:36:34.918Z",
+    "file": "194869892.jpg",
+    "width": 2071,
+    "height": 2222,
+    "sha256": "62192f3eb4eb8578703d49e3d10acb3c14c603204fcdd99d27986ea4b859b0be",
+    "review": {
+      "ok": false,
+      "category": "produce",
+      "subject": "Cluster of unripe green plum tomatoes on the plant",
+      "reasons": [
+        "Harsh midday sun, uneven light",
+        "Cluttered with leaves, a dead leaf and soil, phone-snapshot framing",
+        "Unripe fruit and no sign it is Sicily"
+      ]
+    }
+  }
+}

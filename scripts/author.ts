@@ -15,12 +15,13 @@ import path from "node:path";
 import { parseArgs } from "node:util";
 import { nextId, readExperiments, writeExperiments } from "../src/lib/data.ts";
 import { applyReelFrames } from "../src/lib/formats.ts";
-import { gateSpec, loadStandard } from "../src/lib/gate-io.ts";
+import { contextCredits, contextRows, gateSpec, loadStandard } from "../src/lib/gate-io.ts";
+import { CONTEXT_PREFIX, defaultContextLimits, isContext, prepareContext } from "../src/lib/context.ts";
 import { lintStandard, silence } from "../src/lib/house-standard.ts";
 import { mediaOf } from "../src/lib/gate.ts";
 import { parsePostSpec, PostSpec, type PostSpecInput } from "../src/schemas/post.ts";
-import { rankForService, type Format, type Override, type Service, type TechnicalRow, type Verdict } from "../src/lib/visual-score.ts";
-import { applyReview, dishKey, factsOf, mergeExclusions, sanitizeText, type ReviewItem, type ReviewPair } from "../src/lib/review.ts";
+import { rankForService, type Format, type Service, type TechnicalRow, type Verdict } from "../src/lib/visual-score.ts";
+import { applyReview, dishKey, factsOf, isHeldBack, MAX_EXCLUSIONS_PER_REVIEW, mergeExclusions, sanitizeText, type AssetOverride, type ReviewItem, type ReviewPair } from "../src/lib/review.ts";
 import { setState } from "../src/lib/pipeline-io.ts";
 import { runClaudeCli } from "../src/lib/claude-cli.ts";
 
@@ -89,14 +90,14 @@ const episode = allPostSlugs.filter((sl) => sl.startsWith(archetype.id.slice(0, 
 const seriesLine = archetype.seriesName ? `SERIES: this is episode ${episode} of "${archetype.seriesName[lang]}": the hook title must start with "${archetype.seriesName[lang]}, ep. ${episode}" and the caption must open with the same line.` : "";
 // Exclusions take effect at once (the reviewer writes them mid-run), without waiting for a rescore.
 const overridesPath = "data/asset-overrides.json";
-const overrides = existsSync(overridesPath) ? (JSON.parse(readFileSync(overridesPath, "utf8")) as Record<string, Override>) : {};
+const overrides = existsSync(overridesPath) ? (JSON.parse(readFileSync(overridesPath, "utf8")) as Record<string, AssetOverride>) : {};
 // Dish names confirmed by the chef (content/dishes.json), the only dish names a text may use.
 const dishes = existsSync("content/dishes.json") ? (JSON.parse(readFileSync("content/dishes.json", "utf8")) as { names?: Record<string, Partial<Record<"it" | "en", string>>> }).names ?? {} : {};
 const dishOf = (file: string): string => sanitizeText(dishes[dishKey(file)]?.[lang as "it" | "en"] ?? "", 60);
 const verdicts = Object.values(scoresFile.verdicts)
   .map((byKey) => byKey[`${service}:${format}`])
   .filter((v): v is Verdict => Boolean(v))
-  .filter((v) => !overrides[v.file]?.exclude)
+  .filter((v) => !isHeldBack(overrides[v.file]))
   .filter((v) => !(usage[v.file] ?? []).some((sl) => lastEight.has(sl)));
 const ranked = rankForService(verdicts, technical, Number(values.candidates));
 const byFile = new Map(poolRows.map((r) => [r.file, r]));
@@ -113,6 +114,13 @@ const candidateList = candidates
     return `- assets/${values.pool}/${r.file} | Q ${v.Q} (${v.tier}) | ${r.orientation} ${r.width}x${r.height} | ${r.people === "chef" ? "chef visible" : "no people"} | CHEF'S NAME FOR THE DISH: ${dish ? `"${dish}"` : "none"} | what an automatic cataloguer saw (may be wrong, never quote it): ${r.subject} | tags: ${(r.tags ?? []).join(", ")}`;
   })
   .join("\n");
+
+// ---- context pictures: approved, licensed, not the house's own; never used twice within eight posts
+const context = contextRows().filter((r) => !isHeldBack(overrides[r.file]) && !(usage[r.file] ?? []).some((sl) => lastEight.has(sl)));
+const contextList = context.map((r) => `- ${CONTEXT_PREFIX}${r.file} | ${r.orientation ?? ""} ${r.width}x${r.height} | ${r.category ?? "context"} | ${sanitizeText(r.subject ?? "", 100)}`).join("\n");
+const contextBlock = context.length
+  ? `\nCONTEXT PICTURES (optional; licensed photographs of Sicily, the sea and raw produce that are NOT RistHome's): you may place at most ${defaultContextLimits.maxPerReel} of them among the reel scenes and at most ${defaultContextLimits.maxPerCarousel} on a carousel photo slide, to set the place or the season between the house's own pictures. Never as the hook or cover, never as the last scene, never with a label or a slide title. Their text is empty or names only the place or the season in general terms (Sicily, the sea, the season's produce); it never says or implies that the picture shows the house's kitchen, table, dishes, ingredients bought for the guests, or the chef. Use one only when it makes the post more beautiful.\n${contextList}\n`
+  : "";
 
 // ---- prompt
 const fmt = archetype.formats;
@@ -135,7 +143,7 @@ ${seriesLine}
 
 PHOTOS YOU MAY USE (ranked by the visual quality engine: higher Q first; use only these exact file paths; each photo at most once; prefer the highest-Q photos and put the best one in the hook):
 ${candidateList}
-
+${contextBlock}
 OUTPUT SHAPE:
 {
   "slug": "${slug}", "lang": "${lang}", "title": <internal working title, max 120>,
@@ -170,7 +178,7 @@ const PROBLEM_CODES: [RegExp, string][] = [
 const problemCode = (problem: string): string => PROBLEM_CODES.find(([re]) => re.test(problem))?.[1] ?? "the caption does not match the photos";
 const runClaude = (p: string, allowRead = false): string => {
   const args = ["-p", p, "--output-format", "json", "--model", values.model, "--disallowedTools", allowRead ? DENIED_TOOLS : `${DENIED_TOOLS},Read`];
-  if (allowRead) args.push("--allowedTools", `Read(${path.resolve(poolDir)}/**)`);
+  if (allowRead) args.push("--allowedTools", `Read(${path.resolve(poolDir)}/**)`, `Read(${path.resolve("public", CONTEXT_PREFIX)}/**)`);
   return runClaudeCli(args);
 };
 const extractJson = (text: string): unknown => {
@@ -198,7 +206,7 @@ for (let attempt = 1; attempt <= 3 && !raw; attempt++) {
       console.log(`[author] validation failed:\n${feedback}`);
       continue;
     }
-    const allowed = new Set(candidates.map((r) => `assets/${values.pool}/${r.file}`));
+    const allowed = new Set([...candidates.map((r) => `assets/${values.pool}/${r.file}`), ...context.map((r) => `${CONTEXT_PREFIX}${r.file}`)]);
     const used = mediaOf(parsed.data).images;
     const foreign = used.filter((u) => !allowed.has(u));
     const dup = used.length !== new Set(used).size;
@@ -230,9 +238,13 @@ if (!raw) {
 // ---- faithfulness review: Claude looks at each photo next to its texts (field by field).
 // Fixes are applied only to pre-enumerated nodes/fields; the caption is never replaced by
 // free text from the reviewer (a flagged caption is regenerated by the no-tools author call).
+// ---- context pictures carry no label or title, and their credits go into the caption
+const owed = prepareContext(raw as unknown as Parameters<typeof prepareContext>[0], contextCredits());
+if (owed.length) (raw as Record<string, unknown>).credits = owed;
+const contextByFile = new Map(context.map((r) => [r.file, r]));
 // ---- presentation: a photo too small to fill the reel frame is shown whole, as a plate
 if ((raw as { reel?: unknown }).reel) {
-  const plated = applyReelFrames((raw as unknown as { reel: Parameters<typeof applyReelFrames>[0] }).reel, (image) => byFile.get(path.basename(image)) ?? null);
+  const plated = applyReelFrames((raw as unknown as { reel: Parameters<typeof applyReelFrames>[0] }).reel, (image) => (isContext(image) ? contextByFile.get(path.basename(image)) : byFile.get(path.basename(image))) ?? null);
   if (plated.length) console.log(`[author] shown as plates (too small to fill the frame): ${plated.join(", ")}`);
 }
 let spec = parsePostSpec(raw);
@@ -257,7 +269,7 @@ B) THE TEXTS: does every field say only what is visible or a brand fact (no inve
 Brand facts are allowed even when not visible in a photo: ${JSON.stringify({ chef: brandFacts.chef, city: brandFacts.city, services: brandFacts.services, proof: brandFacts.proof, site: brandFacts.site })}.
 HOW TO FIX A WRONG TEXT: say less. Give the field an empty string "" or a shorter line that stays true; never replace a dish name with a description of shapes, colours, containers or materials (no "fried balls", "red topping", "wooden cones"). The fields "title" of reel.hook and of a cover slide can never be empty.
 Items:
-${pairs.map((p, i) => `${i + 1}. where=${p.where} file=${path.resolve("public", p.file)}${dishOf(p.file) ? ` CONFIRMED dish name="${dishOf(p.file)}"` : ""} fields=${JSON.stringify(p.fields)}`).join("\n")}
+${pairs.map((p, i) => `${i + 1}. where=${p.where} file=${path.resolve("public", p.file)}${isContext(p.file) ? " CONTEXT PICTURE (licensed, not RistHome's: its text must not present it as the house's dish, kitchen, table, ingredients or chef)" : ""}${dishOf(p.file) ? ` CONFIRMED dish name="${dishOf(p.file)}"` : ""} fields=${JSON.stringify(p.fields)}`).join("\n")}
 ${pairs.length + 1}. where=caption (no file) fields=${JSON.stringify({ caption: spec.caption })}
 Answer with ONE JSON object only: {"items":[{"where":"<where>","ok":true|false,"unfit":"<code or empty>","problem":"<why, or empty>","fix":{"<field name exactly as given>":"<corrected value in the same language, or empty string>"}}]}. Give a fix only when ok is false, and only for the fields that are wrong. Judge the caption after the photos: it is wrong if it names a dish, ingredient, person or place that no photo shows and no brand fact supports. For the caption give no fix, only the problem.`;
   console.log(`[author] reviewing ${pairs.length} photo/text pairs + caption`);
@@ -268,16 +280,23 @@ Answer with ONE JSON object only: {"items":[{"where":"<where>","ok":true|false,"
     if (outcome.unfit.length) {
       // A photo that should never be published slipped past the catalogue: exclude it for good
       // and author again from the remaining pool (nothing was written for this slug yet).
+      // The reviewer reads photos, and a photo can carry text written to mislead it: a review
+      // that wants to remove many photos at once is not acted on.
+      if (outcome.unfit.length > MAX_EXCLUSIONS_PER_REVIEW) {
+        console.error(`[author] the reviewer reported ${outcome.unfit.length} unfit photos in one post (${outcome.unfit.map((u) => `${u.file}: ${u.code}`).join(", ")}); nothing was excluded, stopping so a person can look`);
+        process.exit(4);
+      }
       // Merge into the file as it is on disk now (a person may have edited it in the console while
-      // the model calls ran). A flagged photo always ends up excluded.
-      const onDisk = existsSync(overridesPath) ? (JSON.parse(readFileSync(overridesPath, "utf8")) as Record<string, Override>) : {};
-      const { merged, added, kept } = mergeExclusions(onDisk, outcome.unfit, slug);
+      // the model calls ran). A person's decision is never rewritten: the file is flagged and held back.
+      const onDisk = existsSync(overridesPath) ? (JSON.parse(readFileSync(overridesPath, "utf8")) as Record<string, AssetOverride>) : {};
+      const { merged, added, kept, flagged } = mergeExclusions(onDisk, outcome.unfit, slug);
       const tmp = `${overridesPath}.${process.pid}.tmp`;
       writeFileSync(tmp, JSON.stringify(merged, null, 2) + "\n");
       renameSync(tmp, overridesPath);
       added.forEach((f) => console.log(`[author] ${f} excluded: ${outcome.unfit.find((u) => u.file === f)?.code}`));
+      flagged.forEach((f) => console.log(`[author] ${f} has a decision made by hand: left as it is, flagged "${merged[f].reviewerFlag}" and held back until a person confirms or clears it in data/asset-overrides.json`));
       kept.forEach((f) => console.log(`[author] ${f} was already excluded on file`));
-      if (!added.length) {
+      if (!added.length && !flagged.length) {
         console.error("[author] the reviewer flagged only photos that were already excluded, yet they were selected; stopping so a person can look");
         process.exit(4);
       }
