@@ -166,3 +166,11 @@ test("a context cover keeps its title and its credit is owed", () => {
   assert.deepEqual(prepareContext(raw, creditOf), ["Mario Rossi, CC BY 4.0, via Wikimedia Commons"]);
   assert.equal(raw.carousel.slides[0].title, "Sicily, in November");
 });
+
+test("a single photograph of the house may close a piece that opens on licensed pictures only when it is among the strongest", () => {
+  const island = { maxPerReel: 2, maxPerCarousel: 2, coverMayBeContext: true };
+  const piece = parsePostSpec({ ...base(), credits: undefined, reel: undefined, carousel: { slides: [{ type: "cover", image: "assets/context/sea.jpg", title: "Sicily, in November" }, { type: "photo", image: "assets/context/lemons.jpg" }, { type: "photo", image: "assets/pool/121.jpg" }, { type: "cta", title: "Request availability" }] } });
+  assert.deepEqual(contextIssues(piece, () => null, island, () => 80), []);
+  assert.ok(contextIssues(piece, () => null, island, () => 74).some((i) => /a single one is enough only with a fit of 75/.test(i)));
+  assert.ok(contextIssues(piece, () => null, island).some((i) => /no mark/.test(i)), "an unrated photograph does not earn the exception");
+});

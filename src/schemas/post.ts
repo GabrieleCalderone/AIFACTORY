@@ -140,7 +140,7 @@ const hashtag = z
  * earns attention, the beat sequence, the ask, and the hypothesis the variant tests.
  */
 export const Brief = z.object({
-  archetype: z.string().regex(/^A[1-9]-[a-z-]+$/, "archetype id like A1-process-reveal"),
+  archetype: z.string().regex(/^A[1-9][0-9]?-[a-z-]+$/, "archetype id like A1-process-reveal"),
   audience: z.string().min(3).max(300),
   objective: z.string().min(3).max(300),
   hook: z.string().min(3).max(200),

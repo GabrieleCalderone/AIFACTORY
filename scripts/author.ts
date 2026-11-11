@@ -19,7 +19,7 @@ import { applyDetails, applyReelFrames, coverFrameFor, detailRegion, MAX_DETAILS
 import { contextCredits, contextRows, gateSpec, generatedRows, loadStandard, premiumFitOf } from "../src/lib/gate-io.ts";
 import { CONTEXT_PREFIX, GENERATED_PREFIX, isContext, isGenerated, limitsFor, prepareContext } from "../src/lib/context.ts";
 import { lintStandard, silence } from "../src/lib/house-standard.ts";
-import { LEAD_MIN_FIT, mediaOf, repeatedImages } from "../src/lib/gate.ts";
+import { LEAD_MIN_FIT, mediaOf, repeatedImages, weakLeads } from "../src/lib/gate.ts";
 import { parsePostSpec, PostSpec, type PostSpecInput } from "../src/schemas/post.ts";
 import { rankForService, type Format, type Service, type TechnicalRow, type Verdict } from "../src/lib/visual-score.ts";
 import { onePerSubject } from "../src/lib/subjects.ts";
@@ -280,6 +280,13 @@ for (let attempt = 1; attempt <= 3 && !raw; attempt++) {
     const repeats = repeatedImages(parsed.data);
     if (foreign.length || repeats.length) {
       feedback = `${foreign.length ? `these files are not in the allowed list: ${foreign.join(", ")}. ` : ""}${repeats.length ? `a photo may appear once in the reel and once in the carousel (a "detail" only right after its own whole photo, and only where a closer look is listed): ${repeats.join(", ")}.` : ""}`;
+      console.log(`[author] ${feedback}`);
+      continue;
+    }
+    // A weak photograph at the opening or the close is sent back with the reason, like any other fault, instead of failing at the gate.
+    const weak = weakLeads(parsed.data, leadFit);
+    if (weak.length && attempt < 3) {
+      feedback = `${weak.join("; ")}. Open and close the piece only with photographs not marked as too weak or unknown, and follow the owner's direction on which picture goes where.`;
       console.log(`[author] ${feedback}`);
       continue;
     }

@@ -1,0 +1,59 @@
+{
+  "slug": "a10-20261115",
+  "lang": "en",
+  "title": "You came to Sicily to eat. Stay to cook.",
+  "brief": {
+    "archetype": "A10-the-craft",
+    "audience": "American travellers planning a stay in Sicily who want to do something with their hands, not only see it.",
+    "objective": "Sends to travel companions, then cooking class availability requests.",
+    "hook": "A feeling, not a service: eating is why you came, cooking is why you stay. It promises the guest a place at the counter.",
+    "sequence": [
+      "cover: the cover line and the place, Palermo, Sicily",
+      "the chef's hands lifting fresh pasta, cooking side by side",
+      "Sicily's season, set by one licensed context picture",
+      "nests of fresh pasta on slate, then you eat what you cooked",
+      "the invitation: request availability on risthome.it"
+    ],
+    "cta": "Request availability on risthome.it (link in bio)",
+    "hypothesis": "A cover about learning to cook earns more sends than one about a dish. Success: sends >= 1% of reach.",
+    "experimentId": "EXP-012",
+    "variantId": "A"
+  },
+  "caption": "RistHome is a hands-on cooking class in Palermo, Sicily, in the kitchen of Chef Giacomo Napolitano.\n\n📍 Small groups, English spoken. You cook side by side with the chef.\n\n🍽 Then you eat what you cooked.\n\nFormer Gambero Rosso chef. 5.0 on Google with 101 reviews.\n\nRequest availability on risthome.it (link in bio)",
+  "hashtags": [
+    "#palermo",
+    "#risthome",
+    "#sicily",
+    "#cookingclass"
+  ],
+  "carousel": {
+    "slides": [
+      {
+        "type": "cover",
+        "image": "assets/pool/106-20200619_155815.jpg",
+        "title": "You came to Sicily to eat. Stay to cook.",
+        "kicker": "Cooking class, Palermo, Sicily",
+        "frame": "full"
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/199-crop-194-hands-pasta.jpg",
+        "title": "",
+        "body": "Cooking side by side in the chef's kitchen.",
+        "frame": "full"
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/198-crop-119-nests-slate.jpg",
+        "title": "",
+        "body": "Then you sit down and eat what you cooked.",
+        "frame": "full"
+      },
+      {
+        "type": "cta",
+        "title": "Request availability on risthome.it",
+        "body": "Link in bio"
+      }
+    ]
+  }
+}

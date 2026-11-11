@@ -604,41 +604,41 @@
     ],
     "evidence": {
       "scorecard": {
-        "sha": "be71fb38fc8f634af3c92f2f1a1ac02931a8ed841d2e3b41ba55e68e32e1bbd8",
-        "at": "2026-11-11T21:08:20.814Z",
+        "sha": "be71f1371769ba07a8ecbf644d5b83285f54f91c09dff84743390618d1e4a949",
+        "at": "2026-11-11T23:13:27.643Z",
         "by": "sonnet",
         "runs": 3,
         "spread": [
-          51,
-          55
+          54,
+          56
         ],
-        "total": 54,
+        "total": 55,
         "passed": false,
         "scores": {
           "hook": 9,
-          "visual": 7,
-          "narrative": 7,
-          "audience": 9,
+          "visual": 9,
+          "narrative": 8,
+          "audience": 8,
           "sharing": 7,
           "brand": 6,
-          "conversion": 9
+          "conversion": 8
         },
         "reasons": {
-          "hook": "Slide 1 is a dark, cold cave and black water that reads grey at thumbnail size, and the warm lemon picture on slide 2 is stronger, but 'Sicily, in November' with 'Private chef in Palermo' does say place and time.",
-          "visual": "Slide 4 is a crowded, heavily saturated oyster and prawn platter with a pool and tiles behind it, and slide 3's plate has a grey cast, though the lemons on slide 2 are clean and natural.",
-          "narrative": "The sequence runs island, produce, dish, table, but no slide shows the chef or a gesture, and it ends on the weakest picture, the crowded platter, before the invitation.",
-          "audience": "The villa, the November timing and the included shopping, cooking, service and cleanup are clear and in American English, but nothing answers a planner's real question about what the evening is like or what November means.",
-          "sharing": "The caption is findable by place and service (Palermo, Sicily, private chef), but there is no second-person line or concrete moment to send to a travel companion.",
-          "brand": "The wordmark and tagline are on every slide with the same serif type and margins, but the tagline is unreadable on the busy rock of slide 1 and the wordmark sits over prawns on slide 4.",
-          "conversion": "Slide 5 and the caption carry one invitation in the site's exact words, 'Request availability on risthome.it (link in bio)', and the caption says what the service is and where."
+          "hook": "Slide 1 is a dark, grey sea cave that reads cool and murky at thumbnail size, although the line 'Sicily, in November' does give place and time, and the sunlit lemons on slide 2 are the stronger opener.",
+          "visual": "The lemons and the dish are clean, natural and true in colour, but the cave on slide 1 is dark and heavy, and the pasta on slide 3 sits on a flat grey plate with a blown highlight at top centre.",
+          "narrative": "The sequence runs island, produce, dish, invitation, but no gesture or table slide exists, the cave has no tie to the experience, and the piece closes on a text card rather than a peak.",
+          "audience": "The cover line says Sicily and the season, and slide 3 says villa, but the slides never show what the evening includes or why November, so the planning answers sit only in the caption.",
+          "sharing": "'Sicily, in November' is a concrete time frame a traveller might send, and the caption is findable by place and service with palermo sicily privatechef, but the pictures give no specific moment worth passing on.",
+          "brand": "Wordmark, Playfair type and margins are consistent across slides 2-4, but on slide 1 the small wordmark sits on busy rock and is hard to read, and its tagline is illegible.",
+          "conversion": "Slide 4 gives one invitation, 'Request availability on risthome.it' with 'Link in bio', which matches the brand-facts wording, while slides 1 and 3 say private chef in Palermo and cooked in your villa; the card itself omits the service and "
         },
         "weakest": [
           "hook",
-          "visual",
+          "sharing",
           "narrative"
         ],
         "problems": [
-          "54 out of 100, the house asks for 85"
+          "55 out of 100, the house asks for 85"
         ]
       }
     }
@@ -721,5 +721,94 @@
         "note": "carousel closing photograph: assets/pool/195-IMG-20230919-WA0067.jpg is too weak to carry the piece (fit 55, at least 60)"
       }
     ]
+  },
+  "a10-20261115": {
+    "slug": "a10-20261115",
+    "state": "RENDERED",
+    "updatedAt": "2026-11-11T23:06:54.426Z",
+    "history": [
+      {
+        "at": "2026-11-11T23:04:49.207Z",
+        "from": null,
+        "to": "DISCOVERED",
+        "note": "authored by sonnet from 10 ranked photos (standard 2026-11-12b, rules 128c5311)"
+      },
+      {
+        "at": "2026-11-11T23:04:49.209Z",
+        "from": "DISCOVERED",
+        "to": "REJECTED",
+        "note": "carousel closing photograph: assets/pool/119-20240302_111448.jpg is too weak to carry the piece (fit 58, at least 60)"
+      },
+      {
+        "at": "2026-11-11T23:05:41.802Z",
+        "from": "REJECTED",
+        "to": "DISCOVERED",
+        "note": "authored by sonnet from 10 ranked photos (standard 2026-11-12b, rules 128c5311)"
+      },
+      {
+        "at": "2026-11-11T23:05:41.803Z",
+        "from": "DISCOVERED",
+        "to": "REJECTED",
+        "note": "carousel cover: assets/pool/199-crop-194-hands-pasta.jpg is too weak to carry the piece (fit 50, at least 60)"
+      },
+      {
+        "at": "2026-11-11T23:06:38.353Z",
+        "from": "REJECTED",
+        "to": "DISCOVERED",
+        "note": "authored by sonnet from 10 ranked photos (standard 2026-11-12b, rules b5bb79b4)"
+      },
+      {
+        "at": "2026-11-11T23:06:38.355Z",
+        "from": "DISCOVERED",
+        "to": "QUALITY_CHECKED",
+        "note": "gate passed with 0 warning(s)"
+      },
+      {
+        "at": "2026-11-11T23:06:54.426Z",
+        "from": "QUALITY_CHECKED",
+        "to": "RENDERED",
+        "note": "reel no, slides 4"
+      }
+    ],
+    "evidence": {
+      "scorecard": {
+        "sha": "8afb07c175c324d030492172530e9335e70624e1ff82bbf6ce08619f10820226",
+        "at": "2026-11-11T23:12:35.074Z",
+        "by": "sonnet",
+        "runs": 3,
+        "spread": [
+          61,
+          63
+        ],
+        "total": 63,
+        "passed": false,
+        "scores": {
+          "hook": 14,
+          "visual": 9,
+          "narrative": 7,
+          "audience": 9,
+          "sharing": 8,
+          "brand": 7,
+          "conversion": 9
+        },
+        "reasons": {
+          "hook": "Slide 1's second-person line 'You came to Sicily to eat. Stay to cook.' is legible and says place and service, but the washed-out glare at top left and the tilted basket make the picture merely good, and the flour-dusted pasta on slide 2 is",
+          "visual": "The photos are natural-light and uncluttered, but slide 1 has a blown highlight and a crooked frame, slide 2 is dark with a busy background, and slide 3 has a stray strip along the bottom edge and a wordmark sitting on pasta.",
+          "narrative": "The sequence runs produce, gesture, pasta, invitation, but the line 'Then you sit down and eat what you cooked' sits over raw uncooked nests on slate, so the piece never reaches a plated dish or a table and its peak is its weakest moment.",
+          "audience": "Place, service and the cook-then-eat format are clear in plain American English, but nothing answers a planner's question such as the season, the length of the class or what is included.",
+          "sharing": "The second-person cover line gives a reason to send it to a travel companion and the hashtags palermo sicily cookingclass make it findable, but there is no concrete moment or fact worth passing on.",
+          "brand": "The wordmark, serif type, margins and cream closing card match the house system, but on slide 2 the wordmark sits next to the chef's embroidered shirt logo, and on slide 3 its tagline is lost against the pasta.",
+          "conversion": "The single invitation 'Request availability on risthome.it' matches the brand facts and the caption states what the class is and where, but the closing slide itself doesn't say what or where."
+        },
+        "weakest": [
+          "narrative",
+          "sharing",
+          "visual"
+        ],
+        "problems": [
+          "63 out of 100, the house asks for 85"
+        ]
+      }
+    }
   }
 }

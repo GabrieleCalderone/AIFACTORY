@@ -53,7 +53,7 @@ export const gateSpec = (spec: PostSpec): GateResult => {
     experimentRows,
   });
   const archetypes = existsSync("content/archetypes.json") ? (JSON.parse(readFileSync("content/archetypes.json", "utf8")) as { archetypes: { id: string; context?: Partial<ContextLimits> }[] }).archetypes : [];
-  contextIssues(spec, contextCredits(), limitsFor(archetypes.find((a) => a.id === spec.brief.archetype))).forEach((issue) => result.errors.push(`context picture, ${issue}`));
+  contextIssues(spec, contextCredits(), limitsFor(archetypes.find((a) => a.id === spec.brief.archetype)), premiumFitOf()).forEach((issue) => result.errors.push(`context picture, ${issue}`));
   const standard = loadStandard();
   // Guests: a manifest that says "consented" is not enough, there must be a written yes on record for the very file.
   // And a weak photograph of the house never opens or closes a piece.

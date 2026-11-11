@@ -89,3 +89,10 @@ test("media paths cannot escape public/", () => {
   ok.reel!.scenes[0] = { image: "assets/demo/a.b-c_1.jpg" };
   assert.equal(PostSpec.safeParse(ok).success, true);
 });
+
+test("format ids with two digits are valid (A10-the-craft)", async () => {
+  const { parsePostSpec } = await import("../src/schemas/post.ts");
+  const { demoSpec } = await import("./fixtures/demo-spec.ts");
+  assert.equal(parsePostSpec({ ...demoSpec, brief: { ...demoSpec.brief, archetype: "A10-the-craft" } }).brief.archetype, "A10-the-craft");
+  assert.throws(() => parsePostSpec({ ...demoSpec, brief: { ...demoSpec.brief, archetype: "A100-x" } }));
+});

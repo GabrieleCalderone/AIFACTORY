@@ -79,7 +79,10 @@ export const limitsFor = (archetype: { context?: Partial<ContextLimits> } | unde
  * the house's own; a context scene carries no label (labels name courses and steps of the
  * real experience); every credit owed is in the caption credits.
  */
-export const contextIssues = (spec: PostSpec, creditOf: (image: string) => string | null | undefined, limits: ContextLimits = defaultContextLimits): string[] => {
+/** One photograph of the house may stand alone after licensed pictures only when it is this strong (catalogue fit, 0-100). */
+export const SOLE_OWN_MIN_FIT = 75;
+
+export const contextIssues = (spec: PostSpec, creditOf: (image: string) => string | null | undefined, limits: ContextLimits = defaultContextLimits, fitOf: (image: string) => number | undefined = () => undefined): string[] => {
   const issues: string[] = [];
   const owed = new Set<string>();
   const owe = (image: string) => {
@@ -120,7 +123,10 @@ export const contextIssues = (spec: PostSpec, creditOf: (image: string) => strin
     // different photographs of the house: a detail of the same picture, or the same file twice, counts once
     const own = new Set(pictures.filter((s) => !isContext(s.image) && !(s.type === "photo" && s.detail)).map((s) => s.image));
     if (pictures.length && isContext(pictures[pictures.length - 1].image)) issues.push("carousel: the last photograph must be the house's own");
-    if (own.size < 2) issues.push(`carousel: ${own.size} of the house's own photographs, at least 2`);
+    // Two of the house's own, or a single one that is among its strongest: without that, a thin piece would pass on borrowed beauty.
+    const sole = own.size === 1 ? [...own][0] : undefined;
+    const soleFit = sole ? fitOf(sole) : undefined;
+    if (own.size < 2 && !(soleFit !== undefined && soleFit >= SOLE_OWN_MIN_FIT)) issues.push(`carousel: ${own.size} of the house's own photographs, at least 2${sole ? ` (a single one is enough only with a fit of ${SOLE_OWN_MIN_FIT} or more; this one has ${soleFit ?? "no mark"})` : ""}`);
   }
   // Generated material is disclosed: the post is flagged so the platforms show their AI label.
   const made = generatedIn(spec);
