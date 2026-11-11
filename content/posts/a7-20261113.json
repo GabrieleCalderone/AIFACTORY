@@ -15,12 +15,12 @@
       "what the experience is: chef, places, what is included",
       "the invitation: ask for a quote"
     ],
-    "cta": "Ask for a quote on risthome.it (link in bio)",
+    "cta": "Request availability on risthome.it",
     "hypothesis": "A piece that opens on the sea of Sicily in November earns more saves and sends than one that opens on a plate. Success: saves plus shares >= 3% of reach.",
     "experimentId": "EXP-010",
     "variantId": "A"
   },
-  "caption": "📍 Private chef in Palermo, Sicily: November on the island, and a table cooked for you.\n\n🍋 Chef Giacomo Napolitano cooks at your villa, apartment or boat in Palermo and province, with a menu built around your guests.\n\nShopping, cooking, service and kitchen cleanup are part of the evening.\n\nAsk for a quote on risthome.it (link in bio)",
+  "caption": "📍 Private chef in Palermo, Sicily: November on the island, and a table cooked for you.\n\n🍋 Chef Giacomo Napolitano cooks at your villa, apartment or boat in Palermo and province, with a menu built around your guests.\n\nShopping, cooking, service and kitchen cleanup are part of the evening.\n\nRequest availability on risthome.it (link in bio)",
   "hashtags": [
     "#palermo",
     "#risthome",
@@ -44,16 +44,16 @@
       },
       {
         "type": "photo",
-        "image": "assets/pool/164-IMG-20240403-WA0047.jpg",
+        "image": "assets/pool/121-20240308_121150.jpg",
         "title": "",
         "body": "Cooked in the kitchen of your villa.",
         "frame": "full"
       },
       {
         "type": "photo",
-        "image": "assets/pool/93-IMG_0117.jpg",
+        "image": "assets/pool/143-IMG-20210523-WA0164.jpg",
         "title": "",
-        "body": "The table, laid at your home.",
+        "body": "",
         "frame": "full"
       },
       {
@@ -63,7 +63,7 @@
       },
       {
         "type": "cta",
-        "title": "Ask for a quote on risthome.it",
+        "title": "Request availability on risthome.it",
         "body": "Link in bio"
       }
     ]

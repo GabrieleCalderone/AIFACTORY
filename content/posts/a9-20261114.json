@@ -1,0 +1,65 @@
+{
+  "slug": "a9-20261114",
+  "lang": "en",
+  "title": "The evening: a private chef's table in Palermo, told as a feeling first",
+  "brief": {
+    "archetype": "A9-the-evening",
+    "audience": "American couples, families and small groups planning Sicily, and guests of villas around Palermo",
+    "objective": "Sends to travel companions, then qualified quote requests",
+    "hook": "The house's strongest full-page photograph with a feeling, not a service: You came to Sicily for the food. Make it personal.",
+    "sequence": [
+      "Cover: the house's strongest plated dish, one feeling",
+      "A second moment: the chef's work at your table",
+      "A closer look at the same plate, cut from its own pixels",
+      "The last course, served",
+      "What the experience is: the chef at home in Palermo",
+      "The invitation: request availability on risthome.it"
+    ],
+    "cta": "Request availability on risthome.it (link in bio)",
+    "hypothesis": "A cover that gives a feeling earns more sends than one that names the service. Success: sends >= 1% of reach.",
+    "experimentId": "EXP-011",
+    "variantId": "A"
+  },
+  "caption": "A private chef at home in Palermo, Sicily: dinner cooked at your table by Chef Giacomo Napolitano.\n\n📍 Villa, apartment or boat. We shop, cook, serve and clean the kitchen.\n\n🍽 The menu is built around your guests. Former Gambero Rosso chef, 5.0 on Google with 101 reviews.\n\nRequest availability on risthome.it (link in bio)",
+  "hashtags": [
+    "#palermo",
+    "#risthome",
+    "#sicily",
+    "#privatechef"
+  ],
+  "carousel": {
+    "slides": [
+      {
+        "type": "cover",
+        "image": "assets/pool/164-IMG-20240403-WA0047.jpg",
+        "title": "You came to Sicily for the food. Make it personal.",
+        "kicker": "Private chef, Palermo, Sicily",
+        "frame": "full"
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/154-IMG-20230928-WA0060.jpg",
+        "title": "",
+        "body": "The chef shops, cooks and serves at your villa.",
+        "frame": "full"
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/147-IMG-20230721-WA0002.jpg",
+        "title": "",
+        "body": "",
+        "frame": "full"
+      },
+      {
+        "type": "text",
+        "title": "Chef Giacomo Napolitano, at your table in Palermo",
+        "body": "A private chef at home in Palermo and province: villa, apartment or boat. The menu is built around the guests. Former Gambero Rosso chef, 5.0 on Google with 101 reviews."
+      },
+      {
+        "type": "cta",
+        "title": "Request availability on risthome.it",
+        "body": "Link in bio"
+      }
+    ]
+  }
+}

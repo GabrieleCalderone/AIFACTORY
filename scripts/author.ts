@@ -142,10 +142,12 @@ if (candidates.length < 6) {
 }
 // Closer looks: a point per photograph (scripts/detail-points.ts), only where the photograph is large enough and a person has not dropped it.
 const detailStore = existsSync("data/asset-details.json") ? (JSON.parse(readFileSync("data/asset-details.json", "utf8")) as Record<string, { x: number; y: number; dropped?: boolean } | null>) : {};
+const OFFER_DETAILS = false;
 const detailPoints: Record<string, { x: number; y: number }> = {};
 for (const r of candidates) {
   const p = detailStore[r.file];
-  if (p && !p.dropped && detailRegion(r.width, r.height, p.x, p.y)) detailPoints[r.file] = { x: p.x, y: p.y };
+  // Closer looks are not offered for now: they sit on the mat, and the owner wants every photograph to fill the page (2026-11-11).
+  if (OFFER_DETAILS && p && !p.dropped && detailRegion(r.width, r.height, p.x, p.y)) detailPoints[r.file] = { x: p.x, y: p.y };
 }
 const candidateList = candidates
   .map((r) => {
