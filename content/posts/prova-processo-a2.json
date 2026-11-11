@@ -1,0 +1,139 @@
+{
+  "slug": "prova-processo-a2",
+  "lang": "en",
+  "title": "Chef at work: cooking class in the chef's kitchen in Palermo",
+  "brief": {
+    "archetype": "A2-chef-at-work",
+    "audience": "Travellers and locals in Palermo and Sicily looking for a private, hands-on cooking class with a chef, comparing it with starred restaurants rather than caterers.",
+    "objective": "Reach and profile visits, leading to class bookings on risthome.it",
+    "hook": "The chef's hands lifting fresh pasta, opening on the most dynamic frame with a crash zoom, so the guest sees their place beside him from the first second.",
+    "sequence": [
+      "Hook: the chef lifts fresh pasta in the kitchen",
+      "The chef's hands at work over the pan",
+      "The stove, the pan, the pace of the kitchen",
+      "Preparation laid out and ready",
+      "A plate finished",
+      "The served plate, then the invitation"
+    ],
+    "cta": "Book your class on risthome.it (link in bio)",
+    "hypothesis": "Fast behind-the-scenes cuts earn more shares than plated montages. Success: share rate >= 1% of plays.",
+    "variantId": "A"
+  },
+  "caption": "Cook beside the chef in Palermo.\n\nA hands-on Sicilian cooking class in Chef Giacomo Napolitano's kitchen. Small groups, English spoken, and then you eat what you cooked.\n\n5.0 on Google with 101 reviews.\n\nBook your class on risthome.it (link in bio)",
+  "hashtags": [
+    "#palermo",
+    "#risthome",
+    "#sicily",
+    "#cookingclass"
+  ],
+  "reel": {
+    "hook": {
+      "image": "assets/pool/194-IMG-20230819-WA0080.jpg",
+      "trimSec": 0,
+      "frame": "plate",
+      "title": "Cook beside the chef in Palermo",
+      "subtitle": "Chef Giacomo Napolitano's kitchen",
+      "durationSec": 2.4,
+      "motion": "crash-zoom-in"
+    },
+    "scenes": [
+      {
+        "image": "assets/pool/193-FB_IMG_1690740770510.jpg",
+        "trimSec": 0,
+        "frame": "plate",
+        "text": "Cooking side by side",
+        "label": "Chef's hands",
+        "durationSec": 1.8,
+        "motion": "crash-zoom-in"
+      },
+      {
+        "image": "assets/pool/139-FB_IMG_1705493927943.jpg",
+        "trimSec": 0,
+        "frame": "plate",
+        "text": "",
+        "label": "At the stove",
+        "durationSec": 1.8,
+        "motion": "dolly-in"
+      },
+      {
+        "image": "assets/pool/119-20240302_111448.jpg",
+        "trimSec": 0,
+        "frame": "plate",
+        "text": "",
+        "label": "Prepared",
+        "durationSec": 1.8,
+        "motion": "arc-right"
+      },
+      {
+        "image": "assets/pool/22-IMG_0027.jpg",
+        "trimSec": 0,
+        "frame": "plate",
+        "text": "",
+        "label": "Plated",
+        "durationSec": 1.8,
+        "motion": "dolly-in"
+      },
+      {
+        "image": "assets/pool/37-IMG_0042.jpg",
+        "trimSec": 0,
+        "frame": "plate",
+        "text": "Then you eat what you cooked",
+        "label": "Served",
+        "durationSec": 1.8,
+        "motion": "zoom-in"
+      }
+    ],
+    "cta": {
+      "title": "RistHome, il tuo chef a domicilio",
+      "line": "Book your class on risthome.it (link in bio)",
+      "durationSec": 3.2
+    },
+    "transitionSec": 0.4,
+    "audio": {
+      "src": "audio/fretless.mp3",
+      "volume": 0.8,
+      "fadeOutSec": 1,
+      "attribution": "\"Fretless\" Kevin MacLeod (incompetech.com), CC BY 4.0"
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "type": "cover",
+        "image": "assets/pool/98-IMG_0084.jpg",
+        "title": "Cook beside the chef in Palermo",
+        "kicker": "RISTHOME · PALERMO",
+        "frame": "full"
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/106-20200619_155815.jpg",
+        "title": "Cooking class in Palermo",
+        "body": "In Chef Giacomo Napolitano's kitchen. Small groups, English spoken."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/90-IMG_0114.jpg",
+        "title": "",
+        "body": "Hands-on, side by side with the chef."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/49-IMG_0055.jpg",
+        "title": "",
+        "body": "Then you eat what you cooked."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/125-20240521_125348.jpg",
+        "title": "The table",
+        "body": "The chef's kitchen, Palermo."
+      },
+      {
+        "type": "cta",
+        "title": "Book your class on risthome.it",
+        "body": "Link in bio"
+      }
+    ]
+  }
+}

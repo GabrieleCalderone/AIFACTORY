@@ -187,8 +187,8 @@
   },
   "a1-20261110": {
     "slug": "a1-20261110",
-    "state": "READY",
-    "updatedAt": "2026-11-10T10:44:34.414Z",
+    "state": "REJECTED",
+    "updatedAt": "2026-11-11T01:16:43.090Z",
     "history": [
       {
         "at": "2026-11-10T10:43:04.326Z",
@@ -213,6 +213,12 @@
         "from": "RENDERED",
         "to": "READY",
         "note": "media public at https://gabrielecalderone.github.io/AIFACTORY/media/a1-20261110/b7fcb458/"
+      },
+      {
+        "at": "2026-11-11T01:16:43.090Z",
+        "from": "READY",
+        "to": "REJECTED",
+        "note": "non supera il disciplinare della casa 2026-11-12 (8 violazioni al gate): ritirato dalla coda, le sue foto tornano disponibili"
       }
     ]
   },
@@ -294,6 +300,31 @@
         "from": "QUALITY_CHECKED",
         "to": "RENDERED",
         "note": "reel yes, slides 7"
+      }
+    ]
+  },
+  "prova-processo-a2": {
+    "slug": "prova-processo-a2",
+    "state": "RENDERED",
+    "updatedAt": "2026-11-11T01:18:26.070Z",
+    "history": [
+      {
+        "at": "2026-11-11T01:18:11.599Z",
+        "from": null,
+        "to": "DISCOVERED",
+        "note": "authored by sonnet from 16 ranked photos (standard 2026-11-12, rules 1cbe20da)"
+      },
+      {
+        "at": "2026-11-11T01:18:11.600Z",
+        "from": "DISCOVERED",
+        "to": "QUALITY_CHECKED",
+        "note": "gate passed with 1 warning(s)"
+      },
+      {
+        "at": "2026-11-11T01:18:26.070Z",
+        "from": "QUALITY_CHECKED",
+        "to": "RENDERED",
+        "note": "reel no, slides 6"
       }
     ]
   }

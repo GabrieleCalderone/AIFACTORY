@@ -56,3 +56,17 @@ test("side states can recover and the first state must be DISCOVERED", () => {
   transition(p, "z", "DISCOVERED");
   assert.deepEqual(summarize(p).DISCOVERED, 1);
 });
+
+test("only posts that reached the audience, or wait to, count for the photo cooldown; newest first", async () => {
+  const { recentLiveSlugs } = await import("../src/lib/pipeline.ts");
+  const rec = (slug: string, state: string, updatedAt: string) => ({ slug, state, updatedAt, history: [] });
+  const pipeline = {
+    old: rec("old", "PUBLISHED", "2026-11-01T10:00:00Z"),
+    draft: rec("draft", "RENDERED", "2026-11-09T10:00:00Z"),
+    rejected: rec("rejected", "REJECTED", "2026-11-10T10:00:00Z"),
+    waiting: rec("waiting", "READY", "2026-11-11T10:00:00Z"),
+    queued: rec("queued", "SCHEDULED", "2026-11-12T10:00:00Z"),
+  } as never;
+  assert.deepEqual(recentLiveSlugs(pipeline, 8), ["queued", "waiting", "old"]);
+  assert.deepEqual(recentLiveSlugs(pipeline, 2), ["queued", "waiting"]);
+});

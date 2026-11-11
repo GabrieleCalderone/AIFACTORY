@@ -109,3 +109,18 @@ export const summarize = (pipeline: Pipeline): Record<State, number> => {
   for (const r of Object.values(pipeline)) out[r.state]++;
   return out;
 };
+
+/** States in which a post has reached the audience or is on its way to it. */
+export const LIVE_STATES: State[] = ["READY", "APPROVED", "SCHEDULED", "PUBLISHED", "MEASURED"];
+
+/**
+ * The most recent posts that count for the "do not repeat a photo" rule: published ones and
+ * the ones waiting to be, newest first. Rejected, failed and abandoned drafts never showed
+ * their photos to anyone, so they do not use them up.
+ */
+export const recentLiveSlugs = (pipeline: Pipeline, n: number): string[] =>
+  Object.values(pipeline)
+    .filter((r) => LIVE_STATES.includes(r.state))
+    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt) || a.slug.localeCompare(b.slug))
+    .slice(0, n)
+    .map((r) => r.slug);

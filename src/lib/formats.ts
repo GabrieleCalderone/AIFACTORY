@@ -9,7 +9,7 @@ export const CAROUSEL_PHOTO_HEIGHT = 840;
  * is cropped or blown up, and all that matters stays inside the centre square that the
  * profile grid shows. A cover that is too small to fill the slide uses the shorter box.
  */
-export const CAROUSEL_MAT = { left: 84, top: 150, width: 912, height: 880, coverHeight: 740 } as const;
+export const CAROUSEL_MAT = { left: 84, top: 140, width: 912, height: 780, coverHeight: 700 } as const;
 
 /**
  * "Plate" presentation of a reel photo: the picture sits whole inside this box on the dark
