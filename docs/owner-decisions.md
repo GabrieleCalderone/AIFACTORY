@@ -5,12 +5,13 @@ sblocca. Le risposte vanno bene anche a voce, in una riga.
 
 ## Stato dei pezzi
 
-| Pezzo | A mano | Revisore automatico | Soglia |
+| Pezzo | A mano | Revisore automatico (tre letture) | Soglia |
 |---|---|---|---|
-| `a7-20261113` Sicily, in November | 68 | 49-60 su quattro passate | 85 |
-| `a9-20261114` You came to Sicily for the food | 65 | 54-55, in sospeso finché non c'è una terza foto | 85 |
+| `a7-20261113` Sicily, in November (quattro slide) | 71 | 55 | 85 |
+| `a10-20261115` You came to Sicily to eat. Stay to cook. (lezione) | 73 | 63 | 85 |
+| `a9-20261114` You came to Sicily for the food (in sospeso) | 65 | 55 | 85 |
 
-Sono giudizi editoriali, non previsioni. Il numero del revisore automatico cambia molto da una passata all'altra: per ora vale come indicazione, non come misura. L'approvazione resta tua nella console, anche
+Sono giudizi editoriali, non previsioni. Il revisore automatico è più severo della valutazione a mano di 10-16 punti; le sue tre letture ora concordano tra loro. L'approvazione resta tua nella console, anche
 sotto soglia.
 
 ## Cosa serve da te
@@ -27,3 +28,4 @@ sotto soglia.
 | 8 | Il marchio porta "IL TUO CHEF A DOMICILIO" su pezzi in inglese: va bene così, o serve una versione senza sottotitolo? | Oggi compare in due modi diversi nello stesso pezzo | Un solo marchio in ogni slide |
 | 9 | La soglia di 85 per la pubblicazione automatica: resta, sapendo che con l'archivio di oggi i pezzi stanno tra 55 e 70? | Con la soglia a 85 la macchina non pubblica nulla da sola | Chiarezza su cosa esce e quando |
 | 10 | La lezione di cucina ha una sola fotografia che supera i criteri (il cesto di verdure, 106). Due altre potrebbero passare ritagliate (le mani dello chef con la pasta, i nidi di tagliatelle). Va bene pubblicare un pezzo fatto di ritagli, o si aspettano le foto degli ospiti? | La lezione è l'esperienza che vende, e oggi non ha un pezzo | Il primo "The craft" |
+| 11 | Il ritmo: l'archivio regge tre pezzi questa settimana (isola, lezione, serata), non quattro, e dalla settimana dopo le stesse fotografie tornano. Tre a settimana con ripetizioni, o due a settimana finché arrivano foto nuove? | Ogni fotografia forte della casa è già in uno dei tre pezzi | Un calendario che si può mantenere |
