@@ -88,6 +88,8 @@ export const contextIssues = (spec: PostSpec, creditOf: (image: string) => strin
     for (const { s, i } of used) {
       if (i === scenes.length - 1) issues.push(`reel scene ${i + 1}: the last picture must be the house's own, not a context picture`);
       if (s.label?.trim()) issues.push(`reel scene ${i + 1}: a context picture carries no label ("${s.label.trim()}")`);
+      // A clip is not looked at by the text reviewer, so it carries no words at all.
+      if (s.video && s.text?.trim()) issues.push(`reel scene ${i + 1}: a moving context clip carries no text ("${s.text.trim().slice(0, 40)}")`);
       owe((s.image ?? s.video)!);
     }
   }
@@ -123,6 +125,8 @@ export const prepareContext = (raw: { reel?: { scenes: Record<string, unknown>[]
     const media = typeof s.image === "string" ? s.image : typeof s.video === "string" ? s.video : undefined;
     if (isContext(media)) {
       delete s.label;
+      // words on a clip would reach the audience without the photo-and-text review
+      if (typeof s.video === "string") delete s.text;
       note(media);
     }
   }

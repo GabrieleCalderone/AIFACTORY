@@ -125,3 +125,12 @@ test("generated material is context only, never opens a post, and must be disclo
   labelled.reel.scenes[0] = { image: "assets/generated/sea.jpg", label: "Primo" } as never;
   assert.match(contextIssues(parsePostSpec({ ...labelled, aiGenerated: true }), known).join(" | "), /carries no label/);
 });
+
+test("a moving context clip carries no words: removed when the post is prepared, refused by the rules if present", () => {
+  const raw = { reel: { scenes: [{ video: "assets/generated/sea.mp4", label: "Sea", text: "Our kitchen by the sea" }, { image: "assets/pool/a.jpg", text: "kept" }] } };
+  prepareContext(raw, () => null);
+  assert.deepEqual(raw.reel.scenes[0], { video: "assets/generated/sea.mp4" });
+  assert.equal(raw.reel.scenes[1].text, "kept");
+  const spec = parsePostSpec({ ...base(), aiGenerated: true, reel: { ...base().reel, scenes: [{ video: "assets/generated/sea.mp4", text: "Our kitchen by the sea" }, ...base().reel.scenes] } });
+  assert.ok(contextIssues(spec, () => null).some((i) => /moving context clip carries no text/.test(i)));
+});
