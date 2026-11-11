@@ -9,7 +9,7 @@
  * The UI shows backend facts only: pipeline states, Buffer ids, measured metrics.
  */
 import { spawn, spawnSync } from "node:child_process";
-import { randomBytes, timingSafeEqual } from "node:crypto";
+import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import {
   createReadStream,
   existsSync,
@@ -24,7 +24,8 @@ import http from "node:http";
 import path from "node:path";
 import { createBufferClient } from "../src/adapters/buffer.ts";
 import { monthSpendEur, type SpendEntry } from "../src/adapters/higgsfield.ts";
-import { parseChannels } from "../src/lib/channels.ts";
+import { captionFor, parseChannels } from "../src/lib/channels.ts";
+import { buildCaption } from "../src/lib/timeline.ts";
 import { readExperiments } from "../src/lib/data.ts";
 import {
   defaultState,
@@ -241,6 +242,15 @@ const status = () => {
     const parsed = PostSpec.safeParse(readJson<unknown>(path.join("content/posts", `${slug}.json`), null));
     return parsed.success ? madeWith(parsed.data) : [];
   };
+  // The words as each channel will show them (same rules as scripts/publish.ts).
+  const captionsOf = (slug: string): Record<string, string> => {
+    const parsed = PostSpec.safeParse(readJson<unknown>(path.join("content/posts", `${slug}.json`), null));
+    if (!parsed.success) return {};
+    const spec = parsed.data;
+    const full = buildCaption(spec);
+    const hook = spec.reel?.hook.title ?? spec.title;
+    return Object.fromEntries((["instagram", "tiktok", "facebook"] as const).map((pf) => [pf, captionFor(pf, full, spec.hashtags, hook)]));
+  };
   const posts = existsSync("out")
     ? readdirSync("out")
         .filter((d) => existsSync(path.join("out", d, "manifest.json")))
@@ -296,6 +306,7 @@ const status = () => {
               ? readFileSync(path.join(dir, "caption.txt"), "utf8")
               : "",
             made: madeOf(slug),
+            captions: captionsOf(slug),
             note: pipeline[slug]?.history.at(-1)?.note ?? "",
             hosted: hosted ? (hosted.dryRun ? "dry-run" : "public") : "no",
             publications: pubs,
@@ -437,10 +448,29 @@ const mediaList = (service: string, format: string) => {
   );
   const usage = readJson<Record<string, string[]>>("data/asset-usage.json", {});
   const key = `${service}:${format}`;
+  // The current standard: place by comparison, one photo per dish, closer looks, resting after use.
+  const board = readJson<Record<string, { order?: { file: string; rank: number }[] }>>("data/asset-rank.json", {})[`${service}:carousel`];
+  const placeOf = new Map((board?.order ?? []).map((o) => [o.file, o.rank]));
+  const groups = readJson<{ groups?: Record<string, string> }>("data/asset-subjects.json", {}).groups ?? {};
+  const shots = new Map<string, number>();
+  for (const g of Object.values(groups)) shots.set(g, (shots.get(g) ?? 0) + 1);
+  const details = readJson<Record<string, { what?: string; dropped?: boolean } | null>>("data/asset-details.json", {});
+  const resting = new Set(recentLiveSlugs(loadPipeline(), 8));
+  const [W, H] = format === "reel" ? [1080, 1920] : [1080, 1350];
   return pool
     .map((r) => {
       const v = scores.verdicts[r.file]?.[key];
+      const o = overrides[r.file] as (Override & { reviewerFlag?: string }) | undefined;
+      const fit = Boolean(v && !v.blocked && v.tier !== "excluded");
+      const status = v?.blocked ? "bloccata" : o?.exclude ? "esclusa" : o?.reviewerFlag ? "da rivedere" : !fit ? "fuori standard" : (usage[r.file] ?? []).some((sl) => resting.has(sl)) ? "a riposo" : "in uso";
       return {
+        status,
+        place: placeOf.get(r.file) ?? null,
+        dish: groups[r.file] ?? null,
+        shots: groups[r.file] ? (shots.get(groups[r.file]) ?? 1) : 1,
+        detail: details[r.file] && !details[r.file]!.dropped ? (details[r.file]!.what ?? "") : null,
+        // how the photo is shown: whole inside the mat or the plate when filling the frame would enlarge it too much
+        plate: Math.max(W / r.width, H / r.height) > 1.5,
         file: r.file,
         url: `/pool/${r.file}`,
         source: path.basename(r.source ?? ""),
@@ -457,7 +487,7 @@ const mediaList = (service: string, format: string) => {
         used: usage[r.file] ?? [],
       };
     })
-    .sort((a, b) => (b.Q ?? -1) - (a.Q ?? -1));
+    .sort((a, b) => (a.place ?? 999) - (b.place ?? 999) || (b.Q ?? -1) - (a.Q ?? -1));
 };
 
 const json = (res: http.ServerResponse, code: number, body: unknown) => {
@@ -628,7 +658,11 @@ const server = http.createServer(async (req, res) => {
     if (req.method === "POST" && url.pathname === "/api/approve") {
       const body = await readBody(req);
       if (!slugOk(body.slug)) return json(res, 400, { error: "bad slug" });
-      const rec = setState(body.slug, "APPROVED", "approved in the console");
+      // The approval covers the post exactly as it is now: its hash is kept, and publishing checks it.
+      const postFile = path.join("content/posts", `${body.slug}.json`);
+      if (!existsSync(postFile)) return json(res, 404, { error: "post file not found" });
+      const approvedSha = createHash("sha256").update(readFileSync(postFile)).digest("hex");
+      const rec = setState(body.slug, "APPROVED", "approved in the console", { approvedSha });
       recordLabel(body.slug, "approved");
       return json(res, 200, { state: rec.state });
     }

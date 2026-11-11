@@ -39,8 +39,8 @@ if (gateResult.errors.length) {
 // Approval: a human (console) or AUTOPUBLISH=true after the loop has been validated end-to-end.
 const pipelineState = loadPipeline()[spec.slug]?.state ?? null;
 const autoApprove = process.env.AUTOPUBLISH === "true";
-// A post that is already SCHEDULED was approved to get there: --missing may complete it. The check
-// further down still refuses it if the post file differs from the files that were hosted.
+// --missing completes a post that is already SCHEDULED. Being scheduled is not taken as approval of
+// whatever the file says today: the file must be the one a person approved (same hash).
 const completing = values.missing && pipelineState === "SCHEDULED";
 if (!values["dry-run"] && !values.draft && pipelineState !== "APPROVED" && !autoApprove && !completing) {
   console.log(`[publish] ${spec.slug} is ${pipelineState ?? "not in the pipeline"}: approve it in the console (or set AUTOPUBLISH=true) before scheduling; use --draft to save Buffer drafts instead`);
@@ -48,6 +48,14 @@ if (!values["dry-run"] && !values.draft && pipelineState !== "APPROVED" && !auto
 }
 // --missing completes a post that was scheduled only in part (a format was not rendered at the time):
 // publications already in Buffer are skipped one by one further down, so nothing is sent twice.
+if (!values["dry-run"] && !values.draft && !autoApprove) {
+  const approvedSha = loadPipeline()[spec.slug]?.evidence?.approvedSha;
+  const nowSha = createHash("sha256").update(readFileSync(file)).digest("hex");
+  if (approvedSha !== nowSha) {
+    console.log(`[publish] ${spec.slug}: ${approvedSha ? "the post changed after it was approved" : "no approval recorded for this version of the post"}; approve it again in the console`);
+    process.exit(0);
+  }
+}
 if ((pipelineState === "SCHEDULED" && !values.missing) || pipelineState === "PUBLISHED" || pipelineState === "MEASURED") {
   console.log(`[publish] ${spec.slug} already ${pipelineState}: not scheduling twice`);
   process.exit(0);

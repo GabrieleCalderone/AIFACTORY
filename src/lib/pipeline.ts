@@ -49,7 +49,8 @@ export type Record_ = {
   state: State;
   updatedAt: string;
   history: { at: string; from: State | null; to: State; note?: string }[];
-  evidence?: { bufferPostIds?: string[]; postUrl?: string; metricsAt?: string };
+  /** approvedSha: SHA-256 of the post file as it was when a person approved it. */
+  evidence?: { bufferPostIds?: string[]; postUrl?: string; metricsAt?: string; approvedSha?: string };
 };
 
 export type Pipeline = Record<string, Record_>;

@@ -238,6 +238,140 @@
         background: var(--cream);
         font-weight: 700;
       }
+      /* how a photo will be shown: whole inside the carousel mat, or on the reel plate */
+      .frame {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 8px 8px 0 0;
+      }
+      .frame.whole img {
+        width: 100%;
+        display: block;
+      }
+      .frame.carousel {
+        aspect-ratio: 4 / 5;
+        background: #f5f0e8;
+      }
+      .frame.carousel img {
+        position: absolute;
+        left: 7.8%;
+        top: 10.4%;
+        width: 84.4%;
+        height: 57.8%;
+        object-fit: contain;
+        object-position: 50% 100%;
+      }
+      .frame.reel {
+        aspect-ratio: 9 / 16;
+        background: #0c0b0b;
+      }
+      .frame.reel img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .frame.reel.plate img {
+        left: 8.3%;
+        top: 15.6%;
+        width: 83.4%;
+        height: 50%;
+        object-fit: contain;
+        object-position: 50% 100%;
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 6px 0;
+      }
+      /* previews of a post as each channel shows it */
+      .phones {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+        margin-top: 12px;
+      }
+      .phone {
+        width: 250px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        overflow: hidden;
+        background: #fff;
+        font: 12px/1.35 system-ui;
+      }
+      .phone .head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        font-weight: 600;
+      }
+      .phone .head i {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--accent);
+        display: inline-block;
+      }
+      .phone .strip {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+      }
+      .phone .strip img,
+      .phone .strip video {
+        flex: none;
+        width: 100%;
+        scroll-snap-align: start;
+        display: block;
+      }
+      .phone .text {
+        padding: 8px 10px 12px;
+        white-space: pre-wrap;
+        max-height: 92px;
+        overflow: hidden;
+      }
+      .phone.tiktok {
+        background: #000;
+        color: #fff;
+      }
+      .phone.tiktok .strip {
+        aspect-ratio: 9 / 16;
+        align-items: center;
+      }
+      .phone.tiktok .text {
+        margin-top: -92px;
+        position: relative;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+        padding-top: 30px;
+      }
+      .phone.grid .cells {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 2px;
+        padding: 0 0 2px;
+      }
+      .phone.grid .cells > * {
+        position: relative;
+        aspect-ratio: 3 / 4;
+        background: #ece6dc;
+        overflow: hidden;
+      }
+      .phone.grid .cells img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .phone small {
+        display: block;
+        padding: 0 10px 8px;
+        color: var(--muted);
+      }
       .flow {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -320,6 +454,12 @@
         grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
         gap: 22px;
       }
+      #posts {
+        grid-template-columns: 1fr;
+      }
+      #posts .formats {
+        max-width: 760px;
+      }
       .post video {
         width: 100%;
         border-radius: 10px;
@@ -396,11 +536,10 @@
         overflow: hidden;
       }
       .asset img {
-        width: 100%;
-        aspect-ratio: 4/5;
-        object-fit: cover;
         display: block;
-        background: #222;
+      }
+      .frame.whole img {
+        aspect-ratio: auto;
       }
       .asset .b {
         padding: 10px 12px;
@@ -509,27 +648,24 @@
           <div>
             <label>Servizio</label
             ><select id="mService">
-              <option value="class">Cooking class</option>
-              <option value="chef">Private chef</option>
-              <option value="villa">Villa dining</option>
-              <option value="events">Eventi</option>
+              <option value="chef">Chef a domicilio</option>
+              <option value="class">Lezione di cucina</option>
             </select>
           </div>
           <div>
-            <label>Formato</label
+            <label>Vedi come</label
             ><select id="mFormat">
+              <option value="carousel">Carosello (Instagram, TikTok, Facebook)</option>
               <option value="reel">Reel 9:16</option>
-              <option value="carousel">Carosello 4:5</option>
+              <option value="whole">Foto intera</option>
             </select>
           </div>
           <div>
             <label>Mostra</label
             ><select id="mTier">
+              <option value="live">quelle che il sistema può usare</option>
+              <option value="out">scartate e bloccate</option>
               <option value="all">tutte</option>
-              <option value="premium">premium (≥85)</option>
-              <option value="usable">utilizzabili (≥70)</option>
-              <option value="excluded">escluse</option>
-              <option value="blocked">bloccate</option>
             </select>
           </div>
           <div>
@@ -744,6 +880,19 @@
         $("#issues").innerHTML = issues.length ? issues.map(([c, t]) => `<div class="row"><span>${esc(t)}</span>${pill(c, c === "bad" ? "da fare" : "avviso")}</div>`).join("") : pill("ok", "nessun problema");
         $("#jobs").textContent = s.jobs.length ? s.jobs.map((j) => `[${j.name}] ${j.endedAt ? (j.code === 0 ? "ok" : "ERRORE " + j.code) : "in corso…"} ${fmt(j.startedAt)}\n${j.log.join("\n")}`).join("\n\n") : (s.recentLog.length ? s.recentLog.join("\n") : "nessuna");
 
+        // The same slides and words, framed as each channel shows them. Swipe sideways inside each one.
+        const socialPreviews = (p) => {
+          const imgs = p.slides.map((u) => media(u)).filter(Boolean);
+          if (!imgs.length) return "";
+          const strip = (extra) => `<div class="strip">${imgs.map((u) => `<img src="${esc(u)}" loading="lazy" alt="">`).join("")}${extra || ""}</div>`;
+          const cap = (k) => esc(p.captions?.[k] ?? "");
+          return `<span class="kind" style="margin-top:14px">Come lo vedranno <span>· scorri dentro ogni anteprima</span></span><div class="phones">
+            <div class="phone"><div class="head"><i></i>risthome · Instagram</div>${strip()}<div class="text">${cap("instagram")}</div><small>carosello 4:5, ${imgs.length} immagini</small></div>
+            <div class="phone grid"><div class="head"><i></i>Griglia del profilo</div><div class="cells"><div><img src="${esc(imgs[0])}" alt=""></div><div></div><div></div><div></div><div></div><div></div></div><small>la copertina viene ritagliata 3:4 al centro</small></div>
+            <div class="phone tiktok"><div class="head"><i></i>risthome · TikTok</div>${strip()}<div class="text">${cap("tiktok")}</div><small style="color:#bbb">foto a scorrimento su fondo nero</small></div>
+            <div class="phone"><div class="head"><i></i>RistHome · Facebook</div><div class="text" style="max-height:none">${cap("facebook").slice(0, 220)}</div>${strip()}<small>album di ${imgs.length} immagini</small></div>
+          </div>`;
+        };
         const postCard = (p, compact) => `
           <div class="card post">
             <div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><b>${esc(p.slug)}</b>${pill(stateCls(p.state), p.state)}</div>
@@ -752,6 +901,7 @@
               ${media(p.reel) ? `<div><span class="kind">Reel <span>· video con musica, premi play</span></span><video controls playsinline preload="metadata" poster="${esc(media(p.cover))}" src="${esc(media(p.reel))}"></video></div>` : ""}
               ${p.slides.length ? `<div><span class="kind">Carosello <span>· ${p.slides.length} immagini, scorri</span></span><div class="slides">${p.slides.map((u, i) => (media(u) ? `<a href="${esc(media(u))}" target="_blank" title="Immagine ${i + 1} di ${p.slides.length}"><img src="${esc(media(u))}" alt="Immagine ${i + 1} del carosello" loading="lazy"></a>` : "")).join("")}</div></div>` : ""}
             </div>
+            ${!compact && p.state !== "REJECTED" ? socialPreviews(p) : ""}
             ${p.made.length ? `<div class="chips">${p.made.map((m) => `<span class="chip">${esc(m)}</span>`).join("")}</div>` : ""}
             ${!compact ? `<div class="caption">${esc(p.caption)}</div>` : ""}
             ${p.state === "REJECTED" && p.note ? `<small>Motivo: ${esc(p.note)}</small>` : ""}
@@ -783,25 +933,30 @@
         $("#infra").innerHTML = `<div class="row"><span>Repo GitHub</span>${yesno(s.setup.gitRemote, "collegato", "no")}</div><div class="row"><span>Host media</span>${yesno(s.setup.mediaRepo, "pronto", "manca")}</div><div class="row"><span>Agente 10:30</span>${yesno(s.setup.launchd, "installato", "manca")}</div><div class="row"><span>Registro media</span><span>${s.setup.registry ? `${esc(s.setup.registry.total)} asset · ${esc(s.setup.registry.synthetic)} sintetici` : "non sincronizzato"}</span></div>`;
       }
       async function loadMedia() {
-        const service = $("#mService").value, format = $("#mFormat").value, tier = $("#mTier").value;
-        const rows = await api(`/api/media?service=${service}&format=${format}`);
-        const counts = { premium: 0, usable: 0, excluded: 0, blocked: 0 };
-        rows.forEach((r) => { if (counts[r.tier] !== undefined) counts[r.tier]++; });
-        $("#mediaSummary").innerHTML = `${pill("ok", `${counts.premium} premium`)} ${pill("ink", `${counts.usable} utilizzabili`)} ${pill("muted", `${counts.excluded} escluse`)} ${pill("bad", `${counts.blocked} bloccate`)} <small>Q = 0.30 estetica + 0.25 pertinenza + 0.20 tecnica + 0.15 composizione + 0.10 originalità · soglie 85 / 70</small>`;
-        $("#mediaGrid").innerHTML = rows.filter((r) => tier === "all" || r.tier === tier).map((r) => `
+        const service = $("#mService").value, view = $("#mFormat").value, show = $("#mTier").value;
+        const rows = await api(`/api/media?service=${service}&format=${view === "reel" ? "reel" : "carousel"}`);
+        const live = (r) => r.status === "in uso" || r.status === "a riposo";
+        const count = (st) => rows.filter((r) => r.status === st).length;
+        const dishes = new Set(rows.filter(live).map((r) => r.dish ?? r.file)).size;
+        $("#mediaSummary").innerHTML = `${pill("ok", `${count("in uso")} in uso`)} ${pill("ink", `${count("a riposo")} a riposo`)} ${pill("warn", `${count("esclusa") + count("da rivedere")} tolte da te o dal revisore`)} ${pill("muted", `${count("fuori standard")} fuori standard`)} ${pill("bad", `${count("bloccata")} bloccate`)} <small>${dishes} piatti e scene diversi. Ordine: confronto a coppie secondo il disciplinare (chi vince più confronti sta in alto). “Non mi piace” toglie la foto da tutti i post futuri.</small>`;
+        const cls = { "in uso": "ok", "a riposo": "ink", esclusa: "warn", "da rivedere": "warn", "fuori standard": "muted", bloccata: "bad" };
+        $("#mediaGrid").innerHTML = rows.filter((r) => show === "all" || (show === "live" ? live(r) : !live(r))).map((r) => `
           <div class="asset">
-            <a href="${esc(media(r.url))}" target="_blank"><img loading="lazy" src="${esc(media(r.url))}" alt=""></a>
+            <a href="${esc(media(r.url))}" target="_blank"><div class="frame ${view}${view === "reel" && r.plate ? " plate" : ""}"><img src="${esc(media(r.url))}" alt=""></div></a>
             <div class="b">
-              <div style="display:flex;justify-content:space-between;align-items:center"><span class="q">${r.Q ?? "–"}</span>${pill(r.tier === "premium" ? "ok" : r.tier === "usable" ? "ink" : r.tier === "blocked" ? "bad" : "muted", r.tier)}</div>
-              ${r.parts ? `<div class="bar">${["A", "R", "T", "C", "U"].map((k) => `<span title="${k} ${r.parts[k]}"><i style="width:${r.parts[k]}%"></i></span>`).join("")}</div>` : ""}
-              <div style="font-size:13px">${esc(r.subject)}</div>
-              <small>${esc(r.source)} · ${r.width}×${r.height} · ${esc(r.people)}${r.used.length ? ` · usata in ${r.used.length}` : ""}</small>
-              <div class="reasons">${esc(r.reasons.slice(0, 3).join(" · "))}</div>
-              ${r.override ? `<small style="color:var(--accent)">override: ${esc(r.override.include ? "inclusa" : "esclusa")} ${esc(r.override.note ?? "")}</small>` : ""}
+              <div style="display:flex;justify-content:space-between;align-items:center"><span class="q">${r.place ? `n° ${r.place}` : "–"}</span>${pill(cls[r.status] || "muted", r.status)}</div>
+              <div class="tags">
+                ${r.shots > 1 ? `<span class="chip">stesso piatto in ${r.shots} scatti: ne esce uno</span>` : ""}
+                ${r.detail !== null ? `<span class="chip">dettaglio disponibile</span>` : ""}
+                ${r.used.length ? `<span class="chip">già usata ${r.used.length} volt${r.used.length === 1 ? "a" : "e"}</span>` : ""}
+                ${r.people === "chef" ? `<span class="chip">c'è lo chef</span>` : ""}
+              </div>
+              <small>${r.width}×${r.height}${r.place ? "" : " · non ancora confrontata"}</small>
+              ${r.override && r.override.note ? `<small style="color:var(--accent)">nota: ${esc(r.override.note)}</small>` : ""}
               <div class="actions" style="margin-top:8px">
-                ${r.tier === "excluded" ? `<button class="secondary small" data-ov="include" data-file="${esc(r.file)}">Includi</button>` : ""}
-                ${r.tier !== "blocked" ? `<button class="secondary small" data-ov="exclude" data-file="${esc(r.file)}">Escludi</button>` : ""}
-                ${r.override ? `<button class="secondary small" data-ov="clear" data-file="${esc(r.file)}">Annulla override</button>` : ""}
+                ${live(r) ? `<button class="secondary small" data-ov="exclude" data-quick="1" data-file="${esc(r.file)}">Non mi piace</button>` : ""}
+                ${r.status === "fuori standard" ? `<button class="secondary small" data-ov="include" data-quick="1" data-file="${esc(r.file)}">Usala comunque</button>` : ""}
+                ${r.override ? `<button class="secondary small" data-ov="clear" data-quick="1" data-file="${esc(r.file)}">Rimetti in gara</button>` : ""}
               </div>
             </div>
           </div>`).join("") || "<small>nessuna foto in questa categoria</small>";
@@ -814,7 +969,7 @@
         if (t.dataset.publish && confirm(`Programmare "${t.dataset.publish}" su tutti i canali collegati al prossimo slot?`)) run("publish-post", { slug: t.dataset.publish });
         if (t.dataset.draft) run("publish-draft", { slug: t.dataset.draft });
         if (t.dataset.render) run("render", { slug: t.dataset.render });
-        if (t.dataset.ov) { const note = t.dataset.ov === "clear" ? "" : (prompt("Nota (facoltativa)") ?? ""); await api("/api/override", { file: t.dataset.file, action: t.dataset.ov, note }); setTimeout(loadMedia, 2500); }
+        if (t.dataset.ov) { const note = t.dataset.ov === "exclude" ? "non piace al titolare" : t.dataset.ov === "include" ? "voluta dal titolare" : ""; t.disabled = true; await api("/api/override", { file: t.dataset.file, action: t.dataset.ov, note }); setTimeout(loadMedia, 2500); }
       });
       ["mService", "mFormat", "mTier"].forEach((id) => ($("#" + id).onchange = loadMedia));
       $("#rescore").onclick = () => { run("score-assets"); setTimeout(loadMedia, 8000); };
