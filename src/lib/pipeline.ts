@@ -45,7 +45,7 @@ const NEXT: Record<State, State[]> = {
 };
 
 /** The editorial scorecard of a finished piece (src/lib/scorecard.ts), for the post file with this hash. */
-export type ScoreEvidence = { sha: string; at: string; by: string; total: number; passed: boolean; scores: Record<string, number>; reasons: Record<string, string>; weakest: string[]; problems: string[] };
+export type ScoreEvidence = { sha: string; at: string; by: string; /** lowest and highest total over the runs: one run is not a measurement */ spread?: [number, number]; runs?: number; total: number; passed: boolean; scores: Record<string, number>; reasons: Record<string, string>; weakest: string[]; problems: string[] };
 
 export type Record_ = {
   slug: string;

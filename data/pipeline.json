@@ -605,35 +605,40 @@
     "evidence": {
       "scorecard": {
         "sha": "be71fb38fc8f634af3c92f2f1a1ac02931a8ed841d2e3b41ba55e68e32e1bbd8",
-        "at": "2026-11-11T21:01:57.272Z",
+        "at": "2026-11-11T21:08:20.814Z",
         "by": "sonnet",
-        "total": 49,
+        "runs": 3,
+        "spread": [
+          51,
+          55
+        ],
+        "total": 54,
         "passed": false,
         "scores": {
-          "hook": 8,
-          "visual": 5,
-          "narrative": 6,
+          "hook": 9,
+          "visual": 7,
+          "narrative": 7,
           "audience": 9,
           "sharing": 7,
           "brand": 6,
-          "conversion": 8
+          "conversion": 9
         },
         "reasons": {
-          "hook": "Slide 1 is a dark, grey sea cave that reads cold and murky at thumbnail size, and the lemons on slide 2 are the stronger picture, though 'Sicily, in November' does say place and time.",
-          "visual": "Slide 4 is a crowded, saturated seafood platter with a pool behind it, and slide 3 sits on a flat grey plate with a hot highlight, while the lemons on slide 2 are clean and natural.",
-          "narrative": "The run of cave, lemons, plated dish and seafood platter could be reordered without loss, there is no gesture or table moment, and it ends on the weakest picture before the invitation.",
-          "audience": "Place, November, villa service and what is included are clear in American English, but the slides themselves answer little a planner wants to know, and the caption carries most of it.",
-          "sharing": "It is findable by place and service and 'Sicily, in November' is a mild promise, but there is no concrete moment or fact worth sending to a travel companion.",
-          "brand": "The wordmark and type are consistent across slides and the closing card is calm, but the wordmark sits on busy rock on slide 1 and on shrimp on slide 4, its tagline is illegible there, and slide 1 lacks the page counter the others have.",
-          "conversion": "The closing slide and the caption carry the single invitation 'Request availability on risthome.it' as in the brand facts, and the caption makes what and where plain, but the slides alone do not say what the experience is."
+          "hook": "Slide 1 is a dark, cold cave and black water that reads grey at thumbnail size, and the warm lemon picture on slide 2 is stronger, but 'Sicily, in November' with 'Private chef in Palermo' does say place and time.",
+          "visual": "Slide 4 is a crowded, heavily saturated oyster and prawn platter with a pool and tiles behind it, and slide 3's plate has a grey cast, though the lemons on slide 2 are clean and natural.",
+          "narrative": "The sequence runs island, produce, dish, table, but no slide shows the chef or a gesture, and it ends on the weakest picture, the crowded platter, before the invitation.",
+          "audience": "The villa, the November timing and the included shopping, cooking, service and cleanup are clear and in American English, but nothing answers a planner's real question about what the evening is like or what November means.",
+          "sharing": "The caption is findable by place and service (Palermo, Sicily, private chef), but there is no second-person line or concrete moment to send to a travel companion.",
+          "brand": "The wordmark and tagline are on every slide with the same serif type and margins, but the tagline is unreadable on the busy rock of slide 1 and the wordmark sits over prawns on slide 4.",
+          "conversion": "Slide 5 and the caption carry one invitation in the site's exact words, 'Request availability on risthome.it (link in bio)', and the caption says what the service is and where."
         },
         "weakest": [
-          "visual",
           "hook",
+          "visual",
           "narrative"
         ],
         "problems": [
-          "49 out of 100, the house asks for 85"
+          "54 out of 100, the house asks for 85"
         ]
       }
     }

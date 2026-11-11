@@ -91,11 +91,11 @@ export const contextCredits = (): ((image: string) => string | null | undefined)
 };
 
 /** How well a pool photograph fits a starred house (0-100), from the catalogue; undefined when the catalogue does not know the file. */
-export const premiumFitOf = (): ((image: string) => number | undefined) => {
-  const manifest = path.join(PUBLIC_ROOT, "assets/pool/manifest.json");
+export const premiumFitOf = (pool = "pool"): ((image: string) => number | undefined) => {
+  const manifest = path.join(PUBLIC_ROOT, "assets", pool, "manifest.json");
   const rows = existsSync(manifest) ? (JSON.parse(readFileSync(manifest, "utf8")) as { file: string; source?: string }[]) : [];
   const catalogue = existsSync("data/asset-catalog.json") ? (JSON.parse(readFileSync("data/asset-catalog.json", "utf8")) as Record<string, { premium_fit?: number }>) : {};
-  const fit = new Map(rows.map((r) => [`assets/pool/${r.file}`, catalogue[path.basename(r.source ?? "")]?.premium_fit]));
+  const fit = new Map(rows.map((r) => [`assets/${pool}/${r.file}`, catalogue[path.basename(r.source ?? "")]?.premium_fit]));
   return (image) => fit.get(image);
 };
 

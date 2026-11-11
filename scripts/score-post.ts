@@ -5,7 +5,10 @@
  * The result is kept with the post in data/pipeline.json and shown in the console; a piece
  * below the threshold, or failing a hard gate, cannot be approved.
  *
- *   node scripts/score-post.ts content/posts/<slug>.json [--model sonnet]
+ *   node scripts/score-post.ts content/posts/<slug>.json [--model sonnet] [--runs 3]
+ *
+ * The piece is read several times and the middle reading is kept, with the lowest and the
+ * highest total beside it: marks move from one reading to the next.
  *
  * Three of the four hard gates are not asked of the model: they are what the deterministic
  * gate checks (the standard, borrowed or generated material, consent and credits). Only
@@ -22,7 +25,7 @@ import { sanitizeText } from "../src/lib/review.ts";
 import { scoreVerdict, type Scorecard } from "../src/lib/scorecard.ts";
 import { parsePostSpec } from "../src/schemas/post.ts";
 
-const { values, positionals } = parseArgs({ allowPositionals: true, options: { model: { type: "string", default: "sonnet" }, out: { type: "string", default: "out" } } });
+const { values, positionals } = parseArgs({ allowPositionals: true, options: { model: { type: "string", default: "sonnet" }, out: { type: "string", default: "out" }, runs: { type: "string", default: "3" } } });
 const file = positionals[0];
 if (!file || !existsSync(file)) {
   console.error("usage: node scripts/score-post.ts content/posts/<slug>.json [--model sonnet]");
@@ -74,22 +77,32 @@ ${JSON.stringify({ slides: pictures, caption })}
 
 Answer with ONE JSON object only: {"scores":{${card.criteria.map((c) => `"${c.id}":<0-${c.weight}>`).join(",")}},"reasons":{${card.criteria.map((c) => `"${c.id}":"<one sentence>"`).join(",")}},"facts":true|false,"factsReason":"<one sentence>"}`;
 
-const text = runClaudeCli(["-p", prompt, "--output-format", "json", "--model", values.model, "--disallowedTools", "Bash,Edit,Write,MultiEdit,NotebookEdit,WebFetch,WebSearch,Task,Agent,Glob,Grep,LS,TodoWrite,KillShell,BashOutput", "--allowedTools", `Read(${outDir}/**)`]);
-const answer = JSON.parse(text.slice(text.indexOf("{"), text.lastIndexOf("}") + 1)) as { scores?: Record<string, unknown>; reasons?: Record<string, unknown>; facts?: unknown; factsReason?: unknown };
-// Only the criteria of the card are taken, as numbers; anything else in the answer is ignored, and a missing mark is a problem (never a pass).
-const scores: Record<string, number> = {};
-const reasons: Record<string, string> = {};
-for (const c of card.criteria) {
-  const s = answer.scores?.[c.id];
-  if (typeof s === "number" && Number.isFinite(s)) scores[c.id] = Math.round(s);
-  reasons[c.id] = sanitizeText(String(answer.reasons?.[c.id] ?? ""), 240);
-}
 const gate = gateSpec(spec);
-const gates: Record<string, boolean> = {};
-for (const g of card.hardGates) gates[g.id] = g.id === "facts" ? answer.facts === true : gate.errors.length === 0;
-const verdict = scoreVerdict(card, scores, gates);
-if (answer.facts !== true) reasons.facts = sanitizeText(String(answer.factsReason ?? ""), 240);
-addEvidence(spec.slug, { scorecard: { sha, at: new Date().toISOString(), by: values.model, total: verdict.total, passed: verdict.passed, scores, reasons, weakest: verdict.weakest.slice(0, 3).map((w) => w.id), problems: verdict.problems } });
-console.log(`[score] ${spec.slug}: ${verdict.total}/100, ${verdict.passed ? "passes" : "does not pass"} (the house asks for ${card.threshold})`);
+// The same piece gets different marks from one run to the next, so it is read several times and the middle reading is kept.
+const readOnce = () => {
+  const text = runClaudeCli(["-p", prompt, "--output-format", "json", "--model", values.model, "--disallowedTools", "Bash,Edit,Write,MultiEdit,NotebookEdit,WebFetch,WebSearch,Task,Agent,Glob,Grep,LS,TodoWrite,KillShell,BashOutput", "--allowedTools", `Read(${outDir}/**)`]);
+  const answer = JSON.parse(text.slice(text.indexOf("{"), text.lastIndexOf("}") + 1)) as { scores?: Record<string, unknown>; reasons?: Record<string, unknown>; facts?: unknown; factsReason?: unknown };
+  // Only the criteria of the card are taken, as numbers; anything else in the answer is ignored, and a missing mark is a problem (never a pass).
+  const scores: Record<string, number> = {};
+  const reasons: Record<string, string> = {};
+  for (const c of card.criteria) {
+    const s = answer.scores?.[c.id];
+    if (typeof s === "number" && Number.isFinite(s)) scores[c.id] = Math.round(s);
+    reasons[c.id] = sanitizeText(String(answer.reasons?.[c.id] ?? ""), 240);
+  }
+  const gates: Record<string, boolean> = {};
+  for (const g of card.hardGates) gates[g.id] = g.id === "facts" ? answer.facts === true : gate.errors.length === 0;
+  if (answer.facts !== true) reasons.facts = sanitizeText(String(answer.factsReason ?? ""), 240);
+  return { scores, reasons, verdict: scoreVerdict(card, scores, gates) };
+};
+const runs = Math.min(5, Math.max(1, Number(values.runs) || 3));
+const readings = Array.from({ length: runs }, (_, n) => {
+  console.log(`[score] ${spec.slug}: reading ${n + 1} of ${runs}`);
+  return readOnce();
+}).sort((a, b) => a.verdict.total - b.verdict.total);
+const { scores, reasons, verdict } = readings[Math.floor((readings.length - 1) / 2)];
+const spread: [number, number] = [readings[0].verdict.total, readings[readings.length - 1].verdict.total];
+addEvidence(spec.slug, { scorecard: { sha, at: new Date().toISOString(), by: values.model, runs, spread, total: verdict.total, passed: verdict.passed, scores, reasons, weakest: verdict.weakest.slice(0, 3).map((w) => w.id), problems: verdict.problems } });
+console.log(`[score] ${spec.slug}: ${verdict.total}/100 (${spread[0]} to ${spread[1]} over ${runs} readings), ${verdict.passed ? "passes" : "does not pass"} (the house asks for ${card.threshold})`);
 for (const c of card.criteria) console.log(`  ${c.id} ${scores[c.id] ?? "?"}/${c.weight}: ${reasons[c.id]}`);
 for (const p of verdict.problems) console.log(`  problem: ${p}`);

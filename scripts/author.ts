@@ -150,12 +150,18 @@ for (const r of candidates) {
   if (OFFER_DETAILS && p && !p.dropped && detailRegion(r.width, r.height, p.x, p.y)) detailPoints[r.file] = { x: p.x, y: p.y };
 }
 // A weak photograph never opens or closes a piece (src/lib/gate.ts, weakLeads): the author is told which ones.
-const leadFit = premiumFitOf();
+const leadFit = premiumFitOf(values.pool);
+// A photograph the catalogue cannot place is said to be unknown, never assumed to be strong.
+const leadNote = (file: string): string => {
+  const fit = leadFit(`assets/${values.pool}/${file}`);
+  if (fit === undefined) return " | FIT UNKNOWN: do not open or close the piece with it";
+  return fit < LEAD_MIN_FIT ? " | NOT STRONG ENOUGH TO OPEN OR CLOSE THE PIECE (use it in the middle only, or not at all)" : "";
+};
 const candidateList = candidates
   .map((r) => {
     const v = verdictOf.get(r.file)!;
     const dish = dishOf(r.file);
-    return `- assets/${values.pool}/${r.file} | ${placeOf.has(r.file) ? `place ${placeOf.get(r.file)} by comparison` : `score ${v.Q}`} | ${r.orientation} ${r.width}x${r.height} | ${r.people === "chef" ? "chef visible" : "no people"} | CHEF'S NAME FOR THE DISH: ${dish ? `"${dish}"` : "none"} | what an automatic cataloguer saw (may be wrong, never quote it): ${r.subject} | tags: ${(r.tags ?? []).join(", ")}${detailPoints[r.file] ? " | CLOSER LOOK AVAILABLE" : ""}${(leadFit(`assets/${values.pool}/${r.file}`) ?? 100) < LEAD_MIN_FIT ? " | NOT STRONG ENOUGH TO OPEN OR CLOSE THE PIECE (use it in the middle only, or not at all)" : ""}`;
+    return `- assets/${values.pool}/${r.file} | ${placeOf.has(r.file) ? `place ${placeOf.get(r.file)} by comparison` : `score ${v.Q}`} | ${r.orientation} ${r.width}x${r.height} | ${r.people === "chef" ? "chef visible" : "no people"} | CHEF'S NAME FOR THE DISH: ${dish ? `"${dish}"` : "none"} | what an automatic cataloguer saw (may be wrong, never quote it): ${r.subject} | tags: ${(r.tags ?? []).join(", ")}${detailPoints[r.file] ? " | CLOSER LOOK AVAILABLE" : ""}${leadNote(r.file)}`;
   })
   .join("\n");
 
