@@ -1,8 +1,10 @@
 import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { readExperiments } from "./data.ts";
-import { runGate, type GateResult, type MediaInfo } from "./gate.ts";
+import { runGate, weakLeads, type GateResult, type MediaInfo } from "./gate.ts";
+import { consentProblem, type Consents } from "./consent.ts";
 import { CONTEXT_PREFIX, GENERATED_PREFIX, contextIssues, isGenerated, limitsFor, type ContextLimits } from "./context.ts";
 import { lintStandard, type HouseStandard } from "./house-standard.ts";
 import type { PostSpec } from "../schemas/post.ts";
@@ -53,6 +55,17 @@ export const gateSpec = (spec: PostSpec): GateResult => {
   const archetypes = existsSync("content/archetypes.json") ? (JSON.parse(readFileSync("content/archetypes.json", "utf8")) as { archetypes: { id: string; context?: Partial<ContextLimits> }[] }).archetypes : [];
   contextIssues(spec, contextCredits(), limitsFor(archetypes.find((a) => a.id === spec.brief.archetype))).forEach((issue) => result.errors.push(`context picture, ${issue}`));
   const standard = loadStandard();
+  // Guests: a manifest that says "consented" is not enough, there must be a written yes on record for the very file.
+  // And a weak photograph of the house never opens or closes a piece.
+  const consents = existsSync("data/consents.json") ? (JSON.parse(readFileSync("data/consents.json", "utf8")) as Consents) : {};
+  const pictures = spec.carousel ? spec.carousel.slides.filter((s): s is Extract<typeof s, { image: string }> => "image" in s && typeof s.image === "string" && s.type !== "cta") : [];
+  for (const image of new Set([...(spec.reel ? [spec.reel.hook, ...spec.reel.scenes].map((m) => m.image ?? m.video) : []), ...pictures.map((s) => s.image)])) {
+    if (!image || mediaInfo(image)?.people !== "guests-consented") continue;
+    const file = publicFile(image);
+    const problem = consentProblem(existsSync(file) ? consents[createHash("sha256").update(readFileSync(file)).digest("hex")] : undefined);
+    if (problem) result.errors.push(`${image}: guests in the picture, ${problem}`);
+  }
+  for (const issue of weakLeads(spec, premiumFitOf())) result.errors.push(issue);
   if (standard) lintStandard(spec, standard).forEach((v) => result.errors.push(`house standard, ${v.where}: ${v.message}`));
   return result;
 };
@@ -75,6 +88,15 @@ export const contextCredits = (): ((image: string) => string | null | undefined)
   const made = new Map(generatedRows().map((r) => [`${GENERATED_PREFIX}${r.file}`, r.credit ?? null]));
   // Generated material must have its provenance record next to it; a clip animated from a licensed photograph still owes that photograph's credit.
   return (image) => (isGenerated(image) ? (existsSync(`${publicFile(image)}.provenance.json`) ? (made.get(image) ?? null) : undefined) : rows.get(image));
+};
+
+/** How well a pool photograph fits a starred house (0-100), from the catalogue; undefined when the catalogue does not know the file. */
+export const premiumFitOf = (): ((image: string) => number | undefined) => {
+  const manifest = path.join(PUBLIC_ROOT, "assets/pool/manifest.json");
+  const rows = existsSync(manifest) ? (JSON.parse(readFileSync(manifest, "utf8")) as { file: string; source?: string }[]) : [];
+  const catalogue = existsSync("data/asset-catalog.json") ? (JSON.parse(readFileSync("data/asset-catalog.json", "utf8")) as Record<string, { premium_fit?: number }>) : {};
+  const fit = new Map(rows.map((r) => [`assets/pool/${r.file}`, catalogue[path.basename(r.source ?? "")]?.premium_fit]));
+  return (image) => fit.get(image);
 };
 
 /** The house standard every published text must meet; absent file = no standard to enforce. */

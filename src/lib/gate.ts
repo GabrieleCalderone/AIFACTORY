@@ -194,3 +194,29 @@ export const runGate = ({ spec, exists, info, archetypeIds, experimentRows }: Ga
   }
   return { errors, warnings };
 };
+
+/** A photograph of the house needs at least this mark for fit with a starred house to open or to close a piece. */
+export const LEAD_MIN_FIT = 60;
+/**
+ * The first and the last photograph carry a piece: a weak one is never put there, even when
+ * it is the only table or the only dessert available (close on a better dish instead).
+ * Licensed context pictures are judged when they are approved, not here; a photograph the
+ * catalogue does not know is not refused on that ground.
+ */
+export const weakLeads = (spec: PostSpec, fitOf: (image: string) => number | undefined, min = LEAD_MIN_FIT): string[] => {
+  const issues: string[] = [];
+  const judge = (image: string | undefined, where: string) => {
+    const fit = image ? fitOf(image) : undefined;
+    if (image && fit !== undefined && fit < min) issues.push(`${where}: ${image} is too weak to carry the piece (fit ${fit}, at least ${min})`);
+  };
+  if (spec.carousel) {
+    const pictures = spec.carousel.slides.filter((s): s is Extract<typeof s, { image: string }> => "image" in s && typeof s.image === "string" && s.type !== "cta");
+    judge(pictures[0]?.image, "carousel cover");
+    if (pictures.length > 1) judge(pictures[pictures.length - 1].image, "carousel closing photograph");
+  }
+  if (spec.reel) {
+    judge(spec.reel.hook.image, "reel hook");
+    judge(spec.reel.scenes[spec.reel.scenes.length - 1]?.image, "reel closing scene");
+  }
+  return issues;
+};

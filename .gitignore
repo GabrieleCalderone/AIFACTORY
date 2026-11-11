@@ -25,3 +25,6 @@ logs/
 
 # Console access token of the always-on agent (local only)
 .console-token
+
+# Written permissions for guest photographs: they name people, so they stay on this machine
+data/consents.json

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mediaOf, repeatedImages, runGate, scanTexts } from "../src/lib/gate.ts";
+import { mediaOf, repeatedImages, runGate, scanTexts, weakLeads } from "../src/lib/gate.ts";
 import { parsePostSpec } from "../src/schemas/post.ts";
 import { demoSpec } from "./fixtures/demo-spec.ts";
 import { detailRegion } from "../src/lib/formats.ts";
@@ -106,4 +106,15 @@ test("a photograph repeated within the reel or the carousel is found; a detail i
   assert.deepEqual(repeatedImages(withDetail), []);
   const repeated = parsePostSpec({ ...demoSpec, carousel: { slides: [demoSpec.carousel!.slides[0], two, two, demoSpec.carousel!.slides[3]] } });
   assert.deepEqual(repeatedImages(repeated), ["assets/demo/02.jpg"]);
+});
+
+test("a weak photograph of the house never opens or closes a piece", () => {
+  const fit: Record<string, number> = { "assets/demo/01.jpg": 42, "assets/demo/02.jpg": 80 };
+  const fitOf = (image: string) => fit[image];
+  const weakCover = weakLeads(spec, fitOf);
+  assert.ok(weakCover.some((i) => /carousel cover: assets\/demo\/01\.jpg is too weak/.test(i)));
+  assert.deepEqual(weakLeads(spec, (image) => ({ ...fit, "assets/demo/01.jpg": 70 })[image]).filter((i) => /carousel/.test(i)), []);
+  const weakEnd = parsePostSpec({ ...demoSpec, reel: undefined, carousel: { slides: [{ type: "cover", image: "assets/demo/02.jpg", title: "Sicily" }, { type: "photo", image: "assets/demo/01.jpg" }, { type: "cta", title: "Request availability" }] } });
+  assert.ok(weakLeads(weakEnd, fitOf).some((i) => /closing photograph/.test(i)));
+  assert.deepEqual(weakLeads(weakEnd, () => undefined), [], "a photograph the catalogue does not know is not refused on that ground");
 });
