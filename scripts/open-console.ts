@@ -1,9 +1,9 @@
 /**
  * Opens the always-on console in the browser: npm run console.
- * The access token never leaves this process: this launcher proves that it knows it by signing a
- * fresh value and the moment, the console proves the same in its answer (a stranger listening on
- * the port learns nothing and cannot answer), and only a ticket that works once and expires in
- * seconds goes into the address the browser opens.
+ * The access token never leaves this process. The console sends a challenge, this launcher signs
+ * it, the console signs back, and only a ticket that works once and expires in seconds goes into
+ * the address the browser opens. A stranger listening on the port gets a proof that is useless
+ * anywhere else and cannot produce the answer, so the browser is never opened for it.
  */
 import { spawn } from "node:child_process";
 import { randomBytes } from "node:crypto";
@@ -21,13 +21,18 @@ const fail = (why: string): never => {
   console.error(`${why} Start the console again with: bash scripts/install-console.sh`);
   process.exit(1);
 };
+const hello = await fetch(`${base}/api/challenge`, { redirect: "error" }).catch(() => null);
+if (!hello) fail(`Nothing answers on port ${port}.`);
+const challenge = hello!.ok ? ((await hello!.json()) as { challenge?: unknown }).challenge : null;
+if (typeof challenge !== "string" || !/^[a-f0-9]{32}$/.test(challenge)) fail(`What answers on port ${port} is not the RistHome console.`);
 const nonce = randomBytes(16).toString("hex");
+const signed = `${challenge}${nonce}`;
 const at = Date.now();
-const res = await fetch(`${base}/api/ticket`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ nonce, at, proof: proofOf(token, "ticket", nonce, at) }), redirect: "error" }).catch(() => null);
-if (!res) fail(`Nothing answers on port ${port}.`);
-const answer = res!.ok ? ((await res!.json()) as { ticket?: unknown; at?: unknown; proof?: unknown }) : null;
+// This proof signs the challenge of whoever answered: handed to a stranger, it opens nothing at the real console.
+const res = await fetch(`${base}/api/ticket`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ challenge, nonce, at, proof: proofOf(token, "ticket", signed, at) }), redirect: "error" }).catch(() => null);
+const answer = res?.ok ? ((await res.json()) as { ticket?: unknown; at?: unknown; proof?: unknown }) : null;
 // The answer must prove that it comes from the console that holds the same token, or the browser is not opened.
-if (!answer || !proofOk(token, "server", nonce, answer.at, answer.proof)) fail(`What answers on port ${port} is not the RistHome console.`);
+if (!answer || !proofOk(token, "server", signed, answer.at, answer.proof)) fail(`What answers on port ${port} is not the RistHome console.`);
 const ticket = answer!.ticket;
 if (typeof ticket !== "string" || !/^[a-f0-9]{48}$/.test(ticket)) fail("The console did not hand out an entry ticket.");
 spawn("open", [`${base}/?k=${ticket}`], { stdio: "ignore", detached: true }).unref();

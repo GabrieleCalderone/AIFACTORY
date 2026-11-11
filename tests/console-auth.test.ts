@@ -26,17 +26,20 @@ test("an old proof is refused, however valid it once was", () => {
   assert.equal(proofOk(token, "ticket", nonce, at, proof, at - PROOF_WINDOW_MS - 1), false, "from the future");
 });
 
-test("a ticket works once, expires, and a nonce is not accepted twice while its proof could still be valid", () => {
+test("a ticket needs a challenge the console issued; challenge and ticket each work once and expire", () => {
   let t = 0;
   const tickets = createTickets(30_000, () => t);
-  const ticket = tickets.issue(nonce)!;
-  assert.equal(tickets.issue(nonce), null, "replayed nonce");
+  assert.equal(tickets.issue("f".repeat(32)), null, "never issued");
+  const challenge = tickets.challenge();
+  const ticket = tickets.issue(challenge)!;
+  assert.equal(tickets.issue(challenge), null, "challenge already spent");
   assert.equal(tickets.redeem(ticket), true);
-  assert.equal(tickets.redeem(ticket), false, "already spent");
-  const late = tickets.issue("f".repeat(32))!;
+  assert.equal(tickets.redeem(ticket), false, "ticket already spent");
+  const late = tickets.issue(tickets.challenge())!;
   t = 31_000;
-  assert.equal(tickets.redeem(late), false, "expired");
+  assert.equal(tickets.redeem(late), false, "ticket expired");
+  const stale = tickets.challenge();
+  t += PROOF_WINDOW_MS + 1;
+  assert.equal(tickets.issue(stale), null, "challenge expired");
   assert.equal(tickets.redeem(undefined), false);
-  t = PROOF_WINDOW_MS + 1000;
-  assert.equal(tickets.issue(nonce), null, "still remembered after its proof has expired");
 });

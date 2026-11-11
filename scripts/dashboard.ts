@@ -525,17 +525,21 @@ const server = http.createServer(async (req, res) => {
   const url = new URL(req.url ?? "/", "http://localhost");
   try {
     if (!sameOrigin(req)) return json(res, 403, { error: "forbidden origin" });
-    // The launcher (scripts/open-console.ts) never sends the token: it proves it knows it, the console
-    // proves the same in its answer, and the browser gets a ticket that works once for a few seconds.
+    // The launcher (scripts/open-console.ts) never sends the token: it signs a challenge this console
+    // chose, the console signs back, and the browser gets a ticket that works once for a few seconds.
+    if (req.method === "GET" && url.pathname === "/api/challenge") return json(res, 200, { challenge: tickets.challenge() });
     if (req.method === "POST" && url.pathname === "/api/ticket") {
       if (!(req.headers["content-type"] ?? "").startsWith("application/json")) return json(res, 415, { error: "JSON only" });
       const body = (await readBody(req)) as Record<string, unknown>;
-      // Nothing derived from the token is given to a caller that has not proved it knows the token.
-      if (!proofOk(TOKEN, "ticket", body.nonce, body.at, body.proof)) return json(res, 401, { error: "bad proof" });
-      const ticket = tickets.issue(body.nonce as string);
-      if (!ticket) return json(res, 409, { error: "nonce already used" });
+      const signed = `${String(body.challenge)}${String(body.nonce)}`;
+      // The challenge is spent by this attempt, and nothing derived from the token is given to a caller that has not proved it knows the token.
+      const ticket = tickets.issue(body.challenge);
+      if (!ticket || !proofOk(TOKEN, "ticket", signed, body.at, body.proof)) {
+        tickets.redeem(ticket);
+        return json(res, 401, { error: "bad proof" });
+      }
       const at = Date.now();
-      return json(res, 200, { ticket, at, proof: proofOf(TOKEN, "server", body.nonce as string, at) });
+      return json(res, 200, { ticket, at, proof: proofOf(TOKEN, "server", signed, at) });
     }
     if (req.method === "GET" && url.pathname === "/" && tickets.redeem(url.searchParams.get("k"))) {
       res.writeHead(200, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" });
