@@ -77,12 +77,13 @@
     "sha256": "a7cab4208684a92cd29439b38a6db0a8b695bcc7b0bf86eeb183fbb1c225c0ed",
     "review": {
       "ok": true,
+      "people": "none",
       "category": "produce",
-      "subject": "Young pistachio leaves on a branch against a soft blurred background",
+      "subject": "Young pistachio leaves on a bare branch, soft blurred warm background",
       "reasons": [
-        "Single subject with air around it and a soft warm bokeh",
-        "Natural light, true colours, few colours",
-        "Pistachio is a Sicilian ingredient (Bronte)"
+        "Single subject with plenty of air",
+        "Natural light, muted true colours",
+        "Pistachio is a Sicilian crop"
       ]
     }
   },
@@ -541,11 +542,13 @@
     "sha256": "5efb51e16fdaf8d9cf0b4588e7d24db7470fbaf619a6cafd7f3f11a71fee3978",
     "review": {
       "ok": true,
-      "category": "sea",
-      "subject": "Dark volcanic rock stack rising from turquoise water below pale cliffs",
+      "people": "none",
+      "category": "landscape",
+      "subject": "Volcanic sea stack rising from turquoise water below pale cliffs",
       "reasons": [
-        "One clear subject with few colours and natural light",
-        "Sicilian volcanic coast, no people, text or signs"
+        "Clear single subject, natural light",
+        "Aeolian-style volcanic coast, Sicilian",
+        "No people, boats or text"
       ]
     }
   },
@@ -598,12 +601,13 @@
     "sha256": "7c4e611b5a36300e6320186912378be1673f913ea9ee0a104f9421f3137c28a5",
     "review": {
       "ok": true,
+      "people": "none",
       "category": "sea",
-      "subject": "Sea cave opening onto deep blue water in a volcanic cliff",
+      "subject": "Sea cave opening onto deep blue water in layered rock",
       "reasons": [
-        "Calm, minimal composition with a single subject and few colours",
-        "Soft natural light, no people or text",
-        "Slightly dark and flat but clean"
+        "Calm, uncluttered scene with few colours",
+        "Mediterranean volcanic coast",
+        "No people, text or brand"
       ]
     }
   },

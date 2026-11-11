@@ -42,7 +42,7 @@ type Entry = {
   id: string; title: string; pageUrl: string; downloadUrl: string; originalWidth: number; originalHeight: number;
   licence: string; licenceUrl: string; artist: string; credit: string | null; query: string; status: Status; foundAt: string;
   file?: string; width?: number; height?: number; sha256?: string;
-  review?: { ok: boolean; category?: string; subject?: string; reasons?: string[] }; approvedAt?: string;
+  review?: { ok: boolean; people?: "none" | "present"; category?: string; subject?: string; reasons?: string[] }; approvedAt?: string;
 };
 const registry: Record<string, Entry> = existsSync(REGISTRY) ? (JSON.parse(readFileSync(REGISTRY, "utf8")) as Record<string, Entry>) : {};
 const save = () => {
@@ -133,18 +133,20 @@ REFUSE a picture that shows any of: a recognisable person or face; a cooked or p
 ACCEPT only pictures a starred restaurant would publish. The house's own picture rules: ${JSON.stringify(standard?.visual ?? [])}
 Pictures:
 ${batch.map((e, n) => `${n + 1}. id=${e.id} file=${path.resolve(DIR, e.file!)}`).join("\n")}
-Answer with ONE JSON object only: {"items":[{"id":"<id>","ok":true|false,"category":"<one of ${CATEGORIES.join(", ")}>","subject":"<what is in the picture, max 12 words, plain>","reasons":["<max 3 short reasons>"]}]}`;
+Answer with ONE JSON object only: {"items":[{"id":"<id>","ok":true|false,"people":"none"|"present" (present = any person, face, hand or silhouette, however small),"category":"<one of ${CATEGORIES.join(", ")}>","subject":"<what is in the picture, max 12 words, plain>","reasons":["<max 3 short reasons>"]}]}`;
     const args = ["-p", prompt, "--output-format", "json", "--model", values.model, "--disallowedTools", "Bash,Edit,Write,MultiEdit,NotebookEdit,WebFetch,WebSearch,Task,Agent,Glob,Grep,LS,TodoWrite,KillShell,BashOutput", "--allowedTools", `Read(${path.resolve(DIR)}/**)`];
     const text = runClaudeCli(args);
     const start = text.indexOf("{");
     const end = text.lastIndexOf("}");
-    const verdict = JSON.parse(text.slice(start, end + 1)) as { items?: { id: string; ok: boolean; category?: string; subject?: string; reasons?: string[] }[] };
+    const verdict = JSON.parse(text.slice(start, end + 1)) as { items?: { id: string; ok: boolean; people?: string; category?: string; subject?: string; reasons?: string[] }[] };
     for (const item of verdict.items ?? []) {
       const e = batch.find((b) => b.id === String(item.id));
       if (!e) continue;
       const category = (CATEGORIES as readonly string[]).includes(item.category ?? "") ? item.category : undefined;
-      const ok = item.ok === true && Boolean(category);
-      e.review = { ok, category, subject: plain(item.subject ?? "", 100), reasons: (Array.isArray(item.reasons) ? item.reasons : []).slice(0, 3).map((r) => plain(String(r), 120)) };
+      // Consent is recorded from the verdict, never assumed: without an explicit "none" the picture is refused.
+      const people = item.people === "none" ? "none" : "present";
+      const ok = item.ok === true && Boolean(category) && people === "none";
+      e.review = { ok, people, category, subject: plain(item.subject ?? "", 100), reasons: (Array.isArray(item.reasons) ? item.reasons : []).slice(0, 3).map((r) => plain(String(r), 120)) };
       e.status = ok ? "reviewed" : "rejected";
       console.log(`[context] ${e.id}: ${ok ? `ok (${category})` : "refused"} ${e.review.subject} ${ok ? "" : `- ${e.review.reasons?.join("; ")}`}`);
     }
@@ -155,7 +157,7 @@ Answer with ONE JSON object only: {"items":[{"id":"<id>","ok":true|false,"catego
 const writeManifest = () => {
   mkdirSync(DIR, { recursive: true });
   const rows = Object.values(registry)
-    .filter((e) => e.status === "approved" && e.file && existsSync(path.join(DIR, e.file)))
+    .filter((e) => e.status === "approved" && e.review?.people === "none" && e.file && existsSync(path.join(DIR, e.file)))
     .map((e) => ({ file: e.file, width: e.width, height: e.height, orientation: (e.height ?? 0) >= (e.width ?? 0) ? "portrait" : "landscape", people: "none", subject: e.review?.subject ?? e.title, category: e.review?.category, credit: e.credit, licence: e.licence, source: e.pageUrl }));
   writeFileSync(path.join(DIR, "manifest.json"), JSON.stringify(rows, null, 2) + "\n");
   console.log(`[context] ${rows.length} approved picture(s) in ${DIR}/manifest.json`);
@@ -167,6 +169,7 @@ const decide = (status: "approved" | "rejected") => {
     const e = registry[id];
     if (!e) console.error(`[context] ${id}: unknown id`);
     else if (status === "approved" && e.status !== "reviewed") console.error(`[context] ${id}: only a reviewed picture can be approved (it is ${e.status})`);
+    else if (status === "approved" && e.review?.people !== "none") console.error(`[context] ${id}: no recorded verdict that the picture shows no people; run review again`);
     else Object.assign(e, { status, ...(status === "approved" ? { approvedAt: new Date().toISOString() } : {}) });
   }
   save();

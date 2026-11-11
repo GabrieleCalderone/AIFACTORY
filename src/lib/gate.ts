@@ -103,6 +103,7 @@ export const runGate = ({ spec, exists, info, archetypeIds, experimentRows }: Ga
   const published = {
     caption: spec.caption,
     hashtags: spec.hashtags,
+    credits: spec.credits,
     reel: spec.reel
       ? { hook: { title: spec.reel.hook.title, subtitle: spec.reel.hook.subtitle }, scenes: spec.reel.scenes.map((s) => ({ label: s.label, text: s.text })), cta: spec.reel.cta, audio: spec.reel.audio?.attribution }
       : undefined,

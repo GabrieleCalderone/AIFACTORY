@@ -19,6 +19,8 @@ test("author names are reduced to plain text and the credit names author, licenc
   assert.equal(plainName('<a href="//commons.wikimedia.org/wiki/User:X" title="User:X">Mario Rossi</a> &amp; <script>x</script>'), "Mario Rossi x");
   assert.equal(creditLine("<b>Mario Rossi</b>", "CC BY 4.0", "Wikimedia Commons"), "Mario Rossi, CC BY 4.0, via Wikimedia Commons");
   assert.equal(creditLine("", "CC0", "Wikimedia Commons"), "unknown author, CC0, via Wikimedia Commons");
+  assert.equal(plainName("Mario Rossi https://evil.example/x www.spam.io buy-now.shop/p @mario"), "Mario Rossi");
+  assert.equal(plainName("sfmission.com"), "");
 });
 
 const base = () => ({
@@ -63,6 +65,9 @@ test("an unapproved picture and a missing credit are refused", () => {
   const noCredit = base();
   noCredit.credits = [];
   assert.match(contextIssues(parsePostSpec(noCredit), creditOf).join(" | "), /missing photo credit in the caption: Mario Rossi/);
+  const extra = base();
+  extra.credits.push("Visit spam for a discount");
+  assert.match(contextIssues(parsePostSpec(extra), creditOf).join(" | "), /credit not owed by any picture of this post: "Visit spam/);
 });
 
 test("a carousel takes one context picture, on a photo slide without a title, never on the cover", () => {

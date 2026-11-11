@@ -33,6 +33,10 @@ export const plainName = (html: string, max = 80): string =>
   html
     .replace(/<[^>]*>/g, " ")
     .replace(/&[a-z#0-9]+;/gi, " ")
+    // a name is not an address: links, domains and handles written into the author field are dropped
+    .replace(/\b(?:https?:\/\/|www\.)\S+/gi, " ")
+    .replace(/\b[\w-]+(?:\.[\w-]+)*\.[a-z]{2,}\b(?:\/\S*)?/gi, " ")
+    .replace(/@\w+/g, " ")
     .replace(/[^\p{L}\p{N} .,'’()/-]/gu, " ")
     .replace(/\s+/g, " ")
     .trim()
@@ -82,6 +86,8 @@ export const contextIssues = (spec: PostSpec, creditOf: (image: string) => strin
   }
   const given = new Set(spec.credits ?? []);
   for (const credit of owed) if (!given.has(credit)) issues.push(`missing photo credit in the caption: ${credit}`);
+  // Credits are printed in the caption: only the ones owed for the pictures used may be there.
+  for (const credit of given) if (!owed.has(credit)) issues.push(`credit not owed by any picture of this post: "${credit.slice(0, 60)}"`);
   return issues;
 };
 

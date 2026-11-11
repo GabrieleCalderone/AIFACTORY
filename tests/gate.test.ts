@@ -77,3 +77,10 @@ test("a plate is judged against its box, not against the full frame", () => {
   const plated = parsePostSpec({ ...demoSpec, reel: { ...demoSpec.reel!, hook: { ...demoSpec.reel!.hook, frame: "plate" }, scenes: demoSpec.reel!.scenes.map((s) => ({ ...s, frame: "plate" })) } });
   assert.equal(runGate({ ...base, spec: plated, info }).warnings.some((w) => /reel (hook|scene)/.test(w)), false);
 });
+
+test("photo credits are scanned like every other published text", () => {
+  const withCredit = parsePostSpec({ ...demoSpec, credits: ["Mario Rossi, CC BY 4.0, via Wikimedia Commons"] });
+  assert.equal(runGate({ ...base, spec: withCredit }).errors.some((e) => /published text/.test(e)), false);
+  const withLink = parsePostSpec({ ...demoSpec, credits: ["Mario Rossi, see https://example.org/offer"] });
+  assert.ok(runGate({ ...base, spec: withLink }).errors.some((e) => /published text must not contain/.test(e)));
+});
