@@ -1,0 +1,156 @@
+{
+  "slug": "a3-20261110",
+  "lang": "en",
+  "title": "Event finger food list: 5 bites from the RistHome buffet, Palermo",
+  "brief": {
+    "archetype": "A3-menu-list",
+    "audience": "People planning a private or corporate event in Sicily who compare catering options and save posts for later",
+    "objective": "Saves and event enquiries on risthome.it",
+    "hook": "A numbered promise over a real tray of red pepper cream shot glasses: colourful and easy to read in the first second",
+    "sequence": [
+      "Cover: promise of 5 finger foods over arancini in paper cones",
+      "Slides 1 to 5: one real finger food per photo, name plus one factual line",
+      "How it works: events from 25 guests, served by the RistHome team",
+      "CTA: ask for an event proposal on risthome.it"
+    ],
+    "cta": "Ask for an event proposal on risthome.it (link in bio)",
+    "hypothesis": "A list carousel of real finger food earns more saves than a single photo. Success: save rate >= 2% of reach.",
+    "experimentId": "EXP-007",
+    "variantId": "A"
+  },
+  "caption": "Finger food for your event in Sicily.\n\nGolden arancini in wooden cones, mini pizzas with tomato, cheese and basil, salmon and tomato bruschetta, croquette bites, sesame buns, mini burger sliders and little cups for the buffet.\n\nMade and served by the RistHome team, from 25 guests, for private and corporate events in Palermo and all over Sicily. 5.0 on Google with 101 reviews.\n\nAsk for an event proposal on risthome.it (link in bio)",
+  "hashtags": [
+    "#palermo",
+    "#risthome",
+    "#sicily",
+    "#fingerfood",
+    "#arancini",
+    "#catering",
+    "#eventcatering",
+    "#sicilianfood",
+    "#chefadomicilio",
+    "#cateringpalermo"
+  ],
+  "reel": {
+    "hook": {
+      "image": "assets/pool/08-IMG_0012.jpg",
+      "trimSec": 0,
+      "title": "Finger food for your event",
+      "subtitle": "Palermo and all over Sicily",
+      "durationSec": 3,
+      "motion": "dolly-in"
+    },
+    "scenes": [
+      {
+        "image": "assets/pool/88-IMG_0112.jpg",
+        "trimSec": 0,
+        "text": "Golden fried balls in wooden cones with small picks",
+        "label": "1",
+        "durationSec": 2.2,
+        "motion": "dolly-in"
+      },
+      {
+        "image": "assets/pool/132-20241013_180624.jpg",
+        "trimSec": 0,
+        "text": "Fried bites on black scalloped plates",
+        "label": "2",
+        "durationSec": 2.2,
+        "motion": "pan-left"
+      },
+      {
+        "image": "assets/pool/134-20241013_180710.jpg",
+        "trimSec": 0,
+        "text": "Mini pizzas with tomato and grated cheese",
+        "label": "3",
+        "durationSec": 2.2,
+        "motion": "pan-right"
+      },
+      {
+        "image": "assets/pool/127-20240622_204132.jpg",
+        "trimSec": 0,
+        "text": "Toasted bread slices with a red topping on slate",
+        "label": "4",
+        "durationSec": 2.2,
+        "motion": "arc-left"
+      },
+      {
+        "image": "assets/pool/153-IMG-20230917-WA0009.jpg",
+        "trimSec": 0,
+        "text": "Small golden buns filled with fritters",
+        "label": "5",
+        "durationSec": 2.2,
+        "motion": "zoom-in"
+      },
+      {
+        "image": "assets/pool/152-IMG-20230917-WA0008.jpg",
+        "trimSec": 0,
+        "text": "A fried ball with herbs on a spoon over tomato sauce",
+        "label": "6",
+        "durationSec": 2.2,
+        "motion": "dolly-in"
+      }
+    ],
+    "cta": {
+      "title": "Your event, our team",
+      "line": "Ask for an event proposal on risthome.it (link in bio)",
+      "durationSec": 3.2
+    },
+    "transitionSec": 0.4,
+    "audio": {
+      "src": "audio/fretless.mp3",
+      "volume": 0.8,
+      "fadeOutSec": 1,
+      "attribution": "\"Fretless\" Kevin MacLeod (incompetech.com), CC BY 4.0"
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "type": "cover",
+        "image": "assets/pool/155-IMG-20231014-WA0009.jpg",
+        "title": "5 finger foods for your event in Sicily",
+        "kicker": "Event finger food"
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/170-IMG-20240717-WA0044.jpg",
+        "title": "1/5 Little cups on the buffet",
+        "body": "Rows of small cups with red cream and a white topping, set beside white flowers on the buffet."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/68-IMG_0081.jpg",
+        "title": "2/5 Fried croquette bites in cones",
+        "body": "Wooden cones arranged like a flower, each holding golden fried croquette bites with small picks."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/150-IMG-20230917-WA0001.jpg",
+        "title": "3/5 Sesame buns and red cups",
+        "body": "Many small golden sesame buns and glass cups of red appetisers laid out on a dark cloth."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/133-20241013_180659.jpg",
+        "title": "4/5 Mini pizzas",
+        "body": "Mini pizzas with tomato sauce, melted cheese and herbs, served on a black platter with greens."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/65-IMG_0075.jpg",
+        "title": "5/5 Mini burger sliders",
+        "body": "Close view of mini sliders with melted cheese, tomato and meat, held together on skewers."
+      },
+      {
+        "type": "text",
+        "title": "How it works",
+        "body": "RistHome serves finger food and dinners for private and corporate events in Sicily, from 25 guests. The RistHome team serves your guests. Chef Giacomo Napolitano is a former Gambero Rosso chef."
+      },
+      {
+        "type": "cta",
+        "title": "Ask for an event proposal on risthome.it",
+        "body": "Link in bio"
+      }
+    ]
+  }
+}

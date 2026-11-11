@@ -1,0 +1,135 @@
+{
+  "slug": "prova-standard-a4",
+  "lang": "it",
+  "title": "Il tavolo a casa vostra, chef privato a Palermo",
+  "brief": {
+    "archetype": "A4-private-table",
+    "audience": "Coppie e famiglie che affittano ville o appartamenti a Palermo e provincia e cercano un'esperienza privata con uno chef.",
+    "objective": "Richieste di preventivo qualificate",
+    "hook": "Si apre sul tavolo apparecchiato all'aperto: promette un chef che cucina a casa vostra prima di mostrare qualsiasi piatto.",
+    "sequence": [
+      "Il tavolo all'aperto, il luogo prima del piatto",
+      "Antipasto e primi serviti in ordine",
+      "Secondo e dolce, il picco del servizio",
+      "Un solo invito: il preventivo su risthome.it"
+    ],
+    "cta": "Chiedi un preventivo su risthome.it (link in bio)",
+    "hypothesis": "Mostrare il luogo prima dei piatti aumenta le richieste di preventivo per lo chef a domicilio. Success: >= 2 richieste qualificate ogni 1.000 riproduzioni",
+    "variantId": "A"
+  },
+  "caption": "Il vostro tavolo, cucinato a casa vostra, a Palermo.\nChef Giacomo Napolitano arriva nella vostra villa, nel vostro appartamento o in barca, a Palermo e in provincia: spesa, cucina, servizio e pulizia della cucina sono inclusi. Il menu nasce intorno agli ospiti.\n5.0 su Google con 101 recensioni.\nChiedi un preventivo su risthome.it (link in bio)",
+  "hashtags": [
+    "#palermo",
+    "#risthome",
+    "#chefadomicilio",
+    "#sicily"
+  ],
+  "reel": {
+    "hook": {
+      "image": "assets/pool/85-IMG_0108.jpg",
+      "trimSec": 0,
+      "title": "Il vostro tavolo, cucinato a casa vostra",
+      "subtitle": "Chef Giacomo Napolitano, Palermo",
+      "durationSec": 3.4,
+      "motion": "dolly-in"
+    },
+    "scenes": [
+      {
+        "image": "assets/pool/108-20201204_130524.jpg",
+        "trimSec": 0,
+        "text": "",
+        "label": "Antipasto",
+        "durationSec": 2.7,
+        "motion": "dolly-in"
+      },
+      {
+        "image": "assets/pool/22-IMG_0027.jpg",
+        "trimSec": 0,
+        "text": "",
+        "label": "Primo",
+        "durationSec": 2.7,
+        "motion": "arc-right"
+      },
+      {
+        "image": "assets/pool/110-20210108_154412.jpg",
+        "trimSec": 0,
+        "text": "Cucinato nella vostra cucina",
+        "label": "Primo",
+        "durationSec": 2.7,
+        "motion": "dolly-in"
+      },
+      {
+        "image": "assets/pool/154-IMG-20230928-WA0060.jpg",
+        "trimSec": 0,
+        "text": "",
+        "label": "Secondo",
+        "durationSec": 2.7,
+        "motion": "pan-left"
+      },
+      {
+        "image": "assets/pool/125-20240521_125348.jpg",
+        "trimSec": 0,
+        "text": "Servito al vostro tavolo",
+        "label": "Dolce",
+        "durationSec": 2.7,
+        "motion": "dolly-in"
+      }
+    ],
+    "cta": {
+      "title": "RistHome, il tuo chef a domicilio",
+      "line": "Chiedi un preventivo su risthome.it (link in bio)",
+      "durationSec": 3.2
+    },
+    "transitionSec": 0.4,
+    "audio": {
+      "src": "audio/fretless.mp3",
+      "volume": 0.8,
+      "fadeOutSec": 1,
+      "attribution": "\"Fretless\" Kevin MacLeod (incompetech.com), CC BY 4.0"
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "type": "cover",
+        "image": "assets/pool/143-IMG-20210523-WA0164.jpg",
+        "title": "Il vostro tavolo, a casa vostra",
+        "kicker": "RistHome · Palermo"
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/04-IMG_0008.jpg",
+        "title": "",
+        "body": ""
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/49-IMG_0055.jpg",
+        "title": "",
+        "body": "Il menu nasce intorno agli ospiti."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/162-IMG-20240327-WA0058.jpg",
+        "title": "",
+        "body": ""
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/84-IMG_0107.jpg",
+        "title": "",
+        "body": "Serviamo al vostro tavolo."
+      },
+      {
+        "type": "text",
+        "title": "Lo chef a casa vostra, a Palermo",
+        "body": "Spesa, cucina, servizio e pulizia della cucina sono inclusi. Villa, appartamento o barca, a Palermo e provincia. Il menu è costruito intorno agli ospiti."
+      },
+      {
+        "type": "cta",
+        "title": "Chiedi un preventivo su risthome.it (link in bio)",
+        "body": "Link in bio"
+      }
+    ]
+  }
+}

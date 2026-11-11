@@ -3,18 +3,18 @@
   "rotation": [
     "A6-chef-series",
     "A1-process-reveal",
-    "A3-menu-list",
+    "A4-private-table",
     "A2-chef-at-work",
     "A4-private-table",
     "A6-chef-series",
     "A5-proof-and-offer"
   ],
-  "nextIndex": 1,
+  "nextIndex": 3,
   "langs": [
     "en",
     "it"
   ],
   "nextLang": 1,
-  "lastPostAt": "2026-11-06T23:31:21.709Z",
+  "lastPostAt": "2026-11-10T23:43:54.917Z",
   "postingHourLocal": 18
 }

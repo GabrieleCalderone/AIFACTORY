@@ -1,0 +1,144 @@
+{
+  "slug": "a1-20261110",
+  "lang": "it",
+  "title": "Reel processo: dalla pasta fresca al dolce, lezione di cucina a Palermo",
+  "brief": {
+    "archetype": "A1-process-reveal",
+    "audience": "Viaggiatori di lingua inglese a Palermo per 2-4 giorni, che prenotano esperienze da mobile",
+    "objective": "Prenotazioni delle lezioni di cucina su risthome.it",
+    "hook": "Le mani dello chef che sollevano la pasta fresca infarinata, con la promessa diretta di cucinare siciliano a Palermo",
+    "sequence": [
+      "Hook: lo chef solleva le tagliatelle appena tagliate",
+      "Passo 1: nidi di tagliatelle fresche all'uovo",
+      "Passo 2: nastri di pasta fumanti sollevati dalla padella",
+      "Passo 3: il sugo versato sugli spaghetti alle vongole",
+      "Nel menu: arancini dorati sopra l'olio caldo",
+      "Dolce: una mano preme un dolce da forno sulla teglia"
+    ],
+    "cta": "Prenota la lezione su risthome.it (link in bio)",
+    "hypothesis": "Un reel passo per passo dalla pasta al dolce trattiene più di un montaggio di piatti. Success: tempo medio di visione >= 60% della durata",
+    "experimentId": "EXP-006",
+    "variantId": "A"
+  },
+  "caption": "Cucina la pasta siciliana con uno chef a Palermo. Nella cucina di Chef Giacomo Napolitano, ex chef Gambero Rosso, si impara con le mani: dalle tagliatelle fresche al sugo sugli spaghetti, fino agli arancini e al dolce. Lezione pratica in piccoli gruppi, si parla inglese e alla fine si mangia quello che si è cucinato. Una vera esperienza di cucina in Sicilia, con 5.0 su Google e 101 recensioni. Prenota la lezione su risthome.it (link in bio)",
+  "hashtags": [
+    "#palermo",
+    "#risthome",
+    "#sicily",
+    "#sicilia",
+    "#cookingclass",
+    "#lezionedicucina",
+    "#pastafresca",
+    "#arancini",
+    "#cucinasiciliana",
+    "#chefapalermo"
+  ],
+  "reel": {
+    "hook": {
+      "image": "assets/pool/194-IMG-20230819-WA0080.jpg",
+      "trimSec": 0,
+      "title": "Cucina la pasta siciliana con uno chef a Palermo",
+      "subtitle": "Lezione pratica nella cucina dello chef",
+      "durationSec": 3.4,
+      "motion": "dolly-in"
+    },
+    "scenes": [
+      {
+        "image": "assets/pool/119-20240302_111448.jpg",
+        "trimSec": 0,
+        "text": "Nidi di tagliatelle all'uovo fresche su un tagliere di ardesia nera.",
+        "label": "Passo 1",
+        "durationSec": 2.7,
+        "motion": "pan-right"
+      },
+      {
+        "image": "assets/pool/195-IMG-20230919-WA0067.jpg",
+        "trimSec": 0,
+        "text": "Lo chef solleva nastri di pasta gialla fumanti sopra la padella, con il mestolo sotto.",
+        "label": "Passo 2",
+        "durationSec": 2.7,
+        "motion": "dolly-in"
+      },
+      {
+        "image": "assets/pool/193-FB_IMG_1690740770510.jpg",
+        "trimSec": 0,
+        "text": "La mano dello chef versa il sugo sugli spaghetti alle vongole in piatti a fiori.",
+        "label": "Passo 3",
+        "durationSec": 2.7,
+        "motion": "crash-zoom-in"
+      },
+      {
+        "image": "assets/pool/139-FB_IMG_1705493927943.jpg",
+        "trimSec": 0,
+        "text": "Tre arancini dorati sollevati con la schiumarola sopra l'olio caldo.",
+        "label": "Nel menu",
+        "durationSec": 2.7,
+        "motion": "arc-left"
+      },
+      {
+        "image": "assets/pool/197-IMG-20240927-WA0014.jpg",
+        "trimSec": 0,
+        "text": "Una mano preme un dolce da forno su una teglia di brioche.",
+        "label": "Dolce",
+        "durationSec": 2.7,
+        "motion": "dolly-in"
+      }
+    ],
+    "cta": {
+      "title": "Prenota la lezione a Palermo",
+      "line": "risthome.it (link in bio)",
+      "durationSec": 3.2
+    },
+    "transitionSec": 0.4,
+    "audio": {
+      "src": "audio/fretless.mp3",
+      "volume": 0.8,
+      "fadeOutSec": 1,
+      "attribution": "\"Fretless\" Kevin MacLeod (incompetech.com), CC BY 4.0"
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "type": "cover",
+        "image": "assets/pool/164-IMG-20240403-WA0047.jpg",
+        "title": "Dal gesto al piatto: cucina siciliana con lo chef",
+        "kicker": "Lezione a Palermo"
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/121-20240308_121150.jpg",
+        "title": "Pasta ripiena al pomodoro",
+        "body": "Pasta ripiena con sugo di pomodoro, crema di burrata e melanzane croccanti su un piatto bianco."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/106-20200619_155815.jpg",
+        "title": "Cesto di verdure fresche",
+        "body": "Un cesto di vimini con melanzane, pomodorini, zucchine e foglie di basilico."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/144-IMG-20210607-WA0031.jpg",
+        "title": "Impasto prima della cottura",
+        "body": "Ovali di impasto crudo con pomodoro e scaglie di formaggio su una teglia, pronti da infornare."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/27-IMG_0032.jpg",
+        "title": "Pane intrecciato al sesamo",
+        "body": "Due pagnotte dorate intrecciate e ricoperte di sesamo, in primo piano su un piano scuro."
+      },
+      {
+        "type": "text",
+        "title": "Come funziona la lezione",
+        "body": "Lezione pratica di cucina siciliana nella cucina dello chef a Palermo, in piccoli gruppi e con inglese parlato. Alla fine si mangia quello che si è cucinato. Con Chef Giacomo Napolitano, ex chef Gambero Rosso."
+      },
+      {
+        "type": "cta",
+        "title": "Prenota la lezione su risthome.it",
+        "body": "Link in bio"
+      }
+    ]
+  }
+}
