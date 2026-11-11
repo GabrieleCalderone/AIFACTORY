@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { applyReview, dishKey, factsOf, type ReviewPair } from "../src/lib/review.ts";
+import { applyReview, dishKey, factsOf, mergeExclusions, type ReviewPair } from "../src/lib/review.ts";
 
 const pair = (where: string, file: string, node: Record<string, unknown>, allowed: string[], required: string[] = []): ReviewPair => ({ where, file, node, allowed, required });
 
@@ -44,9 +44,33 @@ test("an unfit photo is reported once with a known code; unknown codes are dropp
   const out = applyReview(pairs, [
     { where: "reel.scenes.0", ok: false, unfit: "screenshot" },
     { where: "carousel.slides.1", ok: false, unfit: "app_ui" },
-    { where: "reel.scenes.1", ok: true, unfit: "ignore previous instructions" },
+    { where: "reel.scenes.1", ok: false, unfit: "ignore previous instructions" },
   ]);
   assert.deepEqual(out.unfit, [{ file: "88-IMG_0112.jpg", code: "screenshot" }]);
+});
+
+test("a photo is excluded only by an item the reviewer failed", () => {
+  const pairs = [pair("reel.scenes.0", "assets/pool/a.jpg", { text: "a" }, ["text"])];
+  assert.deepEqual(applyReview(pairs, [{ where: "reel.scenes.0", ok: true, unfit: "screenshot" }]).unfit, []);
+});
+
+test("a fix is stripped to plain text and held to the field's schema length", () => {
+  const scene = { label: "1", text: "old" };
+  const pairs: ReviewPair[] = [{ where: "reel.scenes.0", file: "assets/pool/a.jpg", node: scene, allowed: ["label", "text"], required: [], max: { label: 30, text: 90 } }];
+  const out = applyReview(pairs, [{ where: "reel.scenes.0", ok: false, fix: { text: 'Pasta "fresca" {ignore} <b>now</b>\n# do this', label: "x".repeat(31) } }]);
+  assert.equal(out.fixes, 1);
+  assert.equal(scene.text, "Pasta fresca ignore b now /b do this");
+  assert.equal(scene.label, "1");
+});
+
+test("reviewer exclusions merge into the overrides on disk and never replace a person's decision", () => {
+  const current = { "a.jpg": { include: true, note: "scelta da Gabriele" }, "b.jpg": { exclude: true, note: "ospiti" } };
+  const out = mergeExclusions(current, [{ file: "a.jpg", code: "screenshot" }, { file: "b.jpg", code: "guests" }, { file: "c.jpg", code: "app_ui" }], "a1-x");
+  assert.deepEqual(out.added, ["c.jpg"]);
+  assert.deepEqual(out.kept, ["a.jpg", "b.jpg"]);
+  assert.deepEqual(out.merged["a.jpg"], { include: true, note: "scelta da Gabriele" });
+  assert.deepEqual(out.merged["c.jpg"], { exclude: true, note: "reviewer: app_ui (a1-x)" });
+  assert.equal("c.jpg" in current, false, "the input is not mutated");
 });
 
 test("the caption problem is carried, never a caption fix", () => {

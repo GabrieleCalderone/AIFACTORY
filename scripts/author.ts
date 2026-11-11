@@ -10,7 +10,7 @@
  * Uses the `claude` CLI (subscription); no API key. Exit 1 if the gate reports errors.
  */
 import { spawnSync } from "node:child_process";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { nextId, readExperiments, writeExperiments } from "../src/lib/data.ts";
@@ -19,7 +19,7 @@ import { lintStandard, silence } from "../src/lib/house-standard.ts";
 import { mediaOf } from "../src/lib/gate.ts";
 import { parsePostSpec, PostSpec, type PostSpecInput } from "../src/schemas/post.ts";
 import { rankForService, type Format, type Override, type Service, type TechnicalRow, type Verdict } from "../src/lib/visual-score.ts";
-import { applyReview, dishKey, factsOf, type ReviewItem, type ReviewPair } from "../src/lib/review.ts";
+import { applyReview, dishKey, factsOf, mergeExclusions, sanitizeText, type ReviewItem, type ReviewPair } from "../src/lib/review.ts";
 import { setState } from "../src/lib/pipeline-io.ts";
 import { runClaudeCli } from "../src/lib/claude-cli.ts";
 
@@ -91,7 +91,7 @@ const overridesPath = "data/asset-overrides.json";
 const overrides = existsSync(overridesPath) ? (JSON.parse(readFileSync(overridesPath, "utf8")) as Record<string, Override>) : {};
 // Dish names confirmed by the chef (content/dishes.json), the only dish names a text may use.
 const dishes = existsSync("content/dishes.json") ? (JSON.parse(readFileSync("content/dishes.json", "utf8")) as { names?: Record<string, Partial<Record<"it" | "en", string>>> }).names ?? {} : {};
-const dishOf = (file: string): string => sanitize(dishes[dishKey(file)]?.[lang as "it" | "en"] ?? "", 60);
+const dishOf = (file: string): string => sanitizeText(dishes[dishKey(file)]?.[lang as "it" | "en"] ?? "", 60);
 const verdicts = Object.values(scoresFile.verdicts)
   .map((byKey) => byKey[`${service}:${format}`])
   .filter((v): v is Verdict => Boolean(v))
@@ -159,9 +159,6 @@ RULES: a text next to a photo never contradicts that photo and never asserts any
 /** Deny-by-default tool posture for every headless call; the reviewer gets a scoped Read only. */
 const DENIED_TOOLS = "Bash,Edit,Write,MultiEdit,NotebookEdit,WebFetch,WebSearch,Task,Agent,Glob,Grep,LS,TodoWrite,KillShell,BashOutput";
 /** Strip reviewer free text before it is interpolated into another prompt: letters, digits, basic punctuation, short. */
-function sanitize(text: string, max = 300): string {
-  return text.replace(/[^\p{L}\p{N} .,;:'’()/-]/gu, " ").replace(/\s+/g, " ").trim().slice(0, max);
-}
 /** Reviewer verdicts are reduced to a fixed reason code; only the code's canned sentence reaches the next prompt. */
 const PROBLEM_CODES: [RegExp, string][] = [
   [/invent|not (?:visible|shown|supported)|does not show|doesn't show|non (?:visibile|mostra)|cannot (?:be )?(?:confirm|identif)/i, "the caption mentions dishes, ingredients, people or places that the photos do not show"],
@@ -239,13 +236,13 @@ if (!values["no-review"]) {
   const rawObj = raw as unknown as { reel?: { hook: Record<string, unknown>; scenes: Record<string, unknown>[] }; carousel?: { slides: Record<string, unknown>[] } };
   const pick = (o: Record<string, unknown>, keys: string[]) => Object.fromEntries(keys.filter((k) => typeof o[k] === "string" && (o[k] as string).trim()).map((k) => [k, o[k] as string]));
   if (spec.reel && rawObj.reel) {
-    pairs.push({ where: "reel.hook", file: spec.reel.hook.image!, node: rawObj.reel.hook, fields: pick(rawObj.reel.hook, ["title", "subtitle"]), allowed: ["title", "subtitle"], required: ["title"] });
-    spec.reel.scenes.forEach((sc, i) => pairs.push({ where: `reel.scenes.${i}`, file: sc.image!, node: rawObj.reel!.scenes[i], fields: pick(rawObj.reel!.scenes[i], ["label", "text"]), allowed: ["label", "text"], required: [] }));
+    pairs.push({ where: "reel.hook", file: spec.reel.hook.image!, node: rawObj.reel.hook, fields: pick(rawObj.reel.hook, ["title", "subtitle"]), allowed: ["title", "subtitle"], required: ["title"], max: { title: 80, subtitle: 80 } });
+    spec.reel.scenes.forEach((sc, i) => pairs.push({ where: `reel.scenes.${i}`, file: sc.image!, node: rawObj.reel!.scenes[i], fields: pick(rawObj.reel!.scenes[i], ["label", "text"]), allowed: ["label", "text"], required: [], max: { label: 30, text: 90 } }));
   }
   spec.carousel?.slides.forEach((sl, i) => {
     const node = rawObj.carousel!.slides[i];
-    if (sl.type === "cover") pairs.push({ where: `carousel.slides.${i}`, file: sl.image, node, fields: pick(node, ["kicker", "title"]), allowed: ["kicker", "title"], required: ["title"] });
-    if (sl.type === "photo") pairs.push({ where: `carousel.slides.${i}`, file: sl.image, node, fields: pick(node, ["title", "body"]), allowed: ["title", "body"], required: [] });
+    if (sl.type === "cover") pairs.push({ where: `carousel.slides.${i}`, file: sl.image, node, fields: pick(node, ["kicker", "title"]), allowed: ["kicker", "title"], required: ["title"], max: { kicker: 40, title: 90 } });
+    if (sl.type === "photo") pairs.push({ where: `carousel.slides.${i}`, file: sl.image, node, fields: pick(node, ["title", "body"]), allowed: ["title", "body"], required: [], max: { title: 70, body: 220 } });
   });
   const brandFacts = brand as Record<string, unknown>;
   const review = `Review Instagram posts of a fine-dining brand, photo by photo. For each item, Read the image file, then judge two things.
@@ -265,11 +262,19 @@ Answer with ONE JSON object only: {"items":[{"where":"<where>","ok":true|false,"
     if (outcome.unfit.length) {
       // A photo that should never be published slipped past the catalogue: exclude it for good
       // and author again from the remaining pool (nothing was written for this slug yet).
-      for (const u of outcome.unfit) {
-        overrides[u.file] = { exclude: true, note: `reviewer: ${u.code} (${slug})` };
-        console.log(`[author] ${u.file} excluded: ${u.code}`);
+      // Merge into the file as it is on disk now (a person may have edited it in the console while
+      // the model calls ran) and never replace a decision already recorded for a file.
+      const onDisk = existsSync(overridesPath) ? (JSON.parse(readFileSync(overridesPath, "utf8")) as Record<string, Override>) : {};
+      const { merged, added, kept } = mergeExclusions(onDisk, outcome.unfit, slug);
+      const tmp = `${overridesPath}.${process.pid}.tmp`;
+      writeFileSync(tmp, JSON.stringify(merged, null, 2) + "\n");
+      renameSync(tmp, overridesPath);
+      added.forEach((f) => console.log(`[author] ${f} excluded: ${outcome.unfit.find((u) => u.file === f)?.code}`));
+      kept.forEach((f) => console.log(`[author] ${f} flagged by the reviewer, but a decision is already recorded for it: left as it is`));
+      if (!added.length) {
+        console.error("[author] the reviewer flagged only photos a person already decided on; stopping so a person can look");
+        process.exit(4);
       }
-      writeFileSync(overridesPath, JSON.stringify(overrides, null, 2) + "\n");
       const rerun = Number(process.env.AUTHOR_RERUN ?? "0");
       if (rerun >= 2) {
         console.error("[author] unfit photos found in three selections in a row; stopping so a person can look at the pool");
@@ -283,7 +288,7 @@ Answer with ONE JSON object only: {"items":[{"where":"<where>","ok":true|false,"
     if (outcome.captionProblem) {
       // Regenerate the caption with the no-tools author call, constrained to the texts as they stand after the fixes.
       // Only schema-bound scene/slide fields (sanitised) and a canned reason reach the next prompt.
-      const facts = sanitize(factsOf(pairs), 1200);
+      const facts = sanitizeText(factsOf(pairs), 1200);
       const text = runClaude(`Rewrite this Instagram caption in ${lang === "it" ? "Italian" : "English"} for a fine-dining brand whose guests pay 100 to 200 EUR per person (max ${standard?.limits.captionChars ?? 500} characters, calm and short, first line is the hook, last line is exactly "${brand.cta[lang][archetype.service]}"). Problem with the current caption: ${problemCode(outcome.captionProblem)}. The only dishes and scenes you may name are the ones in this list, word for word: ${facts || "none"}. Brand facts allowed: ${JSON.stringify(brandFacts.services)} ${JSON.stringify(brandFacts.proof)}. Never mention prices, and never name or describe any food that is not in the list. No hype words, no exclamation marks, no emojis. Current caption: ${JSON.stringify(spec.caption)}. Answer with ONE JSON object only: {"caption":"..."}`);
       const obj = extractJson(text) as { caption?: string };
       if (typeof obj.caption === "string" && obj.caption.trim().length > 20 && obj.caption.length <= 2200) {

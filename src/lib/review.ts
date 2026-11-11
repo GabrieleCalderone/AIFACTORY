@@ -14,7 +14,13 @@ export type ReviewPair = {
   allowed: string[];
   /** fields the schema requires: an empty fix never removes them */
   required: string[];
+  /** schema length cap per field; a longer fix is ignored */
+  max?: Record<string, number>;
 };
+
+/** Reviewer text is model output read off photos: only letters, digits and plain punctuation survive. */
+export const sanitizeText = (text: string, max = 300): string =>
+  text.replace(/[^\p{L}\p{N} .,;:'’()/-]/gu, " ").replace(/\s+/g, " ").trim().slice(0, max);
 export type ReviewItem = { where: string; ok: boolean; problem?: string; fix?: Record<string, string>; unfit?: string };
 
 /** Photo defects that make an asset unpublishable whatever the text says. */
@@ -29,19 +35,20 @@ export const applyReview = (pairs: ReviewPair[], items: ReviewItem[]): { fixes: 
   let captionProblem = "";
   for (const item of items) {
     const pair = byWhere.get(item.where);
+    if (item.ok) continue;
+    // Only an item the reviewer actually failed can take a photo out of the pool.
     if (pair && item.unfit && (UNFIT_CODES as readonly string[]).includes(item.unfit)) {
       const file = path.basename(pair.file);
       if (!unfit.has(file)) unfit.set(file, item.unfit as UnfitCode);
     }
-    if (item.ok) continue;
     if (item.where === "caption") {
       captionProblem = item.problem ?? "caption does not match the photos";
       continue;
     }
     if (!pair || !item.fix) continue;
     for (const [k, v] of Object.entries(item.fix)) {
-      if (!pair.allowed.includes(k) || typeof v !== "string" || v.length > 320) continue;
-      const value = v.trim();
+      if (!pair.allowed.includes(k) || typeof v !== "string" || v.length > (pair.max?.[k] ?? 320)) continue;
+      const value = sanitizeText(v, pair.max?.[k] ?? 320);
       if (!value) {
         // An empty fix means "say nothing here": better silence than a wrong or clinical line.
         if (pair.required.includes(k) || !(k in pair.node)) continue;
@@ -66,3 +73,24 @@ export const factsOf = (pairs: ReviewPair[]): string =>
 /** Key of a photo in content/dishes.json: the original file name, without pool index and extension. */
 export const dishKey = (file: string): string =>
   path.basename(file).replace(/\.[^.]+$/, "").replace(/^\d{1,4}-(?=.)/, "").toLowerCase();
+
+export type AssetOverride = { include?: boolean; exclude?: boolean; note?: string };
+
+/**
+ * Adds reviewer exclusions to the overrides as they are on disk now. A decision a person
+ * already recorded for a file is never replaced; those files are returned as `kept`.
+ */
+export const mergeExclusions = (current: Record<string, AssetOverride>, unfit: { file: string; code: UnfitCode }[], note: string): { merged: Record<string, AssetOverride>; added: string[]; kept: string[] } => {
+  const merged = { ...current };
+  const added: string[] = [];
+  const kept: string[] = [];
+  for (const u of unfit) {
+    if (merged[u.file]) {
+      kept.push(u.file);
+      continue;
+    }
+    merged[u.file] = { exclude: true, note: `reviewer: ${u.code} (${note})` };
+    added.push(u.file);
+  }
+  return { merged, added, kept };
+};
