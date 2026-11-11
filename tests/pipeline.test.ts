@@ -70,3 +70,11 @@ test("only posts that reached the audience, or wait to, count for the photo cool
   assert.deepEqual(recentLiveSlugs(pipeline, 8), ["queued", "waiting", "old"]);
   assert.deepEqual(recentLiveSlugs(pipeline, 2), ["queued", "waiting"]);
 });
+
+test("the photo cooldown shrinks with a small archive and never drops below one post", async () => {
+  const { cooldownPosts } = await import("../src/lib/pipeline.ts");
+  assert.equal(cooldownPosts(200, 6), 8, "a large archive keeps the full rest");
+  assert.equal(cooldownPosts(46, 6), 6);
+  assert.equal(cooldownPosts(20, 6), 2);
+  assert.equal(cooldownPosts(5, 6), 1);
+});

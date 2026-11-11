@@ -24,7 +24,7 @@ import { parsePostSpec, PostSpec, type PostSpecInput } from "../src/schemas/post
 import { rankForService, type Format, type Service, type TechnicalRow, type Verdict } from "../src/lib/visual-score.ts";
 import { applyReview, dishKey, factsOf, isHeldBack, MAX_EXCLUSIONS_PER_REVIEW, mergeExclusions, sanitizeText, type AssetOverride, type ReviewItem, type ReviewPair } from "../src/lib/review.ts";
 import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
-import { LIVE_STATES, recentLiveSlugs } from "../src/lib/pipeline.ts";
+import { cooldownPosts, LIVE_STATES, recentLiveSlugs } from "../src/lib/pipeline.ts";
 import { runClaudeCli } from "../src/lib/claude-cli.ts";
 
 const { values } = parseArgs({
@@ -87,18 +87,25 @@ const service = archetype.service as Service;
 const usagePath = "data/asset-usage.json";
 const usage = existsSync(usagePath) ? (JSON.parse(readFileSync(usagePath, "utf8")) as Record<string, string[]>) : {};
 // Differentiation rule (platform dedup): a photo used in any of the last 8 posts is not offered again.
-// Only posts that reached the audience, or are waiting to, use up their photos; drafts that were
-// rejected or abandoned do not. The series episode counts the same posts.
-const pipelineNow = loadPipeline();
-const lastEight = new Set(recentLiveSlugs(pipelineNow, 8));
-const episode = Object.values(pipelineNow).filter((r) => LIVE_STATES.includes(r.state) && r.slug.startsWith(archetype.id.slice(0, 2).toLowerCase() + "-")).length + 1;
-const seriesLine = archetype.seriesName ? `SERIES: this is episode ${episode} of "${archetype.seriesName[lang]}": the hook title must start with "${archetype.seriesName[lang]}, ep. ${episode}" and the caption must open with the same line.` : "";
 // Exclusions take effect at once (the reviewer writes them mid-run), without waiting for a rescore.
 const overridesPath = "data/asset-overrides.json";
 const overrides = existsSync(overridesPath) ? (JSON.parse(readFileSync(overridesPath, "utf8")) as Record<string, AssetOverride>) : {};
 // Dish names confirmed by the chef (content/dishes.json), the only dish names a text may use.
 const dishes = existsSync("content/dishes.json") ? (JSON.parse(readFileSync("content/dishes.json", "utf8")) as { names?: Record<string, Partial<Record<"it" | "en", string>>> }).names ?? {} : {};
 const dishOf = (file: string): string => sanitizeText(dishes[dishKey(file)]?.[lang as "it" | "en"] ?? "", 60);
+// Only posts that reached the audience, or are waiting to, use up their photos; drafts that were
+// rejected or abandoned do not. The series episode counts the same posts.
+const pipelineNow = loadPipeline();
+const photosPerPost = Math.max(1 + (archetype.formats.reel?.sceneCount ?? 0), (archetype.formats.carousel?.slides ?? []).filter((t) => t === "cover" || t === "photo").length);
+const usableForService = Object.values(scoresFile.verdicts).filter((byKey) => {
+  const v = byKey[`${service}:${format}`];
+  return v && !v.blocked && v.tier !== "excluded" && !isHeldBack(overrides[v.file]);
+}).length;
+const cooldown = cooldownPosts(usableForService, photosPerPost);
+console.log(`[author] ${usableForService} photos fit for ${service}; a photo rests for ${cooldown} post(s) before it can return`);
+const lastEight = new Set(recentLiveSlugs(pipelineNow, cooldown));
+const episode = Object.values(pipelineNow).filter((r) => LIVE_STATES.includes(r.state) && r.slug.startsWith(archetype.id.slice(0, 2).toLowerCase() + "-")).length + 1;
+const seriesLine = archetype.seriesName ? `SERIES: this is episode ${episode} of "${archetype.seriesName[lang]}": the hook title must start with "${archetype.seriesName[lang]}, ep. ${episode}" and the caption must open with the same line.` : "";
 const verdicts = Object.values(scoresFile.verdicts)
   .map((byKey) => byKey[`${service}:${format}`])
   .filter((v): v is Verdict => Boolean(v))
@@ -150,7 +157,7 @@ ${JSON.stringify({ id: archetype.id, name: archetype.name, useFor: archetype.use
 LANGUAGE: ${lang === "it" ? "Italian" : "English"}. Service to sell: ${archetype.service}. CTA to use: "${brand.cta[lang][archetype.service]}".
 ${seriesLine}
 
-PHOTOS YOU MAY USE (listed best first; use only these exact file paths; each photo at most once; prefer the ones at the top and open with the best one):
+PHOTOS YOU MAY USE (listed best first; use only these exact file paths; the reel and the carousel show the same photographs, the reel being a second look at the same work, and within each of them a photo appears once; prefer the ones at the top and open with the best one):
 ${candidateList}
 ${contextBlock}
 OUTPUT SHAPE:

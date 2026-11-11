@@ -124,3 +124,11 @@ export const recentLiveSlugs = (pipeline: Pipeline, n: number): string[] =>
     .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt) || a.slug.localeCompare(b.slug))
     .slice(0, n)
     .map((r) => r.slug);
+
+/**
+ * How many recent posts keep their photos out of the next one. Eight when the archive allows
+ * it; fewer when the photos fit for a service are few, so that the calendar does not stop:
+ * the archive is fixed, and a small set has to come round again sooner.
+ */
+export const cooldownPosts = (usablePhotos: number, photosPerPost: number, max = 8): number =>
+  Math.max(1, Math.min(max, Math.floor(usablePhotos / Math.max(1, photosPerPost)) - 1));
