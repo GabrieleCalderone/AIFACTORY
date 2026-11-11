@@ -57,11 +57,12 @@ if (!existsSync(hostedPath)) {
   process.exit(1);
 }
 const hosted = JSON.parse(readFileSync(hostedPath, "utf8")) as { reel?: string; cover?: string; carousel?: string[]; dryRun?: boolean; version?: string };
-// Completing a scheduled post sends what was approved, not something edited since: the hosted files must be those of the post as it is now.
-if (values.missing && !dryRunRequested) {
+// What goes out is the post as it was rendered, hosted and approved, not something edited since:
+// the hosted files must be those of the post file as it is now. Checked for every real publication.
+if (!dryRunRequested && hosted.dryRun !== true) {
   const now = createHash("sha256").update(readFileSync(file)).digest("hex");
   if (!hosted.version || !now.startsWith(hosted.version)) {
-    console.error(`[publish] ${spec.slug}: the post changed after its files were hosted; render and host it again before --missing`);
+    console.error(`[publish] ${spec.slug}: the post changed after its files were hosted; render, host and approve it again before publishing`);
     process.exit(1);
   }
 }
@@ -88,14 +89,18 @@ const altTextFor = (i: number): string => {
   return `${what}. RistHome, ${spec.lang === "it" ? "chef a domicilio e lezioni di cucina a Palermo" : "private chef and cooking classes in Palermo, Sicily"}.`.slice(0, 1000);
 };
 // The AI disclosure follows the format that carries generated material, read from the spec itself.
-const made = generatedIn(spec);
+const found = generatedIn(spec);
+// A post declared as AI content whose generated material this check cannot locate is disclosed on
+// both formats: a declaration is narrowed to one format only when the material was actually found there.
+const unlocated = spec.aiGenerated === true && found.reel.length + found.carousel.length === 0;
+const made = { reel: unlocated || found.reel.length > 0, carousel: unlocated || found.carousel.length > 0 };
 const target = (platform: Platform) => (dryRun ? channels[platform] ?? `<${platform} channel>` : channels[platform]);
 if (spec.reel && hosted.reel) {
   for (const d of distribution.reel) {
     const channelId = target(d.platform);
     if (!channelId) continue;
     const dueAt = new Date(when.getTime() + d.offsetHours * 3600 * 1000).toISOString();
-    const metadata = postMetadata(d.platform, "reel", { aiGenerated: made.reel.length > 0, title: hookTitle });
+    const metadata = postMetadata(d.platform, "reel", { aiGenerated: made.reel, title: hookTitle });
     if (metadata === null) {
       console.log(`[publish] ${spec.slug} reel -> ${d.platform}: skipped, this post contains generated material and ${d.platform} has no AI disclosure through Buffer`);
       continue;
@@ -108,7 +113,7 @@ if (spec.carousel && hosted.carousel?.length) {
     const channelId = target(d.platform);
     if (!channelId) continue;
     const dueAt = new Date(when.getTime() + d.offsetHours * 3600 * 1000).toISOString();
-    const metadata = postMetadata(d.platform, "carousel", { aiGenerated: made.carousel.length > 0, title: hookTitle });
+    const metadata = postMetadata(d.platform, "carousel", { aiGenerated: made.carousel, title: hookTitle });
     if (metadata === null) {
       console.log(`[publish] ${spec.slug} carousel -> ${d.platform}: skipped, this post contains generated material and ${d.platform} has no AI disclosure for this format through Buffer`);
       continue;
