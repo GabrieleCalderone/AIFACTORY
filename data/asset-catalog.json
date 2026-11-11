@@ -8565,5 +8565,65 @@
     ],
     "source": "/Users/gabrielecalderone/Library/Mobile Documents/com~apple~CloudDocs/RISTHOME COMPANY/FotoRistHome da Caricare/Screenshot_20241015_180015_Gallery.jpg",
     "cataloguedAt": "2026-11-06"
+  },
+  "crop-119-nests-slate.jpg": {
+    "index": 0,
+    "people": "none",
+    "subject": "Several nests of fresh golden egg tagliatelle resting on a dark slate surface, close-up with soft natural light",
+    "tags": [
+      "pasta",
+      "tagliatelle",
+      "fresh pasta",
+      "nests",
+      "slate"
+    ],
+    "quality": "good",
+    "text_overlay": false,
+    "aesthetic": 72,
+    "premium_fit": 66,
+    "service_fit": {
+      "class": 62,
+      "chef": 38,
+      "villa": 30,
+      "events": 28
+    },
+    "format_fit": {
+      "reel": 55,
+      "carousel": 70
+    },
+    "issues": [],
+    "source": "/Users/gabrielecalderone/Projects/risthome-ai-factory/public/assets/crops-src/crop-119-nests-slate.jpg",
+    "cataloguedAt": "2026-11-11"
+  },
+  "crop-194-hands-pasta.jpg": {
+    "index": 1,
+    "people": "chef",
+    "subject": "Chef's hands hold long ribbons of fresh pasta dusted with flour above a pasta machine, dark apron behind",
+    "tags": [
+      "pasta",
+      "hands",
+      "technique",
+      "flour",
+      "fresh pasta"
+    ],
+    "quality": "ok",
+    "text_overlay": false,
+    "aesthetic": 62,
+    "premium_fit": 50,
+    "service_fit": {
+      "class": 90,
+      "chef": 35,
+      "villa": 20,
+      "events": 20
+    },
+    "format_fit": {
+      "reel": 78,
+      "carousel": 58
+    },
+    "issues": [
+      "messy_background"
+    ],
+    "source": "/Users/gabrielecalderone/Projects/risthome-ai-factory/public/assets/crops-src/crop-194-hands-pasta.jpg",
+    "cataloguedAt": "2026-11-11"
   }
 }

@@ -2456,6 +2456,48 @@
   "dup_group": 110,
   "dup_count": 1
  },
+ "198-crop-119-nests-slate.jpg": {
+  "file": "198-crop-119-nests-slate.jpg",
+  "sha256": "e09842eab39844d0dace2bc5f00938ee9a7ece03635bb5e6cc6e64fa2ab4b71b",
+  "dhash": "7333868664c7e318",
+  "width": 798,
+  "height": 996,
+  "portrait": true,
+  "brightness_mean": 120.7,
+  "brightness_p5": 29.0,
+  "brightness_p95": 204.0,
+  "clipped_dark": 0.0012,
+  "clipped_bright": 0.0,
+  "contrast": 64.8,
+  "sharpness": 275.1,
+  "noise": 1.55,
+  "saturation": 87.7,
+  "text_space_bottom": 0.342,
+  "center_weight": 1.039,
+  "dup_group": 111,
+  "dup_count": 1
+ },
+ "199-crop-194-hands-pasta.jpg": {
+  "file": "199-crop-194-hands-pasta.jpg",
+  "sha256": "699511fa4da961d435b9d6de6b325d5da46cd73e280de6d5c77b94d757187185",
+  "dhash": "93a1e7e5c1c6e5df",
+  "width": 790,
+  "height": 986,
+  "portrait": true,
+  "brightness_mean": 129.9,
+  "brightness_p5": 11.0,
+  "brightness_p95": 226.0,
+  "clipped_dark": 0.0128,
+  "clipped_bright": 0.0027,
+  "contrast": 76.2,
+  "sharpness": 311.2,
+  "noise": 1.85,
+  "saturation": 95.8,
+  "text_space_bottom": 0.479,
+  "center_weight": 1.082,
+  "dup_group": 112,
+  "dup_count": 1
+ },
  "20-IMG_0025.jpg": {
   "file": "20-IMG_0025.jpg",
   "sha256": "117aef0a27f2f85c7b9b6e341fec866f7026a2d997116db60a32db7ec6604276",
@@ -2474,7 +2516,7 @@
   "saturation": 36.1,
   "text_space_bottom": 0.37,
   "center_weight": 0.84,
-  "dup_group": 111,
+  "dup_group": 113,
   "dup_count": 1
  },
  "21-IMG_0026.jpg": {
@@ -2495,7 +2537,7 @@
   "saturation": 159.8,
   "text_space_bottom": 0.324,
   "center_weight": 1.208,
-  "dup_group": 112,
+  "dup_group": 114,
   "dup_count": 1
  },
  "22-IMG_0027.jpg": {
@@ -2516,7 +2558,7 @@
   "saturation": 83.1,
   "text_space_bottom": 0.512,
   "center_weight": 1.162,
-  "dup_group": 113,
+  "dup_group": 115,
   "dup_count": 1
  },
  "23-IMG_0028.jpg": {
@@ -2537,7 +2579,7 @@
   "saturation": 112.7,
   "text_space_bottom": 0.417,
   "center_weight": 1.423,
-  "dup_group": 114,
+  "dup_group": 116,
   "dup_count": 2
  },
  "24-IMG_0029.jpg": {
@@ -2558,7 +2600,7 @@
   "saturation": 136.4,
   "text_space_bottom": 0.306,
   "center_weight": 1.111,
-  "dup_group": 115,
+  "dup_group": 117,
   "dup_count": 1
  },
  "25-IMG_0030.jpg": {
@@ -2579,7 +2621,7 @@
   "saturation": 119.4,
   "text_space_bottom": 0.395,
   "center_weight": 1.089,
-  "dup_group": 116,
+  "dup_group": 118,
   "dup_count": 1
  },
  "26-IMG_0031.jpg": {
@@ -2600,7 +2642,7 @@
   "saturation": 64.3,
   "text_space_bottom": 0.328,
   "center_weight": 1.167,
-  "dup_group": 117,
+  "dup_group": 119,
   "dup_count": 1
  },
  "27-IMG_0032.jpg": {
@@ -2621,7 +2663,7 @@
   "saturation": 129.9,
   "text_space_bottom": 0.378,
   "center_weight": 0.977,
-  "dup_group": 118,
+  "dup_group": 120,
   "dup_count": 1
  },
  "28-IMG_0033.jpg": {
@@ -2684,7 +2726,7 @@
   "saturation": 125.9,
   "text_space_bottom": 0.323,
   "center_weight": 1.137,
-  "dup_group": 119,
+  "dup_group": 121,
   "dup_count": 1
  },
  "31-IMG_0036.jpg": {
@@ -2705,7 +2747,7 @@
   "saturation": 139.2,
   "text_space_bottom": 0.418,
   "center_weight": 1.418,
-  "dup_group": 120,
+  "dup_group": 122,
   "dup_count": 1
  },
  "32-IMG_0037.jpg": {
@@ -2726,7 +2768,7 @@
   "saturation": 95.7,
   "text_space_bottom": 0.366,
   "center_weight": 0.877,
-  "dup_group": 121,
+  "dup_group": 123,
   "dup_count": 1
  },
  "33-IMG_0038.jpg": {
@@ -2747,7 +2789,7 @@
   "saturation": 128.6,
   "text_space_bottom": 0.366,
   "center_weight": 1.021,
-  "dup_group": 122,
+  "dup_group": 124,
   "dup_count": 1
  },
  "34-IMG_0039.jpg": {
@@ -2768,7 +2810,7 @@
   "saturation": 157.1,
   "text_space_bottom": 0.59,
   "center_weight": 1.257,
-  "dup_group": 123,
+  "dup_group": 125,
   "dup_count": 1
  },
  "35-IMG_0040.jpg": {
@@ -2810,7 +2852,7 @@
   "saturation": 115.3,
   "text_space_bottom": 0.397,
   "center_weight": 0.818,
-  "dup_group": 124,
+  "dup_group": 126,
   "dup_count": 1
  },
  "37-IMG_0042.jpg": {
@@ -2852,7 +2894,7 @@
   "saturation": 136.9,
   "text_space_bottom": 0.308,
   "center_weight": 1.339,
-  "dup_group": 125,
+  "dup_group": 127,
   "dup_count": 1
  },
  "39-IMG_0044.jpg": {
@@ -2915,7 +2957,7 @@
   "saturation": 136.1,
   "text_space_bottom": 0.416,
   "center_weight": 0.849,
-  "dup_group": 126,
+  "dup_group": 128,
   "dup_count": 1
  },
  "42-IMG_0047.jpg": {
@@ -2957,7 +2999,7 @@
   "saturation": 117.3,
   "text_space_bottom": 0.452,
   "center_weight": 1.237,
-  "dup_group": 127,
+  "dup_group": 129,
   "dup_count": 1
  },
  "44-IMG_0049.jpg": {
@@ -2978,7 +3020,7 @@
   "saturation": 146.6,
   "text_space_bottom": 0.393,
   "center_weight": 0.992,
-  "dup_group": 128,
+  "dup_group": 130,
   "dup_count": 1
  },
  "45-IMG_0050.jpg": {
@@ -2999,7 +3041,7 @@
   "saturation": 123.2,
   "text_space_bottom": 0.352,
   "center_weight": 1.135,
-  "dup_group": 129,
+  "dup_group": 131,
   "dup_count": 1
  },
  "46-IMG_0051.jpg": {
@@ -3062,7 +3104,7 @@
   "saturation": 94.6,
   "text_space_bottom": 0.399,
   "center_weight": 1.55,
-  "dup_group": 130,
+  "dup_group": 132,
   "dup_count": 1
  },
  "49-IMG_0055.jpg": {
@@ -3083,7 +3125,7 @@
   "saturation": 61.1,
   "text_space_bottom": 0.538,
   "center_weight": 1.573,
-  "dup_group": 131,
+  "dup_group": 133,
   "dup_count": 1
  },
  "50-IMG_0056.jpg": {
@@ -3125,7 +3167,7 @@
   "saturation": 124.5,
   "text_space_bottom": 0.347,
   "center_weight": 1.177,
-  "dup_group": 132,
+  "dup_group": 134,
   "dup_count": 1
  },
  "52-IMG_0058.jpg": {
@@ -3146,7 +3188,7 @@
   "saturation": 122.0,
   "text_space_bottom": 0.436,
   "center_weight": 1.011,
-  "dup_group": 133,
+  "dup_group": 135,
   "dup_count": 1
  },
  "53-IMG_0059.jpg": {
@@ -3167,7 +3209,7 @@
   "saturation": 91.4,
   "text_space_bottom": 0.336,
   "center_weight": 1.148,
-  "dup_group": 134,
+  "dup_group": 136,
   "dup_count": 1
  },
  "54-IMG_0060.jpg": {
@@ -3209,7 +3251,7 @@
   "saturation": 142.0,
   "text_space_bottom": 0.62,
   "center_weight": 1.213,
-  "dup_group": 135,
+  "dup_group": 137,
   "dup_count": 1
  },
  "56-IMG_0063.jpg": {
@@ -3230,7 +3272,7 @@
   "saturation": 138.0,
   "text_space_bottom": 0.403,
   "center_weight": 1.391,
-  "dup_group": 136,
+  "dup_group": 138,
   "dup_count": 1
  },
  "57-IMG_0064.jpg": {
@@ -3251,7 +3293,7 @@
   "saturation": 87.5,
   "text_space_bottom": 0.451,
   "center_weight": 0.838,
-  "dup_group": 137,
+  "dup_group": 139,
   "dup_count": 1
  },
  "58-IMG_0065.jpg": {
@@ -3272,7 +3314,7 @@
   "saturation": 87.9,
   "text_space_bottom": 0.502,
   "center_weight": 1.239,
-  "dup_group": 138,
+  "dup_group": 140,
   "dup_count": 1
  },
  "59-IMG_0066.jpg": {
@@ -3314,7 +3356,7 @@
   "saturation": 51.5,
   "text_space_bottom": 0.595,
   "center_weight": 0.757,
-  "dup_group": 139,
+  "dup_group": 141,
   "dup_count": 1
  },
  "61-IMG_0068.jpg": {
@@ -3377,7 +3419,7 @@
   "saturation": 58.1,
   "text_space_bottom": 0.254,
   "center_weight": 0.983,
-  "dup_group": 140,
+  "dup_group": 142,
   "dup_count": 1
  },
  "64-IMG_0073.jpg": {
@@ -3398,7 +3440,7 @@
   "saturation": 82.4,
   "text_space_bottom": 0.358,
   "center_weight": 0.856,
-  "dup_group": 141,
+  "dup_group": 143,
   "dup_count": 1
  },
  "65-IMG_0075.jpg": {
@@ -3419,7 +3461,7 @@
   "saturation": 97.9,
   "text_space_bottom": 0.311,
   "center_weight": 1.01,
-  "dup_group": 142,
+  "dup_group": 144,
   "dup_count": 1
  },
  "66-IMG_0076.jpg": {
@@ -3440,7 +3482,7 @@
   "saturation": 100.7,
   "text_space_bottom": 0.36,
   "center_weight": 1.75,
-  "dup_group": 143,
+  "dup_group": 145,
   "dup_count": 1
  },
  "67-IMG_0080.jpg": {
@@ -3524,7 +3566,7 @@
   "saturation": 85.0,
   "text_space_bottom": 0.553,
   "center_weight": 1.063,
-  "dup_group": 144,
+  "dup_group": 146,
   "dup_count": 1
  },
  "71-IMG_0089.jpg": {
@@ -3545,7 +3587,7 @@
   "saturation": 82.5,
   "text_space_bottom": 0.416,
   "center_weight": 1.331,
-  "dup_group": 145,
+  "dup_group": 147,
   "dup_count": 1
  },
  "72-IMG_0090.jpg": {
@@ -3566,7 +3608,7 @@
   "saturation": 67.6,
   "text_space_bottom": 0.387,
   "center_weight": 1.06,
-  "dup_group": 146,
+  "dup_group": 148,
   "dup_count": 1
  },
  "73-IMG_0092.jpg": {
@@ -3671,7 +3713,7 @@
   "saturation": 124.0,
   "text_space_bottom": 0.272,
   "center_weight": 0.532,
-  "dup_group": 147,
+  "dup_group": 149,
   "dup_count": 1
  },
  "78-IMG_0098.jpg": {
@@ -3692,7 +3734,7 @@
   "saturation": 107.1,
   "text_space_bottom": 0.291,
   "center_weight": 0.576,
-  "dup_group": 148,
+  "dup_group": 150,
   "dup_count": 1
  },
  "79-IMG_0099.jpg": {
@@ -3713,7 +3755,7 @@
   "saturation": 88.9,
   "text_space_bottom": 0.249,
   "center_weight": 0.823,
-  "dup_group": 149,
+  "dup_group": 151,
   "dup_count": 1
  },
  "80-IMG_0100.jpg": {
@@ -3734,7 +3776,7 @@
   "saturation": 55.8,
   "text_space_bottom": 0.446,
   "center_weight": 0.803,
-  "dup_group": 150,
+  "dup_group": 152,
   "dup_count": 1
  },
  "81-IMG_0102.jpg": {
@@ -3755,7 +3797,7 @@
   "saturation": 72.3,
   "text_space_bottom": 0.407,
   "center_weight": 1.435,
-  "dup_group": 151,
+  "dup_group": 153,
   "dup_count": 1
  },
  "82-IMG_0104.jpg": {
@@ -3797,7 +3839,7 @@
   "saturation": 107.7,
   "text_space_bottom": 0.4,
   "center_weight": 1.082,
-  "dup_group": 152,
+  "dup_group": 154,
   "dup_count": 1
  },
  "84-IMG_0107.jpg": {
@@ -3818,7 +3860,7 @@
   "saturation": 112.7,
   "text_space_bottom": 0.417,
   "center_weight": 1.423,
-  "dup_group": 114,
+  "dup_group": 116,
   "dup_count": 2
  },
  "85-IMG_0108.jpg": {
@@ -3839,7 +3881,7 @@
   "saturation": 65.3,
   "text_space_bottom": 0.442,
   "center_weight": 1.753,
-  "dup_group": 153,
+  "dup_group": 155,
   "dup_count": 1
  },
  "86-IMG_0109.jpg": {
@@ -3881,7 +3923,7 @@
   "saturation": 91.0,
   "text_space_bottom": 0.381,
   "center_weight": 0.954,
-  "dup_group": 154,
+  "dup_group": 156,
   "dup_count": 1
  },
  "88-IMG_0112.jpg": {
@@ -3902,7 +3944,7 @@
   "saturation": 70.5,
   "text_space_bottom": 0.294,
   "center_weight": 1.018,
-  "dup_group": 155,
+  "dup_group": 157,
   "dup_count": 1
  },
  "89-IMG_0113.jpg": {
@@ -3923,7 +3965,7 @@
   "saturation": 136.2,
   "text_space_bottom": 0.331,
   "center_weight": 0.928,
-  "dup_group": 156,
+  "dup_group": 158,
   "dup_count": 1
  },
  "90-IMG_0114.jpg": {
@@ -3944,7 +3986,7 @@
   "saturation": 136.0,
   "text_space_bottom": 0.383,
   "center_weight": 0.969,
-  "dup_group": 157,
+  "dup_group": 159,
   "dup_count": 1
  },
  "91-IMG_0115.jpg": {
@@ -3965,7 +4007,7 @@
   "saturation": 84.1,
   "text_space_bottom": 0.306,
   "center_weight": 1.363,
-  "dup_group": 158,
+  "dup_group": 160,
   "dup_count": 1
  },
  "92-IMG_0116.jpg": {
@@ -3986,7 +4028,7 @@
   "saturation": 118.5,
   "text_space_bottom": 0.408,
   "center_weight": 1.133,
-  "dup_group": 159,
+  "dup_group": 161,
   "dup_count": 1
  },
  "93-IMG_0117.jpg": {
@@ -4007,7 +4049,7 @@
   "saturation": 65.6,
   "text_space_bottom": 0.396,
   "center_weight": 1.619,
-  "dup_group": 160,
+  "dup_group": 162,
   "dup_count": 1
  },
  "94-LOGORISTHOME.jpg": {
@@ -4049,7 +4091,7 @@
   "saturation": 32.0,
   "text_space_bottom": 0.391,
   "center_weight": 0.878,
-  "dup_group": 161,
+  "dup_group": 163,
   "dup_count": 1
  },
  "96-IMG_0071.jpg": {
@@ -4070,7 +4112,7 @@
   "saturation": 78.5,
   "text_space_bottom": 0.345,
   "center_weight": 0.909,
-  "dup_group": 162,
+  "dup_group": 164,
   "dup_count": 1
  },
  "97-IMG_0077.jpg": {
@@ -4091,7 +4133,7 @@
   "saturation": 51.7,
   "text_space_bottom": 0.279,
   "center_weight": 0.836,
-  "dup_group": 163,
+  "dup_group": 165,
   "dup_count": 2
  },
  "98-IMG_0084.jpg": {
@@ -4133,7 +4175,7 @@
   "saturation": 51.8,
   "text_space_bottom": 0.279,
   "center_weight": 0.841,
-  "dup_group": 163,
+  "dup_group": 165,
   "dup_count": 2
  }
 }

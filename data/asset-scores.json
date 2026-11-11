@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-11T19:54:28.645Z",
+ "generatedAt": "2026-11-11T21:09:31.679Z",
  "weights": {
   "A": 0.3,
   "R": 0.25,
@@ -4671,19 +4671,20 @@
     "file": "30-IMG_0035.jpg",
     "service": "class",
     "format": "reel",
-    "Q": 68,
+    "Q": 64,
     "parts": {
      "A": 70,
      "R": 35,
      "T": 89,
      "C": 67,
-     "U": 100
+     "U": 65
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 2.6x for reel",
      "busy bottom third, little room for captions",
+     "already published 1x",
      "weak fit for class (35)"
     ]
    },
@@ -4691,19 +4692,20 @@
     "file": "30-IMG_0035.jpg",
     "service": "class",
     "format": "carousel",
-    "Q": 69,
+    "Q": 65,
     "parts": {
      "A": 70,
      "R": 35,
      "T": 95,
      "C": 68,
-     "U": 100
+     "U": 65
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 1.8x for carousel",
      "busy bottom third, little room for captions",
+     "already published 1x",
      "weak fit for class (35)"
     ]
    },
@@ -4711,95 +4713,100 @@
     "file": "30-IMG_0035.jpg",
     "service": "chef",
     "format": "reel",
-    "Q": 78,
+    "Q": 75,
     "parts": {
      "A": 70,
      "R": 78,
      "T": 89,
      "C": 67,
-     "U": 100
+     "U": 65
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
      "upscaled 2.6x for reel",
-     "busy bottom third, little room for captions"
+     "busy bottom third, little room for captions",
+     "already published 1x"
     ]
    },
    "chef:carousel": {
     "file": "30-IMG_0035.jpg",
     "service": "chef",
     "format": "carousel",
-    "Q": 80,
+    "Q": 76,
     "parts": {
      "A": 70,
      "R": 78,
      "T": 95,
      "C": 68,
-     "U": 100
+     "U": 65
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
      "upscaled 1.8x for carousel",
-     "busy bottom third, little room for captions"
+     "busy bottom third, little room for captions",
+     "already published 1x"
     ]
    },
    "villa:reel": {
     "file": "30-IMG_0035.jpg",
     "service": "villa",
     "format": "reel",
-    "Q": 75,
+    "Q": 72,
     "parts": {
      "A": 70,
      "R": 65,
      "T": 89,
      "C": 67,
-     "U": 100
+     "U": 65
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
      "upscaled 2.6x for reel",
-     "busy bottom third, little room for captions"
+     "busy bottom third, little room for captions",
+     "already published 1x"
     ]
    },
    "villa:carousel": {
     "file": "30-IMG_0035.jpg",
     "service": "villa",
     "format": "carousel",
-    "Q": 76,
+    "Q": 73,
     "parts": {
      "A": 70,
      "R": 65,
      "T": 95,
      "C": 68,
-     "U": 100
+     "U": 65
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
      "upscaled 1.8x for carousel",
-     "busy bottom third, little room for captions"
+     "busy bottom third, little room for captions",
+     "already published 1x"
     ]
    },
    "events:reel": {
     "file": "30-IMG_0035.jpg",
     "service": "events",
     "format": "reel",
-    "Q": 66,
+    "Q": 63,
     "parts": {
      "A": 70,
      "R": 30,
      "T": 89,
      "C": 67,
-     "U": 100
+     "U": 65
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 2.6x for reel",
      "busy bottom third, little room for captions",
+     "already published 1x",
      "weak fit for events (30)"
     ]
    },
@@ -4807,19 +4814,20 @@
     "file": "30-IMG_0035.jpg",
     "service": "events",
     "format": "carousel",
-    "Q": 68,
+    "Q": 64,
     "parts": {
      "A": 70,
      "R": 30,
      "T": 95,
      "C": 68,
-     "U": 100
+     "U": 65
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 1.8x for carousel",
      "busy bottom third, little room for captions",
+     "already published 1x",
      "weak fit for events (30)"
     ]
    }
@@ -15009,18 +15017,20 @@
     "file": "93-IMG_0117.jpg",
     "service": "class",
     "format": "reel",
-    "Q": 55,
+    "Q": 52,
     "parts": {
      "A": 51,
      "R": 5,
      "T": 95,
      "C": 64,
-     "U": 100
+     "U": 65
     },
-    "tier": "excluded",
-    "blocked": false,
+    "tier": "blocked",
+    "blocked": true,
     "reasons": [
+     "excluded by hand: artificial petals, paper napkin, overhead flash: not the house at its best (creative review 2026-11-11)",
      "noisy (5.15)",
+     "already published 1x",
      "weak fit for class (5)"
     ]
    },
@@ -15028,18 +15038,20 @@
     "file": "93-IMG_0117.jpg",
     "service": "class",
     "format": "carousel",
-    "Q": 56,
+    "Q": 52,
     "parts": {
      "A": 51,
      "R": 5,
      "T": 95,
      "C": 67,
-     "U": 100
+     "U": 65
     },
-    "tier": "excluded",
-    "blocked": false,
+    "tier": "blocked",
+    "blocked": true,
     "reasons": [
+     "excluded by hand: artificial petals, paper napkin, overhead flash: not the house at its best (creative review 2026-11-11)",
      "noisy (5.15)",
+     "already published 1x",
      "weak fit for class (5)"
     ]
    },
@@ -15047,90 +15059,100 @@
     "file": "93-IMG_0117.jpg",
     "service": "chef",
     "format": "reel",
-    "Q": 70,
+    "Q": 67,
     "parts": {
      "A": 51,
      "R": 65,
      "T": 95,
      "C": 64,
-     "U": 100
+     "U": 65
     },
-    "tier": "usable",
-    "blocked": false,
+    "tier": "blocked",
+    "blocked": true,
     "reasons": [
-     "noisy (5.15)"
+     "excluded by hand: artificial petals, paper napkin, overhead flash: not the house at its best (creative review 2026-11-11)",
+     "noisy (5.15)",
+     "already published 1x"
     ]
    },
    "chef:carousel": {
     "file": "93-IMG_0117.jpg",
     "service": "chef",
     "format": "carousel",
-    "Q": 71,
+    "Q": 67,
     "parts": {
      "A": 51,
      "R": 65,
      "T": 95,
      "C": 67,
-     "U": 100
+     "U": 65
     },
-    "tier": "usable",
-    "blocked": false,
+    "tier": "blocked",
+    "blocked": true,
     "reasons": [
-     "noisy (5.15)"
+     "excluded by hand: artificial petals, paper napkin, overhead flash: not the house at its best (creative review 2026-11-11)",
+     "noisy (5.15)",
+     "already published 1x"
     ]
    },
    "villa:reel": {
     "file": "93-IMG_0117.jpg",
     "service": "villa",
     "format": "reel",
-    "Q": 71,
+    "Q": 68,
     "parts": {
      "A": 51,
      "R": 70,
      "T": 95,
      "C": 64,
-     "U": 100
+     "U": 65
     },
-    "tier": "usable",
-    "blocked": false,
+    "tier": "blocked",
+    "blocked": true,
     "reasons": [
-     "noisy (5.15)"
+     "excluded by hand: artificial petals, paper napkin, overhead flash: not the house at its best (creative review 2026-11-11)",
+     "noisy (5.15)",
+     "already published 1x"
     ]
    },
    "villa:carousel": {
     "file": "93-IMG_0117.jpg",
     "service": "villa",
     "format": "carousel",
-    "Q": 72,
+    "Q": 68,
     "parts": {
      "A": 51,
      "R": 70,
      "T": 95,
      "C": 67,
-     "U": 100
+     "U": 65
     },
-    "tier": "usable",
-    "blocked": false,
+    "tier": "blocked",
+    "blocked": true,
     "reasons": [
-     "noisy (5.15)"
+     "excluded by hand: artificial petals, paper napkin, overhead flash: not the house at its best (creative review 2026-11-11)",
+     "noisy (5.15)",
+     "already published 1x"
     ]
    },
    "events:reel": {
     "file": "93-IMG_0117.jpg",
     "service": "events",
     "format": "reel",
-    "Q": 61,
+    "Q": 58,
     "parts": {
      "A": 51,
      "R": 30,
      "T": 95,
      "C": 64,
-     "U": 100
+     "U": 65
     },
-    "tier": "excluded",
-    "blocked": false,
+    "tier": "blocked",
+    "blocked": true,
     "reasons": [
+     "excluded by hand: artificial petals, paper napkin, overhead flash: not the house at its best (creative review 2026-11-11)",
      "noisy (5.15)",
+     "already published 1x",
      "weak fit for events (30)"
     ]
    },
@@ -15138,18 +15160,20 @@
     "file": "93-IMG_0117.jpg",
     "service": "events",
     "format": "carousel",
-    "Q": 62,
+    "Q": 58,
     "parts": {
      "A": 51,
      "R": 30,
      "T": 95,
      "C": 67,
-     "U": 100
+     "U": 65
     },
-    "tier": "excluded",
-    "blocked": false,
+    "tier": "blocked",
+    "blocked": true,
     "reasons": [
+     "excluded by hand: artificial petals, paper napkin, overhead flash: not the house at its best (creative review 2026-11-11)",
      "noisy (5.15)",
+     "already published 1x",
      "weak fit for events (30)"
     ]
    }
@@ -15833,13 +15857,13 @@
     "file": "98-IMG_0084.jpg",
     "service": "class",
     "format": "reel",
-    "Q": 75,
+    "Q": 74,
     "parts": {
      "A": 71,
      "R": 90,
      "T": 96,
      "C": 73,
-     "U": 10
+     "U": 0
     },
     "tier": "blocked",
     "blocked": true,
@@ -15848,20 +15872,20 @@
      "clipped 8%",
      "busy bottom third, little room for captions",
      "already published 2x",
-     "a near-duplicate was published 1x"
+     "a near-duplicate was published 2x"
     ]
    },
    "class:carousel": {
     "file": "98-IMG_0084.jpg",
     "service": "class",
     "format": "carousel",
-    "Q": 74,
+    "Q": 73,
     "parts": {
      "A": 71,
      "R": 90,
      "T": 98,
      "C": 65,
-     "U": 10
+     "U": 0
     },
     "tier": "blocked",
     "blocked": true,
@@ -15870,20 +15894,20 @@
      "clipped 8%",
      "busy bottom third, little room for captions",
      "already published 2x",
-     "a near-duplicate was published 1x"
+     "a near-duplicate was published 2x"
     ]
    },
    "chef:reel": {
     "file": "98-IMG_0084.jpg",
     "service": "chef",
     "format": "reel",
-    "Q": 71,
+    "Q": 70,
     "parts": {
      "A": 71,
      "R": 75,
      "T": 96,
      "C": 73,
-     "U": 10
+     "U": 0
     },
     "tier": "blocked",
     "blocked": true,
@@ -15892,20 +15916,20 @@
      "clipped 8%",
      "busy bottom third, little room for captions",
      "already published 2x",
-     "a near-duplicate was published 1x"
+     "a near-duplicate was published 2x"
     ]
    },
    "chef:carousel": {
     "file": "98-IMG_0084.jpg",
     "service": "chef",
     "format": "carousel",
-    "Q": 70,
+    "Q": 69,
     "parts": {
      "A": 71,
      "R": 75,
      "T": 98,
      "C": 65,
-     "U": 10
+     "U": 0
     },
     "tier": "blocked",
     "blocked": true,
@@ -15914,20 +15938,20 @@
      "clipped 8%",
      "busy bottom third, little room for captions",
      "already published 2x",
-     "a near-duplicate was published 1x"
+     "a near-duplicate was published 2x"
     ]
    },
    "villa:reel": {
     "file": "98-IMG_0084.jpg",
     "service": "villa",
     "format": "reel",
-    "Q": 64,
+    "Q": 63,
     "parts": {
      "A": 71,
      "R": 45,
      "T": 96,
      "C": 73,
-     "U": 10
+     "U": 0
     },
     "tier": "blocked",
     "blocked": true,
@@ -15936,20 +15960,20 @@
      "clipped 8%",
      "busy bottom third, little room for captions",
      "already published 2x",
-     "a near-duplicate was published 1x"
+     "a near-duplicate was published 2x"
     ]
    },
    "villa:carousel": {
     "file": "98-IMG_0084.jpg",
     "service": "villa",
     "format": "carousel",
-    "Q": 63,
+    "Q": 62,
     "parts": {
      "A": 71,
      "R": 45,
      "T": 98,
      "C": 65,
-     "U": 10
+     "U": 0
     },
     "tier": "blocked",
     "blocked": true,
@@ -15958,20 +15982,20 @@
      "clipped 8%",
      "busy bottom third, little room for captions",
      "already published 2x",
-     "a near-duplicate was published 1x"
+     "a near-duplicate was published 2x"
     ]
    },
    "events:reel": {
     "file": "98-IMG_0084.jpg",
     "service": "events",
     "format": "reel",
-    "Q": 59,
+    "Q": 58,
     "parts": {
      "A": 71,
      "R": 25,
      "T": 96,
      "C": 73,
-     "U": 10
+     "U": 0
     },
     "tier": "blocked",
     "blocked": true,
@@ -15980,7 +16004,7 @@
      "clipped 8%",
      "busy bottom third, little room for captions",
      "already published 2x",
-     "a near-duplicate was published 1x",
+     "a near-duplicate was published 2x",
      "weak fit for events (25)"
     ]
    },
@@ -15988,13 +16012,13 @@
     "file": "98-IMG_0084.jpg",
     "service": "events",
     "format": "carousel",
-    "Q": 58,
+    "Q": 57,
     "parts": {
      "A": 71,
      "R": 25,
      "T": 98,
      "C": 65,
-     "U": 10
+     "U": 0
     },
     "tier": "blocked",
     "blocked": true,
@@ -16003,7 +16027,7 @@
      "clipped 8%",
      "busy bottom third, little room for captions",
      "already published 2x",
-     "a near-duplicate was published 1x",
+     "a near-duplicate was published 2x",
      "weak fit for events (25)"
     ]
    }
@@ -16717,20 +16741,20 @@
     "file": "103-IMG_0007.jpg",
     "service": "class",
     "format": "reel",
-    "Q": 62,
+    "Q": 60,
     "parts": {
      "A": 41,
      "R": 75,
      "T": 79,
      "C": 58,
-     "U": 60
+     "U": 40
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 3.6x for reel",
      "landscape photo on a vertical reel",
-     "a near-duplicate was published 2x",
+     "a near-duplicate was published 3x",
      "premium fit 32: cluttered, messy_background"
     ]
    },
@@ -16738,19 +16762,19 @@
     "file": "103-IMG_0007.jpg",
     "service": "class",
     "format": "carousel",
-    "Q": 63,
+    "Q": 61,
     "parts": {
      "A": 41,
      "R": 75,
      "T": 83,
      "C": 63,
-     "U": 60
+     "U": 40
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 2.5x for carousel",
-     "a near-duplicate was published 2x",
+     "a near-duplicate was published 3x",
      "premium fit 32: cluttered, messy_background"
     ]
    },
@@ -16758,20 +16782,20 @@
     "file": "103-IMG_0007.jpg",
     "service": "chef",
     "format": "reel",
-    "Q": 57,
+    "Q": 55,
     "parts": {
      "A": 41,
      "R": 55,
      "T": 79,
      "C": 58,
-     "U": 60
+     "U": 40
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 3.6x for reel",
      "landscape photo on a vertical reel",
-     "a near-duplicate was published 2x",
+     "a near-duplicate was published 3x",
      "premium fit 32: cluttered, messy_background"
     ]
    },
@@ -16779,19 +16803,19 @@
     "file": "103-IMG_0007.jpg",
     "service": "chef",
     "format": "carousel",
-    "Q": 58,
+    "Q": 56,
     "parts": {
      "A": 41,
      "R": 55,
      "T": 83,
      "C": 63,
-     "U": 60
+     "U": 40
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 2.5x for carousel",
-     "a near-duplicate was published 2x",
+     "a near-duplicate was published 3x",
      "premium fit 32: cluttered, messy_background"
     ]
    },
@@ -16799,20 +16823,20 @@
     "file": "103-IMG_0007.jpg",
     "service": "villa",
     "format": "reel",
-    "Q": 49,
+    "Q": 47,
     "parts": {
      "A": 41,
      "R": 25,
      "T": 79,
      "C": 58,
-     "U": 60
+     "U": 40
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 3.6x for reel",
      "landscape photo on a vertical reel",
-     "a near-duplicate was published 2x",
+     "a near-duplicate was published 3x",
      "premium fit 32: cluttered, messy_background",
      "weak fit for villa (25)"
     ]
@@ -16821,19 +16845,19 @@
     "file": "103-IMG_0007.jpg",
     "service": "villa",
     "format": "carousel",
-    "Q": 51,
+    "Q": 49,
     "parts": {
      "A": 41,
      "R": 25,
      "T": 83,
      "C": 63,
-     "U": 60
+     "U": 40
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 2.5x for carousel",
-     "a near-duplicate was published 2x",
+     "a near-duplicate was published 3x",
      "premium fit 32: cluttered, messy_background",
      "weak fit for villa (25)"
     ]
@@ -16842,20 +16866,20 @@
     "file": "103-IMG_0007.jpg",
     "service": "events",
     "format": "reel",
-    "Q": 52,
+    "Q": 50,
     "parts": {
      "A": 41,
      "R": 35,
      "T": 79,
      "C": 58,
-     "U": 60
+     "U": 40
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 3.6x for reel",
      "landscape photo on a vertical reel",
-     "a near-duplicate was published 2x",
+     "a near-duplicate was published 3x",
      "premium fit 32: cluttered, messy_background",
      "weak fit for events (35)"
     ]
@@ -16864,19 +16888,19 @@
     "file": "103-IMG_0007.jpg",
     "service": "events",
     "format": "carousel",
-    "Q": 53,
+    "Q": 51,
     "parts": {
      "A": 41,
      "R": 35,
      "T": 83,
      "C": 63,
-     "U": 60
+     "U": 40
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 2.5x for carousel",
-     "a near-duplicate was published 2x",
+     "a near-duplicate was published 3x",
      "premium fit 32: cluttered, messy_background",
      "weak fit for events (35)"
     ]
@@ -19447,53 +19471,53 @@
     "file": "119-20240302_111448.jpg",
     "service": "class",
     "format": "reel",
-    "Q": 70,
+    "Q": 67,
     "parts": {
      "A": 65,
      "R": 82,
      "T": 94,
      "C": 57,
-     "U": 30
+     "U": 0
     },
-    "tier": "usable",
+    "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 1.9x for reel",
      "busy bottom third, little room for captions",
      "landscape photo on a vertical reel",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "class:carousel": {
     "file": "119-20240302_111448.jpg",
     "service": "class",
     "format": "carousel",
-    "Q": 73,
+    "Q": 70,
     "parts": {
      "A": 65,
      "R": 82,
      "T": 98,
      "C": 70,
-     "U": 30
+     "U": 0
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
      "busy bottom third, little room for captions",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "chef:reel": {
     "file": "119-20240302_111448.jpg",
     "service": "chef",
     "format": "reel",
-    "Q": 62,
+    "Q": 59,
     "parts": {
      "A": 65,
      "R": 50,
      "T": 94,
      "C": 57,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
@@ -19501,39 +19525,39 @@
      "upscaled 1.9x for reel",
      "busy bottom third, little room for captions",
      "landscape photo on a vertical reel",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "chef:carousel": {
     "file": "119-20240302_111448.jpg",
     "service": "chef",
     "format": "carousel",
-    "Q": 65,
+    "Q": 62,
     "parts": {
      "A": 65,
      "R": 50,
      "T": 98,
      "C": 70,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "busy bottom third, little room for captions",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "villa:reel": {
     "file": "119-20240302_111448.jpg",
     "service": "villa",
     "format": "reel",
-    "Q": 59,
+    "Q": 56,
     "parts": {
      "A": 65,
      "R": 35,
      "T": 94,
      "C": 57,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
@@ -19541,7 +19565,7 @@
      "upscaled 1.9x for reel",
      "busy bottom third, little room for captions",
      "landscape photo on a vertical reel",
-     "already published 2x",
+     "already published 3x",
      "weak fit for villa (35)"
     ]
    },
@@ -19549,19 +19573,19 @@
     "file": "119-20240302_111448.jpg",
     "service": "villa",
     "format": "carousel",
-    "Q": 61,
+    "Q": 58,
     "parts": {
      "A": 65,
      "R": 35,
      "T": 98,
      "C": 70,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "busy bottom third, little room for captions",
-     "already published 2x",
+     "already published 3x",
      "weak fit for villa (35)"
     ]
    },
@@ -19569,13 +19593,13 @@
     "file": "119-20240302_111448.jpg",
     "service": "events",
     "format": "reel",
-    "Q": 55,
+    "Q": 52,
     "parts": {
      "A": 65,
      "R": 20,
      "T": 94,
      "C": 57,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
@@ -19583,7 +19607,7 @@
      "upscaled 1.9x for reel",
      "busy bottom third, little room for captions",
      "landscape photo on a vertical reel",
-     "already published 2x",
+     "already published 3x",
      "weak fit for events (20)"
     ]
    },
@@ -19591,19 +19615,19 @@
     "file": "119-20240302_111448.jpg",
     "service": "events",
     "format": "carousel",
-    "Q": 58,
+    "Q": 55,
     "parts": {
      "A": 65,
      "R": 20,
      "T": 98,
      "C": 70,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "busy bottom third, little room for captions",
-     "already published 2x",
+     "already published 3x",
      "weak fit for events (20)"
     ]
    }
@@ -19783,7 +19807,7 @@
     "blocked": false,
     "reasons": [
      "landscape photo on a vertical reel",
-     "already published 3x",
+     "already published 4x",
      "weak fit for class (25)"
     ]
    },
@@ -19802,7 +19826,7 @@
     "tier": "excluded",
     "blocked": false,
     "reasons": [
-     "already published 3x",
+     "already published 4x",
      "weak fit for class (25)"
     ]
    },
@@ -19822,7 +19846,7 @@
     "blocked": false,
     "reasons": [
      "landscape photo on a vertical reel",
-     "already published 3x"
+     "already published 4x"
     ]
    },
    "chef:carousel": {
@@ -19840,7 +19864,7 @@
     "tier": "usable",
     "blocked": false,
     "reasons": [
-     "already published 3x"
+     "already published 4x"
     ]
    },
    "villa:reel": {
@@ -19859,7 +19883,7 @@
     "blocked": false,
     "reasons": [
      "landscape photo on a vertical reel",
-     "already published 3x"
+     "already published 4x"
     ]
    },
    "villa:carousel": {
@@ -19877,7 +19901,7 @@
     "tier": "usable",
     "blocked": false,
     "reasons": [
-     "already published 3x"
+     "already published 4x"
     ]
    },
    "events:reel": {
@@ -19896,7 +19920,7 @@
     "blocked": false,
     "reasons": [
      "landscape photo on a vertical reel",
-     "already published 3x",
+     "already published 4x",
      "weak fit for events (15)"
     ]
    },
@@ -19915,7 +19939,7 @@
     "tier": "excluded",
     "blocked": false,
     "reasons": [
-     "already published 3x",
+     "already published 4x",
      "weak fit for events (15)"
     ]
    }
@@ -20569,13 +20593,13 @@
     "file": "126-20240622_203717.jpg",
     "service": "class",
     "format": "reel",
-    "Q": 60,
+    "Q": 56,
     "parts": {
      "A": 77,
      "R": 15,
      "T": 89,
      "C": 58,
-     "U": 65
+     "U": 30
     },
     "tier": "excluded",
     "blocked": false,
@@ -20584,7 +20608,7 @@
      "noisy (3.14)",
      "upscaled 1.6x for reel",
      "landscape photo on a vertical reel",
-     "already published 1x",
+     "already published 2x",
      "weak fit for class (15)"
     ]
    },
@@ -20592,20 +20616,20 @@
     "file": "126-20240622_203717.jpg",
     "service": "class",
     "format": "carousel",
-    "Q": 63,
+    "Q": 59,
     "parts": {
      "A": 77,
      "R": 15,
      "T": 93,
      "C": 73,
-     "U": 65
+     "U": 30
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "clipped 14%",
      "noisy (3.14)",
-     "already published 1x",
+     "already published 2x",
      "weak fit for class (15)"
     ]
    },
@@ -20613,13 +20637,13 @@
     "file": "126-20240622_203717.jpg",
     "service": "chef",
     "format": "reel",
-    "Q": 74,
+    "Q": 70,
     "parts": {
      "A": 77,
      "R": 70,
      "T": 89,
      "C": 58,
-     "U": 65
+     "U": 30
     },
     "tier": "usable",
     "blocked": false,
@@ -20628,40 +20652,40 @@
      "noisy (3.14)",
      "upscaled 1.6x for reel",
      "landscape photo on a vertical reel",
-     "already published 1x"
+     "already published 2x"
     ]
    },
    "chef:carousel": {
     "file": "126-20240622_203717.jpg",
     "service": "chef",
     "format": "carousel",
-    "Q": 77,
+    "Q": 73,
     "parts": {
      "A": 77,
      "R": 70,
      "T": 93,
      "C": 73,
-     "U": 65
+     "U": 30
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
      "clipped 14%",
      "noisy (3.14)",
-     "already published 1x"
+     "already published 2x"
     ]
    },
    "villa:reel": {
     "file": "126-20240622_203717.jpg",
     "service": "villa",
     "format": "reel",
-    "Q": 75,
+    "Q": 71,
     "parts": {
      "A": 77,
      "R": 75,
      "T": 89,
      "C": 58,
-     "U": 65
+     "U": 30
     },
     "tier": "usable",
     "blocked": false,
@@ -20670,69 +20694,69 @@
      "noisy (3.14)",
      "upscaled 1.6x for reel",
      "landscape photo on a vertical reel",
-     "already published 1x"
+     "already published 2x"
     ]
    },
    "villa:carousel": {
     "file": "126-20240622_203717.jpg",
     "service": "villa",
     "format": "carousel",
-    "Q": 78,
+    "Q": 74,
     "parts": {
      "A": 77,
      "R": 75,
      "T": 93,
      "C": 73,
-     "U": 65
+     "U": 30
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
      "clipped 14%",
      "noisy (3.14)",
-     "already published 1x"
+     "already published 2x"
     ]
    },
    "events:reel": {
     "file": "126-20240622_203717.jpg",
     "service": "events",
     "format": "reel",
-    "Q": 72,
+    "Q": 69,
     "parts": {
      "A": 77,
      "R": 65,
      "T": 89,
      "C": 58,
-     "U": 65
+     "U": 30
     },
-    "tier": "usable",
+    "tier": "excluded",
     "blocked": false,
     "reasons": [
      "clipped 14%",
      "noisy (3.14)",
      "upscaled 1.6x for reel",
      "landscape photo on a vertical reel",
-     "already published 1x"
+     "already published 2x"
     ]
    },
    "events:carousel": {
     "file": "126-20240622_203717.jpg",
     "service": "events",
     "format": "carousel",
-    "Q": 75,
+    "Q": 72,
     "parts": {
      "A": 77,
      "R": 65,
      "T": 93,
      "C": 73,
-     "U": 65
+     "U": 30
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
      "clipped 14%",
      "noisy (3.14)",
-     "already published 1x"
+     "already published 2x"
     ]
    }
   },
@@ -22731,93 +22755,93 @@
     "file": "139-FB_IMG_1705493927943.jpg",
     "service": "class",
     "format": "reel",
-    "Q": 71,
+    "Q": 68,
     "parts": {
      "A": 60,
      "R": 80,
      "T": 93,
      "C": 76,
-     "U": 30
+     "U": 0
     },
-    "tier": "usable",
+    "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 2.0x for reel",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "class:carousel": {
     "file": "139-FB_IMG_1705493927943.jpg",
     "service": "class",
     "format": "carousel",
-    "Q": 71,
+    "Q": 68,
     "parts": {
      "A": 60,
      "R": 80,
      "T": 97,
      "C": 68,
-     "U": 30
+     "U": 0
     },
-    "tier": "usable",
+    "tier": "excluded",
     "blocked": false,
     "reasons": [
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "chef:reel": {
     "file": "139-FB_IMG_1705493927943.jpg",
     "service": "chef",
     "format": "reel",
-    "Q": 62,
+    "Q": 59,
     "parts": {
      "A": 60,
      "R": 45,
      "T": 93,
      "C": 76,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 2.0x for reel",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "chef:carousel": {
     "file": "139-FB_IMG_1705493927943.jpg",
     "service": "chef",
     "format": "carousel",
-    "Q": 62,
+    "Q": 59,
     "parts": {
      "A": 60,
      "R": 45,
      "T": 97,
      "C": 68,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "villa:reel": {
     "file": "139-FB_IMG_1705493927943.jpg",
     "service": "villa",
     "format": "reel",
-    "Q": 57,
+    "Q": 54,
     "parts": {
      "A": 60,
      "R": 25,
      "T": 93,
      "C": 76,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 2.0x for reel",
-     "already published 2x",
+     "already published 3x",
      "weak fit for villa (25)"
     ]
    },
@@ -22825,18 +22849,18 @@
     "file": "139-FB_IMG_1705493927943.jpg",
     "service": "villa",
     "format": "carousel",
-    "Q": 57,
+    "Q": 54,
     "parts": {
      "A": 60,
      "R": 25,
      "T": 97,
      "C": 68,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
-     "already published 2x",
+     "already published 3x",
      "weak fit for villa (25)"
     ]
    },
@@ -22844,37 +22868,37 @@
     "file": "139-FB_IMG_1705493927943.jpg",
     "service": "events",
     "format": "reel",
-    "Q": 65,
+    "Q": 62,
     "parts": {
      "A": 60,
      "R": 55,
      "T": 93,
      "C": 76,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 2.0x for reel",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "events:carousel": {
     "file": "139-FB_IMG_1705493927943.jpg",
     "service": "events",
     "format": "carousel",
-    "Q": 64,
+    "Q": 61,
     "parts": {
      "A": 60,
      "R": 55,
      "T": 97,
      "C": 68,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
-     "already published 2x"
+     "already published 3x"
     ]
    }
   },
@@ -23365,20 +23389,20 @@
     "file": "143-IMG-20210523-WA0164.jpg",
     "service": "class",
     "format": "reel",
-    "Q": 62,
+    "Q": 59,
     "parts": {
      "A": 79,
      "R": 25,
      "T": 96,
      "C": 67,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "noisy (4.68)",
      "busy bottom third, little room for captions",
-     "already published 2x",
+     "already published 3x",
      "weak fit for class (25)"
     ]
    },
@@ -23386,20 +23410,20 @@
     "file": "143-IMG-20210523-WA0164.jpg",
     "service": "class",
     "format": "carousel",
-    "Q": 63,
+    "Q": 60,
     "parts": {
      "A": 79,
      "R": 25,
      "T": 96,
      "C": 70,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "noisy (4.68)",
      "busy bottom third, little room for captions",
-     "already published 2x",
+     "already published 3x",
      "weak fit for class (25)"
     ]
    },
@@ -23407,120 +23431,120 @@
     "file": "143-IMG-20210523-WA0164.jpg",
     "service": "chef",
     "format": "reel",
-    "Q": 76,
+    "Q": 73,
     "parts": {
      "A": 79,
      "R": 80,
      "T": 96,
      "C": 67,
-     "U": 30
+     "U": 0
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
      "noisy (4.68)",
      "busy bottom third, little room for captions",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "chef:carousel": {
     "file": "143-IMG-20210523-WA0164.jpg",
     "service": "chef",
     "format": "carousel",
-    "Q": 76,
+    "Q": 73,
     "parts": {
      "A": 79,
      "R": 80,
      "T": 96,
      "C": 70,
-     "U": 30
+     "U": 0
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
      "noisy (4.68)",
      "busy bottom third, little room for captions",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "villa:reel": {
     "file": "143-IMG-20210523-WA0164.jpg",
     "service": "villa",
     "format": "reel",
-    "Q": 76,
+    "Q": 73,
     "parts": {
      "A": 79,
      "R": 80,
      "T": 96,
      "C": 67,
-     "U": 30
+     "U": 0
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
      "noisy (4.68)",
      "busy bottom third, little room for captions",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "villa:carousel": {
     "file": "143-IMG-20210523-WA0164.jpg",
     "service": "villa",
     "format": "carousel",
-    "Q": 76,
+    "Q": 73,
     "parts": {
      "A": 79,
      "R": 80,
      "T": 96,
      "C": 70,
-     "U": 30
+     "U": 0
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
      "noisy (4.68)",
      "busy bottom third, little room for captions",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "events:reel": {
     "file": "143-IMG-20210523-WA0164.jpg",
     "service": "events",
     "format": "reel",
-    "Q": 66,
+    "Q": 63,
     "parts": {
      "A": 79,
      "R": 40,
      "T": 96,
      "C": 67,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "noisy (4.68)",
      "busy bottom third, little room for captions",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "events:carousel": {
     "file": "143-IMG-20210523-WA0164.jpg",
     "service": "events",
     "format": "carousel",
-    "Q": 66,
+    "Q": 63,
     "parts": {
      "A": 79,
      "R": 40,
      "T": 96,
      "C": 70,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "noisy (4.68)",
      "busy bottom third, little room for captions",
-     "already published 2x"
+     "already published 3x"
     ]
    }
   },
@@ -26647,18 +26671,18 @@
     "file": "164-IMG-20240403-WA0047.jpg",
     "service": "class",
     "format": "reel",
-    "Q": 67,
+    "Q": 64,
     "parts": {
      "A": 77,
      "R": 30,
      "T": 99,
      "C": 69,
-     "U": 65
+     "U": 30
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
-     "already published 1x",
+     "already published 2x",
      "weak fit for class (30)"
     ]
    },
@@ -26666,18 +26690,18 @@
     "file": "164-IMG-20240403-WA0047.jpg",
     "service": "class",
     "format": "carousel",
-    "Q": 68,
+    "Q": 64,
     "parts": {
      "A": 77,
      "R": 30,
      "T": 100,
      "C": 72,
-     "U": 65
+     "U": 30
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
-     "already published 1x",
+     "already published 2x",
      "weak fit for class (30)"
     ]
    },
@@ -26685,90 +26709,90 @@
     "file": "164-IMG-20240403-WA0047.jpg",
     "service": "chef",
     "format": "reel",
-    "Q": 82,
+    "Q": 79,
     "parts": {
      "A": 77,
      "R": 90,
      "T": 99,
      "C": 69,
-     "U": 65
+     "U": 30
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
-     "already published 1x"
+     "already published 2x"
     ]
    },
    "chef:carousel": {
     "file": "164-IMG-20240403-WA0047.jpg",
     "service": "chef",
     "format": "carousel",
-    "Q": 83,
+    "Q": 79,
     "parts": {
      "A": 77,
      "R": 90,
      "T": 100,
      "C": 72,
-     "U": 65
+     "U": 30
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
-     "already published 1x"
+     "already published 2x"
     ]
    },
    "villa:reel": {
     "file": "164-IMG-20240403-WA0047.jpg",
     "service": "villa",
     "format": "reel",
-    "Q": 78,
+    "Q": 74,
     "parts": {
      "A": 77,
      "R": 72,
      "T": 99,
      "C": 69,
-     "U": 65
+     "U": 30
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
-     "already published 1x"
+     "already published 2x"
     ]
    },
    "villa:carousel": {
     "file": "164-IMG-20240403-WA0047.jpg",
     "service": "villa",
     "format": "carousel",
-    "Q": 78,
+    "Q": 75,
     "parts": {
      "A": 77,
      "R": 72,
      "T": 100,
      "C": 72,
-     "U": 65
+     "U": 30
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
-     "already published 1x"
+     "already published 2x"
     ]
    },
    "events:reel": {
     "file": "164-IMG-20240403-WA0047.jpg",
     "service": "events",
     "format": "reel",
-    "Q": 65,
+    "Q": 61,
     "parts": {
      "A": 77,
      "R": 20,
      "T": 99,
      "C": 69,
-     "U": 65
+     "U": 30
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
-     "already published 1x",
+     "already published 2x",
      "weak fit for events (20)"
     ]
    },
@@ -26776,18 +26800,18 @@
     "file": "164-IMG-20240403-WA0047.jpg",
     "service": "events",
     "format": "carousel",
-    "Q": 65,
+    "Q": 62,
     "parts": {
      "A": 77,
      "R": 20,
      "T": 100,
      "C": 72,
-     "U": 65
+     "U": 30
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
-     "already published 1x",
+     "already published 2x",
      "weak fit for events (20)"
     ]
    }
@@ -31311,137 +31335,137 @@
     "file": "193-FB_IMG_1690740770510.jpg",
     "service": "class",
     "format": "reel",
-    "Q": 69,
+    "Q": 66,
     "parts": {
      "A": 68,
      "R": 80,
      "T": 80,
      "C": 63,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 3.6x for reel",
      "landscape photo on a vertical reel",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "class:carousel": {
     "file": "193-FB_IMG_1690740770510.jpg",
     "service": "class",
     "format": "carousel",
-    "Q": 71,
+    "Q": 68,
     "parts": {
      "A": 68,
      "R": 80,
      "T": 84,
      "C": 70,
-     "U": 30
+     "U": 0
     },
-    "tier": "usable",
+    "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 2.5x for carousel",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "chef:reel": {
     "file": "193-FB_IMG_1690740770510.jpg",
     "service": "chef",
     "format": "reel",
-    "Q": 69,
+    "Q": 66,
     "parts": {
      "A": 68,
      "R": 80,
      "T": 80,
      "C": 63,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 3.6x for reel",
      "landscape photo on a vertical reel",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "chef:carousel": {
     "file": "193-FB_IMG_1690740770510.jpg",
     "service": "chef",
     "format": "carousel",
-    "Q": 71,
+    "Q": 68,
     "parts": {
      "A": 68,
      "R": 80,
      "T": 84,
      "C": 70,
-     "U": 30
+     "U": 0
     },
-    "tier": "usable",
+    "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 2.5x for carousel",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "villa:reel": {
     "file": "193-FB_IMG_1690740770510.jpg",
     "service": "villa",
     "format": "reel",
-    "Q": 63,
+    "Q": 60,
     "parts": {
      "A": 68,
      "R": 55,
      "T": 80,
      "C": 63,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 3.6x for reel",
      "landscape photo on a vertical reel",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "villa:carousel": {
     "file": "193-FB_IMG_1690740770510.jpg",
     "service": "villa",
     "format": "carousel",
-    "Q": 64,
+    "Q": 61,
     "parts": {
      "A": 68,
      "R": 55,
      "T": 84,
      "C": 70,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 2.5x for carousel",
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "events:reel": {
     "file": "193-FB_IMG_1690740770510.jpg",
     "service": "events",
     "format": "reel",
-    "Q": 55,
+    "Q": 52,
     "parts": {
      "A": 68,
      "R": 25,
      "T": 80,
      "C": 63,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 3.6x for reel",
      "landscape photo on a vertical reel",
-     "already published 2x",
+     "already published 3x",
      "weak fit for events (25)"
     ]
    },
@@ -31449,19 +31473,19 @@
     "file": "193-FB_IMG_1690740770510.jpg",
     "service": "events",
     "format": "carousel",
-    "Q": 57,
+    "Q": 54,
     "parts": {
      "A": 68,
      "R": 25,
      "T": 84,
      "C": 70,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "upscaled 2.5x for carousel",
-     "already published 2x",
+     "already published 3x",
      "weak fit for events (25)"
     ]
    }
@@ -31471,90 +31495,90 @@
     "file": "194-IMG-20230819-WA0080.jpg",
     "service": "class",
     "format": "reel",
-    "Q": 76,
+    "Q": 73,
     "parts": {
      "A": 63,
      "R": 92,
      "T": 99,
      "C": 74,
-     "U": 30
+     "U": 0
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "class:carousel": {
     "file": "194-IMG-20230819-WA0080.jpg",
     "service": "class",
     "format": "carousel",
-    "Q": 75,
+    "Q": 72,
     "parts": {
      "A": 63,
      "R": 92,
      "T": 100,
      "C": 65,
-     "U": 30
+     "U": 0
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "chef:reel": {
     "file": "194-IMG-20230819-WA0080.jpg",
     "service": "chef",
     "format": "reel",
-    "Q": 67,
+    "Q": 64,
     "parts": {
      "A": 63,
      "R": 55,
      "T": 99,
      "C": 74,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "chef:carousel": {
     "file": "194-IMG-20230819-WA0080.jpg",
     "service": "chef",
     "format": "carousel",
-    "Q": 65,
+    "Q": 62,
     "parts": {
      "A": 63,
      "R": 55,
      "T": 100,
      "C": 65,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
-     "already published 2x"
+     "already published 3x"
     ]
    },
    "villa:reel": {
     "file": "194-IMG-20230819-WA0080.jpg",
     "service": "villa",
     "format": "reel",
-    "Q": 59,
+    "Q": 56,
     "parts": {
      "A": 63,
      "R": 25,
      "T": 99,
      "C": 74,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
-     "already published 2x",
+     "already published 3x",
      "weak fit for villa (25)"
     ]
    },
@@ -31562,18 +31586,18 @@
     "file": "194-IMG-20230819-WA0080.jpg",
     "service": "villa",
     "format": "carousel",
-    "Q": 58,
+    "Q": 55,
     "parts": {
      "A": 63,
      "R": 25,
      "T": 100,
      "C": 65,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
-     "already published 2x",
+     "already published 3x",
      "weak fit for villa (25)"
     ]
    },
@@ -31581,18 +31605,18 @@
     "file": "194-IMG-20230819-WA0080.jpg",
     "service": "events",
     "format": "reel",
-    "Q": 57,
+    "Q": 54,
     "parts": {
      "A": 63,
      "R": 15,
      "T": 99,
      "C": 74,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
-     "already published 2x",
+     "already published 3x",
      "weak fit for events (15)"
     ]
    },
@@ -31600,18 +31624,18 @@
     "file": "194-IMG-20230819-WA0080.jpg",
     "service": "events",
     "format": "carousel",
-    "Q": 55,
+    "Q": 52,
     "parts": {
      "A": 63,
      "R": 15,
      "T": 100,
      "C": 65,
-     "U": 30
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
-     "already published 2x",
+     "already published 3x",
      "weak fit for events (15)"
     ]
    }
@@ -31621,20 +31645,20 @@
     "file": "195-IMG-20230919-WA0067.jpg",
     "service": "class",
     "format": "reel",
-    "Q": 76,
+    "Q": 73,
     "parts": {
      "A": 64,
      "R": 95,
      "T": 96,
      "C": 73,
-     "U": 25
+     "U": 0
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
      "clipped 8%",
      "busy bottom third, little room for captions",
-     "already published 1x",
+     "already published 2x",
      "a near-duplicate was published 2x"
     ]
    },
@@ -31642,20 +31666,20 @@
     "file": "195-IMG-20230919-WA0067.jpg",
     "service": "class",
     "format": "carousel",
-    "Q": 75,
+    "Q": 72,
     "parts": {
      "A": 64,
      "R": 95,
      "T": 98,
      "C": 64,
-     "U": 25
+     "U": 0
     },
     "tier": "usable",
     "blocked": false,
     "reasons": [
      "clipped 8%",
      "busy bottom third, little room for captions",
-     "already published 1x",
+     "already published 2x",
      "a near-duplicate was published 2x"
     ]
    },
@@ -31663,20 +31687,20 @@
     "file": "195-IMG-20230919-WA0067.jpg",
     "service": "chef",
     "format": "reel",
-    "Q": 67,
+    "Q": 64,
     "parts": {
      "A": 64,
      "R": 60,
      "T": 96,
      "C": 73,
-     "U": 25
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "clipped 8%",
      "busy bottom third, little room for captions",
-     "already published 1x",
+     "already published 2x",
      "a near-duplicate was published 2x"
     ]
    },
@@ -31684,20 +31708,20 @@
     "file": "195-IMG-20230919-WA0067.jpg",
     "service": "chef",
     "format": "carousel",
-    "Q": 66,
+    "Q": 63,
     "parts": {
      "A": 64,
      "R": 60,
      "T": 98,
      "C": 64,
-     "U": 25
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "clipped 8%",
      "busy bottom third, little room for captions",
-     "already published 1x",
+     "already published 2x",
      "a near-duplicate was published 2x"
     ]
    },
@@ -31705,20 +31729,20 @@
     "file": "195-IMG-20230919-WA0067.jpg",
     "service": "villa",
     "format": "reel",
-    "Q": 58,
+    "Q": 56,
     "parts": {
      "A": 64,
      "R": 25,
      "T": 96,
      "C": 73,
-     "U": 25
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "clipped 8%",
      "busy bottom third, little room for captions",
-     "already published 1x",
+     "already published 2x",
      "a near-duplicate was published 2x",
      "weak fit for villa (25)"
     ]
@@ -31727,20 +31751,20 @@
     "file": "195-IMG-20230919-WA0067.jpg",
     "service": "villa",
     "format": "carousel",
-    "Q": 57,
+    "Q": 55,
     "parts": {
      "A": 64,
      "R": 25,
      "T": 98,
      "C": 64,
-     "U": 25
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "clipped 8%",
      "busy bottom third, little room for captions",
-     "already published 1x",
+     "already published 2x",
      "a near-duplicate was published 2x",
      "weak fit for villa (25)"
     ]
@@ -31749,20 +31773,20 @@
     "file": "195-IMG-20230919-WA0067.jpg",
     "service": "events",
     "format": "reel",
-    "Q": 56,
+    "Q": 53,
     "parts": {
      "A": 64,
      "R": 15,
      "T": 96,
      "C": 73,
-     "U": 25
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "clipped 8%",
      "busy bottom third, little room for captions",
-     "already published 1x",
+     "already published 2x",
      "a near-duplicate was published 2x",
      "weak fit for events (15)"
     ]
@@ -31771,20 +31795,20 @@
     "file": "195-IMG-20230919-WA0067.jpg",
     "service": "events",
     "format": "carousel",
-    "Q": 55,
+    "Q": 52,
     "parts": {
      "A": 64,
      "R": 15,
      "T": 98,
      "C": 64,
-     "U": 25
+     "U": 0
     },
     "tier": "excluded",
     "blocked": false,
     "reasons": [
      "clipped 8%",
      "busy bottom third, little room for captions",
-     "already published 1x",
+     "already published 2x",
      "a near-duplicate was published 2x",
      "weak fit for events (15)"
     ]
@@ -32111,6 +32135,300 @@
     "reasons": [
      "already published 1x",
      "premium fit 35: messy_background"
+    ]
+   }
+  },
+  "198-crop-119-nests-slate.jpg": {
+   "class:reel": {
+    "file": "198-crop-119-nests-slate.jpg",
+    "service": "class",
+    "format": "reel",
+    "Q": 75,
+    "parts": {
+     "A": 70,
+     "R": 62,
+     "T": 92,
+     "C": 67,
+     "U": 100
+    },
+    "tier": "usable",
+    "blocked": false,
+    "reasons": [
+     "upscaled 1.9x for reel"
+    ]
+   },
+   "class:carousel": {
+    "file": "198-crop-119-nests-slate.jpg",
+    "service": "class",
+    "format": "carousel",
+    "Q": 76,
+    "parts": {
+     "A": 70,
+     "R": 62,
+     "T": 96,
+     "C": 68,
+     "U": 100
+    },
+    "tier": "usable",
+    "blocked": false,
+    "reasons": []
+   },
+   "chef:reel": {
+    "file": "198-crop-119-nests-slate.jpg",
+    "service": "chef",
+    "format": "reel",
+    "Q": 69,
+    "parts": {
+     "A": 70,
+     "R": 38,
+     "T": 92,
+     "C": 67,
+     "U": 100
+    },
+    "tier": "excluded",
+    "blocked": false,
+    "reasons": [
+     "upscaled 1.9x for reel",
+     "weak fit for chef (38)"
+    ]
+   },
+   "chef:carousel": {
+    "file": "198-crop-119-nests-slate.jpg",
+    "service": "chef",
+    "format": "carousel",
+    "Q": 70,
+    "parts": {
+     "A": 70,
+     "R": 38,
+     "T": 96,
+     "C": 68,
+     "U": 100
+    },
+    "tier": "usable",
+    "blocked": false,
+    "reasons": [
+     "weak fit for chef (38)"
+    ]
+   },
+   "villa:reel": {
+    "file": "198-crop-119-nests-slate.jpg",
+    "service": "villa",
+    "format": "reel",
+    "Q": 67,
+    "parts": {
+     "A": 70,
+     "R": 30,
+     "T": 92,
+     "C": 67,
+     "U": 100
+    },
+    "tier": "excluded",
+    "blocked": false,
+    "reasons": [
+     "upscaled 1.9x for reel",
+     "weak fit for villa (30)"
+    ]
+   },
+   "villa:carousel": {
+    "file": "198-crop-119-nests-slate.jpg",
+    "service": "villa",
+    "format": "carousel",
+    "Q": 68,
+    "parts": {
+     "A": 70,
+     "R": 30,
+     "T": 96,
+     "C": 68,
+     "U": 100
+    },
+    "tier": "excluded",
+    "blocked": false,
+    "reasons": [
+     "weak fit for villa (30)"
+    ]
+   },
+   "events:reel": {
+    "file": "198-crop-119-nests-slate.jpg",
+    "service": "events",
+    "format": "reel",
+    "Q": 66,
+    "parts": {
+     "A": 70,
+     "R": 28,
+     "T": 92,
+     "C": 67,
+     "U": 100
+    },
+    "tier": "excluded",
+    "blocked": false,
+    "reasons": [
+     "upscaled 1.9x for reel",
+     "weak fit for events (28)"
+    ]
+   },
+   "events:carousel": {
+    "file": "198-crop-119-nests-slate.jpg",
+    "service": "events",
+    "format": "carousel",
+    "Q": 67,
+    "parts": {
+     "A": 70,
+     "R": 28,
+     "T": 96,
+     "C": 68,
+     "U": 100
+    },
+    "tier": "excluded",
+    "blocked": false,
+    "reasons": [
+     "weak fit for events (28)"
+    ]
+   }
+  },
+  "199-crop-194-hands-pasta.jpg": {
+   "class:reel": {
+    "file": "199-crop-194-hands-pasta.jpg",
+    "service": "class",
+    "format": "reel",
+    "Q": 81,
+    "parts": {
+     "A": 58,
+     "R": 90,
+     "T": 94,
+     "C": 79,
+     "U": 100
+    },
+    "tier": "usable",
+    "blocked": false,
+    "reasons": [
+     "upscaled 1.9x for reel"
+    ]
+   },
+   "class:carousel": {
+    "file": "199-crop-194-hands-pasta.jpg",
+    "service": "class",
+    "format": "carousel",
+    "Q": 80,
+    "parts": {
+     "A": 58,
+     "R": 90,
+     "T": 98,
+     "C": 70,
+     "U": 100
+    },
+    "tier": "usable",
+    "blocked": false,
+    "reasons": []
+   },
+   "chef:reel": {
+    "file": "199-crop-194-hands-pasta.jpg",
+    "service": "chef",
+    "format": "reel",
+    "Q": 67,
+    "parts": {
+     "A": 58,
+     "R": 35,
+     "T": 94,
+     "C": 79,
+     "U": 100
+    },
+    "tier": "excluded",
+    "blocked": false,
+    "reasons": [
+     "upscaled 1.9x for reel",
+     "weak fit for chef (35)"
+    ]
+   },
+   "chef:carousel": {
+    "file": "199-crop-194-hands-pasta.jpg",
+    "service": "chef",
+    "format": "carousel",
+    "Q": 66,
+    "parts": {
+     "A": 58,
+     "R": 35,
+     "T": 98,
+     "C": 70,
+     "U": 100
+    },
+    "tier": "excluded",
+    "blocked": false,
+    "reasons": [
+     "weak fit for chef (35)"
+    ]
+   },
+   "villa:reel": {
+    "file": "199-crop-194-hands-pasta.jpg",
+    "service": "villa",
+    "format": "reel",
+    "Q": 63,
+    "parts": {
+     "A": 58,
+     "R": 20,
+     "T": 94,
+     "C": 79,
+     "U": 100
+    },
+    "tier": "excluded",
+    "blocked": false,
+    "reasons": [
+     "upscaled 1.9x for reel",
+     "weak fit for villa (20)"
+    ]
+   },
+   "villa:carousel": {
+    "file": "199-crop-194-hands-pasta.jpg",
+    "service": "villa",
+    "format": "carousel",
+    "Q": 63,
+    "parts": {
+     "A": 58,
+     "R": 20,
+     "T": 98,
+     "C": 70,
+     "U": 100
+    },
+    "tier": "excluded",
+    "blocked": false,
+    "reasons": [
+     "weak fit for villa (20)"
+    ]
+   },
+   "events:reel": {
+    "file": "199-crop-194-hands-pasta.jpg",
+    "service": "events",
+    "format": "reel",
+    "Q": 63,
+    "parts": {
+     "A": 58,
+     "R": 20,
+     "T": 94,
+     "C": 79,
+     "U": 100
+    },
+    "tier": "excluded",
+    "blocked": false,
+    "reasons": [
+     "upscaled 1.9x for reel",
+     "weak fit for events (20)"
+    ]
+   },
+   "events:carousel": {
+    "file": "199-crop-194-hands-pasta.jpg",
+    "service": "events",
+    "format": "carousel",
+    "Q": 63,
+    "parts": {
+     "A": 58,
+     "R": 20,
+     "T": 98,
+     "C": 70,
+     "U": 100
+    },
+    "tier": "excluded",
+    "blocked": false,
+    "reasons": [
+     "weak fit for events (20)"
     ]
    }
   }
