@@ -6,6 +6,7 @@
  *   node --env-file-if-exists=.env scripts/autopilot.ts [--force] [--dry-run] [--model sonnet]
  */
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
@@ -79,11 +80,17 @@ try {
   }
   run("render", ["scripts/render.ts", specFile, "--qa"]);
   run("storyboard", ["scripts/storyboard.ts", specFile]);
+  // The editorial score is kept with the post; a failing piece waits for a person and is never approved by the machine.
+  run("score", ["scripts/score-post.ts", specFile, "--model", values.model]);
   const hostArgs = ["scripts/host-media.ts", specFile];
   if (values["dry-run"]) hostArgs.push("--dry-run");
   run("host", hostArgs);
   const when = nextSlot(state, now).toISOString();
-  const approved = loadPipeline()[slug]?.state === "APPROVED" || process.env.AUTOPUBLISH === "true";
+  // With automatic publishing on, the machine goes ahead only with a piece that passed the editorial scorecard as it is now.
+  const record = loadPipeline()[slug];
+  const scorePassed = record?.evidence?.scorecard?.passed === true && record.evidence.scorecard.sha === createHash("sha256").update(readFileSync(specFile)).digest("hex");
+  if (process.env.AUTOPUBLISH === "true" && !scorePassed) log(`${slug}: automatic publishing is on, but the piece did not pass the editorial scorecard (${record?.evidence?.scorecard?.total ?? "not scored"}/100): it waits for a person`);
+  const approved = record?.state === "APPROVED" || (process.env.AUTOPUBLISH === "true" && scorePassed);
   if (approved || values["dry-run"]) {
     const publishArgs = ["scripts/publish.ts", specFile, "--when", when];
     if (values["dry-run"]) publishArgs.push("--dry-run");

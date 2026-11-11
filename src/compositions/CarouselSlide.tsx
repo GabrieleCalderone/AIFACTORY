@@ -90,7 +90,9 @@ const FullPhoto: React.FC<{ slide: Extract<SlideSpec, { type: "photo" }>; page: 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.colors.ink }}>
       <Img src={staticFile(slide.image)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: look.grade }} />
-      {words ? <Scrim bottom={0.7} top={0} /> : null}
+      {/* a soft shade at the top keeps the wordmark and the page number readable on any photograph */}
+      <Scrim bottom={words ? 0.7 : 0} top={0.38} />
+      <Img src={staticFile("brand/logo-white.png")} style={{ position: "absolute", left: mat.left, top: 150, width: 170 }} />
       <div style={{ position: "absolute", left: mat.left, right: mat.left, bottom: 150, display: "flex", flexDirection: "column", gap: 12 }}>
         {slide.title ? <div style={{ ...type.line, color: theme.colors.white, textShadow: "0 2px 24px rgba(0,0,0,0.45)" }}>{slide.title}</div> : null}
         {slide.body ? <div style={{ ...type.body, color: theme.colors.white, textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}>{slide.body}</div> : null}

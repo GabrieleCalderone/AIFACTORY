@@ -44,13 +44,16 @@ const NEXT: Record<State, State[]> = {
   ],
 };
 
+/** The editorial scorecard of a finished piece (src/lib/scorecard.ts), for the post file with this hash. */
+export type ScoreEvidence = { sha: string; at: string; by: string; total: number; passed: boolean; scores: Record<string, number>; reasons: Record<string, string>; weakest: string[]; problems: string[] };
+
 export type Record_ = {
   slug: string;
   state: State;
   updatedAt: string;
   history: { at: string; from: State | null; to: State; note?: string }[];
   /** approvedSha: SHA-256 of the post file as it was when a person approved it. */
-  evidence?: { bufferPostIds?: string[]; postUrl?: string; metricsAt?: string; approvedSha?: string };
+  evidence?: { bufferPostIds?: string[]; postUrl?: string; metricsAt?: string; approvedSha?: string; scorecard?: ScoreEvidence };
 };
 
 export type Pipeline = Record<string, Record_>;

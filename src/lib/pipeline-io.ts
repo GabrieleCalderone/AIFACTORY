@@ -35,3 +35,13 @@ export const setState = (
 
 export const stateOf = (slug: string, file = PIPELINE_FILE): State | null =>
   loadPipeline(file)[slug]?.state ?? null;
+
+/** Attach evidence to a post without moving it to another state. */
+export const addEvidence = (slug: string, evidence: NonNullable<Record_["evidence"]>, file = PIPELINE_FILE): Record_ => {
+  const pipeline = loadPipeline(file);
+  const rec = pipeline[slug];
+  if (!rec) throw new Error(`${slug} is not in the pipeline`);
+  rec.evidence = { ...(rec.evidence ?? {}), ...evidence };
+  savePipeline(pipeline, file);
+  return rec;
+};

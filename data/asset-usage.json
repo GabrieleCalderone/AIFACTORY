@@ -153,8 +153,7 @@
     "prova-standard-a4"
   ],
   "154-IMG-20230928-WA0060.jpg": [
-    "prova-standard-a4",
-    "a9-20261114"
+    "prova-standard-a4"
   ],
   "125-20240521_125348.jpg": [
     "prova-standard-a4",
@@ -163,7 +162,7 @@
   "143-IMG-20210523-WA0164.jpg": [
     "prova-standard-a4",
     "prova-dettaglio-a4",
-    "a7-20261113"
+    "a9-20261114"
   ],
   "04-IMG_0008.jpg": [
     "prova-standard-a4",
@@ -186,7 +185,8 @@
     "prova-dettaglio-a4"
   ],
   "126-20240622_203717.jpg": [
-    "a4-20261111"
+    "a4-20261111",
+    "a7-20261113"
   ],
   "u-DmizDd1Vwc0.jpg": [
     "a2-20261111"
@@ -205,7 +205,5 @@
   "30-IMG_0035.jpg": [
     "a7-20261112"
   ],
-  "147-IMG-20230721-WA0002.jpg": [
-    "a9-20261114"
-  ]
+  "147-IMG-20230721-WA0002.jpg": []
 }

@@ -120,6 +120,7 @@ const JOBS: Record<string, string[]> = {
   "studio-estimate": ["scripts/genai-studio.ts"],
   "studio-run": ["scripts/genai-studio.ts"],
   check: ["--run", "check"],
+  score: ["scripts/score-post.ts"],
   "context-approve": ["scripts/source-context.ts", "approve"],
   "context-reject": ["scripts/source-context.ts", "reject"],
   "beds-make": ["scripts/sound-beds.ts", "make"],
@@ -238,6 +239,12 @@ const status = () => {
     "data/publications.json",
     [],
   );
+  const scoreOf = (slug: string) => {
+    const sc = pipeline[slug]?.evidence?.scorecard;
+    const postFile = path.join("content/posts", `${slug}.json`);
+    if (!sc || !existsSync(postFile)) return null;
+    return { ...sc, current: createHash("sha256").update(readFileSync(postFile)).digest("hex") === sc.sha };
+  };
   const audioTracks = readJson<{ src: string }[]>("content/audio.json", []);
   // What a post was made with, read from its own file; a file that no longer parses says nothing.
   const madeOf = (slug: string): string[] => {
@@ -308,6 +315,8 @@ const status = () => {
               ? readFileSync(path.join(dir, "caption.txt"), "utf8")
               : "",
             made: madeOf(slug),
+            // the editorial score, only while it is of the post as it is now
+            score: scoreOf(slug),
             captions: captionsOf(slug),
             note: pipeline[slug]?.history.at(-1)?.note ?? "",
             hosted: hosted ? (hosted.dryRun ? "dry-run" : "public") : "no",

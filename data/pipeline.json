@@ -601,7 +601,42 @@
         "to": "RENDERED",
         "note": "reel no, slides 6"
       }
-    ]
+    ],
+    "evidence": {
+      "scorecard": {
+        "sha": "be71fb38fc8f634af3c92f2f1a1ac02931a8ed841d2e3b41ba55e68e32e1bbd8",
+        "at": "2026-11-11T20:48:17.608Z",
+        "by": "sonnet",
+        "total": 60,
+        "passed": false,
+        "scores": {
+          "hook": 10,
+          "visual": 8,
+          "narrative": 9,
+          "audience": 10,
+          "sharing": 8,
+          "brand": 7,
+          "conversion": 8
+        },
+        "reasons": {
+          "hook": "Slide 1 is a dark, grey sea cave that reads as a boat-trip photo, not food or a table, and the lemons on slide 2 are the stronger picture, though 'Sicily, in November' is a clear line.",
+          "visual": "The lemons are clean and warm, but the cave is dark and cold, the slide 3 dish is a phone shot with a glare blob on the plate, and the slide 4 oysters are oversaturated and cluttered.",
+          "narrative": "The sequence runs island, produce, dish, seafood, invitation, but the oyster platter on slide 4 is a weak peak with no table or gesture, and the cave has no obvious tie to the evening.",
+          "audience": "It uses American English, names November, the villa and what is included, and answers 'what is it', but it gives little on what the evening is like or why November is a good time.",
+          "sharing": "Place and service are in the caption and hashtags and 'Sicily, in November' is a mild promise, but nothing here would make someone send it to a travel companion.",
+          "brand": "The wordmark, serif type and quiet tone match the system, but the wordmark sits on busy rock on slide 1 and its tagline is cut off by oysters on slide 4.",
+          "conversion": "The closing slide and caption carry the single invitation 'Request availability on risthome.it (link in bio)' in the site's words, but the slides say little about what the experience is."
+        },
+        "weakest": [
+          "hook",
+          "visual",
+          "sharing"
+        ],
+        "problems": [
+          "60 out of 100, the house asks for 85"
+        ]
+      }
+    }
   },
   "a9-20261114": {
     "slug": "a9-20261114",
@@ -626,6 +661,41 @@
         "to": "RENDERED",
         "note": "reel no, slides 6"
       }
-    ]
+    ],
+    "evidence": {
+      "scorecard": {
+        "sha": "52ea0d999b4f75eab29c9d75c38aa017887c75b4af506677606c6b4964497602",
+        "at": "2026-11-11T20:48:40.002Z",
+        "by": "sonnet",
+        "total": 54,
+        "passed": false,
+        "scores": {
+          "hook": 12,
+          "visual": 8,
+          "narrative": 6,
+          "audience": 8,
+          "sharing": 4,
+          "brand": 7,
+          "conversion": 9
+        },
+        "reasons": {
+          "hook": "Slide 1's warm, close pasta-and-burrata photo with the clear line You came to Sicily for the food. Make it personal. reads in a second, but the plate is fairly dark and grey-rimmed, and the strawberry panna cotta on slide 2 is the more stri",
+          "visual": "Slide 2 is a snapshot-quality shot of a dessert on a black plate scattered with powdered sugar, shot at an angle with phone-camera colour and a 2 / 3 counter that appears only on that slide, while slide 1's crop is tight with a dim grey rim",
+          "narrative": "The sequence is pasta, dessert, invitation, so only two pictures carry content and neither shows the shopping, the table, the villa or the chef; the last picture before the invitation is a plated dessert rather than a peak of the evening.",
+          "audience": "The American English is clear and Villa, apartment or boat and the shop-cook-serve-clean list tell a planner what is included, but nothing addresses season, what the evening feels like or why Palermo.",
+          "sharing": "Findable by place and service through the hashtags and caption, but there is no concrete promise or moment (like this, in November ) that a traveller would send to a travel companion.",
+          "brand": "The wordmark, Playfair headline and cream closing card are consistent, but slide 2's wordmark sits on a busy area with no headline and a page counter, and slide 3 is a plain text card with no photograph.",
+          "conversion": "Slide 3 and the caption both end on the single invitation Request availability on risthome.it (link in bio) , in the site's own words, and the service is clear, though the slides themselves say little about what the evening is."
+        },
+        "weakest": [
+          "sharing",
+          "narrative",
+          "visual"
+        ],
+        "problems": [
+          "54 out of 100, the house asks for 85"
+        ]
+      }
+    }
   }
 }

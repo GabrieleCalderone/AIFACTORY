@@ -903,6 +903,7 @@
               ${p.slides.length ? `<div><span class="kind">Carosello <span>· ${p.slides.length} immagini, scorri</span></span><div class="slides">${p.slides.map((u, i) => (media(u) ? `<a href="${esc(media(u))}" target="_blank" title="Immagine ${i + 1} di ${p.slides.length}"><img src="${esc(media(u))}" alt="Immagine ${i + 1} del carosello" loading="lazy"></a>` : "")).join("")}</div></div>` : ""}
             </div>
             ${!compact && p.state !== "REJECTED" ? socialPreviews(p) : ""}
+            ${p.score ? `<div class="caption" style="max-height:none"><b>Giudizio editoriale: ${esc(p.score.total)}/100</b> ${pill(p.score.passed ? "ok" : "warn", p.score.passed ? "supera la soglia" : "sotto la soglia di 85")}${p.score.current ? "" : " <small>(riferito a una versione precedente del post: ricalcola)</small>"}<br>${Object.entries(p.score.reasons).map(([k, r]) => `<small><b>${esc(k)} ${esc(p.score.scores[k] ?? "–")}</b>: ${esc(r)}</small>`).join("<br>")}</div>` : ""}
             ${p.made.length ? `<div class="chips">${p.made.map((m) => `<span class="chip">${esc(m)}</span>`).join("")}</div>` : ""}
             ${!compact ? `<div class="caption">${esc(p.caption)}</div>` : ""}
             ${p.state === "REJECTED" && p.note ? `<small>Motivo: ${esc(p.note)}</small>` : ""}
@@ -913,6 +914,7 @@
               ${p.state === "APPROVED" ? `<button class="accent small" data-publish="${esc(p.slug)}">Programma su Buffer</button>` : ""}
               ${["READY", "RENDERED", "APPROVED"].includes(p.state) ? `<button class="secondary small" data-draft="${esc(p.slug)}">Bozza su Buffer</button>` : ""}
               <button class="secondary small" data-render="${esc(p.slug)}">Ri-renderizza</button>
+              ${p.slides.length ? `<button class="secondary small" data-score="${esc(p.slug)}">Giudizio editoriale</button>` : ""}
             </div>
           </div>`;
         const live = s.posts.filter((p) => p.state !== "REJECTED"), gone = s.posts.filter((p) => p.state === "REJECTED");
@@ -993,6 +995,7 @@
         if (t.dataset.publish && confirm(`Programmare "${t.dataset.publish}" su tutti i canali collegati al prossimo slot?`)) run("publish-post", { slug: t.dataset.publish });
         if (t.dataset.draft) run("publish-draft", { slug: t.dataset.draft });
         if (t.dataset.render) run("render", { slug: t.dataset.render });
+        if (t.dataset.score) run("score", { slug: t.dataset.score });
         if (t.dataset.ctx) { t.disabled = true; await api("/api/context", { id: t.dataset.id, action: t.dataset.ctx }); setTimeout(loadMedia, 1500); }
         if (t.dataset.ov) { const note = t.dataset.ov === "exclude" ? "non piace al titolare" : t.dataset.ov === "include" ? "voluta dal titolare" : ""; t.disabled = true; await api("/api/override", { file: t.dataset.file, action: t.dataset.ov, note }); setTimeout(loadMedia, 2500); }
       });

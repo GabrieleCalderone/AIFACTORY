@@ -448,7 +448,7 @@ if (gate.errors.length) {
 }
 writeFileSync(target, JSON.stringify(spec, null, 2) + "\n");
 setState(slug, "QUALITY_CHECKED", `gate passed with ${gate.warnings.length} warning(s)`);
-if (process.env.AUTOPUBLISH === "true") setState(slug, "APPROVED", "auto-approved (AUTOPUBLISH=true)");
+// Approval is given after the piece is rendered and scored (a person in the console, or the autopilot when automatic publishing is on and the score passes), never here.
 for (const img of [...mediaOf(spec).images, ...mediaOf(spec).videos]) {
   const key = path.basename(img);
   usage[key] = [...(usage[key] ?? []), slug];
