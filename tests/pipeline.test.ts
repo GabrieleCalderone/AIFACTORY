@@ -78,3 +78,13 @@ test("the photo cooldown shrinks with a small archive and never drops below one 
   assert.equal(cooldownPosts(20, 6), 2);
   assert.equal(cooldownPosts(5, 6), 1);
 });
+
+test("a picture rests until both the days and the pieces have passed; drafts use up nothing", async () => {
+  const { restingSlugs } = await import("../src/lib/pipeline.ts");
+  const rec = (slug: string, state: string, day: number) => ({ slug, state, updatedAt: new Date(Date.UTC(2026, 10, day, 18)).toISOString(), history: [] });
+  const pipeline = Object.fromEntries([rec("a", "PUBLISHED", 1), rec("b", "PUBLISHED", 5), rec("c", "SCHEDULED", 9), rec("d", "PUBLISHED", 12), rec("draft", "RENDERED", 12), rec("no", "REJECTED", 12)].map((r) => [r.slug, r])) as never;
+  const now = new Date(Date.UTC(2026, 10, 13, 12));
+  assert.deepEqual(restingSlugs(pipeline, { days: 10, pieces: 3 }, now), ["d", "c", "b"], "a is older than ten days and three pieces came after it");
+  assert.deepEqual(restingSlugs(pipeline, { days: 28, pieces: 12 }, now), ["d", "c", "b", "a"]);
+  assert.deepEqual(restingSlugs(pipeline, { days: 2, pieces: 1 }, now), ["d"]);
+});

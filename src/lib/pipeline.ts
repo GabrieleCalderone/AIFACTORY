@@ -136,3 +136,24 @@ export const recentLiveSlugs = (pipeline: Pipeline, n: number): string[] =>
  */
 export const cooldownPosts = (usablePhotos: number, photosPerPost: number, max = 8): number =>
   Math.max(1, Math.min(max, Math.floor(usablePhotos / Math.max(1, photosPerPost)) - 1));
+
+/**
+ * How long something rests after it was shown: both figures must have passed. Days are counted
+ * from the post's last change of state, pieces are the live posts that came after it.
+ */
+export type RestRule = { days: number; pieces: number };
+export type RestRules = { photo: RestRule; cover: RestRule; context: RestRule };
+export const defaultRest: RestRules = { photo: { days: 10, pieces: 3 }, cover: { days: 28, pieces: 12 }, context: { days: 28, pieces: 12 } };
+
+/**
+ * The live posts whose pictures are still resting under a rule: every live post younger than
+ * `days`, and the last `pieces` live posts whatever their age. A picture used in any of them
+ * may not return yet. Drafts that were rejected or never approved use up nothing.
+ */
+export const restingSlugs = (pipeline: Pipeline, rule: RestRule, now: Date): string[] => {
+  const live = Object.values(pipeline)
+    .filter((r) => LIVE_STATES.includes(r.state))
+    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt) || a.slug.localeCompare(b.slug));
+  const cutoff = now.getTime() - rule.days * 86400000;
+  return live.filter((r, i) => i < rule.pieces || Date.parse(r.updatedAt) > cutoff).map((r) => r.slug);
+};

@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-12b",
+  "version": "2026-11-12c",
   "audience": "Travellers, seven in ten of them American, who are planning a stay in Sicily: couples, families, small groups and guests of villas who pay 100 to 200 EUR per person for a private experience with a chef in Palermo, a hands-on class in his kitchen or a dinner cooked and served where they stay. They meet the house while they dream of the trip, save it while they plan, and write when they want to book. They compare RistHome with starred restaurants and five-star hotels, not with caterers.",
   "limits": {
     "hookTitleWords": 10,
@@ -392,6 +392,27 @@
         "id": "permissions",
         "asks": "No recognisable guest without recorded consent; every licensed picture is credited."
       }
+    ]
+  },
+  "rest": {
+    "photo": {
+      "days": 10,
+      "pieces": 3
+    },
+    "cover": {
+      "days": 28,
+      "pieces": 12
+    },
+    "context": {
+      "days": 28,
+      "pieces": 12
+    },
+    "rules": [
+      "A photograph of the house returns after ten days and three published pieces, whichever is longer.",
+      "A cover returns as a cover after twenty-eight days and twelve published pieces; before that it may sit inside a piece under the first rule.",
+      "A licensed picture of the island rests as long as a cover.",
+      "A crop and its source are one photograph. A cover line is never used twice.",
+      "When no piece can be built without breaking a rest, the slot stays empty and the console says why."
     ]
   }
 }

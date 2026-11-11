@@ -25,7 +25,7 @@ import { rankForService, type Format, type Service, type TechnicalRow, type Verd
 import { onePerSubject } from "../src/lib/subjects.ts";
 import { applyReview, dishKey, factsOf, isHeldBack, MAX_EXCLUSIONS_PER_REVIEW, mergeExclusions, sanitizeText, type AssetOverride, type ReviewItem, type ReviewPair } from "../src/lib/review.ts";
 import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
-import { cooldownPosts, LIVE_STATES, recentLiveSlugs } from "../src/lib/pipeline.ts";
+import { defaultRest, LIVE_STATES, restingSlugs } from "../src/lib/pipeline.ts";
 import { formatCode } from "../src/lib/autopilot.ts";
 import { runClaudeCli } from "../src/lib/claude-cli.ts";
 
@@ -111,12 +111,14 @@ const usableForService = new Set(
     .filter((v) => v && !v.blocked && v.tier !== "excluded" && !isHeldBack(overrides[v.file]))
     .map((v) => subjectOf(v.file)),
 ).size;
-const cooldown = cooldownPosts(usableForService, photosPerPost);
-console.log(`[author] ${usableForService} dishes and scenes fit for ${service}; a photo rests for ${cooldown} post(s) before it can return`);
-const lastEight = new Set(recentLiveSlugs(pipelineNow, cooldown));
+// Rest: a photograph of the house, and a licensed picture, return only after the days and the pieces the standard sets (both).
+const rest = loadStandard()?.rest ?? defaultRest;
+const restingPhotoSlugs = new Set(restingSlugs(pipelineNow, rest.photo, new Date()));
+const lastEight = new Set(restingSlugs(pipelineNow, rest.context, new Date()));
+console.log(`[author] ${usableForService} dishes and scenes fit for ${service}; a photograph rests ${rest.photo.days} days and ${rest.photo.pieces} pieces, a licensed picture ${rest.context.days} days and ${rest.context.pieces} pieces`);
 const episode = Object.values(pipelineNow).filter((r) => LIVE_STATES.includes(r.state) && r.slug.startsWith(formatCode(archetype.id) + "-")).length + 1;
 const seriesLine = archetype.seriesName ? `SERIES: this is episode ${episode} of "${archetype.seriesName[lang]}": the hook title must start with "${archetype.seriesName[lang]}, ep. ${episode}" and the caption must open with the same line.` : "";
-const restingSubjects = new Set(Object.entries(usage).filter(([, slugs]) => slugs.some((sl) => lastEight.has(sl))).map(([file]) => subjectOf(file)));
+const restingSubjects = new Set(Object.entries(usage).filter(([, slugs]) => slugs.some((sl) => restingPhotoSlugs.has(sl))).map(([file]) => subjectOf(file)));
 const verdicts = Object.values(scoresFile.verdicts)
   .map((byKey) => byKey[`${service}:${format}`])
   .filter((v): v is Verdict => Boolean(v))
@@ -136,8 +138,10 @@ const ranked = onePerSubject(
 const byFile = new Map(poolRows.map((r) => [r.file, r]));
 const candidates = ranked.map((v) => byFile.get(v.file)).filter((r): r is PoolRow => Boolean(r));
 const verdictOf = new Map(ranked.map((v) => [v.file, v]));
-if (candidates.length < 6) {
-  console.error(`[author] insufficient media: ${candidates.length} photo(s) rated usable or premium for ${service}/${format} that were not used in the last 8 posts (need 6). Add photos or clips, raise quality with the studio, or review data/asset-overrides.json.`);
+// A piece needs at least the photographs of the house its format cannot do without (never fewer than two to choose from).
+const needOwn = Math.max(2, photosPerPost - ((archetype as { context?: { maxPerCarousel?: number } }).context?.maxPerCarousel ?? 1));
+if (candidates.length < needOwn) {
+  console.error(`[author] insufficient media: ${candidates.length} photograph(s) of the house fit for ${service}/${format} that are not resting (need ${needOwn}). The slot stays empty. Add photos or clips, raise quality with the studio, or review data/asset-overrides.json.`);
   process.exit(3);
 }
 // Closer looks: a point per photograph (scripts/detail-points.ts), only where the photograph is large enough and a person has not dropped it.

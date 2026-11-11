@@ -74,7 +74,15 @@ log(`plan: ${plan.archetype} ${plan.lang} ${plan.experimentId}/${plan.variantId}
 
 try {
   if (!existsSync(specFile)) {
-    run("author", ["scripts/author.ts", "--archetype", plan.archetype, "--lang", plan.lang, "--experiment", plan.experimentId, "--variant", plan.variantId, "--slug", slug, "--model", values.model]);
+    // The author answers 3 when no piece can be built without bringing back a photograph that is still resting: the slot stays empty.
+    const authored = spawnSync("node", ["--env-file-if-exists=.env", "scripts/author.ts", "--archetype", plan.archetype, "--lang", plan.lang, "--experiment", plan.experimentId, "--variant", plan.variantId, "--slug", slug, "--model", values.model], { encoding: "utf8", maxBuffer: 50 * 1024 * 1024 });
+    const authorOut = `${authored.stdout}${authored.stderr}`.trim();
+    if (authorOut) writeFileSync(logFile, authorOut + "\n", { flag: "a" });
+    if (authored.status === 3) {
+      log(`EMPTY SLOT: no ${plan.archetype} piece can be built today without repeating a photograph that is still resting. Nothing was produced; the next attempt is the next posting day.`);
+      process.exit(0);
+    }
+    if (authored.status !== 0) throw new Error(`author failed (exit ${authored.status}): ${authorOut.split("\n").slice(-5).join(" | ")}`);
   } else {
     log(`spec exists, reusing ${specFile}`);
   }

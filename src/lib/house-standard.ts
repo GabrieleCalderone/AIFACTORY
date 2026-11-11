@@ -24,6 +24,8 @@ export type HouseStandard = {
   calendar?: { services: string[]; maxServiceShare: number; maxOfferShare: number; offerArchetypes: string[]; rules: string[] };
   /** Being found: the place and one of the service phrases must be in every English caption. */
   seo?: { place: string; phrases: string[]; rules: string[] };
+  /** How long pictures rest before they return (src/lib/pipeline.ts, restingSlugs). */
+  rest?: { photo: { days: number; pieces: number }; cover: { days: number; pieces: number }; context: { days: number; pieces: number }; rules: string[] };
   measure?: { primary: string; then: string[]; commercial: string; rules: string[] };
   /** Editorial judgement out of 100 on a finished piece (src/lib/scorecard.ts). */
   scorecard?: Scorecard & { note?: string };
