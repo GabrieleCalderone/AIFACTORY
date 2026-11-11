@@ -150,10 +150,23 @@ export const defaultRest: RestRules = { photo: { days: 10, pieces: 3 }, cover: {
  * `days`, and the last `pieces` live posts whatever their age. A picture used in any of them
  * may not return yet. Drafts that were rejected or never approved use up nothing.
  */
-export const restingSlugs = (pipeline: Pipeline, rule: RestRule, now: Date): string[] => {
+export const restingSlugs = (pipeline: Pipeline, rule: RestRule, now: Date, shownAt: (slug: string) => string | undefined = () => undefined): string[] => {
+  // The rest is about what a visitor has seen: the day a piece went out (or is due to) counts, not the day it was scheduled.
+  const seen = (r: Record_) => shownAt(r.slug) ?? r.updatedAt;
   const live = Object.values(pipeline)
     .filter((r) => LIVE_STATES.includes(r.state))
-    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt) || a.slug.localeCompare(b.slug));
+    .sort((a, b) => seen(b).localeCompare(seen(a)) || a.slug.localeCompare(b.slug));
   const cutoff = now.getTime() - rule.days * 86400000;
-  return live.filter((r, i) => i < rule.pieces || Date.parse(r.updatedAt) > cutoff).map((r) => r.slug);
+  return live.filter((r, i) => i < rule.pieces || Date.parse(seen(r)) > cutoff).map((r) => r.slug);
+};
+
+/** The day each post first went out, or is due to: the earliest publication that is not a draft. */
+export const firstShown = (publications: { slug: string; dueAt?: string; draft?: boolean }[]): ((slug: string) => string | undefined) => {
+  const first = new Map<string, string>();
+  for (const p of publications) {
+    if (p.draft || !p.dueAt) continue;
+    const known = first.get(p.slug);
+    if (!known || p.dueAt < known) first.set(p.slug, p.dueAt);
+  }
+  return (slug) => first.get(slug);
 };

@@ -88,3 +88,13 @@ test("a picture rests until both the days and the pieces have passed; drafts use
   assert.deepEqual(restingSlugs(pipeline, { days: 28, pieces: 12 }, now), ["d", "c", "b", "a"]);
   assert.deepEqual(restingSlugs(pipeline, { days: 2, pieces: 1 }, now), ["d"]);
 });
+
+test("the rest counts from the day a piece went out, not from the day it was scheduled", async () => {
+  const { restingSlugs, firstShown } = await import("../src/lib/pipeline.ts");
+  const pipeline = { early: { slug: "early", state: "SCHEDULED", updatedAt: "2026-11-01T10:00:00.000Z", history: [] } } as never;
+  const now = new Date("2026-11-25T12:00:00Z");
+  assert.deepEqual(restingSlugs(pipeline, { days: 10, pieces: 0 }, now), [], "scheduled long ago");
+  const shown = firstShown([{ slug: "early", dueAt: "2026-11-20T17:00:00.000Z" }, { slug: "early", dueAt: "2026-11-22T17:00:00.000Z" }, { slug: "early", dueAt: "2026-11-01T00:00:00.000Z", draft: true }]);
+  assert.equal(shown("early"), "2026-11-20T17:00:00.000Z");
+  assert.deepEqual(restingSlugs(pipeline, { days: 10, pieces: 0 }, now, shown), ["early"], "but it went out five days ago");
+});

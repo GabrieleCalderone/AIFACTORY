@@ -40,7 +40,7 @@ import { contextRows, generatedRows, loadStandard } from "../src/lib/gate-io.ts"
 import { madeWith, workflowSteps } from "../src/lib/workflow.ts";
 import { createTickets, proofOf, proofOk } from "../src/lib/console-auth.ts";
 import { PostSpec } from "../src/schemas/post.ts";
-import { defaultRest, restingSlugs, summarize, type State } from "../src/lib/pipeline.ts";
+import { defaultRest, firstShown, restingSlugs, summarize, type State } from "../src/lib/pipeline.ts";
 import { isHeldBack, type AssetOverride } from "../src/lib/review.ts";
 import { summarizeRegistry, type Registry } from "../src/lib/registry.ts";
 import type { Override, Verdict } from "../src/lib/visual-score.ts";
@@ -450,7 +450,7 @@ const mediaList = (service: string, format: string) => {
   for (const g of Object.values(groups)) shots.set(g, (shots.get(g) ?? 0) + 1);
   const details = readJson<Record<string, { what?: string; dropped?: boolean } | null>>("data/asset-details.json", {});
   // the same rest the author applies (content/house-standard.json, rest)
-  const resting = new Set(restingSlugs(loadPipeline(), loadStandard()?.rest?.photo ?? defaultRest.photo, new Date()));
+  const resting = new Set(restingSlugs(loadPipeline(), loadStandard()?.rest?.photo ?? defaultRest.photo, new Date(), firstShown(readJson<{ slug: string; dueAt?: string; draft?: boolean }[]>("data/publications.json", []))));
   const [W, H] = format === "reel" ? [1080, 1920] : [1080, 1350];
   return pool
     .map((r) => {

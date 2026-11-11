@@ -25,7 +25,7 @@ import { rankForService, type Format, type Service, type TechnicalRow, type Verd
 import { onePerSubject } from "../src/lib/subjects.ts";
 import { applyReview, dishKey, factsOf, isHeldBack, MAX_EXCLUSIONS_PER_REVIEW, mergeExclusions, sanitizeText, type AssetOverride, type ReviewItem, type ReviewPair } from "../src/lib/review.ts";
 import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
-import { defaultRest, LIVE_STATES, restingSlugs } from "../src/lib/pipeline.ts";
+import { defaultRest, firstShown, LIVE_STATES, restingSlugs } from "../src/lib/pipeline.ts";
 import { formatCode } from "../src/lib/autopilot.ts";
 import { runClaudeCli } from "../src/lib/claude-cli.ts";
 
@@ -113,8 +113,21 @@ const usableForService = new Set(
 ).size;
 // Rest: a photograph of the house, and a licensed picture, return only after the days and the pieces the standard sets (both).
 const rest = loadStandard()?.rest ?? defaultRest;
-const restingPhotoSlugs = new Set(restingSlugs(pipelineNow, rest.photo, new Date()));
-const lastEight = new Set(restingSlugs(pipelineNow, rest.context, new Date()));
+const shownAt = firstShown(existsSync("data/publications.json") ? (JSON.parse(readFileSync("data/publications.json", "utf8")) as { slug: string; dueAt?: string; draft?: boolean }[]) : []);
+const restingPhotoSlugs = new Set(restingSlugs(pipelineNow, rest.photo, new Date(), shownAt));
+const lastEight = new Set(restingSlugs(pipelineNow, rest.context, new Date(), shownAt));
+// What opened the recent pieces: a cover does not return as a cover, and a cover line is never used twice.
+const coverOf = (slugName: string): { image?: string; line?: string } => {
+  const f = path.join("content/posts", `${slugName}.json`);
+  if (!existsSync(f)) return {};
+  const p = PostSpec.safeParse(JSON.parse(readFileSync(f, "utf8")));
+  if (!p.success) return {};
+  const cover = p.data.carousel?.slides.find((sl) => sl.type === "cover");
+  return { image: (cover && "image" in cover ? cover.image : undefined) ?? p.data.reel?.hook.image, line: (cover && "title" in cover ? cover.title : undefined) ?? p.data.reel?.hook.title };
+};
+const sameLine = (t: string) => t.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+const recentCovers = new Set(restingSlugs(pipelineNow, rest.cover, new Date(), shownAt).map((sl) => coverOf(sl).image).filter((i): i is string => Boolean(i)).map((i) => subjectOf(path.basename(i))));
+const usedCoverLines = new Set(Object.values(pipelineNow).filter((r) => LIVE_STATES.includes(r.state)).map((r) => coverOf(r.slug).line).filter((l): l is string => Boolean(l)).map(sameLine));
 console.log(`[author] ${usableForService} dishes and scenes fit for ${service}; a photograph rests ${rest.photo.days} days and ${rest.photo.pieces} pieces, a licensed picture ${rest.context.days} days and ${rest.context.pieces} pieces`);
 const episode = Object.values(pipelineNow).filter((r) => LIVE_STATES.includes(r.state) && r.slug.startsWith(formatCode(archetype.id) + "-")).length + 1;
 const seriesLine = archetype.seriesName ? `SERIES: this is episode ${episode} of "${archetype.seriesName[lang]}": the hook title must start with "${archetype.seriesName[lang]}, ep. ${episode}" and the caption must open with the same line.` : "";
@@ -284,6 +297,19 @@ for (let attempt = 1; attempt <= 3 && !raw; attempt++) {
     const repeats = repeatedImages(parsed.data);
     if (foreign.length || repeats.length) {
       feedback = `${foreign.length ? `these files are not in the allowed list: ${foreign.join(", ")}. ` : ""}${repeats.length ? `a photo may appear once in the reel and once in the carousel (a "detail" only right after its own whole photo, and only where a closer look is listed): ${repeats.join(", ")}.` : ""}`;
+      console.log(`[author] ${feedback}`);
+      continue;
+    }
+    // A cover that opened a recent piece does not open another, and a cover line is never used twice.
+    const coverNow = parsed.data.carousel?.slides.find((sl) => sl.type === "cover");
+    const coverImage = (coverNow && "image" in coverNow ? coverNow.image : undefined) ?? parsed.data.reel?.hook.image;
+    const coverLine = (coverNow && "title" in coverNow ? coverNow.title : undefined) ?? parsed.data.reel?.hook.title ?? "";
+    const coverFaults = [
+      ...(coverImage && recentCovers.has(subjectOf(path.basename(coverImage))) ? [`${coverImage} opened a recent piece and may not open another yet: choose a different cover (it may still sit inside the piece)`] : []),
+      ...(coverLine && usedCoverLines.has(sameLine(coverLine)) ? [`the cover line "${coverLine}" was already used: write a new one`] : []),
+    ];
+    if (coverFaults.length && attempt < 3) {
+      feedback = coverFaults.join("; ");
       console.log(`[author] ${feedback}`);
       continue;
     }
