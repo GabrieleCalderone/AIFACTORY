@@ -39,7 +39,10 @@ if (gateResult.errors.length) {
 // Approval: a human (console) or AUTOPUBLISH=true after the loop has been validated end-to-end.
 const pipelineState = loadPipeline()[spec.slug]?.state ?? null;
 const autoApprove = process.env.AUTOPUBLISH === "true";
-if (!values["dry-run"] && !values.draft && pipelineState !== "APPROVED" && !autoApprove) {
+// A post that is already SCHEDULED was approved to get there: --missing may complete it. The check
+// further down still refuses it if the post file differs from the files that were hosted.
+const completing = values.missing && pipelineState === "SCHEDULED";
+if (!values["dry-run"] && !values.draft && pipelineState !== "APPROVED" && !autoApprove && !completing) {
   console.log(`[publish] ${spec.slug} is ${pipelineState ?? "not in the pipeline"}: approve it in the console (or set AUTOPUBLISH=true) before scheduling; use --draft to save Buffer drafts instead`);
   process.exit(0);
 }

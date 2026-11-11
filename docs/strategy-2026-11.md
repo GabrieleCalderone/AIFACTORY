@@ -49,3 +49,6 @@ Gli ospiti fotografano ogni lezione. Un messaggio dopo l'esperienza che chiede d
 - **Foto con il logo stampato**: restano, dove il logo è piccolo e in un angolo.
 - **Solo inglese**: il pubblico è internazionale, tutti i contenuti escono in inglese (`langs` in `data/autopilot.json`). Sostituisce la proposta "lezione in inglese, chef in italiano".
 - **Si ricomincia**: tutti i post fatti prima dello stile attuale sono stati messi da parte (stato REJECTED, file conservati). Il primo della nuova linea è `a4-20261111`.
+- **Suono dei reel** (deciso l'11 novembre sera): brano con licenza ("Fretless"), non le basi ElevenLabs. Un suono generato va dichiarato e ogni reel porterebbe l'etichetta "contenuto AI": per una casa che vende autenticità costa più di una riga di credito. Le quattro basi restano in `public/audio/beds/`, non usate. Tolto "Monkeys Spinning Monkeys", fuori tono.
+- **Pubblicazione**: manuale. Ogni post aspetta l'approvazione nella console finché i primi non sono stati misurati.
+- **Contesto**: sei foto approvate (tre Wikimedia, tre limoni da Unsplash).

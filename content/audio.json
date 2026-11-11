@@ -1,22 +1,7 @@
 [
   {
-    "src": "audio/beds/kitchen-quiet.mp3",
-    "attribution": "",
-    "mood": "kitchen at work, calm"
-  },
-  {
-    "src": "audio/beds/sea-terrace.mp3",
-    "attribution": "",
-    "mood": "sea, open air, calm"
-  },
-  {
-    "src": "audio/beds/table-laid.mp3",
-    "attribution": "",
-    "mood": "table, glasses, warm"
-  },
-  {
-    "src": "audio/beds/pasta-board.mp3",
-    "attribution": "",
-    "mood": "hands at work, wood, flour"
+    "src": "audio/fretless.mp3",
+    "attribution": "\"Fretless\" Kevin MacLeod (incompetech.com), CC BY 4.0",
+    "mood": "warm, relaxed"
   }
 ]

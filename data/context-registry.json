@@ -713,7 +713,7 @@
     "artist": "Steve Doig",
     "credit": "Steve Doig, Unsplash",
     "query": "sicily lemons tree",
-    "status": "reviewed",
+    "status": "approved",
     "foundAt": "2026-11-11T18:47:30.536Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/FaMBWkmvPyY/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MXx8c2ljaWx5JTIwbGVtb25zJTIwdHJlZXxlbnwxfHx8fDE3OTQ0MjI4NTB8MA",
@@ -731,7 +731,8 @@
         "Sharp subject with soft background and air",
         "Few colours, no clutter"
       ]
-    }
+    },
+    "approvedAt": "2026-11-11T19:38:51.461Z"
   },
   "u-cUaXzFXVKkA": {
     "id": "u-cUaXzFXVKkA",
@@ -905,7 +906,7 @@
     "artist": "bruno neurath-wilson",
     "credit": "bruno neurath-wilson, Unsplash",
     "query": "sicily lemons tree",
-    "status": "reviewed",
+    "status": "approved",
     "foundAt": "2026-11-11T18:47:30.537Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/DmizDd1Vwc0/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8N3x8c2ljaWx5JTIwbGVtb25zJTIwdHJlZXxlbnwxfHx8fDE3OTQ0MjI4NTB8MA",
@@ -923,7 +924,8 @@
         "Clean, uncluttered close-up",
         "Simple palette of yellow and green"
       ]
-    }
+    },
+    "approvedAt": "2026-11-11T19:38:51.462Z"
   },
   "u-5tm2EnWxliQ": {
     "id": "u-5tm2EnWxliQ",
@@ -1065,7 +1067,7 @@
     "artist": "Moritz Mentges",
     "credit": "Moritz Mentges, Unsplash",
     "query": "sicily lemons tree",
-    "status": "reviewed",
+    "status": "approved",
     "foundAt": "2026-11-11T18:47:30.538Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/fEfAgRuYD14/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MTJ8fHNpY2lseSUyMGxlbW9ucyUyMHRyZWV8ZW58MXx8fHwxNzk0NDIyODUwfDA",
@@ -1083,7 +1085,8 @@
         "Natural light, true colours, few colours",
         "Clean, no text or people, fits Sicily"
       ]
-    }
+    },
+    "approvedAt": "2026-11-11T19:38:51.462Z"
   },
   "u-zZy_vsGtkWc": {
     "id": "u-zZy_vsGtkWc",

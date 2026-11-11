@@ -90,9 +90,10 @@
     },
     "transitionSec": 0.4,
     "audio": {
-      "src": "audio/beds/table-laid.mp3",
+      "src": "audio/fretless.mp3",
       "volume": 0.8,
-      "fadeOutSec": 1
+      "fadeOutSec": 1,
+      "attribution": "\"Fretless\" Kevin MacLeod (incompetech.com), CC BY 4.0"
     }
   },
   "carousel": {
@@ -139,6 +140,5 @@
         "body": "Link in bio"
       }
     ]
-  },
-  "aiGenerated": true
+  }
 }
