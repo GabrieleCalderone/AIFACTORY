@@ -460,8 +460,8 @@
   },
   "a2-20261111": {
     "slug": "a2-20261111",
-    "state": "SCHEDULED",
-    "updatedAt": "2026-11-11T19:56:21.410Z",
+    "state": "REJECTED",
+    "updatedAt": "2026-11-11T20:23:51.501Z",
     "history": [
       {
         "at": "2026-11-11T19:55:05.348Z",
@@ -498,6 +498,12 @@
         "from": "READY",
         "to": "SCHEDULED",
         "note": "4 Buffer post(s)"
+      },
+      {
+        "at": "2026-11-11T20:23:51.501Z",
+        "from": "SCHEDULED",
+        "to": "REJECTED",
+        "note": "taken back from Buffer (instagram reel, instagram carousel, tiktok carousel, facebook carousel): owner: discard the a2 style"
       }
     ],
     "evidence": {

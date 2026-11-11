@@ -21,9 +21,10 @@ test("every post is its own tracked entry: no single-post variants", () => {
 });
 
 test("advance rotates archetype and language and records the post time", () => {
-  const next = advance(defaultState, new Date("2026-11-10T09:00:00Z"));
+  const next = advance({ ...defaultState, langs: ["en", "it"] }, new Date("2026-11-10T09:00:00Z"));
   assert.equal(next.nextIndex, 1);
   assert.equal(next.nextLang, 1);
+  assert.equal(advance(defaultState, new Date("2026-11-10T09:00:00Z")).nextLang, 0, "one language: it stays");
   assert.equal(next.lastPostAt, "2026-11-10T09:00:00.000Z");
 });
 
@@ -44,7 +45,8 @@ test("the editorial calendar refuses retired formats, repeats, missing or domina
     { id: "A5-proof-and-offer", service: "chef" },
     { id: "A6-chef-series", service: "class" },
   ];
-  assert.deepEqual(calendarIssues(defaultState.rotation, [...archetypes, { id: "A2-chef-at-work", service: "class" }], std), [], "the shipped rotation meets the standard");
+  const shipped = [{ id: "A7-the-island", service: "chef" }, { id: "A8-the-season", service: "class" }, { id: "A9-the-evening", service: "chef" }, { id: "A10-the-craft", service: "class" }];
+  assert.deepEqual(calendarIssues(defaultState.rotation, shipped, std), [], "the shipped rotation meets the standard");
   const bad = calendarIssues(["A3-menu-list", "A1-process-reveal", "A1-process-reveal", "A9-unknown"], archetypes, std).join(" | ");
   assert.match(bad, /slot 1: A3-menu-list is retired/);
   assert.match(bad, /slot 2: A1-process-reveal is followed by itself/);

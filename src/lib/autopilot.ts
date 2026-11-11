@@ -21,9 +21,10 @@ export type ExperimentLite = { experiment_id: string; variant_id: string; archet
 
 export const defaultState: AutopilotState = {
   cadenceDays: 1,
-  rotation: ["A6-chef-series", "A1-process-reveal", "A4-private-table", "A2-chef-at-work", "A4-private-table", "A6-chef-series", "A5-proof-and-offer"],
+  // the island, the season, the evening, the craft: two weeks of four posts (content/house-standard.json, calendar)
+  rotation: ["A7-the-island", "A8-the-season", "A9-the-evening", "A10-the-craft", "A7-the-island", "A10-the-craft", "A9-the-evening", "A8-the-season"],
   nextIndex: 0,
-  langs: ["en", "it"],
+  langs: ["en"],
   nextLang: 0,
   lastPostAt: null,
   postingHourLocal: 18,

@@ -20,49 +20,5 @@
     "experimentId": "EXP-008",
     "variantId": "A",
     "createdAt": "2026-11-11T18:46:28.780Z"
-  },
-  {
-    "slug": "a2-20261111",
-    "kind": "reel",
-    "platform": "instagram",
-    "bufferPostId": "6af4c863f75ab77b0ec4ccf8",
-    "dueAt": "2026-11-14T17:00:00.000Z",
-    "draft": false,
-    "experimentId": "EXP-009",
-    "variantId": "A",
-    "createdAt": "2026-11-11T19:56:19.839Z"
-  },
-  {
-    "slug": "a2-20261111",
-    "kind": "carousel",
-    "platform": "instagram",
-    "bufferPostId": "6af4c864b933477d281e5fc5",
-    "dueAt": "2026-11-12T17:00:00.000Z",
-    "draft": false,
-    "experimentId": "EXP-009",
-    "variantId": "A",
-    "createdAt": "2026-11-11T19:56:20.377Z"
-  },
-  {
-    "slug": "a2-20261111",
-    "kind": "carousel",
-    "platform": "tiktok",
-    "bufferPostId": "6af4c864f75ab77b0ec4cd2f",
-    "dueAt": "2026-11-12T18:00:00.000Z",
-    "draft": false,
-    "experimentId": "EXP-009",
-    "variantId": "A",
-    "createdAt": "2026-11-11T19:56:20.934Z"
-  },
-  {
-    "slug": "a2-20261111",
-    "kind": "carousel",
-    "platform": "facebook",
-    "bufferPostId": "6af4c865b459c6001d4ab836",
-    "dueAt": "2026-11-12T19:00:00.000Z",
-    "draft": false,
-    "experimentId": "EXP-009",
-    "variantId": "A",
-    "createdAt": "2026-11-11T19:56:21.405Z"
   }
 ]
