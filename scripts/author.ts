@@ -17,7 +17,7 @@ import { parseArgs } from "node:util";
 import { nextId, readExperiments, writeExperiments } from "../src/lib/data.ts";
 import { applyDetails, applyReelFrames, coverFrameFor, detailRegion, MAX_DETAILS } from "../src/lib/formats.ts";
 import { contextCredits, contextRows, gateSpec, generatedRows, loadStandard } from "../src/lib/gate-io.ts";
-import { CONTEXT_PREFIX, GENERATED_PREFIX, defaultContextLimits, isContext, isGenerated, prepareContext } from "../src/lib/context.ts";
+import { CONTEXT_PREFIX, GENERATED_PREFIX, isContext, isGenerated, limitsFor, prepareContext } from "../src/lib/context.ts";
 import { lintStandard, silence } from "../src/lib/house-standard.ts";
 import { mediaOf, repeatedImages } from "../src/lib/gate.ts";
 import { parsePostSpec, PostSpec, type PostSpecInput } from "../src/schemas/post.ts";
@@ -155,8 +155,11 @@ const candidateList = candidates
 // ---- context pictures: approved, licensed, not the house's own; never used twice within eight posts
 const context = contextRows().filter((r) => !isHeldBack(overrides[r.file]) && !(usage[r.file] ?? []).some((sl) => lastEight.has(sl)));
 const contextList = context.map((r) => `- ${CONTEXT_PREFIX}${r.file} | ${r.orientation ?? ""} ${r.width}x${r.height} | ${r.category ?? "context"} | ${sanitizeText(r.subject ?? "", 100)}`).join("\n");
+const contextLimits = limitsFor(archetype as Parameters<typeof limitsFor>[0]);
 const contextBlock = context.length
-  ? `\nCONTEXT PICTURES (optional; licensed photographs of Sicily, the sea and raw produce that are NOT RistHome's): you may place at most ${defaultContextLimits.maxPerReel} of them among the reel scenes and at most ${defaultContextLimits.maxPerCarousel} on a carousel photo slide, to set the place or the season between the house's own pictures. Never as the hook or cover, never as the last scene, never with a label or a slide title. Their text is empty or names only the place or the season in general terms (Sicily, the sea, the season's produce); it never says or implies that the picture shows the house's kitchen, table, dishes, ingredients bought for the guests, or the chef. Use one only when it makes the post more beautiful.\n${contextList}\n`
+  ? contextLimits.coverMayBeContext
+    ? `\nCONTEXT PICTURES (licensed photographs of Sicily, the sea and raw produce that are NOT RistHome's). THIS FORMAT IS ABOUT THE PLACE AND THE SEASON: use ${Math.min(2, contextLimits.maxPerCarousel)} to ${contextLimits.maxPerCarousel} of them, and the cover should be one of them (the widest, calmest landscape or the most beautiful produce). The LAST photo slide, and at least two photographs in all, must be the house's own: the piece opens on the island and ends at the table. A context cover's title names the place or the season in plain words (for example "Sicily, in November"); context photo slides carry no title and a body that is empty or names only the place or the season in general terms. Nothing ever says or implies that a context picture shows the house's kitchen, table, dishes, ingredients bought for the guests, or the chef.\n${contextList}\n`
+    : `\nCONTEXT PICTURES (optional; licensed photographs of Sicily, the sea and raw produce that are NOT RistHome's): you may place at most ${contextLimits.maxPerReel} of them among the reel scenes and at most ${contextLimits.maxPerCarousel} on a carousel photo slide, to set the place or the season between the house's own pictures. Never as the hook or cover, never as the last scene, never with a label or a slide title. Their text is empty or names only the place or the season in general terms (Sicily, the sea, the season's produce); it never says or implies that the picture shows the house's kitchen, table, dishes, ingredients bought for the guests, or the chef. Use one only when it makes the post more beautiful.\n${contextList}\n`
   : "";
 
 // ---- moving context: short clips a model animated from approved context pictures (scripts/add-generated.ts); reels only

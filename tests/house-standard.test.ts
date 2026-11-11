@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { lintStandard, silence, type HouseStandard } from "../src/lib/house-standard.ts";
 import { parsePostSpec } from "../src/schemas/post.ts";
+import { demoSpec } from "./fixtures/demo-spec.ts";
 
 const std: HouseStandard = {
   version: "test",
@@ -67,4 +68,15 @@ test("silence removes only optional texts and leaves required ones for the gate"
   assert.equal("text" in raw.reel.scenes[0], false);
   const left = lintStandard(parsePostSpec(raw), std);
   assert.deepEqual(left.map((v) => v.where), ["reel.hook.title"]);
+});
+
+test("an English caption names the place and what the house is, and carries the place among its tags", () => {
+  const seo = { place: "Palermo", phrases: ["private chef", "cooking class"], rules: [] };
+  const post = (caption: string, hashtags: string[]) => parsePostSpec({ ...demoSpec, lang: "en", caption, hashtags });
+  const found = (caption: string, hashtags = ["palermo", "risthome"]) => lintStandard(post(caption, hashtags), { ...std, seo }).map((v) => v.message);
+  assert.deepEqual(found("A private chef at your table in Palermo."), []);
+  assert.ok(found("A chef at your table in Sicily.").some((m) => /does not name Palermo/.test(m)));
+  assert.ok(found("A dinner at your table in Palermo.").some((m) => /does not say what the house is/.test(m)));
+  assert.ok(found("A cooking class in Palermo.", ["sicily"]).some((m) => /no #palermo/.test(m)));
+  assert.equal(lintStandard(parsePostSpec({ ...demoSpec, lang: "it", caption: "Una cena a casa vostra.", hashtags: ["sicilia"] }), { ...std, seo }).some((v) => /Palermo|what the house is/.test(v.message)), false, "Italian posts are not checked for English phrases");
 });

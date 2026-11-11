@@ -650,6 +650,7 @@
             ><select id="mService">
               <option value="chef">Chef a domicilio</option>
               <option value="class">Lezione di cucina</option>
+              <option value="context">Sicilia e stagione (foto con licenza)</option>
             </select>
           </div>
           <div>
@@ -835,7 +836,7 @@
       const TOKEN = "__TOKEN__";
       const $ = (s) => document.querySelector(s);
       const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-      const media = (u) => (typeof u === "string" && (u.startsWith("/out/") || u.startsWith("/pool/") || u.startsWith("/generated/")) && !u.includes("..") ? `${u}?t=${TOKEN}` : "");
+      const media = (u) => (typeof u === "string" && (u.startsWith("/out/") || u.startsWith("/pool/") || u.startsWith("/generated/") || u.startsWith("/context/")) && !u.includes("..") ? `${u}?t=${TOKEN}` : "");
       const pill = (cls, text) => `<span class="pill ${cls}">${esc(text)}</span>`;
       const yesno = (ok, yes, no) => pill(ok ? "ok" : "bad", ok ? yes : no);
       const api = (path, body) => fetch(path, { method: body ? "POST" : "GET", headers: { "X-Console-Token": TOKEN, ...(body ? { "Content-Type": "application/json" } : {}) }, body: body ? JSON.stringify(body) : undefined }).then((r) => r.json());
@@ -932,8 +933,31 @@
         $("#extraStatus").innerHTML = ["Unsplash", "ElevenLabs"].map((n) => `<div class="row"><span>${n}</span>${yesno(toolOf(n)?.status === "ok", "chiave presente", "chiave mancante")}</div>`).join("");
         $("#infra").innerHTML = `<div class="row"><span>Repo GitHub</span>${yesno(s.setup.gitRemote, "collegato", "no")}</div><div class="row"><span>Host media</span>${yesno(s.setup.mediaRepo, "pronto", "manca")}</div><div class="row"><span>Agente 10:30</span>${yesno(s.setup.launchd, "installato", "manca")}</div><div class="row"><span>Registro media</span><span>${s.setup.registry ? `${esc(s.setup.registry.total)} asset · ${esc(s.setup.registry.synthetic)} sintetici` : "non sincronizzato"}</span></div>`;
       }
+      // Licensed pictures of the place and the season: found by the system, used only after a yes given here.
+      async function loadContext(view, show) {
+        const rows = await api("/api/context");
+        const n = (st) => rows.filter((r) => r.status === st).length;
+        $("#mediaSummary").innerHTML = `${pill("ok", `${n("approved")} approvate`)} ${pill("warn", `${n("reviewed")} in attesa del tuo sì`)} ${pill("muted", `${n("rejected")} scartate`)} <small>Non sono foto di RistHome: aprono i post sull'isola e sulla stagione, con il nome dell'autore in didascalia. Mai presentate come piatti, tavola o cucina della casa.</small>`;
+        const cls = { approved: "ok", reviewed: "warn", rejected: "muted" }, name = { approved: "approvata", reviewed: "da decidere", rejected: "scartata" };
+        const order = { reviewed: 0, approved: 1, rejected: 2 };
+        $("#mediaGrid").innerHTML = rows.filter((r) => show === "all" || (show === "live" ? r.status !== "rejected" : r.status === "rejected")).sort((a, b) => order[a.status] - order[b.status]).map((r) => `
+          <div class="asset">
+            <a href="${esc(media(r.url))}" target="_blank"><div class="frame ${view}"><img src="${esc(media(r.url))}" alt=""></div></a>
+            <div class="b">
+              <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;font-weight:600">${esc(r.category)}</span>${pill(cls[r.status], name[r.status])}</div>
+              <div style="font-size:13px;margin:6px 0">${esc(r.subject)}</div>
+              <small>${esc(r.credit)} · ${esc(r.library)} · ${r.width}×${r.height}${r.used.length ? ` · usata ${r.used.length} volt${r.used.length === 1 ? "a" : "e"}` : ""}</small>
+              ${r.status === "rejected" && r.why.length ? `<small>${esc(r.why.join(" · "))}</small>` : ""}
+              <div class="actions" style="margin-top:8px">
+                ${r.status === "reviewed" ? `<button class="accent small" data-ctx="approve" data-id="${esc(r.id)}">Approva</button>` : ""}
+                ${r.status !== "rejected" ? `<button class="secondary small" data-ctx="reject" data-id="${esc(r.id)}">Non mi piace</button>` : ""}
+              </div>
+            </div>
+          </div>`).join("") || "<small>nessuna foto in questa categoria</small>";
+      }
       async function loadMedia() {
         const service = $("#mService").value, view = $("#mFormat").value, show = $("#mTier").value;
+        if (service === "context") return loadContext(view, show);
         const rows = await api(`/api/media?service=${service}&format=${view === "reel" ? "reel" : "carousel"}`);
         const live = (r) => r.status === "in uso" || r.status === "a riposo";
         const count = (st) => rows.filter((r) => r.status === st).length;
@@ -969,6 +993,7 @@
         if (t.dataset.publish && confirm(`Programmare "${t.dataset.publish}" su tutti i canali collegati al prossimo slot?`)) run("publish-post", { slug: t.dataset.publish });
         if (t.dataset.draft) run("publish-draft", { slug: t.dataset.draft });
         if (t.dataset.render) run("render", { slug: t.dataset.render });
+        if (t.dataset.ctx) { t.disabled = true; await api("/api/context", { id: t.dataset.id, action: t.dataset.ctx }); setTimeout(loadMedia, 1500); }
         if (t.dataset.ov) { const note = t.dataset.ov === "exclude" ? "non piace al titolare" : t.dataset.ov === "include" ? "voluta dal titolare" : ""; t.disabled = true; await api("/api/override", { file: t.dataset.file, action: t.dataset.ov, note }); setTimeout(loadMedia, 2500); }
       });
       ["mService", "mFormat", "mTier"].forEach((id) => ($("#" + id).onchange = loadMedia));

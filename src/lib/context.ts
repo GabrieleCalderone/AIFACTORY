@@ -65,8 +65,14 @@ export const creditLine = (artist: string, licenceShortName: string, library: st
   return `${who}, ${licenceShortName.trim()}, via ${library}`;
 };
 
-export type ContextLimits = { maxPerReel: number; maxPerCarousel: number };
+/**
+ * coverMayBeContext: for the editorial formats about the island and the season, the cover may be
+ * a licensed picture of the place. The piece still ends on the house's own photograph.
+ */
+export type ContextLimits = { maxPerReel: number; maxPerCarousel: number; coverMayBeContext?: boolean };
 export const defaultContextLimits: ContextLimits = { maxPerReel: 2, maxPerCarousel: 1 };
+/** The limits of one format: what the archetype declares, over the house defaults. */
+export const limitsFor = (archetype: { context?: Partial<ContextLimits> } | undefined): ContextLimits => ({ ...defaultContextLimits, ...(archetype?.context ?? {}) });
 
 /**
  * Where a post may use context pictures. The opening and the closing picture are always
@@ -98,12 +104,22 @@ export const contextIssues = (spec: PostSpec, creditOf: (image: string) => strin
   if (spec.carousel) {
     const slides = spec.carousel.slides;
     const used = slides.map((s, i) => ({ s, i })).filter(({ s }) => "image" in s && isContext(s.image));
-    if (used.filter(({ s }) => s.type === "photo").length > limits.maxPerCarousel) issues.push(`carousel: more than ${limits.maxPerCarousel} context picture(s)`);
+    // the cover counts too, where a format lets it be a context picture
+    if (used.filter(({ s }) => s.type === "photo" || s.type === "cover").length > limits.maxPerCarousel) issues.push(`carousel: more than ${limits.maxPerCarousel} context picture(s)`);
     for (const { s, i } of used) {
-      if (s.type !== "photo") issues.push(`carousel slide ${i + 1}: a ${s.type} slide must use the house's own picture`);
+      if (s.type === "cover" && limits.coverMayBeContext) {
+        // the cover sets the place; its credit is owed like any other
+      } else if (s.type !== "photo") issues.push(`carousel slide ${i + 1}: a ${s.type} slide must use the house's own picture`);
       else if (s.title?.trim()) issues.push(`carousel slide ${i + 1}: a context picture carries no title ("${s.title.trim()}")`);
       owe((s as { image: string }).image);
     }
+  }
+  if (spec.carousel && limits.coverMayBeContext) {
+    // A piece that opens on the island closes on the house: the last photograph is the house's own, and there is more than one of them.
+    const pictures = spec.carousel.slides.filter((s): s is Extract<typeof s, { image: string }> => "image" in s && typeof s.image === "string" && s.type !== "cta");
+    const own = pictures.filter((s) => !isContext(s.image));
+    if (pictures.length && isContext(pictures[pictures.length - 1].image)) issues.push("carousel: the last photograph must be the house's own");
+    if (own.length < 2) issues.push(`carousel: ${own.length} of the house's own photographs, at least 2`);
   }
   // Generated material is disclosed: the post is flagged so the platforms show their AI label.
   const made = generatedIn(spec);

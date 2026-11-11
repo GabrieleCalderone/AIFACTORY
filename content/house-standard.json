@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-11b",
+  "version": "2026-11-11c",
   "audience": "Travellers and locals who pay 100 to 200 EUR per person for a private experience with a chef in Palermo: a hands-on class in his kitchen or a dinner cooked and served at their home or villa. They compare RistHome with starred restaurants and five-star hotels, not with caterers.",
   "limits": {
     "hookTitleWords": 7,
@@ -152,7 +152,9 @@
       "At most one post in seven asks for a booking outright; the others show the craft and let the single closing line invite.",
       "Same hour every time, so the house is expected and never intrudes.",
       "Seasons and produce set the themes. No trends, no memes, no borrowed holidays, no reactions to other accounts.",
-      "Italian and English alternate; a post is written in one language only."
+      "Every post is written in English: the guests come from abroad.",
+      "Four posts a week, on the same days: the island, the craft, the table, the season. Dishes are one voice among four; the place, the produce and the hands carry the others.",
+      "A piece about the island or the season may open on a licensed photograph of Sicily, credited, and always ends on the house's own table or dish."
     ]
   },
   "carousel": [
@@ -271,5 +273,20 @@
       "Relais & Châteaux values"
     ],
     "detail": "docs/house-standard.md"
+  },
+  "seo": {
+    "place": "Palermo",
+    "phrases": [
+      "private chef",
+      "cooking class",
+      "chef at home"
+    ],
+    "rules": [
+      "The first sentence of every caption says what the house is and where, in the words people type when they search: private chef or cooking class, Palermo, Sicily.",
+      "One subject per post, named once in plain words; no keyword lists, no repeated phrases.",
+      "Three to five hashtags, always the place and the house, then the service. Never trend tags.",
+      "Every image carries a description of what it shows, with the house and the place (alt text): it is read by people who cannot see and by search.",
+      "The same name, the same place and the same words on every channel, so the house is found as one thing."
+    ]
   }
 }

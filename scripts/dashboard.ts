@@ -120,6 +120,8 @@ const JOBS: Record<string, string[]> = {
   "studio-estimate": ["scripts/genai-studio.ts"],
   "studio-run": ["scripts/genai-studio.ts"],
   check: ["--run", "check"],
+  "context-approve": ["scripts/source-context.ts", "approve"],
+  "context-reject": ["scripts/source-context.ts", "reject"],
   "beds-make": ["scripts/sound-beds.ts", "make"],
   "beds-use": ["scripts/sound-beds.ts", "use"],
 };
@@ -771,6 +773,26 @@ const server = http.createServer(async (req, res) => {
         ),
         "public/assets/pool",
       );
+    if ((req.method === "GET" || req.method === "HEAD") && url.pathname.startsWith("/context/"))
+      return serveStatic(req, res, path.join("public/assets/context", decodeURIComponent(url.pathname.slice(9))), "public/assets/context");
+    // Context pictures (licensed photographs of the place): what was found, and a person's yes or no.
+    if (req.method === "GET" && url.pathname === "/api/context") {
+      const registry = readJson<Record<string, { id: string; status: string; file?: string; width?: number; height?: number; credit: string | null; licence: string; library?: string; pageUrl: string; review?: { category?: string; subject?: string; reasons?: string[] } }>>("data/context-registry.json", {});
+      const usage = readJson<Record<string, string[]>>("data/asset-usage.json", {});
+      return json(
+        res,
+        200,
+        Object.values(registry)
+          .filter((e) => e.file && existsSync(path.join("public/assets/context", e.file)) && ["reviewed", "approved", "rejected"].includes(e.status))
+          .map((e) => ({ id: e.id, status: e.status, url: `/context/${e.file}`, width: e.width, height: e.height, credit: e.credit ?? e.licence, library: e.library ?? "Wikimedia Commons", source: e.pageUrl, category: e.review?.category ?? "", subject: e.review?.subject ?? "", why: e.review?.reasons ?? [], used: usage[e.file!] ?? [] })),
+      );
+    }
+    if (req.method === "POST" && url.pathname === "/api/context") {
+      const body = await readBody(req);
+      // ids go to a command line: only the two shapes the libraries produce
+      if (!/^(u-[A-Za-z0-9_-]{5,20}|\d{1,12})$/.test(body.id ?? "") || !["approve", "reject"].includes(body.action)) return json(res, 400, { error: "bad id or action" });
+      return json(res, 200, { id: runJob(`context-${body.action}`, [body.id]).id });
+    }
     if (
       (req.method === "GET" || req.method === "HEAD") &&
       url.pathname.startsWith("/generated/")

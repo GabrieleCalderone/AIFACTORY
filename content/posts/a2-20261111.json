@@ -1,0 +1,148 @@
+{
+  "slug": "a2-20261111",
+  "lang": "en",
+  "title": "Chef at work: cooking side by side in Palermo",
+  "brief": {
+    "archetype": "A2-chef-at-work",
+    "audience": "Travellers and locals in Sicily who follow chefs and look for a hands-on class with a chef in Palermo.",
+    "objective": "Reach and profile visits",
+    "hook": "Chef's hands lifting fresh pasta strands in a crash zoom: the gesture of the class, and the guest's place beside it, in the first second.",
+    "sequence": [
+      "Hook: the chef lifts fresh pasta strands over the machine, crash zoom",
+      "The chef lifts pasta from the pan in his kitchen",
+      "Frying at the stove, then Sicilian lemons to set the place",
+      "Fresh pasta nests on the board",
+      "The sauce ladled over the plate, then the CTA"
+    ],
+    "cta": "Book your class on risthome.it (link in bio)",
+    "hypothesis": "Fast behind-the-scenes cuts of the chef's hands earn more shares than plated montages. Success: share rate >= 1% of plays.",
+    "experimentId": "EXP-009",
+    "variantId": "A"
+  },
+  "caption": "Cooking side by side with Chef Giacomo Napolitano in Palermo.\n\nA hands-on Sicilian cooking class in the chef's kitchen. Small groups, English spoken. Then you eat what you cooked.\n\n5.0 on Google with 101 reviews.\n\nBook your class on risthome.it (link in bio)",
+  "hashtags": [
+    "#palermo",
+    "#risthome",
+    "#sicily",
+    "#cookingclass",
+    "#sicilianfood"
+  ],
+  "reel": {
+    "hook": {
+      "image": "assets/pool/194-IMG-20230819-WA0080.jpg",
+      "trimSec": 0,
+      "frame": "plate",
+      "title": "Cooking side by side in Palermo",
+      "subtitle": "Chef Giacomo Napolitano",
+      "durationSec": 2.4,
+      "motion": "crash-zoom-in"
+    },
+    "scenes": [
+      {
+        "image": "assets/pool/195-IMG-20230919-WA0067.jpg",
+        "trimSec": 0,
+        "frame": "plate",
+        "text": "",
+        "label": "The chef's kitchen",
+        "durationSec": 1.8,
+        "motion": "crash-zoom-in"
+      },
+      {
+        "image": "assets/pool/139-FB_IMG_1705493927943.jpg",
+        "trimSec": 0,
+        "frame": "plate",
+        "text": "",
+        "label": "At the stove",
+        "durationSec": 1.8,
+        "motion": "dolly-in"
+      },
+      {
+        "image": "assets/context/u-DmizDd1Vwc0.jpg",
+        "trimSec": 0,
+        "frame": "plate",
+        "text": "",
+        "durationSec": 1.8,
+        "motion": "arc-right"
+      },
+      {
+        "image": "assets/pool/119-20240302_111448.jpg",
+        "trimSec": 0,
+        "frame": "plate",
+        "text": "",
+        "label": "Palermo",
+        "durationSec": 1.8,
+        "motion": "dolly-in"
+      },
+      {
+        "image": "assets/pool/193-FB_IMG_1690740770510.jpg",
+        "trimSec": 0,
+        "frame": "plate",
+        "text": "Then you eat what you cooked",
+        "label": "At the table",
+        "durationSec": 1.8,
+        "motion": "zoom-in"
+      }
+    ],
+    "cta": {
+      "title": "Cooking class in Palermo",
+      "line": "Book your class on risthome.it (link in bio)",
+      "durationSec": 3.2
+    },
+    "transitionSec": 0.4,
+    "audio": {
+      "src": "audio/fretless.mp3",
+      "volume": 0.8,
+      "fadeOutSec": 1,
+      "attribution": "\"Fretless\" Kevin MacLeod (incompetech.com), CC BY 4.0"
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "type": "cover",
+        "image": "assets/pool/194-IMG-20230819-WA0080.jpg",
+        "title": "Side by side in the chef's kitchen",
+        "kicker": "Cooking class in Palermo",
+        "frame": "full"
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/195-IMG-20230919-WA0067.jpg",
+        "title": "",
+        "body": "Chef Giacomo Napolitano at the stove."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/119-20240302_111448.jpg",
+        "title": "",
+        "body": "Small groups, English spoken."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/119-20240302_111448.jpg",
+        "title": "",
+        "body": "",
+        "detail": {
+          "x": 0.1311,
+          "y": 0.1371,
+          "w": 0.3378,
+          "h": 0.6259
+        }
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/193-FB_IMG_1690740770510.jpg",
+        "title": "",
+        "body": "Then you eat what you cooked."
+      },
+      {
+        "type": "cta",
+        "title": "Book your class on risthome.it",
+        "body": "Link in bio"
+      }
+    ]
+  },
+  "credits": [
+    "bruno neurath-wilson, Unsplash"
+  ]
+}

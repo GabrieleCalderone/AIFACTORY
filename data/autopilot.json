@@ -1,25 +1,26 @@
 {
   "cadenceDays": 2,
+  "rotation": [
+    "A7-the-island",
+    "A8-the-season",
+    "A4-private-table",
+    "A1-process-reveal",
+    "A7-the-island",
+    "A8-the-season",
+    "A5-proof-and-offer",
+    "A1-process-reveal"
+  ],
+  "nextIndex": 0,
+  "langs": [
+    "en"
+  ],
+  "nextLang": 0,
+  "lastPostAt": "2026-11-11T19:53:50.721Z",
+  "postingHourLocal": 18,
   "weekdays": [
     1,
     3,
     5,
     0
-  ],
-  "rotation": [
-    "A6-chef-series",
-    "A1-process-reveal",
-    "A4-private-table",
-    "A2-chef-at-work",
-    "A4-private-table",
-    "A6-chef-series",
-    "A5-proof-and-offer"
-  ],
-  "nextIndex": 3,
-  "langs": [
-    "en"
-  ],
-  "nextLang": 0,
-  "lastPostAt": "2026-11-10T23:43:54.917Z",
-  "postingHourLocal": 18
+  ]
 }

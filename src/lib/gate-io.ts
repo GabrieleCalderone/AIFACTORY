@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { readExperiments } from "./data.ts";
 import { runGate, type GateResult, type MediaInfo } from "./gate.ts";
-import { CONTEXT_PREFIX, GENERATED_PREFIX, contextIssues, isGenerated } from "./context.ts";
+import { CONTEXT_PREFIX, GENERATED_PREFIX, contextIssues, isGenerated, limitsFor, type ContextLimits } from "./context.ts";
 import { lintStandard, type HouseStandard } from "./house-standard.ts";
 import type { PostSpec } from "../schemas/post.ts";
 
@@ -50,7 +50,8 @@ export const gateSpec = (spec: PostSpec): GateResult => {
     archetypeIds,
     experimentRows,
   });
-  contextIssues(spec, contextCredits()).forEach((issue) => result.errors.push(`context picture, ${issue}`));
+  const archetypes = existsSync("content/archetypes.json") ? (JSON.parse(readFileSync("content/archetypes.json", "utf8")) as { archetypes: { id: string; context?: Partial<ContextLimits> }[] }).archetypes : [];
+  contextIssues(spec, contextCredits(), limitsFor(archetypes.find((a) => a.id === spec.brief.archetype))).forEach((issue) => result.errors.push(`context picture, ${issue}`));
   const standard = loadStandard();
   if (standard) lintStandard(spec, standard).forEach((v) => result.errors.push(`house standard, ${v.where}: ${v.message}`));
   return result;

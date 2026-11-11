@@ -457,5 +457,56 @@
         "6af4c47f8259a45014de579b"
       ]
     }
+  },
+  "a2-20261111": {
+    "slug": "a2-20261111",
+    "state": "SCHEDULED",
+    "updatedAt": "2026-11-11T19:56:21.410Z",
+    "history": [
+      {
+        "at": "2026-11-11T19:55:05.348Z",
+        "from": null,
+        "to": "DISCOVERED",
+        "note": "authored by sonnet from 12 ranked photos (standard 2026-11-11b, rules f1eced79)"
+      },
+      {
+        "at": "2026-11-11T19:55:05.349Z",
+        "from": "DISCOVERED",
+        "to": "QUALITY_CHECKED",
+        "note": "gate passed with 0 warning(s)"
+      },
+      {
+        "at": "2026-11-11T19:55:05.350Z",
+        "from": "QUALITY_CHECKED",
+        "to": "APPROVED",
+        "note": "auto-approved (AUTOPUBLISH=true)"
+      },
+      {
+        "at": "2026-11-11T19:55:23.267Z",
+        "from": "APPROVED",
+        "to": "RENDERED",
+        "note": "reel yes, slides 6"
+      },
+      {
+        "at": "2026-11-11T19:56:18.444Z",
+        "from": "RENDERED",
+        "to": "READY",
+        "note": "media public at https://gabrielecalderone.github.io/AIFACTORY/media/a2-20261111/fce529ec/"
+      },
+      {
+        "at": "2026-11-11T19:56:21.410Z",
+        "from": "READY",
+        "to": "SCHEDULED",
+        "note": "4 Buffer post(s)"
+      }
+    ],
+    "evidence": {
+      "bufferPostIds": [
+        "6af4c863f75ab77b0ec4ccf8",
+        "6af4c864b933477d281e5fc5",
+        "6af4c864f75ab77b0ec4cd2f",
+        "6af4c865b459c6001d4ab836"
+      ]
+    }
   }
 }

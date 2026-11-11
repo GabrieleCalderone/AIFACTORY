@@ -19,6 +19,8 @@ export type HouseStandard = {
   carousel?: string[];
   editing?: string[];
   calendar?: { services: string[]; maxServiceShare: number; maxOfferShare: number; offerArchetypes: string[]; rules: string[] };
+  /** Being found: the place and one of the service phrases must be in every English caption. */
+  seo?: { place: string; phrases: string[]; rules: string[] };
   principles: { id: string; rule: string; why: string }[];
 };
 
@@ -76,6 +78,13 @@ export const lintStandard = (spec: PostSpec, std: HouseStandard): Violation[] =>
   };
   for (const f of fields(spec, std.limits)) check(f.where, f.text, f.optional, f.maxWords);
   check("caption", spec.caption, false);
+  if (std.seo && spec.lang === "en") {
+    // The words people search with: said once, in the caption, in plain language.
+    const text = spec.caption.toLowerCase();
+    if (!text.includes(std.seo.place.toLowerCase())) out.push({ where: "caption", optional: false, message: `the caption does not name ${std.seo.place}` });
+    if (!std.seo.phrases.some((p) => text.includes(p.toLowerCase()))) out.push({ where: "caption", optional: false, message: `the caption does not say what the house is (one of: ${std.seo.phrases.join(", ")})` });
+    if (!spec.hashtags.some((t) => t.toLowerCase() === `#${std.seo!.place.toLowerCase()}`)) out.push({ where: "hashtags", optional: false, message: `no #${std.seo.place.toLowerCase()} among the hashtags` });
+  }
   if (spec.caption.length > std.limits.captionChars) out.push({ where: "caption", optional: false, message: `${spec.caption.length} characters, the house limit is ${std.limits.captionChars}` });
   if (spec.hashtags.length > std.limits.hashtagsMax) out.push({ where: "hashtags", optional: false, message: `${spec.hashtags.length} hashtags, the house limit is ${std.limits.hashtagsMax}` });
   return out;

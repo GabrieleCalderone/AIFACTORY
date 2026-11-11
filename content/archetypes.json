@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-06",
+  "updated": "2026-11-11",
   "notes": "Five reusable creative archetypes for RistHome. Each one fixes the hook type, the narrative beats, the format recipe used by scripts/new-post.ts, the platform adaptations, the quality gates and the KPIs to read. Hypotheses are templates: a brief must make them concrete and measurable.",
   "archetypes": [
     {
@@ -500,6 +500,134 @@
         "it": "Dalla cucina di Giacomo",
         "en": "From Giacomo's kitchen"
       }
+    },
+    {
+      "id": "A7-the-island",
+      "name": "The island (place first, then the table)",
+      "useFor": "Editorial piece about where the experience happens: Sicily, its sea and light, and then the table a private chef lays there. The kind of post a starred restaurant publishes about its land.",
+      "hookType": "One calm landscape of Sicily with the place and the month, nothing else.",
+      "narrative": [
+        "cover: the island, named plainly",
+        "the sea or the land once more",
+        "the house's table in that light",
+        "one dish",
+        "what the experience is, in one paragraph",
+        "the invitation"
+      ],
+      "formats": {
+        "carousel": {
+          "slides": [
+            "cover",
+            "photo",
+            "photo",
+            "photo",
+            "text",
+            "cta"
+          ]
+        }
+      },
+      "context": {
+        "maxPerCarousel": 2,
+        "coverMayBeContext": true
+      },
+      "platformAdaptations": {
+        "instagram_carousel": "4:5; cover full-bleed landscape, then matted slides.",
+        "tiktok": "photo post, short caption.",
+        "facebook": "album, full caption."
+      },
+      "qualityGates": [
+        "a licensed picture is never presented as the house's own",
+        "the last photograph and at least two in all are the house's own",
+        "credits of licensed pictures in the caption"
+      ],
+      "kpis": [
+        "saves and sends per reach",
+        "profile visits",
+        "follows"
+      ],
+      "briefDefaults": {
+        "audience": "Travellers planning Sicily and people who rent a villa or a boat around Palermo",
+        "objective": "Saves, sends and profile visits from people planning a stay",
+        "hook": "The island first: one landscape, the place and the month",
+        "cta": "Ask for a quote on risthome.it",
+        "hypothesisTemplate": "A piece that opens on the place earns more saves and sends than one that opens on a plate. Success: saves plus shares >= 3% of reach."
+      },
+      "examples": [],
+      "assetKeywords": [
+        "table",
+        "setting",
+        "outdoor",
+        "garden",
+        "seafood",
+        "plated",
+        "landscape",
+        "sea"
+      ],
+      "service": "chef"
+    },
+    {
+      "id": "A8-the-season",
+      "name": "The season (produce first, then the hands)",
+      "useFor": "Editorial piece about what the season gives in Sicily and what is made of it in the chef's kitchen during a class. Produce leads, the craft follows.",
+      "hookType": "One picture of produce at its best with the season named, nothing else.",
+      "narrative": [
+        "cover: the produce of the season",
+        "the same produce in the kitchen",
+        "hands or the chef at work",
+        "the finished dish",
+        "the invitation"
+      ],
+      "formats": {
+        "carousel": {
+          "slides": [
+            "cover",
+            "photo",
+            "photo",
+            "photo",
+            "photo",
+            "cta"
+          ]
+        }
+      },
+      "context": {
+        "maxPerCarousel": 2,
+        "coverMayBeContext": true
+      },
+      "platformAdaptations": {
+        "instagram_carousel": "4:5; cover full-bleed produce, then matted slides.",
+        "tiktok": "photo post, short caption.",
+        "facebook": "album, full caption."
+      },
+      "qualityGates": [
+        "a licensed picture is never presented as the house's own or as produce bought for the guests",
+        "the last photograph and at least two in all are the house's own",
+        "credits of licensed pictures in the caption"
+      ],
+      "kpis": [
+        "saves and sends per reach",
+        "profile visits",
+        "class bookings"
+      ],
+      "briefDefaults": {
+        "audience": "Travellers who choose a cooking class as the centre of a day in Palermo",
+        "objective": "Saves and profile visits that turn into class bookings",
+        "hook": "The season first: one picture of produce, the season named",
+        "cta": "Book the class on risthome.it",
+        "hypothesisTemplate": "A piece that opens on the season's produce earns more saves than one that opens on the kitchen. Success: saves >= 2% of reach."
+      },
+      "examples": [],
+      "assetKeywords": [
+        "ingredients",
+        "tomato",
+        "aubergine",
+        "basil",
+        "pistachio",
+        "pasta",
+        "hands",
+        "chef",
+        "prep"
+      ],
+      "service": "class"
     }
   ]
 }

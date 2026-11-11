@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { classifyLicence, contextIssues, creditLine, generatedIn, isContext, operationOf, plainName, prepareContext } from "../src/lib/context.ts";
+import { classifyLicence, contextIssues, creditLine, generatedIn, isContext, limitsFor, operationOf, plainName, prepareContext } from "../src/lib/context.ts";
 import { buildCaption } from "../src/lib/timeline.ts";
 import { parsePostSpec } from "../src/schemas/post.ts";
 
@@ -143,4 +143,20 @@ test("a generated sound bed is generated material of the reel, not of the carous
   assert.equal(contextIssues(declared, () => null).some((i) => /aiGenerated/.test(i)), false);
   const stock = parsePostSpec({ ...base(), reel: { ...base().reel, audio: { src: "audio/fretless.mp3" } } });
   assert.deepEqual(generatedIn(stock), { reel: [], carousel: [] });
+});
+
+test("an editorial format may open on a licensed picture, and must end on the house's own", () => {
+  const island = { maxPerReel: 2, maxPerCarousel: 2, coverMayBeContext: true };
+  const slides = (list: object[]) => parsePostSpec({ ...base(), credits: undefined, reel: undefined, carousel: { slides: [...list, { type: "cta", title: "Ask for a quote" }] } });
+  const cover = { type: "cover", image: "assets/context/sea.jpg", title: "Sicily, in November" };
+  const own = (n: number) => ({ type: "photo", image: `assets/pool/${n}.jpg` });
+  const ctx = { type: "photo", image: "assets/context/lemons.jpg" };
+  const good = slides([cover, ctx, own(1), own(2)]);
+  assert.deepEqual(contextIssues(good, () => null, island), []);
+  assert.ok(contextIssues(good, () => null).some((i) => /cover slide must use the house's own/.test(i)), "not allowed for the other formats");
+  assert.ok(contextIssues(slides([cover, own(1), own(2), ctx]), () => null, island).some((i) => /last photograph must be the house's own/.test(i)));
+  assert.ok(contextIssues(slides([cover, ctx, own(1)]), () => null, island).some((i) => /at least 2/.test(i)));
+  assert.ok(contextIssues(slides([cover, ctx, { type: "photo", image: "assets/context/b.jpg" }, own(1), own(2)]), () => null, island).some((i) => /more than 2 context/.test(i)));
+  assert.deepEqual(limitsFor({ context: { coverMayBeContext: true } }), { maxPerReel: 2, maxPerCarousel: 1, coverMayBeContext: true });
+  assert.deepEqual(limitsFor(undefined), { maxPerReel: 2, maxPerCarousel: 1 });
 });
