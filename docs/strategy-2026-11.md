@@ -40,3 +40,10 @@ Gli ospiti fotografano ogni lezione. Un messaggio dopo l'esperienza che chiede d
 | Recensioni | Dieci frasi vere, con nome o iniziale, approvate da Giacomo |
 | ElevenLabs | Piano e crediti disponibili; sì o no alle basi sonore |
 | Foto con logo stampato | Tenerle o escluderle (due in archivio: ostriche e crostini) |
+
+## Decisioni prese l'11 novembre (Gabriele)
+
+- **Quattro contenuti a settimana** su Instagram, Facebook e TikTok: lunedì, mercoledì, venerdì, domenica (`weekdays` in `data/autopilot.json`). Con 19 soggetti per la lezione le foto torneranno dopo due o tre settimane: dettagli, slide di testo, contesto e clip animate servono a ritardarlo.
+- **ElevenLabs (piano Starter)**: sì, per le basi sonore dei reel (`scripts/sound-beds.ts`).
+- **Crediti Higgsfield**: sì, finché ci sono. Misurato: un clip di 4 secondi a 720p con Seedance 2.0 Mini costa 4 crediti; lo stesso a 1080p con Seedance 2.5 ne costa 80. Si usa solo il primo.
+- **Foto con il logo stampato**: restano, dove il logo è piccolo e in un angolo.

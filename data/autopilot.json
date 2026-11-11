@@ -1,5 +1,11 @@
 {
   "cadenceDays": 2,
+  "weekdays": [
+    1,
+    3,
+    5,
+    0
+  ],
   "rotation": [
     "A6-chef-series",
     "A1-process-reveal",

@@ -54,3 +54,13 @@ test("the editorial calendar refuses retired formats, repeats, missing or domina
   assert.match(calendarIssues(["A5-proof-and-offer", "A1-process-reveal"], archetypes, std).join(" | "), /selling posts take 50%/);
   assert.match(calendarIssues(["A4-private-table", "A1-process-reveal", "A4-private-table"], archetypes, std).join(" | "), /slot 3: A4-private-table is followed by itself/, "the rotation wraps around");
 });
+
+test("with weekdays set, a post is due on those days only and once a day", () => {
+  const state = { ...defaultState, weekdays: [1, 3, 5, 0] };
+  const wednesday = new Date(2026, 10, 11, 10, 30);
+  const thursday = new Date(2026, 10, 12, 10, 30);
+  assert.equal(isDue({ ...state, lastPostAt: null }, wednesday), true);
+  assert.equal(isDue({ ...state, lastPostAt: null }, thursday), false);
+  assert.equal(isDue({ ...state, lastPostAt: new Date(2026, 10, 11, 0, 43).toISOString() }, wednesday), false, "already produced today");
+  assert.equal(isDue({ ...state, lastPostAt: new Date(2026, 10, 11, 0, 43).toISOString() }, new Date(2026, 10, 13, 10, 30)), true);
+});

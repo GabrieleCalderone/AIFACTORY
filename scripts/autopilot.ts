@@ -61,7 +61,7 @@ try {
 }
 
 if (!values.force && !isDue(state, now)) {
-  log(`not due: last post ${state.lastPostAt}, cadence ${state.cadenceDays} days`);
+  log(`not due: last post ${state.lastPostAt}, ${state.weekdays?.length ? `posting on weekdays ${state.weekdays.join(",")} (0 = Sunday)` : `cadence ${state.cadenceDays} days`}`);
   process.exit(0);
 }
 

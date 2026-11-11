@@ -7,6 +7,8 @@
  */
 export type AutopilotState = {
   cadenceDays: number;
+  /** Local weekdays a post is produced on (0 = Sunday). When set, it replaces `cadenceDays`: four days give four posts a week. */
+  weekdays?: number[];
   rotation: string[];
   nextIndex: number;
   langs: ("it" | "en")[];
@@ -30,8 +32,12 @@ export const defaultState: AutopilotState = {
 /** Local calendar day as YYYY-MM-DD (the agent runs at 10:30 local time). */
 const localDay = (d: Date): number => Math.floor((d.getTime() - d.getTimezoneOffset() * 60000) / 86400000);
 
-/** Due when at least `cadenceDays` calendar days (local time) have passed since the last post. */
+/** Due on the listed weekdays when `weekdays` is set; otherwise when at least `cadenceDays` calendar days (local time) have passed since the last post. */
 export const isDue = (state: AutopilotState, now: Date): boolean => {
+  if (state.weekdays?.length) {
+    // one post on each listed weekday, never two on the same day
+    return state.weekdays.includes(now.getDay()) && (!state.lastPostAt || localDay(now) > localDay(new Date(state.lastPostAt)));
+  }
   if (!state.lastPostAt) return true;
   return localDay(now) - localDay(new Date(state.lastPostAt)) >= state.cadenceDays;
 };
