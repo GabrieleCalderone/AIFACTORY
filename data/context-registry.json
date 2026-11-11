@@ -362,7 +362,7 @@
     "artist": "Robert Flogaus-Faust",
     "credit": "Robert Flogaus-Faust, CC BY 4.0, via Wikimedia Commons",
     "query": "Zingaro Sicily",
-    "status": "reviewed",
+    "status": "approved",
     "foundAt": "2026-11-11T19:56:57.128Z",
     "file": "69589998.jpg",
     "width": 3041,
@@ -378,7 +378,8 @@
         "Soft natural light, true colours",
         "Clean frame, no signs or clutter"
       ]
-    }
+    },
+    "approvedAt": "2026-11-11T20:08:20.167Z"
   },
   "70371426": {
     "id": "70371426",
@@ -422,7 +423,7 @@
     "artist": "Robert Flogaus-Faust",
     "credit": "Robert Flogaus-Faust, CC BY 4.0, via Wikimedia Commons",
     "query": "Zingaro Sicily",
-    "status": "reviewed",
+    "status": "approved",
     "foundAt": "2026-11-11T19:56:57.128Z",
     "file": "70531509.jpg",
     "width": 3456,
@@ -438,7 +439,8 @@
         "Wild edible plant that suits a Sicilian table",
         "Natural light, true colours"
       ]
-    }
+    },
+    "approvedAt": "2026-11-11T20:08:20.167Z"
   },
   "76367592": {
     "id": "76367592",
@@ -1476,7 +1478,7 @@
     "artist": "Giuseppe Gallo",
     "credit": "Giuseppe Gallo, Unsplash",
     "query": "sicily sea coast",
-    "status": "reviewed",
+    "status": "approved",
     "foundAt": "2026-11-11T18:47:31.411Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/a8b2zLZS_FY/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8OXx8c2ljaWx5JTIwc2VhJTIwY29hc3R8ZW58MXx8fHwxNzk0NDIyODUxfDA",
@@ -1494,7 +1496,8 @@
         "Soft natural light and true colours",
         "No people, signs or clutter"
       ]
-    }
+    },
+    "approvedAt": "2026-11-11T20:08:20.167Z"
   },
   "u-wysMaAr38uE": {
     "id": "u-wysMaAr38uE",
@@ -1604,7 +1607,7 @@
     "artist": "Olha Tatdot",
     "credit": "Olha Tatdot, Unsplash",
     "query": "olive oil olives branch",
-    "status": "reviewed",
+    "status": "approved",
     "foundAt": "2026-11-11T18:47:32.420Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/fNOnlZux1pQ/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MXx8b2xpdmUlMjBvaWwlMjBvbGl2ZXMlMjBicmFuY2h8ZW58MXx8fHwxNzk0NDIyODUyfDA",
@@ -1622,7 +1625,8 @@
         "few muted colours, natural light",
         "Mediterranean olive grove, no text or people"
       ]
-    }
+    },
+    "approvedAt": "2026-11-11T20:08:20.167Z"
   },
   "u-sgj62wdIsgQ": {
     "id": "u-sgj62wdIsgQ",
@@ -1700,7 +1704,7 @@
     "artist": "Sixteen Miles Out",
     "credit": "Sixteen Miles Out, Unsplash",
     "query": "olive oil olives branch",
-    "status": "reviewed",
+    "status": "approved",
     "foundAt": "2026-11-11T18:47:32.422Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/IVCI2rmcJE8/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8NHx8b2xpdmUlMjBvaWwlMjBvbGl2ZXMlMjBicmFuY2h8ZW58MXx8fHwxNzk0NDIyODUyfDA",
@@ -1718,7 +1722,8 @@
         "pale, near-monochrome palette",
         "clean surface, soft natural light"
       ]
-    }
+    },
+    "approvedAt": "2026-11-11T20:08:20.167Z"
   },
   "u-G_Qjc2siYzQ": {
     "id": "u-G_Qjc2siYzQ",
@@ -1828,7 +1833,7 @@
     "artist": "Adelina Popova",
     "credit": "Adelina Popova, Unsplash",
     "query": "olive oil olives branch",
-    "status": "reviewed",
+    "status": "approved",
     "foundAt": "2026-11-11T18:47:32.423Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/ExJmw0xxlss/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8OHx8b2xpdmUlMjBvaWwlMjBvbGl2ZXMlMjBicmFuY2h8ZW58MXx8fHwxNzk0NDIyODUyfDA",
@@ -1846,7 +1851,8 @@
         "warm natural light, true colours",
         "few colours, no text, people or clutter"
       ]
-    }
+    },
+    "approvedAt": "2026-11-11T20:08:20.167Z"
   },
   "u-M89fxBB1UCk": {
     "id": "u-M89fxBB1UCk",
@@ -1860,7 +1866,7 @@
     "artist": "Adelina Popova",
     "credit": "Adelina Popova, Unsplash",
     "query": "olive oil olives branch",
-    "status": "reviewed",
+    "status": "approved",
     "foundAt": "2026-11-11T18:47:32.423Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/M89fxBB1UCk/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8OXx8b2xpdmUlMjBvaWwlMjBvbGl2ZXMlMjBicmFuY2h8ZW58MXx8fHwxNzk0NDIyODUyfDA",
@@ -1878,7 +1884,8 @@
         "True colours, natural light, no clutter",
         "Plausibly Mediterranean, no brand or text"
       ]
-    }
+    },
+    "approvedAt": "2026-11-11T20:08:20.167Z"
   },
   "u-fQHQp75Ap3E": {
     "id": "u-fQHQp75Ap3E",
@@ -2340,7 +2347,7 @@
     "artist": "Alessio Rinella",
     "credit": "Alessio Rinella, Unsplash",
     "query": "Palermo Sicily",
-    "status": "reviewed",
+    "status": "approved",
     "foundAt": "2026-11-11T19:56:42.401Z",
     "library": "Unsplash",
     "trackUrl": "https://api.unsplash.com/photos/_C57PwLfWCs/download?ixid=M3wxMTMwNTAwfDB8MXxzZWFyY2h8MTN8fFBhbGVybW8lMjBTaWNpbHl8ZW58MXx8fHwxNzk0NDI3MDAyfDA",
@@ -2358,7 +2365,8 @@
         "Warm low light and true colours, no signs or people",
         "Plausibly Sicilian coast, in keeping with the house"
       ]
-    }
+    },
+    "approvedAt": "2026-11-11T20:08:20.167Z"
   },
   "u-CmqqZ-j5dxw": {
     "id": "u-CmqqZ-j5dxw",
