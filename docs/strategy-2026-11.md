@@ -47,3 +47,5 @@ Gli ospiti fotografano ogni lezione. Un messaggio dopo l'esperienza che chiede d
 - **ElevenLabs (piano Starter)**: sì, per le basi sonore dei reel (`scripts/sound-beds.ts`).
 - **Crediti Higgsfield**: sì, finché ci sono. Misurato: un clip di 4 secondi a 720p con Seedance 2.0 Mini costa 4 crediti; lo stesso a 1080p con Seedance 2.5 ne costa 80. Si usa solo il primo.
 - **Foto con il logo stampato**: restano, dove il logo è piccolo e in un angolo.
+- **Solo inglese**: il pubblico è internazionale, tutti i contenuti escono in inglese (`langs` in `data/autopilot.json`). Sostituisce la proposta "lezione in inglese, chef in italiano".
+- **Si ricomincia**: tutti i post fatti prima dello stile attuale sono stati messi da parte (stato REJECTED, file conservati). Il primo della nuova linea è `a4-20261111`.

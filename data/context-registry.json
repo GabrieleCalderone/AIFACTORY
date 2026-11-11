@@ -69,7 +69,7 @@
     "artist": "Eusebius",
     "credit": "Eusebius, CC BY 3.0, via Wikimedia Commons",
     "query": "pistachio",
-    "status": "reviewed",
+    "status": "approved",
     "foundAt": "2026-11-11T00:36:58.232Z",
     "file": "10696061.jpg",
     "width": 3270,
@@ -85,7 +85,8 @@
         "Natural light, muted true colours",
         "Pistachio is a Sicilian crop"
       ]
-    }
+    },
+    "approvedAt": "2026-11-11T12:59:25.209Z"
   },
   "11693016": {
     "id": "11693016",
@@ -534,7 +535,7 @@
     "artist": "Bernard Gagnon",
     "credit": "Bernard Gagnon, CC BY 4.0, via Wikimedia Commons",
     "query": "Sicily coast",
-    "status": "reviewed",
+    "status": "approved",
     "foundAt": "2026-11-11T00:36:20.248Z",
     "file": "173459368.jpg",
     "width": 3209,
@@ -550,7 +551,8 @@
         "Aeolian-style volcanic coast, Sicilian",
         "No people, boats or text"
       ]
-    }
+    },
+    "approvedAt": "2026-11-11T12:59:25.209Z"
   },
   "173461165": {
     "id": "173461165",
@@ -593,7 +595,7 @@
     "artist": "Bernard Gagnon",
     "credit": "Bernard Gagnon, CC BY 4.0, via Wikimedia Commons",
     "query": "Sicily coast",
-    "status": "reviewed",
+    "status": "approved",
     "foundAt": "2026-11-11T00:36:20.249Z",
     "file": "173461171.jpg",
     "width": 3314,
@@ -609,7 +611,8 @@
         "Mediterranean volcanic coast",
         "No people, text or brand"
       ]
-    }
+    },
+    "approvedAt": "2026-11-11T12:59:25.209Z"
   },
   "184530991": {
     "id": "184530991",

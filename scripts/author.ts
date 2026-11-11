@@ -16,8 +16,8 @@ import path from "node:path";
 import { parseArgs } from "node:util";
 import { nextId, readExperiments, writeExperiments } from "../src/lib/data.ts";
 import { applyDetails, applyReelFrames, coverFrameFor, detailRegion, MAX_DETAILS } from "../src/lib/formats.ts";
-import { contextCredits, contextRows, gateSpec, loadStandard } from "../src/lib/gate-io.ts";
-import { CONTEXT_PREFIX, defaultContextLimits, isContext, prepareContext } from "../src/lib/context.ts";
+import { contextCredits, contextRows, gateSpec, generatedRows, loadStandard } from "../src/lib/gate-io.ts";
+import { CONTEXT_PREFIX, GENERATED_PREFIX, defaultContextLimits, isContext, isGenerated, prepareContext } from "../src/lib/context.ts";
 import { lintStandard, silence } from "../src/lib/house-standard.ts";
 import { mediaOf, repeatedImages } from "../src/lib/gate.ts";
 import { parsePostSpec, PostSpec, type PostSpecInput } from "../src/schemas/post.ts";
@@ -159,6 +159,13 @@ const contextBlock = context.length
   ? `\nCONTEXT PICTURES (optional; licensed photographs of Sicily, the sea and raw produce that are NOT RistHome's): you may place at most ${defaultContextLimits.maxPerReel} of them among the reel scenes and at most ${defaultContextLimits.maxPerCarousel} on a carousel photo slide, to set the place or the season between the house's own pictures. Never as the hook or cover, never as the last scene, never with a label or a slide title. Their text is empty or names only the place or the season in general terms (Sicily, the sea, the season's produce); it never says or implies that the picture shows the house's kitchen, table, dishes, ingredients bought for the guests, or the chef. Use one only when it makes the post more beautiful.\n${contextList}\n`
   : "";
 
+// ---- moving context: short clips a model animated from approved context pictures (scripts/add-generated.ts); reels only
+const fmtHasReel = Boolean(archetype.formats.reel);
+const moving = fmtHasReel ? generatedRows().filter((r) => !(usage[r.file] ?? []).some((sl) => lastEight.has(sl))) : [];
+const movingBlock = moving.length
+  ? `\nMOVING CONTEXT (optional, reel only, at most one; it counts among the context pictures): a few seconds of the Sicilian sea, animated by a model from a licensed photograph and disclosed as such. Use it as ONE reel scene, never the first or the last, written as { "video": <file>, "label": "", "text": "", "durationSec": 4, "motion": "zoom-in" } (no "image" on that scene). Same rules as context pictures: it never stands for the house's kitchen, table, food or people.\n${moving.map((r) => `- ${GENERATED_PREFIX}${r.file} | ${r.width}x${r.height}, ${r.durationSec}s | ${sanitizeText(r.subject, 100)}`).join("\n")}\n`
+  : "";
+
 // ---- prompt
 const fmt = archetype.formats;
 const reelSpec = fmt.reel
@@ -180,7 +187,7 @@ ${seriesLine}
 
 PHOTOS YOU MAY USE (listed best first; use only these exact file paths; the reel and the carousel show the same photographs, the reel being a second look at the same work, and within each of them a photo appears once; prefer the ones at the top and open with the best one):
 ${candidateList}
-${contextBlock}
+${contextBlock}${movingBlock}
 OUTPUT SHAPE:
 {
   "slug": "${slug}", "lang": "${lang}", "title": <internal working title, max 120>,
@@ -248,8 +255,10 @@ for (let attempt = 1; attempt <= 3 && !raw; attempt++) {
       continue;
     }
     const allowed = new Set([...candidates.map((r) => `assets/${values.pool}/${r.file}`), ...context.map((r) => `${CONTEXT_PREFIX}${r.file}`)]);
-    const used = mediaOf(parsed.data).images;
-    const foreign = used.filter((u) => !allowed.has(u));
+    const usedMedia = mediaOf(parsed.data);
+    const used = usedMedia.images;
+    const allowedVideos = new Set(moving.map((r) => `${GENERATED_PREFIX}${r.file}`));
+    const foreign = [...used.filter((u) => !allowed.has(u)), ...usedMedia.videos.filter((v) => !allowedVideos.has(v))];
     const repeats = repeatedImages(parsed.data);
     if (foreign.length || repeats.length) {
       feedback = `${foreign.length ? `these files are not in the allowed list: ${foreign.join(", ")}. ` : ""}${repeats.length ? `a photo may appear once in the reel and once in the carousel (a "detail" only right after its own whole photo, and only where a closer look is listed): ${repeats.join(", ")}.` : ""}`;
@@ -284,6 +293,10 @@ const owed = prepareContext(raw as unknown as Parameters<typeof prepareContext>[
 // The credits are computed here, never taken from the model's answer.
 if (owed.length) (raw as Record<string, unknown>).credits = owed;
 else delete (raw as Record<string, unknown>).credits;
+// Generated material is disclosed: the flag is computed here, never taken from the model's answer.
+const usesGenerated = ((raw as { reel?: { scenes?: { video?: unknown }[] } }).reel?.scenes ?? []).some((sc) => typeof sc.video === "string" && isGenerated(sc.video));
+if (usesGenerated) (raw as Record<string, unknown>).aiGenerated = true;
+else delete (raw as Record<string, unknown>).aiGenerated;
 const contextByFile = new Map(context.map((r) => [r.file, r]));
 // ---- presentation: a photo too small to fill the reel frame is shown whole, as a plate
 if ((raw as { reel?: unknown }).reel) {
@@ -303,7 +316,8 @@ if (!values["no-review"]) {
   const pick = (o: Record<string, unknown>, keys: string[]) => Object.fromEntries(keys.filter((k) => typeof o[k] === "string" && (o[k] as string).trim()).map((k) => [k, o[k] as string]));
   if (spec.reel && rawObj.reel) {
     pairs.push({ where: "reel.hook", file: spec.reel.hook.image!, node: rawObj.reel.hook, fields: pick(rawObj.reel.hook, ["title", "subtitle"]), allowed: ["title", "subtitle"], required: ["title"], max: { title: 80, subtitle: 80 } });
-    spec.reel.scenes.forEach((sc, i) => pairs.push({ where: `reel.scenes.${i}`, file: sc.image!, node: rawObj.reel!.scenes[i], fields: pick(rawObj.reel!.scenes[i], ["label", "text"]), allowed: ["label", "text"], required: [], max: { label: 30, text: 90 } }));
+    // a moving context scene carries no words and is not a photograph to review
+    spec.reel.scenes.forEach((sc, i) => sc.image && pairs.push({ where: `reel.scenes.${i}`, file: sc.image, node: rawObj.reel!.scenes[i], fields: pick(rawObj.reel!.scenes[i], ["label", "text"]), allowed: ["label", "text"], required: [], max: { label: 30, text: 90 } }));
   }
   spec.carousel?.slides.forEach((sl, i) => {
     const node = rawObj.carousel!.slides[i];
@@ -419,7 +433,7 @@ if (gate.errors.length) {
 writeFileSync(target, JSON.stringify(spec, null, 2) + "\n");
 setState(slug, "QUALITY_CHECKED", `gate passed with ${gate.warnings.length} warning(s)`);
 if (process.env.AUTOPUBLISH === "true") setState(slug, "APPROVED", "auto-approved (AUTOPUBLISH=true)");
-for (const img of mediaOf(spec).images) {
+for (const img of [...mediaOf(spec).images, ...mediaOf(spec).videos]) {
   const key = path.basename(img);
   usage[key] = [...(usage[key] ?? []), slug];
 }

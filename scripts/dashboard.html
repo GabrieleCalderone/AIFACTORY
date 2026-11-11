@@ -238,6 +238,83 @@
         background: var(--cream);
         font-weight: 700;
       }
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        gap: 12px;
+      }
+      .step {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 14px;
+        background: #fff;
+      }
+      .step .num {
+        font: 700 12px/1 system-ui;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+      .step h3 {
+        font: 700 18px Georgia, serif;
+        margin: 6px 0 4px;
+      }
+      .step p {
+        margin: 0 0 10px;
+        font-size: 13px;
+        line-height: 1.4;
+        color: var(--muted);
+      }
+      .tool {
+        display: flex;
+        gap: 8px;
+        align-items: baseline;
+        font-size: 13px;
+        padding: 4px 0;
+        border-top: 1px solid var(--line);
+      }
+      .dot {
+        flex: none;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--ok);
+        transform: translateY(1px);
+      }
+      .dot.missing {
+        background: var(--bad);
+      }
+      .dot.manual {
+        background: var(--warn);
+      }
+      .tool small {
+        display: block;
+        color: var(--muted);
+      }
+      .step .count {
+        margin-top: 8px;
+        font: 600 13px system-ui;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 8px 0;
+      }
+      .chip {
+        font-size: 12px;
+        padding: 3px 8px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #faf7f2;
+      }
+      details.archive {
+        margin-top: 28px;
+      }
+      details.archive summary {
+        cursor: pointer;
+        font: 700 16px Georgia, serif;
+        color: var(--muted);
+      }
       .posts {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -382,17 +459,22 @@
       <h1>RistHome</h1>
       <span class="tag">Content Intelligence</span>
       <nav>
-        <button data-view="overview" class="active">Overview</button>
-        <button data-view="media">Media Intelligence</button>
-        <button data-view="studio">Creative Studio</button>
-        <button data-view="publishing">Publishing</button>
-        <button data-view="performance">Performance</button>
-        <button data-view="settings">Settings</button>
+        <button data-view="overview" class="active">Panoramica</button>
+        <button data-view="media">Foto</button>
+        <button data-view="studio">Studio</button>
+        <button data-view="publishing">Da approvare</button>
+        <button data-view="performance">Risultati</button>
+        <button data-view="settings">Collegamenti</button>
       </nav>
     </header>
     <main>
       <section class="view active" id="overview">
         <div class="kpis" id="kpis"></div>
+        <div class="card" style="margin-bottom: 20px">
+          <h2>Come nasce un contenuto</h2>
+          <small>Nove passaggi, da sinistra a destra. Pallino verde: collegato e verificato ora. Rosso: manca qualcosa (c'è scritto cosa). Arancione: si fa a mano.</small>
+          <div class="flow" id="flow" style="margin-top: 14px"></div>
+        </div>
         <div class="grid">
           <div class="card">
             <h2>Stato operativo</h2>
@@ -408,7 +490,7 @@
             </div>
           </div>
           <div class="card">
-            <h2>Pipeline (stati reali)</h2>
+            <h2>A che punto sono i post</h2>
             <div id="pipe"></div>
           </div>
           <div class="card">
@@ -499,7 +581,7 @@
       <section class="view" id="publishing">
         <div class="grid" style="grid-template-columns: 1fr">
           <div class="card">
-            <h2>Coda e approvazioni</h2>
+            <h2>In lavorazione</h2>
             <div id="queue"></div>
           </div>
         </div>
@@ -511,9 +593,13 @@
             margin: 24px 0 12px;
           "
         >
-          Post prodotti
+          Post da guardare
         </h2>
         <div class="posts" id="posts"></div>
+        <details class="archive">
+          <summary id="archiveTitle">Scartati</summary>
+          <div class="posts" id="archive" style="margin-top: 12px"></div>
+        </details>
       </section>
 
       <section class="view" id="performance">
@@ -625,23 +711,22 @@
           [`${measured}/${s.experiments.length}`, "esperimenti misurati", measured ? "" : "metriche dopo la prima pubblicazione"],
           [`€ ${s.setup.genaiSpentEur}`, "spesa AI questo mese", `tetto € ${s.setup.genaiCapEur}`],
         ].map(([n, l, sub]) => `<div class="kpi"><div class="n">${esc(n)}</div><div class="l">${esc(l)}</div><div class="s">${esc(sub)}</div></div>`).join("");
+        $("#flow").innerHTML = s.workflow.map((st) => `<div class="step"><div class="num">PASSO ${esc(st.n)}</div><h3>${esc(st.title)}</h3><p>${esc(st.what)}</p>${st.tools.map((t) => `<div class="tool"><span class="dot ${esc(t.status)}"></span><span><b>${esc(t.name)}</b><small>${esc(t.note)}</small></span></div>`).join("")}${st.count ? `<div class="count">${esc(st.count)}</div>` : ""}</div>`).join("");
         const a = s.autopilot;
         $("#ops").innerHTML = `
           <div class="row"><span>Autopilota</span>${s.setup.stop ? pill("warn", "in pausa") : pill("ok", "attivo")}</div>
           <div class="row"><span>Prossimo post</span><span>${esc(a.plan.archetype)} · ${esc(a.plan.lang.toUpperCase())} · ${esc(a.plan.experimentId)}/${esc(a.plan.variantId)}</span></div>
           <div class="row"><span>Ultimo prodotto</span><span>${esc(fmt(a.state.lastPostAt))}</span></div>
           <div class="row"><span>Prossimo slot</span><span>${esc(fmt(a.nextSlot))}${a.due ? " · dovuto ora" : ""}</span></div>
-          <div class="row"><span>Pubblicazione</span>${s.setup.autopublish ? pill("ok", "automatica") : pill("warn", "manuale (approva in Publishing)")}</div>`;
+          <div class="row"><span>Pubblicazione</span>${s.setup.autopublish ? pill("ok", "automatica") : pill("warn", "manuale (approva in “Da approvare”)")}</div>`;
         $("#toggleStop").textContent = s.setup.stop ? "Riprendi" : "Pausa";
         $("#pipe").innerHTML = Object.entries(s.pipeline).filter(([, n]) => n > 0).map(([st, n]) => `<div class="row"><span class="state">${esc(st)}</span>${pill(stateCls(st), n)}</div>`).join("") || "<small>nessun post nella pipeline</small>";
         const issues = [];
-        if (!s.setup.bufferKey) issues.push(["bad", "Buffer: chiave API mancante (Settings)"]);
-        else if (!ch.length) issues.push(["bad", "Buffer: nessun canale rilevato (Settings → Rileva canali)"]);
         if (!s.setup.mediaRepo) issues.push(["bad", "Host dei media non configurato (bash scripts/setup.sh)"]);
         if (!s.setup.launchd) issues.push(["warn", "Agente giornaliero non installato"]);
-        for (const [k, v] of Object.entries(s.setup.fresh)) if (v < 6) issues.push(["warn", `Foto fresche insufficienti per ${k}: ${v} (servono 6)`]);
         if (s.dataIssues.length) issues.push(["bad", `${s.dataIssues.length} problemi nei dati`]);
-        for (const p of s.posts) if (p.warnings.length) issues.push(["warn", `${p.slug}: ${p.warnings[0]}`]);
+        for (const t of s.workflow.flatMap((st) => st.tools)) if (t.status === "missing") issues.push(["bad", `${t.name}: ${t.note}`]);
+        for (const p of s.posts) if (p.state !== "REJECTED" && p.warnings.length) issues.push(["warn", `${p.slug}: ${p.warnings[0]}`]);
         $("#issues").innerHTML = issues.length ? issues.map(([c, t]) => `<div class="row"><span>${esc(t)}</span>${pill(c, c === "bad" ? "da fare" : "avviso")}</div>`).join("") : pill("ok", "nessun problema");
         $("#jobs").textContent = s.jobs.length ? s.jobs.map((j) => `[${j.name}] ${j.endedAt ? (j.code === 0 ? "ok" : "ERRORE " + j.code) : "in corso…"} ${fmt(j.startedAt)}\n${j.log.join("\n")}`).join("\n\n") : (s.recentLog.length ? s.recentLog.join("\n") : "nessuna");
 
@@ -653,7 +738,9 @@
               ${media(p.reel) ? `<div><span class="kind">Reel <span>· video con musica, premi play</span></span><video controls playsinline preload="metadata" poster="${esc(media(p.cover))}" src="${esc(media(p.reel))}"></video></div>` : ""}
               ${p.slides.length ? `<div><span class="kind">Carosello <span>· ${p.slides.length} immagini, scorri</span></span><div class="slides">${p.slides.map((u, i) => (media(u) ? `<a href="${esc(media(u))}" target="_blank" title="Immagine ${i + 1} di ${p.slides.length}"><img src="${esc(media(u))}" alt="Immagine ${i + 1} del carosello" loading="lazy"></a>` : "")).join("")}</div></div>` : ""}
             </div>
+            ${p.made.length ? `<div class="chips">${p.made.map((m) => `<span class="chip">${esc(m)}</span>`).join("")}</div>` : ""}
             ${!compact ? `<div class="caption">${esc(p.caption)}</div>` : ""}
+            ${p.state === "REJECTED" && p.note ? `<small>Motivo: ${esc(p.note)}</small>` : ""}
             ${p.publications.length ? `<small>Buffer: ${p.publications.map((x) => `${esc(x.platform)} ${esc(x.kind)} ${esc(fmt(x.dueAt))}${x.draft ? " (bozza)" : ""}`).join(" · ")}</small>` : ""}
             <div class="actions">
               ${media(p.storyboard) ? `<a href="${esc(media(p.storyboard))}" target="_blank"><button class="secondary small">Storyboard</button></a>` : ""}
@@ -663,9 +750,12 @@
               <button class="secondary small" data-render="${esc(p.slug)}">Ri-renderizza</button>
             </div>
           </div>`;
-        $("#posts").innerHTML = s.posts.map((p) => postCard(p, false)).join("") || "<small>Nessun post: premi “Prova senza pubblicare”.</small>";
+        const live = s.posts.filter((p) => p.state !== "REJECTED"), gone = s.posts.filter((p) => p.state === "REJECTED");
+        $("#posts").innerHTML = live.map((p) => postCard(p, false)).join("") || "<small>Nessun post da guardare. Il prossimo nasce da solo nel giorno previsto, oppure premi “Produci il post di oggi” nella Panoramica.</small>";
+        $("#archiveTitle").textContent = `Scartati (${gone.length})`;
+        $("#archive").innerHTML = gone.map((p) => postCard(p, true)).join("");
         $("#queue").innerHTML = s.posts.filter((p) => !["MEASURED", "REJECTED"].includes(p.state)).map((p) => `<div class="row"><span><b>${esc(p.slug)}</b> <small>${esc(p.history.map((h) => h.to).join(" → "))}</small></span><span>${pill(stateCls(p.state), p.state)}</span></div>`).join("") || "<small>coda vuota</small>";
-        $("#studioPosts").innerHTML = s.posts.slice(0, 6).map((p) => postCard(p, true)).join("");
+        $("#studioPosts").innerHTML = live.slice(0, 6).map((p) => postCard(p, true)).join("");
         const cols = ["experiment_id", "variant_id", "post_slug", "archetype", "status", "reach", "plays", "avg_watch_time_sec", "saves", "shares", "link_clicks", "qualified_inquiries", "bookings", "revenue_eur"];
         $("#exps").innerHTML = `<tr>${cols.map((c) => `<th>${esc(c.replace(/_/g, " "))}</th>`).join("")}</tr>` + s.experiments.map((e) => `<tr>${cols.map((c) => `<td>${esc(e[c] ?? "–")}</td>`).join("")}</tr>`).join("");
         $("#costs").innerHTML = `<div class="row"><span>Generazione AI (mese)</span><span>€ ${esc(s.setup.genaiSpentEur)} su € ${esc(s.setup.genaiCapEur)}</span></div><div class="row"><span>Rendering, hosting, Buffer (free), Claude headless</span><span>€ 0 (abbonamento esistente)</span></div><div class="row"><span>Costo per lead / prenotazione</span><span>– (nessuna metrica)</span></div>`;

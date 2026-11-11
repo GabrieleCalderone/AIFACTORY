@@ -8,7 +8,7 @@
  * jobs are fixed commands; static files are served only from out/ and public/assets/.
  * The UI shows backend facts only: pipeline states, Buffer ids, measured metrics.
  */
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { randomBytes, timingSafeEqual } from "node:crypto";
 import {
   createReadStream,
@@ -35,7 +35,8 @@ import {
 } from "../src/lib/autopilot.ts";
 import { loadPipeline, setState } from "../src/lib/pipeline-io.ts";
 import { appendLabel, buildLabel, type Decision } from "../src/lib/labels.ts";
-import { loadStandard } from "../src/lib/gate-io.ts";
+import { contextRows, generatedRows, loadStandard } from "../src/lib/gate-io.ts";
+import { madeWith, workflowSteps } from "../src/lib/workflow.ts";
 import { PostSpec } from "../src/schemas/post.ts";
 import { recentLiveSlugs, summarize, type State } from "../src/lib/pipeline.ts";
 import { isHeldBack, type AssetOverride } from "../src/lib/review.ts";
@@ -44,6 +45,12 @@ import type { Override, Verdict } from "../src/lib/visual-score.ts";
 
 const PORT = Number(process.env.DASHBOARD_PORT ?? 4747);
 const ROOT = process.cwd();
+/** Whether a program the workflow depends on can be started on this machine (checked once per launch). */
+const found = new Map<string, boolean>();
+const onPath = (program: "claude" | "ffmpeg"): boolean => {
+  if (!found.has(program)) found.set(program, spawnSync("/usr/bin/which", [program], { encoding: "utf8" }).status === 0);
+  return found.get(program)!;
+};
 const TOKEN = randomBytes(24).toString("hex");
 const tokenOk = (c: string | null | undefined) =>
   Boolean(
@@ -203,6 +210,12 @@ const status = () => {
     "data/publications.json",
     [],
   );
+  const audioTracks = readJson<{ src: string }[]>("content/audio.json", []);
+  // What a post was made with, read from its own file; a file that no longer parses says nothing.
+  const madeOf = (slug: string): string[] => {
+    const parsed = PostSpec.safeParse(readJson<unknown>(path.join("content/posts", `${slug}.json`), null));
+    return parsed.success ? madeWith(parsed.data) : [];
+  };
   const posts = existsSync("out")
     ? readdirSync("out")
         .filter((d) => existsSync(path.join("out", d, "manifest.json")))
@@ -257,6 +270,8 @@ const status = () => {
             caption: existsSync(path.join(dir, "caption.txt"))
               ? readFileSync(path.join(dir, "caption.txt"), "utf8")
               : "",
+            made: madeOf(slug),
+            note: pipeline[slug]?.history.at(-1)?.note ?? "",
             hosted: hosted ? (hosted.dryRun ? "dry-run" : "public") : "no",
             publications: pubs,
           };
@@ -344,6 +359,27 @@ const status = () => {
       nextSlot: nextSlot(state, now).toISOString(),
       plan,
     },
+    workflow: workflowSteps({
+      dishes: { chef: archive("chef").dishes, class: archive("class").dishes },
+      claudeCli: onPath("claude"),
+      contextApproved: contextRows().length,
+      unsplashKey: Boolean(env.UNSPLASH_ACCESS_KEY?.trim()),
+      generatedClips: generatedRows().length,
+      higgsfieldApiKey: Boolean(env.HF_API_KEY_ID && env.HF_API_KEY_SECRET),
+      elevenLabsKey: Boolean(env.ELEVENLABS_API_KEY?.trim()),
+      soundBeds: audioTracks.filter((t) => t.src.includes("audio/beds/")).length,
+      stockTracks: audioTracks.filter((t) => !t.src.includes("audio/beds/")).length,
+      standardVersion: loadStandard()?.version ?? null,
+      ffmpeg: onPath("ffmpeg"),
+      mediaHost: Boolean(env.MEDIA_REPO_DIR && existsSync(path.join(env.MEDIA_REPO_DIR, ".git")) && env.MEDIA_BASE_URL),
+      bufferKey: Boolean(env.BUFFER_API_KEY),
+      channels: Object.keys(channels),
+      autopilotInstalled: existsSync(path.join(homedir(), "Library/LaunchAgents/it.risthome.autopilot.plist")),
+      weekdays: state.weekdays ?? [],
+      langs: state.langs,
+      autopublish: env.AUTOPUBLISH === "true",
+      measured: exps.records.filter((e) => e.status === "measured").length,
+    }),
     pipeline: summarize(pipeline),
     posts,
     experiments: exps.records,

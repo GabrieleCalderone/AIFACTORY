@@ -1,0 +1,143 @@
+{
+  "slug": "a4-20261111",
+  "lang": "en",
+  "title": "Private chef in Palermo: the setting first, then the courses",
+  "brief": {
+    "archetype": "A4-private-table",
+    "audience": "Couples and families renting villas or apartments around Palermo",
+    "objective": "Qualified quote requests",
+    "hook": "The sunny terrace table opens the post and tells the viewer where the chef will cook: at their own place.",
+    "sequence": [
+      "Hook: the table outdoors, a chef cooks at your place",
+      "Antipasto: first course on the glass plate",
+      "Primo: the pasta course, two plates",
+      "Mare: seafood platter",
+      "Dolce: the last course, then the invitation"
+    ],
+    "cta": "Ask for a quote on risthome.it (link in bio)",
+    "hypothesis": "Showing the setting before the plates raises quote requests. Success: >= 2 qualified requests per 1,000 plays.",
+    "variantId": "A"
+  },
+  "caption": "A chef cooks at your table in Palermo.\nChef Giacomo Napolitano comes to your villa, apartment or boat in Palermo and province. Shopping, cooking, service and kitchen cleanup are included, with a menu built around your guests.\n\nAsk for a quote on risthome.it (link in bio)",
+  "hashtags": [
+    "#palermo",
+    "#risthome",
+    "#privatechef",
+    "#sicily"
+  ],
+  "reel": {
+    "hook": {
+      "image": "assets/pool/85-IMG_0108.jpg",
+      "trimSec": 0,
+      "frame": "plate",
+      "title": "A chef cooks at your table",
+      "subtitle": "Private chef at home in Palermo",
+      "durationSec": 3.4,
+      "motion": "dolly-in"
+    },
+    "scenes": [
+      {
+        "image": "assets/pool/04-IMG_0008.jpg",
+        "trimSec": 0,
+        "frame": "plate",
+        "text": "",
+        "label": "Antipasto",
+        "durationSec": 2.7,
+        "motion": "dolly-in"
+      },
+      {
+        "image": "assets/pool/121-20240308_121150.jpg",
+        "trimSec": 0,
+        "frame": "plate",
+        "text": "Cooked at your home",
+        "label": "Primo",
+        "durationSec": 2.7,
+        "motion": "arc-right"
+      },
+      {
+        "image": "assets/pool/84-IMG_0107.jpg",
+        "trimSec": 0,
+        "frame": "plate",
+        "text": "",
+        "label": "Primo",
+        "durationSec": 2.7,
+        "motion": "dolly-in"
+      },
+      {
+        "image": "assets/pool/126-20240622_203717.jpg",
+        "trimSec": 0,
+        "frame": "plate",
+        "text": "",
+        "label": "Mare",
+        "durationSec": 2.7,
+        "motion": "pan-left"
+      },
+      {
+        "image": "assets/pool/06-IMG_0010.jpg",
+        "trimSec": 0,
+        "frame": "plate",
+        "text": "Served at your table",
+        "label": "Dolce",
+        "durationSec": 2.7,
+        "motion": "dolly-in"
+      }
+    ],
+    "cta": {
+      "title": "RistHome, Palermo",
+      "line": "Ask for a quote on risthome.it (link in bio)",
+      "durationSec": 3.2
+    },
+    "transitionSec": 0.4,
+    "audio": {
+      "src": "audio/fretless.mp3",
+      "volume": 0.8,
+      "fadeOutSec": 1,
+      "attribution": "\"Fretless\" Kevin MacLeod (incompetech.com), CC BY 4.0"
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "type": "cover",
+        "image": "assets/pool/85-IMG_0108.jpg",
+        "title": "A chef cooks at your table",
+        "kicker": "Private chef in Palermo",
+        "frame": "plate"
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/121-20240308_121150.jpg",
+        "title": "",
+        "body": "Cooked at your home, shopping included."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/04-IMG_0008.jpg",
+        "title": "",
+        "body": ""
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/126-20240622_203717.jpg",
+        "title": "",
+        "body": "Service at your table."
+      },
+      {
+        "type": "photo",
+        "image": "assets/pool/06-IMG_0010.jpg",
+        "title": "",
+        "body": "A menu built around your guests."
+      },
+      {
+        "type": "text",
+        "title": "At your villa, apartment or boat",
+        "body": "Chef Giacomo Napolitano cooks at your home in Palermo and province. Shopping, cooking, service and kitchen cleanup are included, with a menu built around the guests. 5.0 on Google with 101 reviews."
+      },
+      {
+        "type": "cta",
+        "title": "Ask for a quote on risthome.it",
+        "body": "Link in bio"
+      }
+    ]
+  }
+}
